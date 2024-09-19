@@ -8,22 +8,27 @@ body {
     background-color: #F6F7F8;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 .To-Do-Done-box {
     display: flex;
-    justify-content: space-between;
-
-
+    justify-content: space-evenly;
 }
 
 .to-do-box, .done-box {
     display: flex;
     gap: 10px;
+    border: 1px solid grey;
+    background-color: white;
 }
 
 .icon-summary {
     width: 40px;
     height: 40px;
+}
+
+.test {
+    text-align: center;
 }
 
