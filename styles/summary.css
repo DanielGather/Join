@@ -1,9 +1,18 @@
+@font-face {
+    font-family: Inter;
+    src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
+}
+  
 body {
     font-family: 'Inter';
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0px;
+  }
+
 .summary-main-content-div {
-    max-width: 320px;
     border: 1px solid green;
     background-color: #F6F7F8;
     display: flex;
@@ -28,7 +37,18 @@ body {
     height: 40px;
 }
 
+.content-header-seperator-box {
+    width: 100px;
+    height: 2px;
+    background-color: #29ABE2;
+    margin: 10px 0 ;
+}
+
 .test {
     text-align: center;
+}
+
+.affe {
+    display: none;
 }
 
