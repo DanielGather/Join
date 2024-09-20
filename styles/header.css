@@ -1,72 +1,79 @@
 @font-face {
-    font-family: inter;
-    src: url("../fonts/inter-v18-latin-100.woff2");
-  }
-
-*{
-    box-sizing: border-box;
-    margin: 0px;
+  font-family: Inter;
+  src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
 }
 
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 5rem;
-    padding: 0em 1rem;
-    box-shadow: -2px 0px 6px 0px rgb(0,0,0, 0.2);
+body{
+    font-family: Inter;
 }
 
-.header img{
-    width: 2em;
-    height: 2.5em;
+* {
+  box-sizing: border-box;
+  margin: 0px;
 }
 
-.userIcons{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  padding: 0em 1rem;
+  box-shadow: -2px 0px 6px 0px rgb(0, 0, 0, 0.2);
+}
+
+.header img {
+  width: 2em;
+  height: 2.5em;
+}
+
+.userIcons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
 }
 
 .circle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid black;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 100%;
 }
 
 .smallCircle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid black;
-    width: 1.25rem;
-    height: 1.25rem;
-    border-radius: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 100%;
 }
 
-.headline{
+.headline {
+  width: 100%;
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .smallCircle {
     display: none;
+  }
 }
 
-@media (max-width: 500px){
-    .smallCircle{
-        display: none;
-    }
-}
-
-@media (min-width: 800px){
-    .headline{
-        display: unset;
-        font-size: 1.5rem;
-        padding-left: 16.25rem;
-    }
-    .joinLogo{
-        display: none;
-    }
+@media (min-width: 800px) {
+  .headline {
+    display: unset;
+    font-size: 1.5rem;
+    padding-left: 16.25rem;
+  }
+  .joinLogo {
+    display: none;
+  }
 }
