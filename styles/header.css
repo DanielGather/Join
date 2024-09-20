@@ -1,0 +1,24 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20em;
+    height: 5em;
+    padding: 0em 1em;
+    box-shadow: -2px 0px 6px 0px rgb(0,0,0, 0.2);
+}
+
+.header img{
+    width: 2em;
+    height: 2.5em;
+}
+
+.circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 100%;
+}
