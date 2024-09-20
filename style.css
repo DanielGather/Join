@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
+}
+
+body {
+  font-family: Inter;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.jc-sb {
+  justify-content: space-between;
+}
+
+.gap1 {
+  gap: 1rem;
+}
+
+.circle {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 100%;
+}
+
+.dflex-col {
+  flex-direction: column;
+}
+
+.alic {
+  align-items: center;
+}
+
+.jc-fe {
+  justify-content: flex-end;
+}
+
+.pt1{
+    padding-top: 1rem;
+}
+
+.technicalTaskBackground{
+    background-color: #1fd7c1;
+}
+
+.plr1{
+    padding: 0rem 1rem;
+}
+
+.br1{
+    border-radius: 0.5rem;
+}
