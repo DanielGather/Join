@@ -13,7 +13,7 @@
     
     --summary-font-bold-num-color: rgb(0,0,0);
     --summary-font-weight-bold: bold;
-    --font-size-64px: 34px;
+    --font-size-num: 34px;
 }
   
 body {
@@ -90,7 +90,7 @@ h1 {
 .font-type2 {
     font-weight: var(--summary-font-weight-bold);
     color: var(--summary-font-bold-num-color);
-    font-size: var(--font-size-64px);   
+    font-size: var(--font-size-num);   
 }
 
 .icon-summary {
@@ -132,7 +132,7 @@ h1 {
     gap: 4px;
     /* text-align: left; */
     font-size: 14px;
-    /* margin: 0; */
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -1,0 +1,71 @@
+
+@font-face {
+    font-family: Inter;
+    src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
+}
+
+:root {
+    --main-background-color: #F6F7F8;
+    --h1-font-size: 42px;
+    --border-input-radius: 12px;  
+    --border-color: #edeeef;
+    --input-select-textarea-radius: 10px;
+    --addTask-label-font-size: 14px;
+    
+}
+  
+body {
+    font-family: 'Inter';
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0px;
+  }
+
+h1 {
+    font-size: var(--h1-font-size);
+}
+
+.main-addTask-container {
+    background-color: var(--main-background-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title-description-assigned {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.title-input {
+    border-radius: var(--input-select-textarea-radius);
+    height: 28px;
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    
+}
+
+.star {
+    color: red;
+}
+
+.addTask-label {
+    font-size: var(--addTask-label-font-size);
+}
+
+textarea {
+    border-radius: var(--input-select-textarea-radius);
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    resize: none;
+}
+
+select {
+    border-radius: var(--input-select-textarea-radius);
+    height: 40px;
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+}
