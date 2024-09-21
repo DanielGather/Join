@@ -6,6 +6,7 @@
 }
 
 :root {
+    --main-background-color: #F6F7F8;
     --h1-font-size: 42px;
     --border-radius: 12px;  
     --border-color: #edeeef;
@@ -28,9 +29,9 @@ h1 {
     font-size: var(--h1-font-size);
 }
 
-.summary-main-content-div {
+.summary-main-content-box {
     border: 1px solid green;
-    background-color: #F6F7F8;
+    background-color: var(--main-background-color);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -127,8 +128,6 @@ h1 {
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content:center;
-    align-items: center;
 }
 
 .num-text {
