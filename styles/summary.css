@@ -1,6 +1,13 @@
+
+
 @font-face {
     font-family: Inter;
     src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
+}
+
+:root {
+    --h1-font-size: 42px;
+    --border-radius: 12px;
 }
   
 body {
@@ -12,12 +19,22 @@ body {
     margin: 0px;
   }
 
+h1 {
+    font-size: var(--h1-font-size);
+}
+
 .summary-main-content-div {
     border: 1px solid green;
     background-color: #F6F7F8;
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.content-summary-box {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 .To-Do-Done-box {
@@ -30,6 +47,9 @@ body {
     gap: 10px;
     border: 1px solid grey;
     background-color: white;
+    width: 120px;
+    padding: 10px;
+    border-radius: var(--border-radius);
 }
 
 .icon-summary {
@@ -38,13 +58,39 @@ body {
 }
 
 .content-header-seperator-box {
-    width: 100px;
+    width: 80px;
     height: 2px;
     background-color: #29ABE2;
     margin: 10px 0 ;
 }
 
-.test {
+.urgent-deadline-box {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+    border-radius: var(--border-radius);
+    
+}
+
+.content-seperator-box{
+    background-color: rgb(209,209,209);
+    width: 2px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.date-deadline-box {
+    /* gap: 40px; */
+    /* text-align: left; */
+    font-size: 14px;
+    /* margin: 0; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.num-text {
     text-align: center;
 }
 
