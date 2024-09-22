@@ -63,3 +63,7 @@ body {
 .br1{
     border-radius: 0.5rem;
 }
+
+.jc-c{
+  justify-content: center;
+}

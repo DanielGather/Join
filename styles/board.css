@@ -1,0 +1,46 @@
+.board {
+    width: 320px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+    width: 300px;
+  }
+  
+  input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    padding: 10px;
+  }
+  
+  .icon-container {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+  
+  .divider {
+    height: 24px;
+    width: 1px;
+    background-color: #ccc;
+    margin-right: 10px;
+  }
+  
+  .icon {
+    font-size: 18px;
+  }
+
+  .noTask{
+    width: 300px;
+    height: 20px;
+    border: dotted 2px #a8a8a8;
+    border-radius: 0.25rem;
+    background-color: #e7e7e7;
+  }
+  
