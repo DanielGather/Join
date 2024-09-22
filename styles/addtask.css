@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: Inter;
     src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
@@ -7,13 +6,17 @@
 :root {
     --main-background-color: #F6F7F8;
     --h1-font-size: 42px;
-    --border-input-radius: 12px;  
+    --border-input-radius: 12px;
     --border-color: #edeeef;
     --input-select-textarea-radius: 10px;
     --addTask-label-font-size: 14px;
     --button-radius: 10px;
+    --button-background-color-dark: #2a3647;
+    --button-background-color-bright: white;
+    --button-font-size: 16px;
+    --button-font-weight: bold;
 }
-  
+
 body {
     font-family: 'Inter';
 }
@@ -21,7 +24,7 @@ body {
 * {
     box-sizing: border-box;
     margin: 0px;
-  }
+}
 
 h1 {
     font-size: var(--h1-font-size);
@@ -110,7 +113,7 @@ h1 {
     border: none;
 }
 
-.add-button{
+.add-button {
     background-color: white;
     border: none;
     cursor: pointer;
@@ -143,6 +146,35 @@ select {
     height: 34px;
     padding: 8px;
     border: 1px solid #D1D1D1;
+}
+
+.form-confirmation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.clear-button {
+    height: 46px;
+    width: 100px;
+    border-radius: 10px;
+    border: 1px solid #2a3647;
+    background-color: var(--button-background-color-bright);
+    font-size: var(--button-font-size);
+    cursor: pointer;
+}
+
+.create-task-button {
+    height: 46px;
+    width: 128px;
+    border-radius: var(--button-radius);
+    border: 1px solid #2a3647;
+    background-color: var(--button-background-color-dark);
+    color: white;
+    font-size: var(--button-font-size);
+    font-weight: var(--button-font-weight);
+    cursor: pointer;
 }
 
 .d-none {
