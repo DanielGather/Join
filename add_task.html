@@ -36,12 +36,34 @@
                 </div>
             </div>
 
-            <div class="dueDate-prio-container">
-                <div class="dueDate-prio">
-                    <label class="label-font-type">Due date<span class="star">*</span></label>
+            <div class="dueDate-prio-category-subtasks-container">
+                <div class="dueDate-container">
+                    <label class="addTask-label">Due date<span class="star">*</span></label>
                     <input class="title-input" type="date">
                 </div>
 
+                <div class="prio-container">
+                    <label class="addTask-label">Prio</label>
+                    <div class="prio-buttons">
+                        <button class="urgent-medium-low-buttons">Urgent <img src="./assets/img/prio_urgent.png"></button>
+                        <button class="urgent-medium-low-buttons">Medium <img src="./assets/img/prio_medium.png"></button>
+                        <button class="urgent-medium-low-buttons">Low <img src="./assets/img/prio_low.png"></button>
+                    </div>
+                </div>
+
+                <div class="category-container">
+                    <label class="addTask-label">Category <span class="star">*</span></label>
+                    <select required> <option>Select task category</option></select>
+                </div>
+
+                <div class="subtasks-container">
+                    <label class="addTask-label">Subtasks</label>
+                    <div class="subtasks-input-add-container">
+                        <input class="subtasks-input" placeholder="Add new subtask">
+                        <button class="add-button"> <img src="./assets/img/add.png"></button>
+                    </div>
+                    
+                </div>
                 
             </div>
 

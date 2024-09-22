@@ -11,7 +11,7 @@
     --border-color: #edeeef;
     --input-select-textarea-radius: 10px;
     --addTask-label-font-size: 14px;
-    
+    --button-radius: 10px;
 }
   
 body {
@@ -52,16 +52,68 @@ h1 {
     gap: 6px;
 }
 
-.dueDate-prio-container {
+.dueDate-prio-category-subtasks-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.dueDate-prio {
+.dueDate-container {
     display: flex;
     flex-direction: column;
     gap: 6px;
+}
+
+.prio-buttons {
+    display: flex;
+    height: 32px;
+    gap: 12px;
+}
+
+.prio-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.urgent-medium-low-buttons {
+    border-radius: var(--button-radius);
+    border: 1px solid #D1D1D1;
+    background-color: white;
+    cursor: pointer;
+    flex: 1;
+}
+
+.category-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.subtasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.subtasks-input-add-container {
+    border-radius: var(--input-select-textarea-radius);
+    height: 34px;
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.subtasks-input {
+    border: none;
+}
+
+.add-button{
+    background-color: white;
+    border: none;
+    cursor: pointer;
 }
 
 .title-input {
@@ -69,7 +121,6 @@ h1 {
     height: 28px;
     padding: 8px;
     border: 1px solid #D1D1D1;
-    
 }
 
 .star {
@@ -89,7 +140,11 @@ textarea {
 
 select {
     border-radius: var(--input-select-textarea-radius);
-    height: 40px;
+    height: 34px;
     padding: 8px;
     border: 1px solid #D1D1D1;
+}
+
+.d-none {
+    display: none;
 }
