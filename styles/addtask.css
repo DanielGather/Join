@@ -34,7 +34,31 @@ h1 {
     gap: 20px;
 }
 
+.addTask-content-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title-description-assigned-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .title-description-assigned {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dueDate-prio-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dueDate-prio {
     display: flex;
     flex-direction: column;
     gap: 6px;

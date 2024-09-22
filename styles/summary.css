@@ -169,7 +169,7 @@ h1 {
 @media(min-width: 440px) {
     .content-header-grid-container {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 160px 3px 1fr;
         grid-template-rows: auto;
         gap: 10px;
         grid-template-areas:
@@ -183,10 +183,6 @@ h1 {
         height: 40px;
         width: 2px;
         grid-area: seperator;
-    }
-
-    h1 {
-        display: inline-block;
     }
   
 }
