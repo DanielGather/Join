@@ -13,7 +13,7 @@
     --button-radius: 10px;
     --button-background-color-dark: #2a3647;
     --button-background-color-bright: white;
-    --button-font-size: 16px;
+    --button-font-size: 14px;
     --button-font-weight: bold;
 }
 
@@ -55,6 +55,13 @@ h1 {
     gap: 6px;
 }
 
+.addTask-seperator-container {
+    background-color: #D1D1D1;
+    width: 2px;
+    height: 310px;
+    display: none;
+}
+
 .dueDate-prio-category-subtasks-container {
     display: flex;
     flex-direction: column;
@@ -91,12 +98,14 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    display: none;
 }
 
 .subtasks-container {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    display: none;
 }
 
 .subtasks-input-add-container {
@@ -163,6 +172,7 @@ select {
     background-color: var(--button-background-color-bright);
     font-size: var(--button-font-size);
     cursor: pointer;
+    display: none;
 }
 
 .create-task-button {
@@ -177,6 +187,44 @@ select {
     cursor: pointer;
 }
 
+.required {
+    font-size: 12px;
+}
+
 .d-none {
     display: none;
+}
+
+
+
+@media(min-width: 450px) {
+    .clear-button {
+        display: inline-block;
+    }
+}
+
+@media(min-width: 550px) {
+    .addTask-content-form-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .title-description-assigned-container,
+    .dueDate-prio-category-subtasks-container {
+        flex: 1;
+        /* Sorgt dafür, dass beide Container den verfügbaren Platz gleichmäßig nutzen */
+    }
+
+    .category-container {
+        display: flex;
+    }
+
+    .subtasks-container {
+        display: flex;
+    }
+
+    .addTask-seperator-container {
+        display: block;
+    }
 }
