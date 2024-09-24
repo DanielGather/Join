@@ -9,8 +9,8 @@ body{
 }
 
 .board {
-  min-width: 320px;
-  max-width: 1920px;
+  min-width: 20rem;
+  max-width: 120rem;
   padding: 0.5rem 0.5rem;
   width: 100%;
 }
