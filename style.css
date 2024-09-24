@@ -25,6 +25,10 @@ body {
   gap: 1rem;
 }
 
+.gap025{
+  gap: 0.25rem;
+}
+
 .circle {
   display: flex;
   cursor: pointer;
@@ -52,12 +56,13 @@ body {
     padding-top: 1rem;
 }
 
-.technicalTaskBackground{
-    background-color: #1fd7c1;
-}
 
 .plr1{
     padding: 0rem 1rem;
+}
+
+.pt1{
+padding-top: 1rem;
 }
 
 .br1{
@@ -66,4 +71,19 @@ body {
 
 .jc-c{
   justify-content: center;
+}
+
+.colorGrey{
+  color: gray;
+}
+
+.smallCircle {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 100%;
 }

@@ -32,16 +32,7 @@
   border-radius: 100%;
 }
 
-.smallCircle {
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid black;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 100%;
-}
+
 
 .headline {
   width: 100%;

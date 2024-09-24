@@ -1,5 +1,6 @@
 .board {
-    width: 320px;
+    min-width: 320px;
+    padding: 0.5rem 0.5rem;
 }
 
 .input-container {
@@ -9,7 +10,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 0 10px;
-    width: 300px;
+    flex-grow: 1;
   }
   
   input {
@@ -37,8 +38,8 @@
   }
 
   .noTask{
-    width: 300px;
-    height: 20px;
+    flex-grow: 1;
+    height: 30px;
     border: dotted 2px #a8a8a8;
     border-radius: 0.25rem;
     background-color: #e7e7e7;
