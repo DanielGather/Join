@@ -1,0 +1,40 @@
+.colorGrey{
+    color: gray;
+  }
+
+  :root{
+    --textColor: gray;
+    --main-background-color: #F6F7F8;
+    --h1-font-size: 42px;
+    --border-input-radius: 12px;
+    --border-color: #edeeef;
+    --input-select-textarea-radius: 10px;
+    --addTask-label-font-size: 14px;
+    --button-radius: 10px;
+    --button-background-color-dark: #2a3647;
+    --button-background-color-bright: white;
+    --button-font-size: 14px;
+    --button-font-weight: bold;
+    --color-grey-background: gray;
+    --color-blue-background: #4589ff;
+    --join-dark-blue: #2A3647;
+    --main-background: #f6f7f8;
+    --join-light-blue: #2babe2;
+  }
+
+.technicalTaskBackground{
+    background-color: #1fd7c1;
+}
+
+.userStoryBackground{
+  background-color: #0038ff;
+}
+
+.colorGreyBg{
+    background-color: var(--color-grey-background);
+  }
+
+.colorBlueBg{
+    background-color: var(--color-blue-background);
+}
+

@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
+}
+
+body {
+  margin: 0;
+  font-family: Inter;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.jc-sb {
+  justify-content: space-between;
+}
+
+.gap1 {
+  gap: 1rem;
+}
+
+.gap025 {
+  gap: 0.25rem;
+}
+
+.dflex-col {
+  flex-direction: column;
+}
+
+.alic {
+  align-items: center;
+}
+
+.jc-fe {
+  justify-content: flex-end;
+}
+
+.pt1 {
+  padding-top: 1rem;
+}
+
+.plr1 {
+  padding: 0rem 1rem;
+}
+
+.pt1 {
+  padding-top: 1rem;
+}
+
+.br1 {
+  border-radius: 0.5rem;
+}
+
+.jc-c {
+  justify-content: center;
+}
