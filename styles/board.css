@@ -1,47 +1,92 @@
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boardDesktop{
+  display: none;
+}
+
 .board {
-    min-width: 320px;
-    padding: 0.5rem 0.5rem;
+  min-width: 320px;
+  max-width: 1920px;
+  padding: 0.5rem 0.5rem;
+  width: 100%;
 }
 
 .input-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0 10px;
-    flex-grow: 1;
-  }
-  
-  input {
-    border: none;
-    outline: none;
-    flex-grow: 1;
-    padding: 10px;
-  }
-  
-  .icon-container {
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-  }
-  
-  .divider {
-    height: 24px;
-    width: 1px;
-    background-color: #ccc;
-    margin-right: 10px;
-  }
-  
-  .icon {
-    font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0 10px;
+  flex-grow: 1;
+}
+
+input {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.divider {
+  height: 24px;
+  width: 1px;
+  background-color: #ccc;
+  margin-right: 10px;
+}
+
+.icon {
+  font-size: 18px;
+}
+
+.noTask {
+  flex-grow: 1;
+  height: 30px;
+  border: dotted 2px #a8a8a8;
+  border-radius: 0.25rem;
+  background-color: #e7e7e7;
+}
+
+.taskArea {
+  flex-direction: column;
+}
+
+
+
+.createTaskButton{
+  display: flex;
+  align-items: center;
+  border-radius: var(--button-radius);
+  border: 1px solid #2a3647;
+  background-color: var(--button-background-color-dark);
+  color: white;
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  cursor: pointer;
+}
+
+@media (min-width: 700px) {
+  .taskArea {
+    flex-direction: unset;
   }
 
-  .noTask{
-    flex-grow: 1;
-    height: 30px;
-    border: dotted 2px #a8a8a8;
-    border-radius: 0.25rem;
-    background-color: #e7e7e7;
+  .boardMobile{
+    display: none;
   }
-  
+
+  .boardDesktop{
+    display: unset;
+    display: flex;
+  }
+}
+
