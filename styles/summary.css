@@ -85,6 +85,7 @@ h1 {
     padding: 10px;
     border-radius: var(--border-radius);
     align-items: center;
+    flex: 1;
 }
 
 .font-type2 {

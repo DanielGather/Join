@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./styles/addtask.css">
+    <link rel="stylesheet" href="./styles/root.css">
     <link rel="stylesheet" href="./fonts.css">
 
 
@@ -25,13 +26,13 @@
 
                 <div class="title-description-assigned">
                     <label class="addTask-label">Description</label>
-                    <textarea rows="6" placeholder="Enter a Description"></textarea>
+                    <textarea rows="4" placeholder="Enter a Description"></textarea>
                 </div>
 
                 <div class="title-description-assigned">
                     <label class="addTask-label">Assigned to</label>
                     <select required>
-                        <option>Select contacts to assign</option>
+                        <option value="" disabled selected>Select contacts to assign</option>
                     </select>
                 </div>
             </div>
@@ -55,7 +56,11 @@
 
                 <div class="category-container">
                     <label class="addTask-label">Category <span class="star">*</span></label>
-                    <select required> <option>Select task category</option></select>
+                    <select required > 
+                        <option value="" disabled selected>Select task category</option>
+                        <option value="1">Technical Task</option>
+                        <option value="2">User Story</option>
+                    </select>
                 </div>
 
                 <div class="subtasks-container">
