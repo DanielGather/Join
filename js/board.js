@@ -3,6 +3,8 @@ function init(){
 }
 
 function renderBoard(){
-    let html = document.getElementById("content")
-    html.innerHTML = boardHtml();
+    let htmlContent = document.getElementById("main")
+    let headerContent = document.getElementById("header")
+    htmlContent.innerHTML = boardHtml();
+    headerContent.innerHTML = returnHeaderHtml();
 }
