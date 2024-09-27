@@ -11,6 +11,12 @@
 body {
   margin: 0;
   font-family: Inter;
+  display: flex;
+  align-items: center;
+}
+
+.desktop-view{
+  width: 100%;
 }
 
 .d-flex {

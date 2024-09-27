@@ -15,10 +15,6 @@
     --summary-font-weight-bold: bold;
     --font-size-num: 34px;
 }
-  
-body {
-    font-family: 'Inter';
-}
 
 * {
     box-sizing: border-box;
