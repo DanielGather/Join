@@ -47,7 +47,6 @@ function boardHtml(){
             <div class="noTask d-flex alic jc-c colorGrey">No tasks in progress</div>
           </div>
         </div>
-
         <div class="d-flex dflex-col gap1" style="width: 100%;">
           <div class="d-flex jc-sb alic">
             <span>Await feedback</span>
