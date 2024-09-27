@@ -1,5 +1,5 @@
-function boardHtml(){
-    return /*HTML*/ `
+function boardHtml() {
+  return /*HTML*/ `
     <div class="d-flex dflex-col board gap1">
       <div class="boardMobile">
       <div class="d-flex jc-sb">
@@ -67,5 +67,5 @@ function boardHtml(){
         </div>
       </div>
     </div>
-    `
+    `;
 }
