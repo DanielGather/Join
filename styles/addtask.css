@@ -2,12 +2,6 @@
     font-family: Inter;
     src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
 }
-
-
-body {
-    font-family: 'Inter';
-}
-
 * {
     box-sizing: border-box;
     margin: 0px;

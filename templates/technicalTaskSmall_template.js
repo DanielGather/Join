@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../styles/global.css">
-    <link rel="stylesheet" href="../../styles/root.css">
-    <link rel="stylesheet" href="../../styles/technicalTaskSmall.css" />
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../../styles/background.css" />
-    <title>Technical Task</title>
-  </head>
-  <body>
-    <div class="d-flex dflex-col smallTask">
+function htmlTechnicalTaskSmall(){
+  return `
+      <div class="d-flex dflex-col smallTask">
       <div class="d-flex alic jc-c userStoryBackground br1 userStory"><span>User Story</span></div>
       <h1>Kochwelt Page & Recipe Recommender</h1>
       <span>Build start page with recipe recommendation...</span>
@@ -30,5 +19,5 @@
         <img src="../img/prioMedia.svg" alt="" />
       </div>
     </div>
-  </body>
-</html>
+    `
+}

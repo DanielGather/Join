@@ -1,0 +1,112 @@
+h1 {
+    font-size: 47px;
+}
+
+@media (min-width: 800px) {
+    h1 {
+        font-size: 61px;
+    }
+}
+
+h2 {
+    font-size: 36px;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #2A3647;
+}
+
+h5 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.s-between {
+    justify-content: space-between;
+}
+
+.a-center {
+    align-items: center;
+}
+
+.center-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.g-8 {
+    gap: 8px;
+}
+
+.g-15 {
+    gap: 15px;
+}
+
+.g-20 {
+    gap: 20px;
+}
+
+.g-22 {
+    gap: 22px; 
+}
+
+
+
+
+.e-mail {
+    color: var(--email-blue);
+    text-decoration: none;
+}
+
+.phone-number {
+    color: #000000;
+    text-decoration: none;
+
+}
+
+/* ------------------------------------global */
+
+.sec-contact-view {
+    height: inherit;
+    padding: 48px 38px;
+    background-color: var(--main-background);
+}
+
+.seperator {
+    height: 3px;
+    width: 90px;
+    background-color: #29ABE2;
+}
+
+.content {
+    margin-top: 34px;
+}
+
+.contact-profil-elipse {
+    width: 80px;
+    height: 80px;
+    font-size: 27px;
+}
+
+.mobile-menu-button {
+    position: absolute;
+    bottom: 114px;
+    right: 18px;
+    height: 52px;
+    width: 52px;
+    border-radius: 50px;
+    background-color: var(--join-dark-blue);
+    box-shadow: 1px 6px 4px 0px rgba(0, 0, 0, 0.25);
+}

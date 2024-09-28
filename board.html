@@ -3,91 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../styles/global.css">
-    <link rel="stylesheet" href="../../styles/root.css">
     <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./styles/" />
-    <link rel="stylesheet" href="./styles/addtask.css">
+    <link rel="stylesheet" href="../../styles/global.css" />
+    <link rel="stylesheet" href="../../styles/root.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/navbar.css" />
+
+    <!-- Dazugehörige style .css -->
+    <link rel="stylesheet" href="./styles/global.css" />
     <link rel="stylesheet" href="./styles/board.css" />
-    <title>Board</title>
+    <link rel="stylesheet" href="./styles/background.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+
+    <script src="./templates/navbar.js"></script>
+    <script src="./templates/header.js"></script>
+
+    <!-- Dazugehörige tamplates .js -->
+    <script src="./templates/.............js"></script>
+
+    <script src="./script.js"></script>
+    <script src="./js/html.js"></script>
+    <script src="./js/board.js"></script>
+
+    <title>Document</title>
   </head>
-  <body>
-  
-    <div class="d-flex dflex-col board gap1">
 
-      <div class="boardMobile">
-      <div class="d-flex jc-sb">
-        <h1>Board</h1>
-        <img src="./assets/img/plus.svg" alt="" />
-      </div>
-      <div class="input-container">
-        <input type="text" placeholder="Dein Text" />
-        <div class="icon-container">
-          <div class="divider"></div>
-          <img class="icon" src="./assets/img/search.svg" alt="" />
-        </div>
-      </div>
-    </div>
-
-
-      <div class="boardDesktop d-flex jc-sb">
-        <h1>Board</h1>
-        <div class="d-flex gap1 alic">
-          <div class="input-container">
-            <input type="text" placeholder="Dein Text" />
-            <div class="icon-container">
-              <div class="divider"></div>
-              <img class="icon" src="./assets/img/search.svg" alt="" />
-            </div>
-          </div>
-          <button class="createTaskButton alic">Add task<img src="./assets/img/plus.svg"></button>
-        </div>
-      </div>
-
-
-
-      <div class="taskArea d-flex gap1">
-        <div class="d-flex dflex-col gap1" style="width: 100%;">
-          <div class="d-flex jc-sb alic">
-            <span>To Do</span>
-            <img src="./assets/img/plusWhite.svg" alt="" />
-          </div>
-          <div class="d-flex jc-c">
-            <div class="noTask d-flex alic jc-c colorGrey">No tasks To do</div>
-          </div>
-        </div>
-
-        <div class="d-flex dflex-col gap1" style="width: 100%;">
-          <div class="d-flex jc-sb alic">
-            <span>In progress</span>
-            <img src="./assets/img/plusWhite.svg" alt="" />
-          </div>
-          <div class="d-flex jc-c">
-            <div class="noTask d-flex alic jc-c colorGrey">No tasks in progress</div>
-          </div>
-        </div>
-
-        <div class="d-flex dflex-col gap1" style="width: 100%;">
-          <div class="d-flex jc-sb alic">
-            <span>Await feedback</span>
-            <img src="./assets/img/plusWhite.svg" alt="" />
-          </div>
-          <div class="d-flex jc-c">
-            <div class="noTask d-flex alic jc-c colorGrey"></div>
-          </div>
-        </div>
-
-        <div class="d-flex dflex-col gap1" style="width: 100%;">
-          <div class="d-flex jc-sb alic" style="height: 30px;">
-            <span>Done</span>
-          </div>
-          <div class="d-flex jc-c">
-            <div class="noTask d-flex alic jc-c colorGrey"></div>
-          </div>
-        </div>
-
-
-      </div>
+  <body onload="init()">
+    <nav id="navBar">Test</nav>
+    <div class="desktop-view">
+      <header id="header"></header>
+      <main id="main"></main>
     </div>
   </body>
 </html>

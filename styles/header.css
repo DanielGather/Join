@@ -1,9 +1,7 @@
-body{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+header {
+  z-index: 1;
+  position: relative;
 }
-
 
 .header {
   display: flex;
@@ -56,7 +54,6 @@ body{
   .headline {
     display: unset;
     font-size: 1.5rem;
-    padding-left: 16.25rem;
   }
   .joinLogo {
     display: none;
