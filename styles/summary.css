@@ -73,7 +73,8 @@ h1 {
 
 .To-Do-Done-box {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    gap: 30px;
 }
 
 .to-do-box, .done-box {
@@ -163,7 +164,30 @@ h1 {
     text-align: center;
 }
 
+.summary-content-greeting-container {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
 
+.greeting-container {
+    display: none;
+}
+
+.greeting-daytime {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.greeting-name {
+    font-size: 30px;
+    font-weight: bold;
+    color: #29ABE2;
+}
+
+.d-none {
+    display: none;
+}
 
 
 
@@ -184,6 +208,12 @@ h1 {
         height: 40px;
         width: 2px;
         grid-area: seperator;
+    }
+
+    .greeting-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
   
 }
