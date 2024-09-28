@@ -1,19 +1,13 @@
-main {
-    width: 100%;
-    overflow: auto;
-}
-
 .sec-contacts {
-    padding: 24px 38px;
+    padding: 24px 28px;
 }
 
 .contacts-letter {
     height: 58px;
     padding: 17px 36px 17px 36px;
-    font-size: 20px;
 }
 
-.seperator {
+.contact-letter-seperator {
     height: 1px;
     margin: 8px 0;
     background-color: #D1D1D1;
@@ -58,7 +52,13 @@ main {
     align-items: start;
 }
 
-.contact-s-card a {
-    color: #007CEE;
+.e-mail {
+    color: var(--email-blue);
     text-decoration: none;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #2A3647;
 }
