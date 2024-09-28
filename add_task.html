@@ -5,9 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/root.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/navbar.css" />
+
+    <!-- Dazugehörige style .css -->
     <link rel="stylesheet" href="./styles/addtask.css">
-    <link rel="stylesheet" href="./styles/root.css">
-    <link rel="stylesheet" href="./fonts.css">
+
 
 
 </head>
@@ -48,15 +54,17 @@
                 <div class="prio-container">
                     <label class="addTask-label">Prio</label>
                     <div class="prio-buttons">
-                        <button class="urgent-medium-low-buttons">Urgent <img src="./assets/img/prio_urgent.png"></button>
-                        <button class="urgent-medium-low-buttons">Medium <img src="./assets/img/prio_medium.png"></button>
+                        <button class="urgent-medium-low-buttons">Urgent <img
+                                src="./assets/img/prio_urgent.png"></button>
+                        <button class="urgent-medium-low-buttons">Medium <img
+                                src="./assets/img/prio_medium.png"></button>
                         <button class="urgent-medium-low-buttons">Low <img src="./assets/img/prio_low.png"></button>
                     </div>
                 </div>
 
                 <div class="category-container">
                     <label class="addTask-label">Category <span class="star">*</span></label>
-                    <select required > 
+                    <select required>
                         <option value="" disabled selected>Select task category</option>
                         <option value="1">Technical Task</option>
                         <option value="2">User Story</option>
@@ -68,8 +76,8 @@
                     <div class="subtasks-input-add-container">
                         <input class="subtasks-input" placeholder="Add new subtask">
                         <button class="add-button"> <img src="./assets/img/add.png"></button>
-                    </div>                    
-                </div>                
+                    </div>
+                </div>
             </div>
         </div>
 
