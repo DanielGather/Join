@@ -1,127 +1,168 @@
 let contacts = [
     {
-        "firstName": "Aaron",
-        "lastName": "Smith",
+        "letter": "A",
+        "name": "Aaron Smith",
+        "initials": "AS",
         "email": "aaron.smith@example.com",
         "phone": "+4912345678901"
     },
     {
-        "firstName": "Abigail",
-        "lastName": "Jones",
+        "letter": "A",
+        "name": "Abigail Jones",
+        "initials": "AJ",
         "email": "abigail.jones@example.com",
         "phone": "+4912345678902"
     },
     {
-        "firstName": "Alex",
-        "lastName": "Brown",
+        "letter": "A",
+        "name": "Alex Brown",
+        "initials": "AB",
         "email": "alex.brown@example.com",
         "phone": "+4912345678903"
     },
     {
-        "firstName": "Ben",
-        "lastName": "Taylor",
+        "letter": "B",
+        "name": "Ben Taylor",
+        "initials": "BT",
         "email": "ben.taylor@example.com",
         "phone": "+4912345678904"
     },
     {
-        "firstName": "Beth",
-        "lastName": "Davis",
+        "letter": "B",
+        "name": "Beth Davis",
+        "initials": "BD",
         "email": "beth.davis@example.com",
         "phone": "+4912345678905"
     },
     {
-        "firstName": "Chris",
-        "lastName": "Miller",
+        "letter": "C",
+        "name": "Chris Miller",
+        "initials": "CM",
         "email": "chris.miller@example.com",
         "phone": "+4912345678906"
     },
     {
-        "firstName": "David",
-        "lastName": "Wilson",
+        "letter": "D",
+        "name": "David Wilson",
+        "initials": "DW",
         "email": "david.wilson@example.com",
         "phone": "+4912345678907"
     },
     {
-        "firstName": "Ella",
-        "lastName": "Moore",
+        "letter": "E",
+        "name": "Ella Moore",
+        "initials": "EM",
         "email": "ella.moore@example.com",
         "phone": "+4912345678908"
     },
     {
-        "firstName": "Finn",
-        "lastName": "Taylor",
+        "letter": "F",
+        "name": "Finn Taylor",
+        "initials": "FT",
         "email": "finn.taylor@example.com",
         "phone": "+4912345678909"
     },
     {
-        "firstName": "Grace",
-        "lastName": "Anderson",
+        "letter": "G",
+        "name": "Grace Anderson",
+        "initials": "GA",
         "email": "grace.anderson@example.com",
         "phone": "+4912345678910"
     },
     {
-        "firstName": "Hannah",
-        "lastName": "Thomas",
+        "letter": "H",
+        "name": "Hannah Thomas",
+        "initials": "HT",
         "email": "hannah.thomas@example.com",
         "phone": "+4912345678911"
     },
     {
-        "firstName": "Isaac",
-        "lastName": "Jackson",
+        "letter": "I",
+        "name": "Isaac Jackson",
+        "initials": "IJ",
         "email": "isaac.jackson@example.com",
         "phone": "+4912345678912"
     },
     {
-        "firstName": "Jack",
-        "lastName": "White",
+        "letter": "J",
+        "name": "Jack White",
+        "initials": "JW",
         "email": "jack.white@example.com",
         "phone": "+4912345678913"
     },
     {
-        "firstName": "Kara",
-        "lastName": "Martin",
+        "letter": "K",
+        "name": "Kara Martin",
+        "initials": "KM",
         "email": "kara.martin@example.com",
         "phone": "+4912345678914"
     },
     {
-        "firstName": "Liam",
-        "lastName": "Garcia",
+        "letter": "L",
+        "name": "Liam Garcia",
+        "initials": "LG",
         "email": "liam.garcia@example.com",
         "phone": "+4912345678915"
     },
     {
-        "firstName": "Mia",
-        "lastName": "Martinez",
+        "letter": "M",
+        "name": "Mia Martinez",
+        "initials": "MM",
         "email": "mia.martinez@example.com",
         "phone": "+4912345678916"
     },
     {
-        "firstName": "Nina",
-        "lastName": "Robinson",
+        "letter": "N",
+        "name": "Nina Robinson",
+        "initials": "NR",
         "email": "nina.robinson@example.com",
         "phone": "+4912345678917"
     },
     {
-        "firstName": "Olivia",
-        "lastName": "Clark",
+        "letter": "O",
+        "name": "Olivia Clark",
+        "initials": "OC",
         "email": "olivia.clark@example.com",
         "phone": "+4912345678918"
     },
     {
-        "firstName": "Paul",
-        "lastName": "Lewis",
+        "letter": "P",
+        "name": "Paul Lewis",
+        "initials": "PL",
         "email": "paul.lewis@example.com",
         "phone": "+4912345678919"
     },
     {
-        "firstName": "Quinn",
-        "lastName": "Walker",
+        "letter": "Q",
+        "name": "Quinn Walker",
+        "initials": "QW",
         "email": "quinn.walker@example.com",
         "phone": "+4912345678920"
     }
 ]
 
 
-function init() {
-    render
+async function contactsJS() {
+    await renderContactsLetter();
+    // await renderContactCards();
+}
+
+async function renderContactsLetter() {
+    console.log('NOTIZ: Vor dem rendern sollten die Kontakte in eine Lokale variable gespeichert und sortiert werden!');
+    let currentLetter = null;
+
+    contacts.forEach(contact => {
+        if (contact.letter !== currentLetter) {
+            currentLetter = contact.letter;
+            document.getElementById('secContacts').innerHTML += temp_letterContainer(contact.letter);
+            renderContactCards(contact);
+        } else {
+            renderContactCards(contact);
+        }
+
+    })
+}
+
+async function renderContactCards(contact) {
+    document.getElementById(`contactsOf_${contact.letter}`).innerHTML += temp_contactCard(contact);
 }
