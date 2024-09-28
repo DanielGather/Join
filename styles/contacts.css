@@ -1,10 +1,5 @@
-body {
-    height: 100vh;
-}
-
 main {
     width: 100%;
-    height: calc(100vh - 5rem - 80px);
     overflow: auto;
 }
 
@@ -66,10 +61,4 @@ main {
 .contact-s-card a {
     color: #007CEE;
     text-decoration: none;
-}
-
-@media (min-width: 800px) {
-    main {
-        margin-left: 232px;
-    }
 }

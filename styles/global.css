@@ -5,18 +5,46 @@
 
 @font-face {
   font-family: Inter;
-  src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
+  src: url("../assets/font/Inter/Inter-VariableFont_opsz\,wght.ttf");
+}
+
+@font-face {
+  font-family: Open_Sans;
+  src: url("../assets/font/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf");
 }
 
 body {
   margin: 0;
+  height: 100vh;
   font-family: Inter;
   display: flex;
   align-items: center;
+  flex-direction: column-reverse;
 }
 
-.desktop-view{
+.desktop-view {
   width: 100%;
+}
+
+main {
+  height: calc(100vh - 160px);
+  overflow: hidden;
+}
+
+@media (min-width: 800px) {
+
+  body {
+    flex-direction: row;
+  }
+
+  .desktop-view{
+    height: 100vh;
+    width: calc(100% - 232px);
+  }
+
+  main {
+    height: calc(100vh - 80px);
+  }
 }
 
 .d-flex {
