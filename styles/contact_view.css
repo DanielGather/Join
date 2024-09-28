@@ -63,17 +63,9 @@ h5 {
 }
 
 
-
-
-.e-mail {
-    color: var(--email-blue);
-    text-decoration: none;
-}
-
 .phone-number {
     color: #000000;
     text-decoration: none;
-
 }
 
 /* ------------------------------------global */
@@ -84,7 +76,7 @@ h5 {
     background-color: var(--main-background);
 }
 
-.seperator {
+.view-contact-seperator {
     height: 3px;
     width: 90px;
     background-color: #29ABE2;

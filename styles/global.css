@@ -28,7 +28,8 @@ body {
 
 main {
   height: calc(100vh - 160px);
-  overflow: hidden;
+  width: 100%;
+  overflow: auto;
 }
 
 @media (min-width: 800px) {
