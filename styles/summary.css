@@ -1,11 +1,11 @@
 
 
-@font-face {
+/* @font-face {
     font-family: Inter;
     src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
-}
+} */
 
-:root {
+/* :root {
     --main-background-color: #F6F7F8;
     --h1-font-size: 42px;
     --border-radius: 12px;  
@@ -14,12 +14,12 @@
     --summary-font-bold-num-color: rgb(0,0,0);
     --summary-font-weight-bold: bold;
     --font-size-num: 34px;
-}
+} */
 
-* {
+/* * {
     box-sizing: border-box;
     margin: 0px;
-  }
+  } */
   
 
 .summary-main-content-box {
