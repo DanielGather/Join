@@ -3,7 +3,7 @@ const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.
 async function init(html) {
     renderNavBar(html);
     renderHeader();
-    await getIdFromDb('contacts', 'name', 'Aaron Smith');
+    // await getIdFromDb('contacts', 'name', 'Aaron Smith');
 }
 
 function renderNavBar(html) {
@@ -50,7 +50,6 @@ async function deleteData(path='') {
     return responseToJson;
 }
 
-
 async function putData(path='', data={}) {
     let response = await fetch(BASE_URL + path + '.json', {
         method: 'PUT', /* or PATCH  || !!PATCH funktioniert nicht mit firebase */
@@ -75,10 +74,8 @@ async function getIdFromDb(path, key, includeValue) {
     let searchElement = allEnties.filter(element => element[1][key] == includeValue);
     let searchId = searchElement[0][0];
     
-    console.log(searchId);
+    // console.log(searchId);
     return searchId;
-
-
 }
 
 
