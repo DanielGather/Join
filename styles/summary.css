@@ -1,6 +1,6 @@
 
 
-@font-face {
+/* @font-face {
     font-family: Inter;
     src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
 }
@@ -19,7 +19,7 @@
 * {
     box-sizing: border-box;
     margin: 0px;
-  }
+  } */
   
 
 .summary-main-content-box {
