@@ -15,8 +15,7 @@ async function init() {
 async function getData(path='') {
     let response = await fetch(BASE_URL + path + '.json');
     let responseToJson = await response.json();
-    console.log(responseToJson);
-    //return responseToJson;
+    return responseToJson;
 }
 
 async function postData(path='', data={}) {
@@ -27,14 +26,16 @@ async function postData(path='', data={}) {
         },
         body: JSON.stringify(data)
     });
-    return responseToJson = await response.json();
+    let responseToJson = await response.json();
+    return responseToJson;
 }
 
 async function deleteData(path='') {
     let response = await fetch(BASE_URL + path + '.json', {
         method: 'DELETE',
     });
-    return responseToJson = await response.json();
+    let responseToJson = await response.json();
+    return responseToJson;
 }
 
 
@@ -44,5 +45,20 @@ async function putData(path='', data={}) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     });
-    return responseToJson = await response.json();
+    let responseToJson = await response.json();
+    return responseToJson;
 }
+
+
+/*
+
+postData('contacts', {
+    "letter": "A",
+    "name": "Aaron Smith",
+    "initials": "AS",
+    "email": "aaron.smith@example.com",
+    "phone": "+4912345678901",
+    "color": "blue"
+})
+
+*/
