@@ -142,8 +142,8 @@ button svg {
   }
 
   .button-dark:hover {
-    /* font-size: 21px;
-    font-weight: 700; */
+    font-size: 21px;
+    font-weight: 700;
     color: white;
     background-color: var(--join-light-blue);
     border: 1px solid var(--join-light-blue);

@@ -4,7 +4,7 @@ function boardHtml() {
       <div class="boardMobile">
       <div class="d-flex jc-sb">
         <h1>Board</h1>
-        <img src="./assets/img/plus.svg" alt="" />
+        <img class="responsiveButton" src="./assets/img/plus.svg" alt="" />
       </div>
       <div class="input-container">
         <input type="text" placeholder="Dein Text" />
@@ -31,7 +31,7 @@ function boardHtml() {
         <div class="d-flex dflex-col gap1" style="width: 100%;">
           <div class="d-flex jc-sb alic">
             <span>To Do</span>
-            <img src="./assets/img/plusWhite.svg" alt="" />
+            <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
           <div class="d-flex jc-c">
             <div class="noTask d-flex alic jc-c colorGrey">No tasks To do</div>
@@ -41,7 +41,7 @@ function boardHtml() {
         <div class="d-flex dflex-col gap1" style="width: 100%;">
           <div class="d-flex jc-sb alic">
             <span>In progress</span>
-            <img src="./assets/img/plusWhite.svg" alt="" />
+            <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
           <div class="d-flex jc-c">
             <div class="noTask d-flex alic jc-c colorGrey">No tasks in progress</div>
@@ -50,7 +50,7 @@ function boardHtml() {
         <div class="d-flex dflex-col gap1" style="width: 100%;">
           <div class="d-flex jc-sb alic">
             <span>Await feedback</span>
-            <img src="./assets/img/plusWhite.svg" alt="" />
+            <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
           <div class="d-flex jc-c">
             <div class="noTask d-flex alic jc-c colorGrey"></div>

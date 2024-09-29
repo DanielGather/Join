@@ -61,13 +61,6 @@ input {
 .createTaskButton{
   display: flex;
   align-items: center;
-  border-radius: var(--button-radius);
-  border: 1px solid #2a3647;
-  background-color: var(--button-background-color-dark);
-  color: white;
-  font-size: 21px;
-  font-weight: 700;
-  cursor: pointer;
   gap: 1rem;
   padding: 0.5rem 0.75rem;
 }
@@ -78,8 +71,8 @@ input {
   fill: unset;
 }
 
-.createTaskButton:hover{
-
+.responsiveButton{
+  cursor: pointer;
 }
 
 @media (min-width: 700px) {
