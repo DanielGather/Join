@@ -62,3 +62,7 @@ postData('contacts', {
 })
 
 */
+
+// function adAllContacts(list) {
+//     contacts.forEach(element => postData('contacts', element))
+// }
