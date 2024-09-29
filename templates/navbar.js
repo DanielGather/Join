@@ -1,6 +1,6 @@
 function navbarTemplate() {
     return /*html*/`
-        <section class="nav-logo d-none">
+        <section class="nav-logo d-none-nav">
         <svg
           width="102"
           height="122"
@@ -129,7 +129,7 @@ function navbarTemplate() {
         </a>
       </section>
 
-      <section class="copyright d-none">
+      <section class="copyright d-none-nav">
         <div class="copyright-links">
           <a href="/privacy_policy.html">Privacy Policy</a>
           <a href="/legal_notice.html">Legal notice</a>
