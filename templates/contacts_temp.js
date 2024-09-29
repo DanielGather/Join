@@ -14,7 +14,7 @@ function temp_contactCard(contact) {
     return /*html*/`
         <div class="contact-s-card">
             <div class="contact-img-container">
-                <div class="contact-profil-elipse">${contact.initials}</div>
+                <div class="contacts-profil-elipse">${contact.initials}</div>
             </div>
             <div class="contact-details">
                 <h3>${contact.name}</h3>
