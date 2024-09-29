@@ -123,10 +123,6 @@ button svg {
 }
 
 @media (min-width: 800px) {
-  .mobile-menu-button {
-    display: none;
-  }
-
   button:hover {
     height: 56px;
     width: 183px;
