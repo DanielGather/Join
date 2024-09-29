@@ -24,7 +24,7 @@ function boardHtml() {
               <img class="icon" src="./assets/img/search.svg" alt="" />
             </div>
           </div>
-          <button class="createTaskButton alic">Add task<img src="./assets/img/plus.svg"></button>
+          <button class="createTaskButton alic button-dark">Add task<img src="./assets/img/add.svg"></button>
         </div>
       </div>
       <div class="taskArea d-flex gap1">
