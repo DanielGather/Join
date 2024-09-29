@@ -8,7 +8,7 @@ async function init() {
     //putData('test', {'test2': 'success'});
     //getData('test');
     await putData('users', {user:"Enes", password:"12345"})
-    await getData('tickets/0');
+    await getData('users');
 
 }
 
@@ -36,6 +36,7 @@ async function deleteData(path='') {
     });
     return responseToJson = await response.json();
 }
+
 
 async function putData(path='', data={}) {
     let response = await fetch(BASE_URL + path + '.json', {

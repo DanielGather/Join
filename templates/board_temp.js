@@ -24,7 +24,7 @@ function boardHtml() {
               <img class="icon" src="./assets/img/search.svg" alt="" />
             </div>
           </div>
-          <button class="createTaskButton alic button-dark">Add task<img src="./assets/img/add.svg"></button>
+          <button class="createTaskButton alic button-dark fs16">Add task<img src="./assets/img/add.svg"></button>
         </div>
       </div>
       <div class="taskArea d-flex gap1">
@@ -34,7 +34,7 @@ function boardHtml() {
             <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
           <div class="d-flex jc-c">
-            <div class="noTask d-flex alic jc-c colorGrey">No tasks To do</div>
+            <div class="noTask d-flex alic jc-c colorGrey fs16">No tasks To do</div>
           </div>
         </div>
 
@@ -44,7 +44,7 @@ function boardHtml() {
             <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
           <div class="d-flex jc-c">
-            <div class="noTask d-flex alic jc-c colorGrey">No tasks in progress</div>
+            <div class="noTask d-flex alic jc-c colorGrey fs16">No tasks in progress</div>
           </div>
         </div>
         <div class="d-flex dflex-col gap1" style="width: 100%;">
@@ -53,7 +53,7 @@ function boardHtml() {
             <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
           <div class="d-flex jc-c">
-            <div class="noTask d-flex alic jc-c colorGrey"></div>
+            <div class="noTask d-flex alic jc-c colorGrey fs16"></div>
           </div>
         </div>
 

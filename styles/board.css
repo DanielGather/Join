@@ -76,6 +76,10 @@ input {
   cursor: pointer;
 }
 
+.fs16{
+  font-size: 16px;
+}
+
 @media (min-width: 700px) {
   .taskArea {
     flex-direction: unset;
@@ -88,6 +92,12 @@ input {
   .boardDesktop{
     display: unset;
     display: flex;
+  }
+}
+
+@media (max-width: 1050px){
+  .taskArea{
+    flex-wrap: wrap;
   }
 }
 
