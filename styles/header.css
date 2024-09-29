@@ -23,7 +23,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 2rem;
 }
 
 .circle {
@@ -35,8 +35,48 @@ header {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 100%;
+  z-index: 1;
 }
 
+.help{
+  display: none;
+}
+
+.brHelp{
+  display: none;
+}
+
+.posRelative{
+  position: relative;
+  top: 5rem;
+  right: 1rem;
+}
+
+
+.posAbs{
+  position: absolute;
+  top: 0px;
+}
+
+
+.popUp{
+  background-color: var(--join-dark-blue);
+  font-size: 12px;
+  width: 100%;
+  padding: 0.5rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  box-shadow: -2px 0px 6px 0px rgb(0,0,0, 0.2);
+}
+
+a{
+  text-decoration: none;
+  color: #CDCDCD;
+}
+a:hover{
+  background-color: #2a3d59;
+}
 
 
 .headline {
@@ -57,5 +97,19 @@ header {
   }
   .joinLogo {
     display: none;
+  }
+
+}
+
+@media (max-width:800px){
+  .help{
+    display: unset;
+    padding: 0.5rem;
+  }
+  .brHelp{
+    display: unset;
+  }
+  .posRelative{
+    right: unset;
   }
 }

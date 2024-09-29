@@ -64,6 +64,10 @@ main {
   gap: 0.25rem;
 }
 
+.gap050 {
+  gap: 0.50rem;
+}
+
 .dflex-col {
   flex-direction: column;
 }
@@ -84,6 +88,9 @@ main {
   padding: 0rem 1rem;
 }
 
+.p050{
+  padding: 0.5rem;
+}
 .pt1 {
   padding-top: 1rem;
 }
@@ -94,4 +101,8 @@ main {
 
 .jc-c {
   justify-content: center;
+}
+
+.d-none{
+  display: none;
 }
