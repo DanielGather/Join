@@ -1,5 +1,6 @@
-function init(){
+function boardJS(){
     renderBoard();
+    navbarTemplate();
 }
 
 function renderBoard(){
