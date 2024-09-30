@@ -80,15 +80,15 @@ h1 {
     background-color: white;
     width: 144px;
     padding: 10px;
-    border-radius: var(--border-radius);
     align-items: center;
     flex: 1;
+    border-radius: 12px;
 }
 
 .font-type2 {
-    font-weight: var(--summary-font-weight-bold);
-    color: var(--summary-font-bold-num-color);
-    font-size: var(--font-size-num);   
+    font-weight: bold;
+    color: rgb(0,0,0);
+    font-size: 34px;   
 }
 
 .icon-summary {
@@ -107,7 +107,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     background-color: white;
-    border-radius: var(--border-radius);
+    border-radius: 12px;
     border: 1px solid var(--border-color);
 }
 
@@ -149,7 +149,7 @@ h1 {
 .single-box-board-progress-feedback {
     border: 1px solid var(--border-color);
     background-color: white;
-    border-radius: var(--border-radius);
+    border-radius: 12px;
     padding: 10px;
     text-align: center;
     display: flex;
