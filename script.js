@@ -3,7 +3,7 @@ const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.
 async function init(html) {
     renderNavBar(html);
     renderHeader();
-    await getIdFromDb('contacts', 'name', 'Finn Taylor');
+    // await getIdFromDb('contacts', 'name', 'Finn Taylor');
 }
 
 function renderNavBar(html) {
@@ -71,10 +71,10 @@ async function getIdFromDb(path, key, includeValue) {
     let allIds = await getData(path);
 
     let allEnties = Object.entries(allIds);
-    console.log(allEnties);
+    // console.log(allEnties);
     let searchElement = allEnties.filter(element => element[1][key] == includeValue);
-    console.log(searchElement);
-    let searchId = searchElement[0][0];
-    console.log(searchId);
+    // console.log(searchElement);
+    let searchId = searchElement[0];
+    // console.log(searchId);
     return searchId;
 }
