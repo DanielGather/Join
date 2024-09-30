@@ -23,11 +23,13 @@
   
 
 .summary-main-content-box {
-    border: 1px solid green;
     background-color: var(--main-background-color);
     display: flex;
     flex-direction: column;
     gap: 20px;
+    max-width: 1120px;
+    margin: 20px auto;
+    max-height: 900px;
 }
 
 .header-seperator-box {
