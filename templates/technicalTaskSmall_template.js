@@ -1,6 +1,6 @@
-function htmlTechnicalTaskSmall() {
+function htmlTechnicalTaskSmall(element) {
   return /*HTML*/`
-      <div draggable="true" ondragstart="startDraggin(0)" class="d-flex dflex-col smallTask">
+      <div draggable="true" ondragstart="startDraggin(${element[1]['id']})" class="d-flex dflex-col smallTask">
       <div class="d-flex alic jc-c userStoryBackground br1 userStory"><span>User Story</span></div>
       <h1>Kochwelt Page & Recipe Recommender</h1>
       <span>Build start page with recipe recommendation...</span>

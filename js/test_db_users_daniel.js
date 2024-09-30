@@ -1,16 +1,16 @@
 const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.app/';
 
 
-async function init() {
-    console.log('go!');
-    //postData('', {'banana': 'rama'});
-    //deleteData(''); // bei DELETE sollte nicht lehr stehen, sonst wird alles gelöscht!
-    //putData('test', {'test2': 'success'});
-    //getData('test');
-    await putData('users', {user:"Enes", password:"12345"})
-    await getData('users');
+// async function init() {
+//     console.log('go!');
+//     //postData('', {'banana': 'rama'});
+//     //deleteData(''); // bei DELETE sollte nicht lehr stehen, sonst wird alles gelöscht!
+//     //putData('test', {'test2': 'success'});
+//     //getData('test');
+//     // await putData('users', {user:"Enes", password:"12345"})
+//     await getData('users');
 
-}
+// }
 
 async function getData(path='') {
     let response = await fetch(BASE_URL + path + '.json');

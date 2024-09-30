@@ -1,4 +1,4 @@
-const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.app/';
+// const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.app/';
 
 
 async function init() {
