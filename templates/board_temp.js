@@ -33,8 +33,8 @@ function boardHtml() {
             <span>To Do</span>
             <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
-          <div class="d-flex jc-c">
-            <div class="noTask d-flex alic jc-c colorGrey fs16">No tasks To do</div>
+          <div ondrop="moveTo('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')" id="toDo" class="toDoArea">
+            <div  class="noTask d-flex alic jc-c colorGrey fs16">No tasks To do</div>
           </div>
         </div>
 
@@ -43,11 +43,11 @@ function boardHtml() {
             <span>In progress</span>
             <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
-          <div class="d-flex jc-c">
+          <div ondrop="moveTo('inProgress')" ondragleave="removeHighlight('inProgress')" ondragover="allowDrop(event); highlight('inProgress')" class="d-flex jc-c ">
             <div class="noTask d-flex alic jc-c colorGrey fs16">No tasks in progress</div>
           </div>
         </div>
-        <div class="d-flex dflex-col gap1" style="width: 100%;">
+        <div ondrop="moveTo('awaitFeedback')" ondragleave="removeHighlight('awaitFeedback')" ondragover="allowDrop(event); highlight('awaitFeedback')" class="d-flex dflex-col gap1" style="width: 100%;">
           <div class="d-flex jc-sb alic">
             <span>Await feedback</span>
             <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
@@ -57,7 +57,7 @@ function boardHtml() {
           </div>
         </div>
 
-        <div class="d-flex dflex-col gap1" style="width: 100%;">
+        <div ondrop="moveTo('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')" class="d-flex dflex-col gap1" style="width: 100%;">
           <div class="d-flex jc-sb alic" style="height: 30px;">
             <span>Done</span>
           </div>

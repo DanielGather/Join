@@ -57,7 +57,12 @@ input {
   font-size: 1.25rem;
 }
 
-
+.toDoArea{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
 
 .createTaskButton{
   display: flex;
@@ -80,6 +85,10 @@ input {
   font-size: 16px;
 }
 
+.drag-area-highlight{
+  background-color: rgba(231, 231, 231, 0.7);
+}
+
 @media (min-width: 700px) {
   .taskArea {
     flex-direction: unset;
@@ -98,6 +107,18 @@ input {
 @media (max-width: 1050px){
   .taskArea{
     flex-wrap: wrap;
+  }
+
+  .toDoArea{
+    flex-direction: unset;
+    justify-content: unset;
+  }
+}
+
+@media (max-width: 500px){
+  .toDoArea{
+    flex-direction: column;
+    align-items: center;
   }
 }
 
