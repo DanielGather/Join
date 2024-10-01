@@ -1,0 +1,53 @@
+.sign-up-main-container {
+    border: 1px solid lightgrey;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+    
+}
+
+.vector-header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.sign-up-seperator {
+    background-color: #29ABE2;
+    width: 60px;
+    height: 3px;
+    margin-right: -12px
+}
+
+.header-vector-seperator-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-name-container, .input-email-container, .input-password-container, .input-confirm-password-container {
+    border-radius: 12px;
+    height: 24px;
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-name, .input-email, .input-password, .input-confirm-password {
+    border: none;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
