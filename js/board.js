@@ -21,7 +21,7 @@ async function updateHTML() {
     console.log(toDo);
     
 
-    if(!toDo.length == 0){
+    if(toDo.length !== 0){
         document.getElementById('toDo').innerHTML = '';
         for (let index = 0; index < toDo.length; index++) {
             const element = toDo[index];
@@ -34,7 +34,7 @@ async function updateHTML() {
     let progress = allToDos.filter(t => t[1]['category'] == 'inProgress');
 
     
-    if(!progress.length == 0){
+    if(progress.length !== 0){
         document.getElementById('inProgress').innerHTML = '';
         for (let index = 0; index < progress.length; index++) {
             const element = progress[index];
@@ -44,7 +44,7 @@ async function updateHTML() {
 
     let feedback = allToDos.filter(t => t[1]['category'] == 'awaitFeedback');
 
-    if(!feedback.length == 0){
+    if(feedback.length !== 0){
         document.getElementById('awaitFeedback').innerHTML = '';
         for (let index = 0; index < feedback.length; index++) {
             const element = feedback[index];
@@ -54,7 +54,7 @@ async function updateHTML() {
 
     let done = allToDos.filter(t => t[1]['category'] == 'done');
 
-    if(!done.length == 0){
+    if(done.length !== 0){
         document.getElementById('done').innerHTML = '';
         for (let index = 0; index < done.length; index++) {
             const element = done[index];
@@ -85,8 +85,10 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
-function moveTo(category) {
-  todos[currentDraggedElement]["category"] = category;
+async function moveToCategory(category) {
+  let toDos = await getData('toDos');
+  let allToDos = Object.entries(toDos);
+  allToDos[currentDraggedElement]["category"] = category;
   updateHTML();
 }
 

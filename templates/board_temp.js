@@ -33,7 +33,7 @@ function boardHtml() {
             <span style="font-family:Inter; font-weight:700; color: #42526E">To Do</span>
             <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
-          <div ondrop="moveTo('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')" id="toDo" class="toDoArea">
+          <div ondrop="moveToCategory('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')" id="toDo" class="toDoArea">
             <div  class="noTask d-flex alic jc-c colorGrey fs16">No tasks To do</div>
           </div>
         </div>
@@ -43,7 +43,7 @@ function boardHtml() {
             <span style="font-family:Inter; font-weight:700; color: #42526E">In progress</span>
             <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
-          <div ondrop="moveTo('inProgress')" ondragleave="removeHighlight('inProgress')" ondragover="allowDrop(event); highlight('inProgress')" id="inProgress" class="progressArea">
+          <div ondrop="moveToCategory('inProgress')" ondragleave="removeHighlight('inProgress')" ondragover="allowDrop(event); highlight('inProgress')" id="inProgress" class="progressArea">
             <div class="noTask d-flex alic jc-c colorGrey fs16">No tasks in progress</div>
           </div>
         </div>
@@ -53,7 +53,7 @@ function boardHtml() {
             <span style="font-family:Inter; font-weight:700; color: #42526E">Await feedback</span>
             <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
-          <div ondrop="moveTo('awaitFeedback')" ondragleave="removeHighlight('awaitFeedback')" ondragover="allowDrop(event); highlight('awaitFeedback')" id="awaitFeedback" class="feedbackArea">
+          <div ondrop="moveToCategory('awaitFeedback')" ondragleave="removeHighlight('awaitFeedback')" ondragover="allowDrop(event); highlight('awaitFeedback')" id="awaitFeedback" class="feedbackArea">
             <div class="noTask d-flex alic jc-c colorGrey fs16">No feedback</div>
           </div>
         </div>
@@ -62,7 +62,7 @@ function boardHtml() {
           <div class="d-flex jc-sb alic" style="height: 30px;">
             <span style="font-family:Inter; font-weight:700; color: #42526E">Done</span>
           </div>
-          <div ondrop="moveTo('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')" id="done" class="d-flex dflex-col gap1" style="width: 100%;" class="doneArea">
+          <div ondrop="moveToCategory('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')" id="done" class="d-flex dflex-col gap1" style="width: 100%;" class="doneArea">
             <div class="noTask d-flex alic jc-c colorGrey fs16">Nothing is done</div>
           </div>
         </div>
