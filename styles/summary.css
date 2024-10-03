@@ -1,5 +1,3 @@
-
-
 /* @font-face {
     font-family: Inter;
     src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
@@ -20,7 +18,7 @@
     box-sizing: border-box;
     margin: 0px;
   } */
-  
+
 
 .summary-main-content-box {
     background-color: var(--main-background-color);
@@ -75,9 +73,10 @@ h1 {
     gap: 30px;
 }
 
-.to-do-box, .done-box {
+.to-do-box,
+.done-box {
     display: flex;
-    gap: 10px;
+    justify-content: space-evenly;
     border: 1px solid var(--border-color);
     background-color: white;
     width: 144px;
@@ -90,8 +89,8 @@ h1 {
 
 .font-type2 {
     font-weight: bold;
-    color: rgb(0,0,0);
-    font-size: 34px;   
+    color: rgb(0, 0, 0);
+    font-size: 34px;
 }
 
 .icon-summary {
@@ -103,7 +102,7 @@ h1 {
     width: 80px;
     height: 2px;
     background-color: #29ABE2;
-    margin: 10px 0 ;
+    margin: 10px 0;
 }
 
 .urgent-deadline-box {
@@ -115,15 +114,15 @@ h1 {
     transition: transform .1s;
 }
 
-.urgent-box{
+.urgent-box {
     display: flex;
     gap: 10px;
     padding: 10px;
     align-items: center;
 }
 
-.content-seperator-box{
-    background-color: rgb(209,209,209);
+.content-seperator-box {
+    background-color: rgb(209, 209, 209);
     width: 2px;
     height: 60px;
     margin-right: 10px;
@@ -217,25 +216,86 @@ h1 {
         align-items: center;
     }
 
-    .done-box:hover{
-        transform: scale(1.2); 
+    .done-box:hover,
+    .to-do-box:hover,
+    .urgent-deadline-box:hover,
+    .single-box-board-progress-feedback:hover {
+        transform: scale(1.2);
         cursor: pointer;
     }
+}
 
-    .to-do-box:hover{
-        transform: scale(1.2); 
-        cursor: pointer;
+
+@media(min-width: 1000px) {
+    .To-Do-Done-box {
+        width: 560px;
+        height: 168px;
     }
 
-    .urgent-deadline-box:hover{
-        transform: scale(1.2); 
-        cursor: pointer;
+    .urgent-deadline-box {
+        width: 560px;
+        height: 168px;
+        display: flex;
+        justify-content: space-evenly;
     }
 
-    .single-box-board-progress-feedback:hover{
-        transform: scale(1.2); 
-        cursor: pointer;
+    .board-progress-feedback-box {
+        width: 560px;
+        height: 170px;
     }
 
-  
+    .single-box-board-progress-feedback {
+        width: 168px;
+        height: 168px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .urgent-box {
+        display: flex;
+        gap: 40px;
+    }
+
+    .content-header-grid-container {
+        display: grid;
+        grid-template-columns: 250px 3px 1fr;
+        grid-template-rows: auto;
+        gap: 10px;
+        grid-template-areas:
+            "header seperator text"
+        ;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 60px;
+    }
+
+    .content-seperator-box {
+        background-color: rgb(209, 209, 209);
+        width: 2px;
+        height: 110px;
+        margin-right: 10px;
+        margin-top: 24px;
+    }
+
+    .summary-content-greeting-container {
+        display: flex;
+        align-items: center;
+        gap: 100px;
+    }
+
+    .font-type2 {
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+        font-size: 64px;
+    }
+
+    .icon-summary {
+        width: 70px;
+        height: 70px;
+    }
+
+
 }
