@@ -60,7 +60,6 @@ h1 {
     ;
 }
 
-
 .content-summary-box {
     display: flex;
     flex-direction: column;
@@ -141,7 +140,7 @@ h1 {
 
 .summary-date {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .board-progress-feedback-box {
@@ -213,7 +212,7 @@ h1 {
     .greeting-container {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        text-align: left;
     }
 
     .done-box:hover,
@@ -297,5 +296,14 @@ h1 {
         height: 70px;
     }
 
-
+    .greeting-daytime {
+        font-size: 48px;
+        font-weight: bold;
+    }
+    
+    .greeting-name {
+        font-size: 64px;
+        font-weight: bold;
+        color: #29ABE2;
+    }
 }
