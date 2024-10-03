@@ -85,6 +85,7 @@ h1 {
     align-items: center;
     flex: 1;
     border-radius: 12px;
+    transition: transform .1s;
 }
 
 .font-type2 {
@@ -111,6 +112,7 @@ h1 {
     background-color: white;
     border-radius: 12px;
     border: 1px solid var(--border-color);
+    transition: transform .1s;
 }
 
 .urgent-box{
@@ -156,6 +158,7 @@ h1 {
     text-align: center;
     display: flex;
     flex-direction: column;
+    transition: transform .1s;
 }
 
 .num-text {
@@ -165,7 +168,7 @@ h1 {
 .summary-content-greeting-container {
     display: flex;
     align-items: center;
-    gap: 34px;
+    gap: 50px;
 }
 
 .greeting-container {
@@ -192,7 +195,7 @@ h1 {
 @media(min-width: 440px) {
     .content-header-grid-container {
         display: grid;
-        grid-template-columns: 160px 3px 1fr;
+        grid-template-columns: 180px 3px 1fr;
         grid-template-rows: auto;
         gap: 10px;
         grid-template-areas:
@@ -213,5 +216,26 @@ h1 {
         flex-direction: column;
         align-items: center;
     }
+
+    .done-box:hover{
+        transform: scale(1.2); 
+        cursor: pointer;
+    }
+
+    .to-do-box:hover{
+        transform: scale(1.2); 
+        cursor: pointer;
+    }
+
+    .urgent-deadline-box:hover{
+        transform: scale(1.2); 
+        cursor: pointer;
+    }
+
+    .single-box-board-progress-feedback:hover{
+        transform: scale(1.2); 
+        cursor: pointer;
+    }
+
   
 }
