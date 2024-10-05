@@ -13,12 +13,12 @@ function boardJS() {
 
 async function updateHTML() {
     let toDos = await getData('toDos');
-    console.log(toDos);
+    // console.log(toDos);
     let allToDos = Object.entries(toDos);
-    console.log(allToDos);
+    // console.log(allToDos);
     
     let toDo = allToDos.filter(t => t[1]['category'] == 'toDo');
-    console.log(toDo);
+    // console.log(toDo);
     
 
     if(toDo.length !== 0){
@@ -85,11 +85,18 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
+
+// Pfad automatisieren. Funktioniert aber so. Der Kasten bleibt aber noch im 
+// in der Alten DIV  
 async function moveToCategory(category) {
   let toDos = await getData('toDos');
-  let allToDos = Object.entries(toDos);
-  allToDos[currentDraggedElement]["category"] = category;
-  updateHTML();
+  let id = await getIdFromDb('/toDos', 'id',currentDraggedElement);
+  console.log(id[0]);
+  
+  // let id = '-O8Rbnq2HQKCrbrSqzzL';
+  putData('/toDos/' + id[0] + '/category', category)
+  await updateHTML();
+  boardJS();
 }
 
 function highlight(id) {
@@ -99,3 +106,7 @@ function highlight(id) {
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
+
+
+// Sicherung ToDos anlegen
+// await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum'})

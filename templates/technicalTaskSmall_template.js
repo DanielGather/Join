@@ -16,7 +16,7 @@ function htmlTechnicalTaskSmall(element) {
           <div class="smallCircleUserStory">EG</div>
           <div class="smallCircleUserStory">MN</div>
         </div>
-        <img src="../img/prioMedia.svg" alt="" />
+        <img src="./assets/img/prioMedia.svg" alt="" />
       </div>
     </div>
     `;
