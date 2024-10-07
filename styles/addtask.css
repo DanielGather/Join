@@ -55,6 +55,15 @@ h1 {
     gap: 12px;
 }
 
+.prio-buttons button {
+    font-size: 14px;
+}
+
+.prio-buttons img {
+    width: 20px;
+    height: 14px;
+}
+
 .prio-container {
     display: flex;
     flex-direction: column;
