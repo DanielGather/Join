@@ -1,19 +1,18 @@
+* {
+    box-sizing: border-box;
+}
 
 .main-container {
+    border: 1px solid grey;
     display: flex;
     flex-direction: column;
     gap: 30px;
-    max-width: 600px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
-.logo-container {
-    margin-left: 6px;
-}
-
-.logo-container img {
-    width: 64px;
-    height: 78px;
+.header {
+    border: 1px solid green;
 }
 
 h1 {
@@ -29,6 +28,9 @@ h1 {
     gap: 30px;
     padding: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 550px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .login-seperator {
@@ -49,24 +51,41 @@ h1 {
 .input-email-container,
 .input-password-container {
     border-radius: 12px;
-    height: 24px;
+    height: 42px;
     padding: 8px;
     border: 1px solid #D1D1D1;
     background-color: white;
     display: flex;
     justify-content: space-between;
+    max-width: 430px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.input-email-container img {
+    width: 20px;
+    height: 20px;
+}
+
+.input-password-container img {
+    width: 20px;
+    height: 20px;
 }
 
 .input-email,
 .input-password {
     border: none;
+    padding-left: 10px;
 }
 
 .checkbox-container {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-left: 14px;
+    /* margin-left: 14px; */
+    max-width: 430px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .button-login-guest-container {
