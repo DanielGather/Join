@@ -1,68 +1,77 @@
 let currentDraggedElement;
 
-
 function boardJS() {
   renderBoard();
   navbarTemplate();
-//   renderToDo();
   updateHTML();
 }
 
 
-
+// TODO: SubTask berechnung durchführen für die Progressbar. Assigned To erweitern auf alle ebenen(toDo, inProgress, waitFeedback,done)
+// TODO: Mit Team besprechen wo die Varibale generiert wird für die  Task ob es eine UserStory oder eine TechnicalTask ist.
+// TODO: Priorität aus dem Backend abfragen dann vergleichen und entsprechendes Img laden.
+// TODO: Function komplett reduzieren. Einzelen Aufgaben auslagern und in separate funktionen schreiben.
 
 async function updateHTML() {
-    let toDos = await getData('toDos');
-    // console.log(toDos);
-    let allToDos = Object.entries(toDos);
-    // console.log(allToDos);
-    
-    let toDo = allToDos.filter(t => t[1]['category'] == 'toDo');
-    // console.log(toDo);
-    
+  let toDos = await getData("toDos");
+  // console.log("Check Datenbank", toDos);
+  let allToDos = Object.entries(toDos);
+  // console.log("Zweiter Check", allToDos);
+  // console.log("Test", allToDos[0][1].description);
 
-    if(toDo.length !== 0){
-        document.getElementById('toDo').innerHTML = '';
-        for (let index = 0; index < toDo.length; index++) {
-            const element = toDo[index];
-            document.getElementById('toDo').innerHTML += htmlTechnicalTaskSmall(element);
-            console.log(element);
-        }
-        
+  let toDo = allToDos.filter((t) => t[1]["category"] == "toDo");
+  // console.log(toDo);
+
+  if (toDo.length !== 0) {
+    document.getElementById("toDo").innerHTML = "";
+    for (let index = 0; index < toDo.length; index++) {
+      let element = toDo[index];
+      document.getElementById("toDo").innerHTML += htmlTechnicalTaskSmall(element, index);
+      // if (element[1]["assignedTo"]) {
+        let assignedToKeys = Object.entries(element[1]["assignedTo"]);
+
+        for (let j = 0; j < assignedToKeys.length; j++) {
+          document.getElementById(`assignedTo${index}`).innerHTML += /*HTML*/ `
+                      <div class="smallCircleUserStory">
+                          ${assignedToKeys[j][1]}
+                      </div>
+                  `;
+        // }
+        // console.log("Element:", element); // Zum Debuggen
+      }
     }
+  }
 
-    let progress = allToDos.filter(t => t[1]['category'] == 'inProgress');
+  let progress = allToDos.filter((t) => t[1]["category"] == "inProgress");
 
-    
-    if(progress.length !== 0){
-        document.getElementById('inProgress').innerHTML = '';
-        for (let index = 0; index < progress.length; index++) {
-            const element = progress[index];
-            document.getElementById('inProgress').innerHTML += htmlTechnicalTaskSmall(element);
-        }
-    } 
-
-    let feedback = allToDos.filter(t => t[1]['category'] == 'awaitFeedback');
-
-    if(feedback.length !== 0){
-        document.getElementById('awaitFeedback').innerHTML = '';
-        for (let index = 0; index < feedback.length; index++) {
-            const element = feedback[index];
-            document.getElementById('awaitFeedback').innerHTML += htmlTechnicalTaskSmall(element);
-        }
+  if (progress.length !== 0) {
+    document.getElementById("inProgress").innerHTML = "";
+    for (let index = 0; index < progress.length; index++) {
+      const element = progress[index];
+      document.getElementById("inProgress").innerHTML += htmlTechnicalTaskSmall(element);
     }
+  }
 
-    let done = allToDos.filter(t => t[1]['category'] == 'done');
+  let feedback = allToDos.filter((t) => t[1]["category"] == "awaitFeedback");
 
-    if(done.length !== 0){
-        document.getElementById('done').innerHTML = '';
-        for (let index = 0; index < done.length; index++) {
-            const element = done[index];
-            document.getElementById('done').innerHTML += htmlTechnicalTaskSmall(element);
-        }
+  if (feedback.length !== 0) {
+    document.getElementById("awaitFeedback").innerHTML = "";
+    for (let index = 0; index < feedback.length; index++) {
+      const element = feedback[index];
+      document.getElementById("awaitFeedback").innerHTML += htmlTechnicalTaskSmall(element);
     }
+  }
+
+  let done = allToDos.filter((t) => t[1]["category"] == "done");
+
+  if (done.length !== 0) {
+    document.getElementById("done").innerHTML = "";
+    for (let index = 0; index < done.length; index++) {
+      const element = done[index];
+      document.getElementById("done").innerHTML += htmlTechnicalTaskSmall(element);
+    }
+  }
 }
-
 
 function renderBoard() {
   let htmlContent = document.getElementById("main");
@@ -85,16 +94,10 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
-
-// Pfad automatisieren. Funktioniert aber so. Der Kasten bleibt aber noch im 
-// in der Alten DIV  
 async function moveToCategory(category) {
-  let toDos = await getData('toDos');
-  let id = await getIdFromDb('/toDos', 'id',currentDraggedElement);
+  let id = await getIdFromDb("/toDos", "id", currentDraggedElement);
   console.log(id[0]);
-  
-  // let id = '-O8Rbnq2HQKCrbrSqzzL';
-  putData('/toDos/' + id[0] + '/category', category)
+  putData("/toDos/" + id[0] + "/category", category);
   await updateHTML();
   boardJS();
 }
@@ -107,6 +110,5 @@ function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
-
 // Sicherung ToDos anlegen
-// await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum'})
+// await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum', story: {userStory: 'User Story', technicalTask:'Technical Task'}})

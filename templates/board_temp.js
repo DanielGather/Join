@@ -15,7 +15,7 @@ function boardHtml() {
       </div>
     </div>
       <div class="boardDesktop d-flex jc-sb">
-        <h1>Board</h1>
+        <h1 style="font-size: 61px">Board</h1>
         <div class="d-flex gap1 alic">
           <div class="input-container">
             <input type="text" placeholder="Dein Text" />
