@@ -8,8 +8,9 @@ h1 {
     flex-direction: column;
     gap: 20px;
     max-width: 1120px;
-    margin: 0 auto;
+    margin: 14px auto;
     max-height: 900px;
+    padding: 8px;
 }
 
 .addTask-content-form-container {
@@ -145,23 +146,36 @@ select {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
 
+.clear-create-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
 }
 
 .clear-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
     height: 46px;
     width: 100px;
     border-radius: 10px;
     border: 1px solid #2a3647;
     background-color: var(--button-background-color-bright);
     font-size: var(--button-font-size);
-    cursor: pointer;
-    display: none;
+    cursor: pointer;   
 }
 
 .create-task-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     height: 46px;
-    width: 128px;
+    width: 166px;
     border-radius: var(--button-radius);
     border: 1px solid #2a3647;
     background-color: var(--button-background-color-dark);
@@ -183,7 +197,7 @@ select {
 
 @media(min-width: 450px) {
     .clear-button {
-        display: inline-block;
+        display: flex;
     }
 }
 
