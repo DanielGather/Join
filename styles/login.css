@@ -6,13 +6,31 @@
     border: 1px solid grey;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 120px;
     max-width: 1000px;
     margin: 0 auto;
 }
 
 .header {
     border: 1px solid green;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sign-up-button-desktop-view {
+    display: none;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-up-button-desktop-view button {
+    width: 92px;
+    height: 42px;
+    border-radius: 8px;
+    background-color: #2a3647;
+    color: white;
+    cursor: pointer;
 }
 
 h1 {
@@ -82,7 +100,7 @@ h1 {
     display: flex;
     align-items: center;
     gap: 12px;
-    /* margin-left: 14px; */
+    padding-left: 16px;
     max-width: 430px;
     margin: 0 auto;
     width: 100%;
@@ -99,6 +117,7 @@ h1 {
     width: 180px;
     height: 52px;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .text-button-container {
@@ -113,6 +132,7 @@ h1 {
     border-radius: 8px;
     background-color: #2a3647;
     color: white;
+    cursor: pointer;
 }
 
 .policy-notice-container {
@@ -129,6 +149,8 @@ a {
     text-decoration: none;
 }
 
+
+
 @media(min-width: 600px) {
     .button-login-guest-container {
         display: flex;
@@ -137,4 +159,14 @@ a {
         gap: 20px;
     }
 
+}
+
+@media(min-width: 950px) {
+    .sign-up-button-desktop-view {
+        display: flex;
+    }
+
+    .text-button-container {
+        display: none;
+    }
 }
