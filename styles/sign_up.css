@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 
 .main-container {
     display: flex;
@@ -61,12 +64,15 @@ h1 {
 
 .input-name-container, .input-email-container, .input-password-container, .input-confirm-password-container {
     border-radius: 12px;
-    height: 24px;
+    height: 42px;
     padding: 8px;
     border: 1px solid #D1D1D1;
     background-color: white;
     display: flex;
     justify-content: space-between;
+    max-width: 450px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .input-name, .input-email, .input-password, .input-confirm-password {
