@@ -96,6 +96,11 @@ h1 {
 
 .input-name, .input-email, .input-password, .input-confirm-password {
     border: none;
+    width: 100%;
+}
+
+.input-name:focus, .input-email:focus, .input-password:focus, .input-confirm-password:focus {
+    outline: none;
 }
 
 .message-wrong-password{

@@ -66,8 +66,7 @@ h1 {
     gap: 10px;
 }
 
-.input-email-container,
-.input-password-container {
+.input-email-container{
     border-radius: 12px;
     height: 42px;
     padding: 8px;
@@ -78,6 +77,39 @@ h1 {
     max-width: 430px;
     margin: 0 auto;
     width: 100%;
+}
+
+.input-password-message-container {
+    border-radius: 12px;
+    height: 42px;
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: space-between;
+    max-width: 430px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.input-password-container{
+    display: flex;
+    max-width: 430px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.message-wrong-passwords {
+    margin-block-start: 0px;
+    margin-block-end: 0;
+    font-size: 10px;
+    color: red;
+    max-width: 430px;
+    margin: 0 auto;
+    width: 100%;
+    opacity: 1;
 }
 
 .input-email-container img {
@@ -94,6 +126,11 @@ h1 {
 .input-password {
     border: none;
     padding-left: 10px;
+    width: 100%;
+}
+
+.input-email:focus, .input-password:focus {
+    outline: none;
 }
 
 .checkbox-container {
