@@ -1,7 +1,7 @@
-function htmlTechnicalTaskSmall(element, index) {
+function htmlTechnicalTaskSmall(element) {
   return /*HTML*/`
       <div draggable="true" ondragstart="startDraggin(${element[1]['id']})" class="d-flex dflex-col smallTask">
-      <div class="d-flex alic jc-c userStoryBackground br1 userStory"><span>User Story</span></div>
+      <div class="d-flex alic jc-c userStoryBackground br1 userStory"><span>${element[1]['story']}</span></div>
       <h1>${element[1]['headline']}</h1>
       <span>${element[1]['description']}</span>
       <div class="d-flex jc-sb alic">
@@ -11,7 +11,7 @@ function htmlTechnicalTaskSmall(element, index) {
         <span class="subTaskFont" style="width:100%">1/2 Subtasks</span>
       </div>
       <div class="d-flex jc-sb">
-        <div id="assignedTo${index}" class="d-flex pl035">
+        <div id="assignedTo${element[1]['id']}" class="d-flex pl035">
 
         </div>
         <img src="./assets/img/prioMedia.svg" alt="" />
