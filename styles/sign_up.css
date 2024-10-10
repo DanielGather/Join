@@ -26,6 +26,7 @@
     flex-direction: column;
     gap: 30px;
     padding: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     width: 100%;
     margin: auto;
@@ -62,7 +63,7 @@ h1 {
     gap: 4px;
 }
 
-.input-name-container, .input-email-container, .input-password-container, .input-confirm-password-container {
+.input-name-container, .input-email-container, .input-password-container  {
     border-radius: 12px;
     height: 42px;
     padding: 8px;
@@ -75,8 +76,37 @@ h1 {
     width: 100%;
 }
 
+.input-confirm-password-message-container {
+    border-radius: 12px;
+    height: 42px;
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 450px;
+    margin: 0 auto;
+    width: 100%;
+}
+    
+.input-confirm-password {
+    display: flex;
+    justify-content: space-between;
+}
+
 .input-name, .input-email, .input-password, .input-confirm-password {
     border: none;
+}
+
+.message-wrong-password{
+    margin-block-start: 0px;
+    margin-block-end: 0;
+    max-width: 450px;
+    margin: 0 auto;
+    width: 100%;
+    font-size: 10px;
+    color: red;
+    opacity: 1;
 }
 
 .checkbox-container {
