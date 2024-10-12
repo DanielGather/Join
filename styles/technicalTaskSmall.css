@@ -1,46 +1,44 @@
-h1{
-    font-size: 1rem;
+h1 {
+  font-size: 1rem;
 }
-.smallTask{
-    padding: 0.5rem 0.5rem;
-    flex-grow: 1;
-    gap: 1rem;
-    max-width: 15.75rem;
-    box-shadow: -2px 0px 6px 0px rgb(0,0,0, 0.2);
-    border-radius: 1rem;
-    font-size: 1rem;
+.smallTask {
+  padding: 0.5rem 0.5rem;
+  flex-grow: 1;
+  gap: 1rem;
+  max-width: 15.75rem;
+  box-shadow: -2px 0px 6px 0px rgb(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  font-size: 1rem;
 }
 
-.userStory{
-    max-width: 7rem;
-    padding: 0.25rem 0rem;
-    color: white;
+.userStory {
+  width: fit-content;
+  padding: 0.25rem 1rem;
+  color: white;
 }
 
 .smallCircleUserStory {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid black;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 100%;
-    margin-left: -0.35rem;
-  }
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
+  margin-left: -0.35rem;
+}
 
-  .subTaskFont{
-    font-size: 0.75rem;
-  }
+.subTaskFont {
+  font-size: 0.75rem;
+}
 
-  .progress {
-    width: 100%;
-    height: 0.75rem;
-    border-radius: 0.5rem;
-  }
+.progress {
+  width: 100%;
+  height: 0.75rem;
+  border-radius: 0.5rem;
+}
 
-  .pl035{
-    padding-left: 0.35rem;
-  }
-
-  
+.pl035 {
+  padding-left: 0.35rem;
+}

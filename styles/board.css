@@ -3,9 +3,14 @@
   display: none;
 }
 
+.main{
+  display: flex;
+  justify-content: center;
+}
+
 .board {
   min-width: 20rem;
-  max-width: 120rem;
+  max-width: 70rem;
   padding: 4.5rem 2rem;
   width: 100%;
 }
@@ -51,6 +56,7 @@ input {
   border-radius: 0.25rem;
   background-color: #e7e7e7;
 }
+
 
 .taskArea {
   flex-direction: column;
@@ -105,6 +111,9 @@ input {
   font-size: 16px;
 }
 
+.toDos{
+  min-width: 15.75rem;
+}
 .drag-area-highlight{
   background-color: rgba(231, 231, 231, 0.7);
 }
@@ -115,7 +124,9 @@ input {
   }
 
   .boardMobile{
+    
     display: none;
+
   }
 
   .boardDesktop{
@@ -153,8 +164,32 @@ input {
   .toDoArea{
     flex-direction: column;
   }
+  .boardMobile{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
-@media (max-width: 500px){
+@media (max-width: 600px){
+  .taskArea{
+    align-items: center;
+  }
+  .toDoArea{
+    flex-direction: column;
+    justify-content: unset;
+  }
+  .feedbackArea{
+    flex-direction: column;
+    justify-content: unset;
+  }
+  .progressArea{
+    flex-direction: column;
+    justify-content: unset;
+  }
+  .doneArea{
+    flex-direction: column;
+    justify-content: unset;
+  }
 }
 
