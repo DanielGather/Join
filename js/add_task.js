@@ -1,4 +1,4 @@
-function handleSubmit(event) {
+function handleSubmit(event) {   // prüfen welcher button geklickt wurde
     event.preventDefault();
     const submitButton = event.submitter;    
     if (submitButton.id === "clear") {
