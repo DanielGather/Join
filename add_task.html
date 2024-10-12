@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./styles/navbar.css" />
 
     <!-- Dazugehörige style .css -->
-    
+
 
     <!-- Dazugehörige tamplates .js -->
     <script src="./templates/navbar_temp.js"></script>
@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="./fonts.css"> -->
 
     <script src="./script.js"></script>
+    <script src="./js/add_task.js"></script>
 
 
 </head>
@@ -41,72 +42,75 @@
             <div class="main-addTask-container">
                 <h1>Add Task</h1>
 
-                <div class="addTask-content-form-container">
-                    <div class="title-description-assigned-container">
-                        <div class="title-description-assigned">
-                            <label class="addTask-label">Title<span class="star">*</span></label>
-                            <input class="title-input" placeholder="Enter a title">
-                        </div>
+                <form onsubmit="return handleSubmit(event)">
+                    <div class="addTask-content-form-container">
+                        <div class="title-description-assigned-container">
+                            <div class="title-description-assigned">
+                                <label class="addTask-label">Title<span class="star">*</span></label>
+                                <input class="title-input" placeholder="Enter a title">
+                            </div>
 
-                        <div class="title-description-assigned">
-                            <label class="addTask-label">Description</label>
-                            <textarea rows="4" placeholder="Enter a Description"></textarea>
-                        </div>
+                            <div class="title-description-assigned">
+                                <label class="addTask-label">Description</label>
+                                <textarea rows="4" placeholder="Enter a Description"></textarea>
+                            </div>
 
-                        <div class="title-description-assigned">
-                            <label class="addTask-label">Assigned to</label>
-                            <select required>
-                                <option value="" disabled selected>Select contacts to assign</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="addTask-seperator-container"></div>
-
-                    <div class="dueDate-prio-category-subtasks-container">
-                        <div class="dueDate-container">
-                            <label class="addTask-label">Due date<span class="star">*</span></label>
-                            <input class="title-input" type="date">
-                        </div>
-
-                        <div class="prio-container">
-                            <label class="addTask-label">Prio</label>
-                            <div class="prio-buttons">
-                                <button class="urgent-medium-low-buttons">Urgent <img
-                                        src="./assets/img/prio_urgent.svg"></button>
-                                <button class="urgent-medium-low-buttons">Medium <img
-                                        src="./assets/img/prio_medium.svg"></button>
-                                <button class="urgent-medium-low-buttons">Low <img
-                                        src="./assets/img/prio_low.svg"></button>
+                            <div class="title-description-assigned">
+                                <label class="addTask-label">Assigned to</label>
+                                <select required>
+                                    <option value="" disabled selected>Select contacts to assign</option>
+                                </select>
                             </div>
                         </div>
 
-                        <div class="category-container">
-                            <label class="addTask-label">Category <span class="star">*</span></label>
-                            <select required>
-                                <option value="" disabled selected>Select task category</option>
-                                <option value="1">Technical Task</option>
-                                <option value="2">User Story</option>
-                            </select>
-                        </div>
+                        <div class="addTask-seperator-container"></div>
 
-                        <div class="subtasks-container">
-                            <label class="addTask-label">Subtasks</label>
-                            <div class="subtasks-input-add-container">
-                                <input class="subtasks-input" placeholder="Add new subtask">
-                                <button class="add-button"> <img src="./assets/img/add_dark.svg"></button>
+                        <div class="dueDate-prio-category-subtasks-container">
+                            <div class="dueDate-container">
+                                <label class="addTask-label">Due date<span class="star">*</span></label>
+                                <input class="title-input" type="date">
+                            </div>
+
+                            <div class="prio-container">
+                                <label class="addTask-label">Prio</label>
+                                <div class="prio-buttons">
+                                    <button class="urgent-medium-low-buttons">Urgent <img
+                                            src="./assets/img/prio_urgent.svg"></button>
+                                    <button class="urgent-medium-low-buttons">Medium <img
+                                            src="./assets/img/prio_medium.svg"></button>
+                                    <button class="urgent-medium-low-buttons">Low <img
+                                            src="./assets/img/prio_low.svg"></button>
+                                </div>
+                            </div>
+
+                            <div class="category-container">
+                                <label class="addTask-label">Category <span class="star">*</span></label>
+                                <select required>
+                                    <option value="" disabled selected>Select task category</option>
+                                    <option value="1">Technical Task</option>
+                                    <option value="2">User Story</option>
+                                </select>
+                            </div>
+
+                            <div class="subtasks-container">
+                                <label class="addTask-label">Subtasks</label>
+                                <div class="subtasks-input-add-container">
+                                    <input class="subtasks-input" placeholder="Add new subtask">
+                                    <button class="add-button"> <img src="./assets/img/add_dark.svg"></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-confirmation">
-                    <div class="required"><span class="star">*</span>This field is required</div>
-                    <div class="clear-create-button">
-                        <button class="clear-button d-none">Clear <img src="./assets/img/vector.svg"></button>
-                        <button class="create-task-button">Create Task <img src="./assets/img/checked.svg"></button>
+                    <div class="form-confirmation">
+                        <div class="required"><span class="star">*</span>This field is required</div>
+                        <div class="clear-create-button">
+                            <button class="clear-button d-none" type="submit" id="clear">Clear <img src="./assets/img/vector.svg"></button>
+                            <button class="create-task-button" type="submit" id="createTask">Create Task <img src="./assets/img/checked.svg"></button>
+                        </div>
                     </div>
-                </div>
+
+                </form>
 
             </div>
 

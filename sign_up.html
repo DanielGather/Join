@@ -26,48 +26,54 @@
                     <h1>Sign up</h1>
                 </div>
                 <div class="sign-up-seperator"> </div>
-
             </div>
 
-            <div class="input-name-container">
-                <input class="input-name" placeholder="Name">
-                <img src="./assets/img/person.svg">
-            </div>
+            <form onsubmit="addUser(); return false">
+                <div class="input-name-container">
+                    <input class="input-name" placeholder="Name" id="name">
+                    <img src="./assets/img/person.svg">
+                </div>
 
-            <div class="input-email-container">
-                <input class="input-email" placeholder="Email">
-                <img src="./assets/img/mail.svg">
-            </div>
+                <div class="input-email-message-container">
+                    <div class="input-email-container">
+                        <input class="input-email" placeholder="Email" id="email">
+                        <img src="./assets/img/mail.svg">
+                    </div>
+                    <p class="message-email-exist">Email already exists !</p>
+                </div>
 
-            <div class="input-password-container">
-                <input class="input-password" placeholder="Password">
-                <img src="./assets/img/lock.svg">
-            </div>
-
-            <div class="input-confirm-password-message-container">
-                <div class="input-confirm-password">
-                    <input class="input-confirm-password" placeholder="Confirm Password">
+                <div class="input-password-container">
+                    <input class="input-password" placeholder="Password" id="password">
                     <img src="./assets/img/lock.svg">
                 </div>
-                <p class="message-wrong-password">Your passwords don't match. Please try again.</p>
-            </div>
 
-            <div class="checkbox-container">
-                <input type="checkbox">
-                <p>I accept the <a href="privacy-policy.html" target="_blank">Privacy policy</a></p>
-            </div>
+                <div class="input-confirm-password-message-container">
+                    <div class="input-confirm-password">
+                        <input class="input-confirm-password" placeholder="Confirm Password" id="confirmPassword">
+                        <img src="./assets/img/lock.svg">
+                    </div>
+                    <p class="message-wrong-password">Your passwords don't match. Please try again.</p>
+                </div>
 
-            <div class="button-container">
-                <button>Sign up</button>
-            </div>
+                <div class="checkbox-container">
+                    <input type="checkbox">
+                    <p>I accept the <a href="privacy-policy.html" target="_blank">Privacy policy</a></p>
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" id="signUp">Sign up</button>
+                </div>
+            </form>
         </div>
-    
+
         <div class="policy-notice-container">
             <a href="privacy-policy.html" target="_blank">Privacy policy</a>
             <a href="privacy-policy.html" target="_blank">Legal notice</a>
         </div>
 
     </div>
+
+    <script src="./js/sign_up.js"></script>
 
 
 </body>
