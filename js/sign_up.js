@@ -40,8 +40,20 @@ function checkIfEmailAlreadyExist() {
 }
 
 
+function checkIfCheckboxChecked() {
+    let checkbox = document.getElementById('agreeCheckbox');
+    let submitButton = document.getElementById('signUpButton');
+    if (checkbox.checked) {
+        submitButton.disabled = false;       
+    }else {
+        submitButton.disabled = true;
+    }
+}
+
+
 function checkIfPasswordEqual(name, email, confirmPassword, password) {
     if(password === confirmPassword){
+        checkIfCheckboxChecked();
         postData('/contacts', {'name': name, 'email': email, 'pass': password});
     }else {
         document.getElementById('message-wrong-password-p').classList.remove('d-none');

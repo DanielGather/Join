@@ -146,6 +146,7 @@ button {
     border-radius: 8px;
     background-color: #2A3647;
     color: white;
+    cursor: pointer;
 }
 
 .policy-notice-container {

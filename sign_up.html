@@ -30,38 +30,38 @@
 
             <form onsubmit="addUser(); return false">
                 <div class="input-name-container">
-                    <input class="input-name" placeholder="Name" id="name">
+                    <input required class="input-name" placeholder="Name" id="name">
                     <img src="./assets/img/person.svg">
                 </div>
 
                 <div class="input-email-message-container">
                     <div class="input-email-container">
-                        <input class="input-email" placeholder="Email" id="email">
+                        <input required class="input-email" placeholder="Email" id="email">
                         <img src="./assets/img/mail.svg">
                     </div>
                     <p class="message-email-exist d-none" id="message-email-exist-p">Email already exists !</p>
                 </div>
 
                 <div class="input-password-container">
-                    <input class="input-password" placeholder="Password" id="password">
+                    <input required class="input-password" placeholder="Password" id="password">
                     <img src="./assets/img/lock.svg">
                 </div>
 
                 <div class="input-confirm-password-message-container">
                     <div class="input-confirm-password">
-                        <input class="input-confirm-password" placeholder="Confirm Password" id="confirmPassword">
+                        <input required class="input-confirm-password" placeholder="Confirm Password" id="confirmPassword">
                         <img src="./assets/img/lock.svg">
                     </div>
                     <p class="message-wrong-password d-none" id="message-wrong-password-p">Your passwords don't match. Please try again.</p>
                 </div>
 
                 <div class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" id="agreeCheckbox" onchange="checkIfCheckboxChecked()">
                     <p>I accept the <a href="privacy-policy.html" target="_blank">Privacy policy</a></p>
                 </div>
 
                 <div class="button-container">
-                    <button type="submit" id="signUp">Sign up</button>
+                    <button type="submit" id="signUpButton" disabled>Sign up</button>
                 </div>
             </form>
         </div>
