@@ -164,11 +164,11 @@
                 </a>
               </div>
               <div class="modal-form-side">
-                <div class="add-contact-img center-center"><img src="./assets/img/profil_icon.svg" alt="profil"></div>
+                <div id="editContactImg" class="add-contact-img center-center"><img src="./assets/img/profil_icon.svg" alt="profil"></div>
                 <form id="contactForm" class="add-contact-form" onsubmit="saveEdit(event)">
                   <div class="input-icon">
                     <img src="./assets/img/input_name_icon.svg" alt="Name Icon">
-                    <input type="text" id="editName" name="name" placeholder="Name" required>
+                    <input onkeyup="realTimeInitial()" type="text" id="editName" name="name" placeholder="Name" required>
                   </div>
                   <div class="input-icon">
                     <img src="./assets/img/input_mail_icon.svg" alt="Email Icon">
@@ -179,7 +179,7 @@
                     <input type="tel" id="editPhone" name="phone" placeholder="Phone" required pattern="[0-9+ ]{10,}">
                   </div>
                   <div class="modal-buttons">
-                    <button id="modalDeleteButton">          <!-- Delete -->
+                    <button id="modalDeleteButton">
                       Delete             
                     </button>
                     <button type="submit" class="button-dark center-center">    <!-- Save -->

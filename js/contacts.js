@@ -1,5 +1,7 @@
 window.addEventListener('resize', closeMobileModal);
 
+let editId;
+
 async function contactsJS() {
     await updateLS();
     renderContactsLetter();
@@ -60,18 +62,14 @@ function idToContact(id) {
     return contact;
 }
 
-// async function getJsonFromId(path, id) {
-//     let allIds = await getData(path);
-//     let allEntiesArr = Object.entries(allIds);
-//     let findElement = allEntiesArr.filter(element => element[0] == id);
-//     let resultContact = findElement[0][1];
-//     return resultContact;
-// }
+function getInpValues(nameId, mailId, phoneId) {
+    let mail = document.getElementById(mailId).value.trim();
+    let phone = document.getElementById(phoneId).value.trim();
+    let name = document.getElementById(nameId).value
+    .trim()
+    .toLowerCase()
+    .replace(/\b\w/g, function(match) {return match.toUpperCase();});
 
-function getInpValues() {
-    let name = document.getElementById('inpName').value.trim();
-    let mail = document.getElementById('inpMail').value.trim();
-    let phone = document.getElementById('inpPhone').value.trim();
     clearInputs();
     return {'name': name, 'email': mail, 'phone': phone};
 }
@@ -89,7 +87,7 @@ async function openNewContact(id) {
 async function addContact(event) {
     event.preventDefault();
 
-    let newContact = getInpValues();
+    let newContact = getInpValues('inpName', 'inpMail', 'inpPhone');
     newContact.initials = createInitials(newContact.name);
     newContact.letter = newContact.name.charAt(0).toUpperCase();
     newContact.color = getRandomColor();
@@ -106,35 +104,59 @@ function fillInputs(id) {
     let contact = idToContact(id);
     document.getElementById('editName').value = contact.name;
     document.getElementById('editEmail').value = contact.email;
-    document.getElementById('editPhone').value = contact.phone;
+    document.getElementById('editPhone').value = contact.phone || '';
 }
 
-function editContact(id) {
-    deleteButtonModal(id)
+function showEditImg(id) {
+    let contact = idToContact(id);
+    document.getElementById('editContactImg').innerHTML = contact.initials;
+    document.getElementById('editContactImg').style.backgroundColor = contact.color;
+}
+
+function realTimeInitial() {
+    let input = document.getElementById('editName').value.trim();
+    let initials = createInitials(input);
+    document.getElementById('editContactImg').innerHTML = initials;
+}
+
+function openEditContact(id) {
+    editId = id;
+    openModal('editContactDialog');
+    deleteButtonModal(id);
     fillInputs(id);
-    console.log('editContact');
+    showEditImg(id);
 }
 
-function saveEdit(event) {
+async function saveEdit(event) {
     event.preventDefault();
+    let contact = idToContact(editId);
 
+    let editContact = getInpValues('editName', 'editEmail', 'editPhone');
+    editContact.initials = createInitials(editContact.name);
+    editContact.letter = editContact.name.charAt(0).toUpperCase();
+    editContact.color = contact.color;
+    if (contact.password) {editContact.password = contact.password};
+
+    await putData(`contacts/${editId}`, editContact);
+    closeModal('editContactDialog');
+    await openNewContact(editId);
 }
 
 function deleteButtonModal(id) {
     document.getElementById('modalDeleteButton').onclick = function() {
+        closeModal('editContactDialog');
         deleteContact(id);
     };
 }
 
 async function deleteContact(id) {
-    closeModal('mobileMenuDialog');
     if (id !== undefined) {
         await deleteData(`contacts/${id}`);
         document.getElementById('sec_contactInfo').innerHTML = '';
         await contactsJS();
 
         document.getElementById('secContacts').classList.remove('hide-mobile');
-        document.getElementById('secViewContact').style.display = 'none';
+        document.getElementById('secViewContact').classList.add('hide-mobile');
     }
 }
 
