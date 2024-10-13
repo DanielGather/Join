@@ -10,6 +10,7 @@ const colors = [
 ];
 
 async function init(html) {
+    updateLS();
     renderNavBar(html);
     renderHeader();
     // await getIdFromDb('contacts', 'name', 'Finn Taylor');
@@ -31,6 +32,33 @@ function removeActiveLink(selectElements, className) {
 
 function renderHeader() {
     document.getElementById('header').innerHTML = returnHeaderHtml();
+}
+
+async function updateLS() {
+    let contactsArr = await getWhoelParthArr('contacts')
+    let sortetContacts = sortArrayContacts(contactsArr);
+    contactsLS = sortetContacts;
+    for (let i = 0; i < sortetContacts.length; i++) {
+        contactsOnly.push(sortetContacts[i][1])
+    }
+}
+
+async function getWhoelParthArr(path) {
+    let responseJson = await getData(path);
+    let whoelParthArr = Object.entries(responseJson);
+    return whoelParthArr;
+}
+
+function sortArrayContacts(contactsArr) {
+    const sortedArray = contactsArr.sort((a, b) => {
+        const nameA = a[1].name.toLowerCase();
+        const nameB = b[1].name.toLowerCase();
+      
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1; 
+        return 0;
+    });
+    return sortedArray;
 }
 
 async function getData(path='') {

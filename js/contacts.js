@@ -24,18 +24,6 @@ function renderContactsLetter() {
     }
 }
 
-function sortArrayContacts(contactsArr) {
-    const sortedArray = contactsArr.sort((a, b) => {
-        const nameA = a[1].name.toLowerCase(); // Zugriff auf den Namen und in Kleinbuchstaben umwandeln
-        const nameB = b[1].name.toLowerCase(); // Zugriff auf den Namen und in Kleinbuchstaben umwandeln
-      
-        if (nameA < nameB) return -1; // a kommt vor b
-        if (nameA > nameB) return 1;  // b kommt vor a
-        return 0;                     // beide sind gleich
-    });
-    return sortedArray;
-}
-
 function renderContactCards(id, contact) {
     document.getElementById(`contactsOf_${contact.letter}`).innerHTML += temp_contactCard(id, contact);
     coloringProfImg(id, contact);
@@ -72,24 +60,6 @@ function idToContact(id) {
     return contact;
 }
 
-async function getWhoelParthArr(path) {
-    let responseJson = await getData(path);
-    let whoelParthArr = Object.entries(responseJson);
-    return whoelParthArr;
-}
-
-async function updateLS() {
-    let contactsArr = await getWhoelParthArr('contacts')
-    let sortetContacts = sortArrayContacts(contactsArr);
-    contactsLS = sortetContacts;
-    for (let i = 0; i < sortetContacts.length; i++) {
-        contactsOnly.push(sortetContacts[i][1])
-    }
-}
-
-async function updateDB(path) {
-    c
-}
 // async function getJsonFromId(path, id) {
 //     let allIds = await getData(path);
 //     let allEntiesArr = Object.entries(allIds);
@@ -97,8 +67,6 @@ async function updateDB(path) {
 //     let resultContact = findElement[0][1];
 //     return resultContact;
 // }
-
-
 
 function getInpValues() {
     let name = document.getElementById('inpName').value.trim();
