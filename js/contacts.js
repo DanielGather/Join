@@ -1,187 +1,407 @@
-let contacts = [
-    {
-        'letter': 'A',
-        'name': 'Aaron Smith',
-        'initials': 'AS',
-        'email': 'aaron.smith@example.com',
-        'phone': '+4912345678901',
-        'color': '#5341A3'
-    },
-    {
-        'letter': 'A',
-        'name': 'Abigail Jones',
-        'initials': 'AJ',
-        'email': 'abigail.jones@example.com',
-        'phone': '+4912345678902',
-        'color': '#A4A895'
-    },
-    {
-        'letter': 'A',
-        'name': 'Alex Brown',
-        'initials': 'AB',
-        'email': 'alex.brown@example.com',
-        'phone': '+4912345678903',
-        'color': '#6C5669'
-    },
-    {
-        'letter': 'B',
-        'name': 'Ben Taylor',
-        'initials': 'BT',
-        'email': 'ben.taylor@example.com',
-        'phone': '+4912345678904',
-        'color': '#43843E'
-    },
-    {
-        'letter': 'B',
-        'name': 'Beth Davis',
-        'initials': 'BD',
-        'email': 'beth.davis@example.com',
-        'phone': '+4912345678905',
-        'color': '#3F7D59'
-    },
-    {
-        'letter': 'C',
-        'name': 'Chris Miller',
-        'initials': 'CM',
-        'email': 'chris.miller@example.com',
-        'phone': '+4912345678906',
-        'color': '#923DA9'
-    },
-    {
-        'letter': 'D',
-        'name': 'David Wilson',
-        'initials': 'DW',
-        'email': 'david.wilson@example.com',
-        'phone': '+4912345678907',
-        'color': '#A861B1'
-    },
-    {
-        'letter': 'E',
-        'name': 'Ella Moore',
-        'initials': 'EM',
-        'email': 'ella.moore@example.com',
-        'phone': '+4912345678908',
-        'color': '#4E999D'
-    },
-    {
-        'letter': 'F',
-        'name': 'Finn Taylor',
-        'initials': 'FT',
-        'email': 'finn.taylor@example.com',
-        'phone': '+4912345678909',
-        'color': '#658E96'
-    },
-    {
-        'letter': 'G',
-        'name': 'Grace Anderson',
-        'initials': 'GA',
-        'email': 'grace.anderson@example.com',
-        'phone': '+4912345678910',
-        'color': '#525A63'
-    },
-    {
-        'letter': 'H',
-        'name': 'Hannah Thomas',
-        'initials': 'HT',
-        'email': 'hannah.thomas@example.com',
-        'phone': '+4912345678911',
-        'color': '#547879'
-    },
-    {
-        'letter': 'I',
-        'name': 'Isaac Jackson',
-        'initials': 'IJ',
-        'email': 'isaac.jackson@example.com',
-        'phone': '+4912345678912',
-        'color': '#494E73'
-    },
-    {
-        'letter': 'J',
-        'name': 'Jack White',
-        'initials': 'JW',
-        'email': 'jack.white@example.com',
-        'phone': '+4912345678913',
-        'color': '#868894'
-    },
-    {
-        'letter': 'K',
-        'name': 'Kara Martin',
-        'initials': 'KM',
-        'email': 'kara.martin@example.com',
-        'phone': '+4912345678914',
-        'color': '#9EA675'
-    },
-    {
-        'letter': 'L',
-        'name': 'Liam Garcia',
-        'initials': 'LG',
-        'email': 'liam.garcia@example.com',
-        'phone': '+4912345678915',
-        'color': '#60AF4E'
-    },
-    {
-        'letter': 'M',
-        'name': 'Mia Martinez',
-        'initials': 'MM',
-        'email': 'mia.martinez@example.com',
-        'phone': '+4912345678916',
-        'color': '#8B9582'
-    },
-    {
-        'letter': 'N',
-        'name': 'Nina Robinson',
-        'initials': 'NR',
-        'email': 'nina.robinson@example.com',
-        'phone': '+4912345678917',
-        'color': '#B192A4'
-    },
-    {
-        'letter': 'O',
-        'name': 'Olivia Clark',
-        'initials': 'OC',
-        'email': 'olivia.clark@example.com',
-        'phone': '+4912345678918',
-        'color': '#9F804C'
-    },
-    {
-        'letter': 'P',
-        'name': 'Paul Lewis',
-        'initials': 'PL',
-        'email': 'paul.lewis@example.com',
-        'phone': '+4912345678919',
-        'color': '#B0566B'
-    },
-    {
-        'letter': 'Q',
-        'name': 'Quinn Walker',
-        'initials': 'QW',
-        'email': 'quinn.walker@example.com',
-        'phone': '+4912345678920',
-        'color': '#7A3DB4'
-    }
-]
+let userLS = 'guest';
+let contactsLS = [];
+let contactsOnly = [];
+const colors = [
+    '#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1',
+    '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B',
+    '#FFE62B', '#FF4646', '#FFBB2B', '#462F8A'
+];
+
+window.addEventListener('resize', closeMobileModal);
 
 async function contactsJS() {
-    await renderContactsLetter();
-    // await renderContactCards();
+    await updateLS();
+    renderContactsLetter();
+
 }
 
-async function renderContactsLetter() {
-    console.log('NOTIZ: Vor dem rendern sollten die Kontakte in eine Lokale variable gespeichert und sortiert werden!');
+function renderContactsLetter() {
+    document.getElementById('renderContainer_contacts').innerHTML = '';
+   
     let currentLetter = null;
-
-    contacts.forEach(contact => {
+    for (let i = 0; i < contactsLS.length; i++) {
+        const id = contactsLS[i][0];
+        const contact = contactsLS[i][1];
+        
         if (contact.letter !== currentLetter) {
             currentLetter = contact.letter;
-            document.getElementById('secContacts').innerHTML += temp_letterContainer(contact.letter);
-            renderContactCards(contact);
+            document.getElementById('renderContainer_contacts').innerHTML += temp_letterContainer(contact.letter);
+            renderContactCards(id, contact);
         } else {
-            renderContactCards(contact);
+            renderContactCards(id, contact);
         }
-
-    })
+    }
 }
 
-async function renderContactCards(contact) {
-    document.getElementById(`contactsOf_${contact.letter}`).innerHTML += temp_contactCard(contact);
+function sortArrayContacts(contactsArr) {
+    const sortedArray = contactsArr.sort((a, b) => {
+        const nameA = a[1].name.toLowerCase(); // Zugriff auf den Namen und in Kleinbuchstaben umwandeln
+        const nameB = b[1].name.toLowerCase(); // Zugriff auf den Namen und in Kleinbuchstaben umwandeln
+      
+        if (nameA < nameB) return -1; // a kommt vor b
+        if (nameA > nameB) return 1;  // b kommt vor a
+        return 0;                     // beide sind gleich
+    });
+    return sortedArray;
+}
+
+function renderContactCards(id, contact) {
+    document.getElementById(`contactsOf_${contact.letter}`).innerHTML += temp_contactCard(id, contact);
+    coloringProfImg(id, contact);
+}
+
+function coloringProfImg(id, contact) {
+    document.getElementById(`color${id}`).style.backgroundColor = contact.color;
+}
+
+function coloringInfoProfImg(id, contact) {
+    document.getElementById(`colorInfo${id}`).style.backgroundColor = contact.color;
+}
+
+function viewContact(id) {
+    removeActiveLink('.contact-s-card', 'active-contact');
+    document.getElementById(`cardContact${id}`).classList.add('active-contact');
+    
+    document.getElementById('secContacts').classList.add('hide-mobile');
+    document.getElementById('secViewContact').style.display = 'block';
+    renderContactInfos(id);
+    document.getElementById('mobileMenuDialog').innerHTML = temp_mobileMenu(id);
+}
+
+function renderContactInfos(id) {
+    let contact = idToContact(id);
+
+    document.getElementById('sec_contactInfo').innerHTML = temp_contactInfo(id, contact);
+    coloringInfoProfImg(id, contact);
+}
+
+function idToContact(id) {
+    let contactArr = contactsLS.filter(contact => contact[0] == id);
+    let contact = contactArr[0][1];
+    return contact;
+}
+
+async function getWhoelParthArr(path) {
+    let responseJson = await getData(path);
+    let whoelParthArr = Object.entries(responseJson);
+    return whoelParthArr;
+}
+
+async function updateLS() {
+    let contactsArr = await getWhoelParthArr('contacts')
+    let sortetContacts = sortArrayContacts(contactsArr);
+    contactsLS = sortetContacts;
+    for (let i = 0; i < sortetContacts.length; i++) {
+        contactsOnly.push(sortetContacts[i][1])
+    }
+}
+
+async function updateDB(path) {
+    c
+}
+// async function getJsonFromId(path, id) {
+//     let allIds = await getData(path);
+//     let allEntiesArr = Object.entries(allIds);
+//     let findElement = allEntiesArr.filter(element => element[0] == id);
+//     let resultContact = findElement[0][1];
+//     return resultContact;
+// }
+
+
+
+function getInpValues() {
+    let name = document.getElementById('inpName').value.trim();
+    let mail = document.getElementById('inpMail').value.trim();
+    let phone = document.getElementById('inpPhone').value.trim();
+    clearInputs();
+    return {'name': name, 'email': mail, 'phone': phone};
+}
+
+function clearInputs() {
+    document.querySelectorAll('input').forEach(input => input.value = '');
+}
+
+function createInitials(name) {
+    let nameParts = name.split(/\s+/);
+    let initials = nameParts[0].charAt(0).toUpperCase();
+    
+    if (nameParts.length > 1) {
+        initials += nameParts[nameParts.length - 1].charAt(0).toUpperCase();
+    } else {
+        initials += nameParts[0].charAt(1).toUpperCase();
+    }
+    return initials;
+}
+
+function getUsageColors() {
+    let colorUsage = colors.reduce((acc, color) => {
+        acc[color] = 0;
+        return acc;
+    }, {});
+    
+    contactsOnly.forEach(contact => colorUsage[contact.color] ++);
+    return colorUsage;
+}
+
+// Funktion, um eine zufällige Farbe auszuwählen
+function getRandomColor() {
+    let colorUsage = getUsageColors();
+    const weightedColors = [];
+    
+    colors.forEach(color => {
+        const usageCount = colorUsage[color];
+        const weight = Math.max(5 - usageCount, 1); // Weniger Verwendung -> mehr Einträge
+        for (let i = 0; i < weight; i++) {
+            weightedColors.push(color);
+        }
+    });
+
+    // Wähle eine zufällige Farbe aus dem gewichteten Array
+    const randomColor = weightedColors[Math.floor(Math.random() * weightedColors.length)];
+    return randomColor;
+}
+
+async function openNewContact(id) {
+    await contactsJS();
+    viewContact(id);
+    renderContactInfos(id);
+}
+
+async function addContact(event) {
+    event.preventDefault();
+
+    let newContact = getInpValues();
+    newContact.initials = createInitials(newContact.name);
+    newContact.letter = newContact.name.charAt(0).toUpperCase();
+    newContact.color = getRandomColor();
+    
+    let response = await postData('contacts', newContact);
+    
+    let id = response.name;
+    
+    closeModal('addContactDialog');
+    await openNewContact(id);
+}
+
+function fillInputs(id) {
+    let contact = idToContact(id);
+    document.getElementById('editName').value = contact.name;
+    document.getElementById('editEmail').value = contact.email;
+    document.getElementById('editPhone').value = contact.phone;
+}
+
+function editContact(id) {
+    deleteButtonModal(id)
+    fillInputs(id);
+    console.log('editContact');
+}
+
+function saveEdit(event) {
+    event.preventDefault();
+
+}
+
+function deleteButtonModal(id) {
+    document.getElementById('modalDeleteButton').onclick = function() {
+        deleteContact(id);
+    };
+}
+
+async function deleteContact(id) {
+    closeModal('mobileMenuDialog');
+    if (id !== undefined) {
+        await deleteData(`contacts/${id}`);
+        document.getElementById('sec_contactInfo').innerHTML = '';
+        await contactsJS();
+
+        document.getElementById('secContacts').classList.remove('hide-mobile');
+        document.getElementById('secViewContact').style.display = 'none';
+    }
+}
+
+function openModal(id) {
+    const modal = document.getElementById(id);
+    let classToOpen;
+    if (id == 'mobileMenuDialog') {
+        classToOpen = 'menu-dialog-slide-right';
+    } else {classToOpen = 'open'}
+    modal.showModal();
+    setTimeout(() => {
+        modal.classList.add(classToOpen);
+    }, 10);
+}
+  
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    let classToOpen;
+    if (id == 'mobileMenuDialog') {
+        classToOpen = 'menu-dialog-slide-right';
+    } else {classToOpen = 'open'}
+    modal.classList.remove(classToOpen);
+    setTimeout(() => {
+        modal.close();
+    }, 400);
+}
+
+function closeMobileModal() {
+    if (window.innerWidth >= 1180) {
+        closeModal('mobileMenuDialog')
+    }
+}
+
+function closeOnClickOutside(event, id) {
+    const modal = document.getElementById(id);
+    // Prüfe, ob das angeklickte Element das Modal selbst ist (außerhalb des Inhalts)
+    if (event.target === modal) {
+      closeModal(id);
+    }
+}
+
+
+
+
+
+
+let demo = [
+    {
+        "letter": "A",
+        "name": "Adam Green",
+        "initials": "AG",
+        "email": "adam.green@example.com",
+        "phone": "+49 234 567 8901",
+        "color": "#FF5EB3"
+    },
+    {
+        "letter": "A",
+        "name": "Alice Turner",
+        "initials": "AT",
+        "email": "alice.turner@example.com",
+        "phone": "+49 123 456 7890",
+        "color": "#6E52FF"
+    },
+    {
+        "letter": "B",
+        "name": "Barbara Evans",
+        "initials": "BE",
+        "email": "christina16@chandler.info",
+        "phone": "+49 078 644 7883",
+        "color": "#FFBB2B"
+    },
+    {
+        "letter": "B",
+        "name": "Brenda Santana",
+        "initials": "BS",
+        "email": "trodriguez@gmail.com",
+        "phone": "+49 273 910 2805",
+        "color": "#0038FF"
+    },
+    {
+        "letter": "C",
+        "name": "Christina Adams",
+        "initials": "CA",
+        "email": "jconner@gmail.com",
+        "phone": "+49 907 707 0200",
+        "color": "#C3FF2B"
+    },
+    {
+        "letter": "C",
+        "name": "Christina Livingston",
+        "initials": "CL",
+        "email": "tyrone24@rodriguez-flores.com",
+        "phone": "+49 328 227 5215",
+        "color": "#FC71FF"
+    },
+    {
+        "letter": "D",
+        "name": "David Ball",
+        "initials": "DB",
+        "email": "harrisjacqueline@gonzalez.net",
+        "phone": "+49 484 641 1670",
+        "color": "#FFBB2B"
+    },
+    {
+        "letter": "G",
+        "name": "Glen Smith",
+        "initials": "GS",
+        "email": "michael56@hotmail.com",
+        "phone": "+49 135 876 0422",
+        "color": "#FFBB2B"
+    },
+    {
+        "letter": "J",
+        "name": "Jamie Lane",
+        "initials": "JL",
+        "email": "petersalexander@walters.net",
+        "phone": "+49 790 631 7169",
+        "color": "#FF745E"
+    },
+    {
+        "letter": "K",
+        "name": "Kevin Smith",
+        "initials": "KS",
+        "email": "brooksmichael@hotmail.com",
+        "phone": "+49 769 196 7735",
+        "color": "#462F8A"
+    },
+    {
+        "letter": "K",
+        "name": "Kevin Taylor",
+        "initials": "KT",
+        "email": "michaelrose@gmail.com",
+        "phone": "+49 512 891 7581",
+        "color": "#9327FF"
+    },
+    {
+        "letter": "M",
+        "name": "Michelle Howard",
+        "initials": "MH",
+        "email": "woodskatherine@yahoo.com",
+        "phone": "+49 589 838 4401",
+        "color": "#9327FF"
+    },
+    {
+        "letter": "R",
+        "name": "Randy Morgan",
+        "initials": "RM",
+        "email": "aescobar@kelley.com",
+        "phone": "+49 533 793 8174",
+        "color": "#FFBB2B"
+    },
+    {
+        "letter": "S",
+        "name": "Samantha Berg",
+        "initials": "SB",
+        "email": "kharris@yahoo.com",
+        "phone": "+49 229 785 1555",
+        "color": "#FC71FF"
+    },
+    {
+        "letter": "S",
+        "name": "Shawn Spears",
+        "initials": "SS",
+        "email": "padillalori@perez.org",
+        "phone": "+49 517 529 6426",
+        "color": "#C3FF2B"
+    },
+    {
+        "letter": "S",
+        "name": "Stephanie Davis",
+        "initials": "SD",
+        "email": "jamesramsey@levine-jones.com",
+        "phone": "+49 183 513 6865",
+        "color": "#FFE62B"
+    },
+    {
+        "letter": "W",
+        "name": "William Blackwell",
+        "initials": "WB",
+        "email": "alison96@gmail.com",
+        "phone": "+49 704 051 2075",
+        "color": "#6E52FF"
+    }
+]
+    
+
+function adAllContacts(list) {
+    list.forEach(element => postData('contacts', element))
 }

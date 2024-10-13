@@ -66,3 +66,125 @@ postData('contacts', {
 // function adAllContacts(list) {
 //     contacts.forEach(element => postData('contacts', element))
 // }
+
+let contacts = [
+    {
+        "letter": "A",
+        "name": "Adam Green",
+        "initials": "AG",
+        "email": "adam.green@example.com",
+        "phone": "+49 234 567 8901"
+    },
+    {
+        "letter": "A",
+        "name": "Alice Turner",
+        "initials": "AT",
+        "email": "alice.turner@example.com",
+        "phone": "+49 123 456 7890"
+    },
+    {
+        "letter": "B",
+        "name": "Barbara Evans",
+        "initials": "BE",
+        "email": "christina16@chandler.info",
+        "phone": "+49 078 644 7883"
+    },
+    {
+        "letter": "B",
+        "name": "Brenda Santana",
+        "initials": "BS",
+        "email": "trodriguez@gmail.com",
+        "phone": "+49 273 910 2805"
+    },
+    {
+        "letter": "C",
+        "name": "Christina Adams",
+        "initials": "CA",
+        "email": "jconner@gmail.com",
+        "phone": "+49 907 707 0200"
+    },
+    {
+        "letter": "C",
+        "name": "Christina Livingston",
+        "initials": "CL",
+        "email": "tyrone24@rodriguez-flores.com",
+        "phone": "+49 328 227 5215"
+    },
+    {
+        "letter": "D",
+        "name": "David Ball",
+        "initials": "DB",
+        "email": "harrisjacqueline@gonzalez.net",
+        "phone": "+49 484 641 1670"
+    },
+    {
+        "letter": "G",
+        "name": "Glen Smith",
+        "initials": "GS",
+        "email": "michael56@hotmail.com",
+        "phone": "+49 135 876 0422"
+    },
+    {
+        "letter": "J",
+        "name": "Jamie Lane",
+        "initials": "JL",
+        "email": "petersalexander@walters.net",
+        "phone": "+49 790 631 7169"
+    },
+    {
+        "letter": "K",
+        "name": "Kevin Smith",
+        "initials": "KS",
+        "email": "brooksmichael@hotmail.com",
+        "phone": "+49 769 196 7735"
+    },
+    {
+        "letter": "K",
+        "name": "Kevin Taylor",
+        "initials": "KT",
+        "email": "michaelrose@gmail.com",
+        "phone": "+49 512 891 7581"
+    },
+    {
+        "letter": "M",
+        "name": "Michelle Howard",
+        "initials": "MH",
+        "email": "woodskatherine@yahoo.com",
+        "phone": "+49 589 838 4401"
+    },
+    {
+        "letter": "R",
+        "name": "Randy Morgan",
+        "initials": "RM",
+        "email": "aescobar@kelley.com",
+        "phone": "+49 533 793 8174"
+    },
+    {
+        "letter": "S",
+        "name": "Samantha Berg",
+        "initials": "SB",
+        "email": "kharris@yahoo.com",
+        "phone": "+49 229 785 1555"
+    },
+    {
+        "letter": "S",
+        "name": "Shawn Spears",
+        "initials": "SS",
+        "email": "padillalori@perez.org",
+        "phone": "+49 517 529 6426"
+    },
+    {
+        "letter": "S",
+        "name": "Stephanie Davis",
+        "initials": "SD",
+        "email": "jamesramsey@levine-jones.com",
+        "phone": "+49 183 513 6865"
+    },
+    {
+        "letter": "W",
+        "name": "William Blackwell",
+        "initials": "WB",
+        "email": "alison96@gmail.com",
+        "phone": "+49 704 051 2075"
+    }
+];

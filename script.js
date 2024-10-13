@@ -8,16 +8,16 @@ async function init(html) {
 
 function renderNavBar(html) {
     document.getElementById('navBar').innerHTML = navbarTemplate();
-    removeActiveLink();
+    removeActiveLink('.nav-links a', 'nav-active');
     document.getElementById(`${html}Link`).classList.add('nav-active');
 }
 
-function removeActiveLink() {
-    document.querySelectorAll('.nav-links a').forEach(element => {
-        if (element.classList.contains('nav-active')) {
-          element.classList.remove('nav-active');
+function removeActiveLink(selectElements, className) {
+    document.querySelectorAll(selectElements).forEach(element => {
+        if (element.classList.contains(className)) {
+          element.classList.remove(className);
         }
-    });      
+    });
 }
 
 function renderHeader() {
@@ -68,13 +68,10 @@ async function putData(path='', data={}) {
  * @returns string
  */
 async function getIdFromDb(path, key, includeValue) {
-    let allIds = await getData(path);
+    let contactsPath = await getData(path);
 
-    let allEnties = Object.entries(allIds);
-    // console.log(allEnties);
-    let searchElement = allEnties.filter(element => element[1][key] == includeValue);
-    // console.log(searchElement);
-    let searchId = searchElement[0];
-    // console.log(searchId);
+    let allEntiesArr = Object.entries(contactsPath);
+    let searchElement = allEntiesArr.filter(element => element[1][key] == includeValue);
+    let searchId = searchElement[0][0];
     return searchId;
 }

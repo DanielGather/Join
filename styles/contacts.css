@@ -1,6 +1,22 @@
+main {
+    display: flex;
+    overflow: unset;
+}
+
 .sec-contacts {
+    width: 100%;
     height: inherit;
-    padding: 24px 28px;
+    padding: 0 28px;
+    display: flex;
+    flex-direction: column;
+}
+
+#renderContainer_contacts {
+    height: inherit;
+    overflow: auto;
+    padding-top: 12px;
+    padding-bottom: 42px;
+
 }
 
 .contacts-letter {
@@ -26,6 +42,10 @@
 .contact-s-card:active {
     background: rgb(241,241,241);
     background: linear-gradient(0deg, rgba(241,241,241,1) 50%, rgba(250,250,250,1) 100%);
+}
+
+.contact-s-card span {
+    font-size: 20px;
 }
 
 .contact-img-container {
@@ -56,11 +76,10 @@
 
 
 
-
-
 .e-mail {
     color: var(--email-blue);
     text-decoration: none;
+    display: contents;
 }
 
 h3 {
@@ -81,24 +100,304 @@ h3 {
     cursor: pointer;
 }
 
+.mobile-menu-button:active {
+    background-color: var(--join-light-blue);
+}
+
+.add-contact-desk {
+    margin-top: 20px;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.add-contact-desk button {
+    width: 100%;
+    padding: 12px;
+}
 
 
 
 
+/* Modal */
 
+dialog {
+    position: fixed;
+    top: 150%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    padding: 0;
+    width: 396px;
+    height: 760px;
+    border-radius: 30px;
+    border: 0;
+    transition: all 0.3s ease-in-out;
+}
 
-@media (min-width: 800px) {
-    
-    
-    
-    .mobile-menu-button {
+dialog.open {
+    display: unset;
+    top: 50%;
+    left: 50%;
+}
+
+dialog:focus-visible {
+    outline: unset;
+}
+
+dialog:-internal-dialog-in-top-layer::backdrop {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.mobile-menu-dialog:-internal-dialog-in-top-layer::backdrop {
+    background: rgba(0, 0, 0, 0);
+}
+
+.modal-content {
+    width: 100%;
+    height: 100%;
+}
+
+.modal-head-side {
+    height: 352px;
+    background-color: var(--join-dark-blue);
+    display: flex;
+    align-items: center;
+    padding: 26px;
+}
+
+.modal-head-side a {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    fill: white;
+}
+
+.modal-head-side a svg {
+    fill: white;
+}
+
+.modal-head-side a:active {
+    background-color: var(--join-light-blue);
+}
+
+.modal-head-side img {
+    width: 55.6px;
+    display: none;
+}
+
+.modal-head-side h1, .modal-head-side h3 {
+    color: white;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.modal-head-side h3 {
+    margin-bottom: 8px;
+}
+
+.modal-seperator {
+    height: 3px;
+    width: 90px;
+    background-color: #29ABE2;
+}
+
+.modal-form-side {
+    width: 100%;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-contact-img {
+    height: 120px;
+    width: 120px;
+    background-color: #D1D1D1;
+    border-radius: 50%;
+    color: white;
+    font-size: 47px;
+    border: solid 4px white;
+    transform: translateY(-88px);
+    position: absolute;
+}
+
+.add-contact-form {
+    padding-top: 61px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+}
+
+.add-contact-form input {
+    font-size: 20px;
+    height: 41px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    padding: 0px 21px;
+    font-weight: 400;
+}
+
+.add-contact-form input:focus-visible {
+    border-color: var(--join-light-blue);
+    outline: var(--join-light-blue);
+}
+
+.add-contact-form input::placeholder {
+    color: #D1D1D1;
+}
+
+.input-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon img {
+    position: absolute;
+    top: 50%;
+    right: 21px;
+    transform: translateY(-50%);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 24px;
+}
+
+.add-contact-form button {
+    padding: 10px 12px;
+    margin-top: 16px;
+    gap: 12px;
+}
+
+.mobile-menu-dialog {
+    position: fixed;
+    top: unset;
+    left: unset;
+    bottom: 98px;
+    right: -100%;
+    transform: unset;
+    z-index: 10;
+    padding: 0;
+    width: 116px;
+    height: 100px;
+    border-radius: 30px 30px 0 30px;
+    box-shadow: 1px 6px 4px 0px rgba(0, 0, 0, 0.25);
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.menu-dialog-slide-right {
+    right: 8px;
+}
+
+.mobile-menu-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding-left: 20px;
+    gap: 17px;
+}
+
+.mobile-menu-dialog a {
+    text-decoration: none;
+    color: var(--join-dark-blue);
+}
+
+.mobile-menu-dialog svg {
+    fill: var(--join-dark-blue);
+}
+
+.mobile-menu-dialog a:active {
+    text-decoration: none;
+    color: var(--join-light-blue);
+    font-weight: 700;
+}
+
+.mobile-menu-dialog a:active svg {
+    fill: var(--join-light-blue);
+}
+
+a:-webkit-any-link:focus-visible {
+    outline: none;
+}
+
+@media (min-width: 1180px) {
+    .mobile-menu-dialog {
         display: none;
     }
 
-    
-}
-height: 56px;
-width: 183px;
+    dialog {
+        height: 594px;
+        width: 1280px;
+        min-width: 1094px;
+        top: 50%;
+        left: 150%;
+    }
 
-height: 56px;
-    width: 183px;
+    .modal-content {
+        display: flex;
+    }
+
+    .modal-head-side {
+        width: 740px;
+        height: 594px;
+        padding: 38px;
+    }
+
+    .modal-head-side a svg {
+        fill: var(--join-dark-blue);
+    }
+
+    .modal-head-side a:hover {
+        background-color: #EEEEEE;
+    }
+
+    .modal-head-side img {
+        display: unset;
+    }
+
+    .mb-52 {
+        margin-bottom: 52px;
+    }
+
+    .modal-form-side {
+        flex-direction: row;
+        padding: 50px;
+        justify-content: space-between;
+    }
+
+    .add-contact-img {
+        transform: unset;
+        position: unset;
+        margin-bottom: 63px;
+        margin-left: 45px;
+    }
+
+    .add-contact-form {
+        width: 65%;
+        padding: 0;
+        gap: 32px;
+    }
+
+    .add-contact-form input {
+        height: 50px;
+
+
+    }
+
+    .modal-buttons {
+        width: 100%;
+    }
+
+    .only-desk {
+        display: flex !important;
+    }
+}
