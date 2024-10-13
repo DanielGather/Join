@@ -10,8 +10,10 @@ function addUser() {
         return console.log('password stimmt nicht überein')      
     }
     checkIfCheckboxChecked();
-    postData('contacts', newContact);    
+    postData('contacts', newContact); 
+    showSuccessPopup();          
 }
+
 
 function getInputValues() {
     let name = document.getElementById('name').value.trim();
@@ -45,4 +47,15 @@ function checkIfPasswordEqual(confirmPassword, password) {
         document.getElementById('message-wrong-password-p').classList.remove('d-none');
         return false
     }     
+}
+
+
+function showSuccessPopup() {
+    let animatedContainer = document.getElementById('popup-text-container');
+    animatedContainer.classList.add('visible');
+
+    setTimeout(() => {
+        animatedContainer.classList.remove('visible');
+        window.location.href ='login.html';  
+    }, 2000);
 }

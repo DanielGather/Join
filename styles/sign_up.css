@@ -163,6 +163,30 @@ a {
     text-decoration: none;
 }
 
+.popup-container{
+    background-color: #2A3647;
+    width: 312px;
+    height: 74px;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    position: fixed;
+    bottom: -80px;
+    left: 50% ;
+
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: bottom 0.3s ease, opactiy 0.3s ease;
+}
+
+.popup-container.visible {
+    bottom: 50%;
+    opacity: 1;
+}
+
 .d-none {
     display: none;
 }
