@@ -1,5 +1,14 @@
 const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.app/';
 
+let userLS = 'guest';
+let contactsLS = [];
+let contactsOnly = [];
+const colors = [
+    '#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1',
+    '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B',
+    '#FFE62B', '#FF4646', '#FFBB2B', '#462F8A'
+];
+
 async function init(html) {
     renderNavBar(html);
     renderHeader();
@@ -74,4 +83,43 @@ async function getIdFromDb(path, key, includeValue) {
     let searchElement = allEntiesArr.filter(element => element[1][key] == includeValue);
     let searchId = searchElement[0][0];
     return searchId;
+}
+
+function createInitials(name) {
+    let nameParts = name.split(/\s+/);
+    let initials = nameParts[0].charAt(0).toUpperCase();
+    
+    if (nameParts.length > 1) {
+        initials += nameParts[nameParts.length - 1].charAt(0).toUpperCase();
+    } else {
+        initials += nameParts[0].charAt(1).toUpperCase();
+    }
+    return initials;
+}
+
+function getUsageColors() {
+    let colorUsage = colors.reduce((acc, color) => {
+        acc[color] = 0;
+        return acc;
+    }, {});
+    
+    contactsOnly.forEach(contact => colorUsage[contact.color] ++);
+    return colorUsage;
+}
+
+function getRandomColor() {
+    let colorUsage = getUsageColors();
+    const weightedColors = [];
+    
+    colors.forEach(color => {
+        const usageCount = colorUsage[color];
+        const weight = Math.max(5 - usageCount, 1);
+        for (let i = 0; i < weight; i++) {
+            weightedColors.push(color);
+        }
+    });
+
+    // Wähle eine zufällige Farbe aus dem gewichteten Array
+    const randomColor = weightedColors[Math.floor(Math.random() * weightedColors.length)];
+    return randomColor;
 }

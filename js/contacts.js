@@ -1,12 +1,3 @@
-let userLS = 'guest';
-let contactsLS = [];
-let contactsOnly = [];
-const colors = [
-    '#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1',
-    '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B',
-    '#FFE62B', '#FF4646', '#FFBB2B', '#462F8A'
-];
-
 window.addEventListener('resize', closeMobileModal);
 
 async function contactsJS() {
@@ -119,46 +110,6 @@ function getInpValues() {
 
 function clearInputs() {
     document.querySelectorAll('input').forEach(input => input.value = '');
-}
-
-function createInitials(name) {
-    let nameParts = name.split(/\s+/);
-    let initials = nameParts[0].charAt(0).toUpperCase();
-    
-    if (nameParts.length > 1) {
-        initials += nameParts[nameParts.length - 1].charAt(0).toUpperCase();
-    } else {
-        initials += nameParts[0].charAt(1).toUpperCase();
-    }
-    return initials;
-}
-
-function getUsageColors() {
-    let colorUsage = colors.reduce((acc, color) => {
-        acc[color] = 0;
-        return acc;
-    }, {});
-    
-    contactsOnly.forEach(contact => colorUsage[contact.color] ++);
-    return colorUsage;
-}
-
-// Funktion, um eine zufällige Farbe auszuwählen
-function getRandomColor() {
-    let colorUsage = getUsageColors();
-    const weightedColors = [];
-    
-    colors.forEach(color => {
-        const usageCount = colorUsage[color];
-        const weight = Math.max(5 - usageCount, 1); // Weniger Verwendung -> mehr Einträge
-        for (let i = 0; i < weight; i++) {
-            weightedColors.push(color);
-        }
-    });
-
-    // Wähle eine zufällige Farbe aus dem gewichteten Array
-    const randomColor = weightedColors[Math.floor(Math.random() * weightedColors.length)];
-    return randomColor;
 }
 
 async function openNewContact(id) {
