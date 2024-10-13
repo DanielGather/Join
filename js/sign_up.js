@@ -1,37 +1,23 @@
 
 function addUser() {
-    console.log('signUp test test');
-    addData();
-}
-
-
-function addData() {
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
     let confirmPassword = document.getElementById('confirmPassword').value;
-
-    checkIfPasswordEqual(name, email, confirmPassword, password);
-    
-    //console.log({'name': name, 'email': email, 'pass': password});
+    let newContact = getInputValues();
+    newContact.initials = createInitials(newContact.name);
+    newContact.letter = newContact.name.charAt(0).toUpperCase();
+    newContact.color = getRandomColor();
+    console.log(newContact)
+    if(!checkIfPasswordEqual(confirmPassword, newContact.password)){
+        return console.log('password stimmt nicht überein')      
+    }
+    checkIfCheckboxChecked();
+    postData('contacts', newContact);    
 }
 
-
-const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.app/';
-
-//const BASE_URL = 'https://projekttest20241002-default-rtdb.europe-west1.firebasedatabase.app/';
-
-
-async function postData(path='', data={}) {
-    let response = await fetch(BASE_URL + path + '.json', {
-        method: 'post',
-        header: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    });
-    let responseToJson = await response.json();
-    return responseToJson;
+function getInputValues() {
+    let name = document.getElementById('name').value.trim();
+    let email = document.getElementById('email').value.trim();
+    let password = document.getElementById('password').value.trim();
+    return {'name': name, 'email': email, 'password': password}
 }
 
 
@@ -44,18 +30,19 @@ function checkIfCheckboxChecked() {
     let checkbox = document.getElementById('agreeCheckbox');
     let submitButton = document.getElementById('signUpButton');
     if (checkbox.checked) {
-        submitButton.disabled = false;       
+        submitButton.disabled = false;   
+        console.log('checkbox ist aktiviert')    
     }else {
         submitButton.disabled = true;
     }
 }
 
 
-function checkIfPasswordEqual(name, email, confirmPassword, password) {
+function checkIfPasswordEqual(confirmPassword, password) {
     if(password === confirmPassword){
-        checkIfCheckboxChecked();
-        postData('/contacts', {'name': name, 'email': email, 'pass': password});
+        return true
     }else {
         document.getElementById('message-wrong-password-p').classList.remove('d-none');
+        return false
     }     
 }
