@@ -42,7 +42,7 @@ function viewContact(id) {
     document.getElementById(`cardContact${id}`).classList.add('active-contact');
     
     document.getElementById('secContacts').classList.add('hide-mobile');
-    document.getElementById('secViewContact').style.display = 'block';
+    document.getElementById('secViewContact').classList.remove('hide-mobile');
     renderContactInfos(id);
     document.getElementById('mobileMenuDialog').innerHTML = temp_mobileMenu(id);
 }

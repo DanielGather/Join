@@ -85,7 +85,6 @@ h5 {
 /* ------------------------------------global */
 
 .sec-contact-view {
-    display: none;
     height: inherit;
     width: 100%;
     padding: 48px 38px;
@@ -224,12 +223,6 @@ h5 {
         height: inherit;
         box-shadow: 0px 7px 6px 0px rgb(0, 0, 0, 0.2);
     }
-
-    .sec-contact-view {
-        display: block;
-    }
- 
-
 }
 
 
@@ -270,7 +263,7 @@ h5 {
     }
     
     .hide-mobile {
-        display: flex;
+        display: unset;
     }
 }
 
