@@ -97,6 +97,7 @@ async function addContact(event) {
     let id = response.name;
     
     closeModal('addContactDialog');
+    showAlert();
     await openNewContact(id);
 }
 
@@ -198,8 +199,25 @@ function closeOnClickOutside(event, id) {
     }
 }
 
+function showAlert() {
+    const alert = document.getElementById("alertCreatedContact");
+    alert.style.display = 'unset';
+  
+    setTimeout(() => {
+      alert.classList.add("show-allert");
+    }, 200);
 
-
+    setTimeout(() => {
+      alert.classList.remove("show-allert");
+      alert.classList.add("hide-allert");
+    }, 2000);
+  
+    // Reset the alert for future use
+    setTimeout(() => {
+      alert.classList.remove("hide-allert");
+      alert.style.display = 'none';
+    }, 3000);
+}
 
 
 
