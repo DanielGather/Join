@@ -14,8 +14,10 @@ function boardJS() {
 
 async function updateHTML() {
   let toDos = await getData("toDos");
+  console.log("todos", toDos);
+  
   allToDos = Object.entries(toDos);
-  // console.log(allToDos);
+  console.log(allToDos);
   
   const categories = [
     { name: "toDo", containerId: "toDo" },

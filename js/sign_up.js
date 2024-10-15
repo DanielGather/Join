@@ -30,6 +30,7 @@ async function getAllEmailsFromDb() {
     let allContacts = await getData('contacts');
     let userValues = Object.values(allContacts);
     //console.log('Die values:',userValues[1].email);
+    contactsEmails = [];
     for (let i = 0; i < userValues.length; i++){
         contactsEmails.push(userValues[i].email)
         //console.log(userValues[i].email)
