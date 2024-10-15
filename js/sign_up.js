@@ -1,3 +1,4 @@
+let contactsEmails = [];
 
 function addUser() {
     let confirmPassword = document.getElementById('confirmPassword').value;
@@ -5,26 +6,48 @@ function addUser() {
     newContact.initials = createInitials(newContact.name);
     newContact.letter = newContact.name.charAt(0).toUpperCase();
     newContact.color = getRandomColor();
-    console.log(newContact)
+    console.log('der neue Kontakt ist:',newContact)
     if(!checkIfPasswordEqual(confirmPassword, newContact.password)){
         return console.log('password stimmt nicht überein')      
     }
     checkIfCheckboxChecked();
-    postData('contacts', newContact); 
-    showSuccessPopup();          
+    //postData('contacts', newContact); 
+    getAllEmailsFromDb();
+    checkIfEmailAlreadyExists(newContact.email);
+    //showSuccessPopup();          
 }
 
 
 function getInputValues() {
     let name = document.getElementById('name').value.trim();
-    let email = document.getElementById('email').value.trim();
+    let email = document.getElementById('email').value;
     let password = document.getElementById('password').value.trim();
     return {'name': name, 'email': email, 'password': password}
 }
 
 
-function checkIfEmailAlreadyExist() {
-    // prüfen ob email schon in der Datenbank
+async function getAllEmailsFromDb() {
+    let allContacts = await getData('contacts');
+    let userValues = Object.values(allContacts);
+    //console.log('Die values:',userValues[1].email);
+    for (let i = 0; i < userValues.length; i++){
+        contactsEmails.push(userValues[i].email)
+        //console.log(userValues[i].email)
+    }
+}
+
+
+function checkIfEmailAlreadyExists(email) {
+    let submitButton = document.getElementById('signUpButton');
+    console.log('alle Emails:',contactsEmails);
+    if (contactsEmails.includes(email)) {
+        console.log('Email existiert bereits!');
+        document.getElementById('message-email-exist-p').classList.remove('d-none');
+        submitButton.disabled = true;
+    }else {
+        submitButton.disabled = false;
+        console.log('Email noch nicht vorhanden');
+    }
 }
 
 
