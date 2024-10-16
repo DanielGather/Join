@@ -2,9 +2,6 @@ async function addUser() {
     await updateLS()
     let confirmPassword = document.getElementById('confirmPassword').value;
     let newContact = getInputValues();
-    newContact.initials = createInitials(newContact.name);
-    newContact.letter = newContact.name.charAt(0).toUpperCase();
-    newContact.color = getRandomColor();
     console.log('der neue Kontakt ist:',newContact)
     if(!checkIfPasswordEqual(confirmPassword, newContact.password)){
         return console.log('password stimmt nicht überein')      
@@ -21,7 +18,10 @@ function getInputValues() {
     let name = document.getElementById('name').value.trim();
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value.trim();
-    return {'name': name, 'email': email, 'password': password}
+    let initials = createInitials(name);
+    let letter = name.charAt(0).toUpperCase();
+    let color = getRandomColor();
+    return {'name': name, 'email': email, 'password': password, 'initials': initials, 'letter': letter, 'color': color}
 }
 
 
