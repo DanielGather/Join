@@ -12,7 +12,7 @@ function addUser() {
     }
     checkIfCheckboxChecked();
     //postData('contacts', newContact); 
-    getAllEmailsFromDb();
+    //getAllEmailsFromDb();
     checkIfEmailAlreadyExists(newContact.email);
     //showSuccessPopup();          
 }
