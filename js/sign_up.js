@@ -10,13 +10,13 @@ async function addUser() {
     let allEmails = getAllEmailsFromDb();
     let emailExist = checkIfEmailAlreadyExists(newContact.email, allEmails);
     if (!emailExist) {postData('contacts', newContact)};
-    //showSuccessPopup();       
+    showSuccessPopup();       
 }
 
 
 function getInputValues() {
     let name = document.getElementById('name').value.trim();
-    let email = document.getElementById('email').value;
+    let email = document.getElementById('email').value.trim();
     let password = document.getElementById('password').value.trim();
     let initials = createInitials(name);
     let letter = name.charAt(0).toUpperCase();
@@ -29,10 +29,8 @@ function getAllEmailsFromDb() {
     let contactsEmails = [];
     for (let i = 0; i < contactsOnly.length; i++){
         contactsEmails.push(contactsOnly[i].email)
-        //console.log(userValues[i].email)
     }
     console.log(contactsEmails);
-    
     return contactsEmails;
 }
 
@@ -74,7 +72,6 @@ function checkIfPasswordEqual(confirmPassword, password) {
 function showSuccessPopup() {
     let animatedContainer = document.getElementById('popup-text-container');
     animatedContainer.classList.add('visible');
-
     setTimeout(() => {
         animatedContainer.classList.remove('visible');
         window.location.href ='login.html';  
