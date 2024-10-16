@@ -13,7 +13,7 @@ async function addUser() {
     let allEmails = getAllEmailsFromDb();
     let emailExist = checkIfEmailAlreadyExists(newContact.email, allEmails);
     if (!emailExist) {postData('contacts', newContact)};
-    //showSuccessPopup();       
+    showSuccessPopup();       
 }
 
 
