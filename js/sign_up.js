@@ -16,7 +16,7 @@ async function addUser() {
 
 function getInputValues() {
     let name = document.getElementById('name').value.trim();
-    let email = document.getElementById('email').value.trim();
+    let email = document.getElementById('email').value;
     let password = document.getElementById('password').value.trim();
     let initials = createInitials(name);
     let letter = name.charAt(0).toUpperCase();
