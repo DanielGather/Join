@@ -1,6 +1,5 @@
-let contactsEmails = [];
-
-function addUser() {
+async function addUser() {
+    await updateLS()
     let confirmPassword = document.getElementById('confirmPassword').value;
     let newContact = getInputValues();
     newContact.initials = createInitials(newContact.name);
@@ -11,10 +10,10 @@ function addUser() {
         return console.log('password stimmt nicht überein')      
     }
     checkIfCheckboxChecked();
-    //postData('contacts', newContact); 
-    getAllEmailsFromDb();
-    checkIfEmailAlreadyExists(newContact.email);
-    //showSuccessPopup();          
+    let allEmails = getAllEmailsFromDb();
+    let emailExist = checkIfEmailAlreadyExists(newContact.email, allEmails);
+    if (!emailExist) {postData('contacts', newContact)};
+    //showSuccessPopup();       
 }
 
 
@@ -26,28 +25,26 @@ function getInputValues() {
 }
 
 
-async function getAllEmailsFromDb() {
-    let allContacts = await getData('contacts');
-    let userValues = Object.values(allContacts);
-    //console.log('Die values:',userValues[1].email);
-    contactsEmails = [];
-    for (let i = 0; i < userValues.length; i++){
-        contactsEmails.push(userValues[i].email)
+function getAllEmailsFromDb() {
+    let contactsEmails = [];
+    for (let i = 0; i < contactsOnly.length; i++){
+        contactsEmails.push(contactsOnly[i].email)
         //console.log(userValues[i].email)
     }
+    console.log(contactsEmails);
+    
+    return contactsEmails;
 }
 
 
-function checkIfEmailAlreadyExists(email) {
-    let submitButton = document.getElementById('signUpButton');
-    console.log('alle Emails:',contactsEmails);
-    if (contactsEmails.includes(email)) {
+function checkIfEmailAlreadyExists(email, allEmails) {
+    if (allEmails.includes(email)) {
         console.log('Email existiert bereits!');
         document.getElementById('message-email-exist-p').classList.remove('d-none');
-        submitButton.disabled = true;
+        return true;
     }else {
-        submitButton.disabled = false;
         console.log('Email noch nicht vorhanden');
+        return false;
     }
 }
 
