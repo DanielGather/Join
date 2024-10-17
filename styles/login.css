@@ -2,8 +2,13 @@
     box-sizing: border-box;
 }
 
+body {
+    display: unset;
+    overflow: hidden;
+}
+
 .main-container {
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     display: flex;
     flex-direction: column;
     gap: 120px;
@@ -12,7 +17,7 @@
 }
 
 .header {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     display: flex;
     justify-content: flex-end;
 }
@@ -160,7 +165,7 @@ h1 {
 .text-button-container {
     display: flex;
     justify-content: space-evenly;
-
+    align-items: center;
 }
 
 .text-button-container button {
