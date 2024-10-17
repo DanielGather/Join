@@ -1,8 +1,9 @@
 .task {
   display: flex;
+  background-color: white;
   flex-direction: column;
-  width: 320px;
-  padding: 1rem 1rem;
+  width: 525px;
+  padding: 2.5rem;
   gap: 1rem;
   border-radius: 2rem;
   box-shadow: -2px 0px 6px 0px rgb(0, 0, 0, 0.2);

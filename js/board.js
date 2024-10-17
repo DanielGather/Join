@@ -25,7 +25,7 @@ async function updateHTML() {
     { name: "awaitFeedback", containerId: "awaitFeedback" },
     { name: "done", containerId: "done" },
   ];
-  clearTaskContainer();
+  // clearTaskContainer();
   categories.forEach((category) => updateCategoryHTML(category.name, category.containerId, allToDos));
 }
 
@@ -47,12 +47,12 @@ function getRightPriority(element) {
   document.getElementById(`priority${containerId}`).innerHTML = `<img src="${priorityImg}"/>`;
 }
 
-function clearTaskContainer(){
-  document.getElementById('awaitFeedback').innerHTML = "";
-  document.getElementById('toDo').innerHTML = "";
-  document.getElementById('inProgress').innerHTML = "";
-  document.getElementById('done').innerHTML = "";
-}
+// function clearTaskContainer(){
+//   document.getElementById('awaitFeedback').innerHTML = "";
+//   document.getElementById('toDo').innerHTML = "";
+//   document.getElementById('inProgress').innerHTML = "";
+//   document.getElementById('done').innerHTML = "";
+// }
 
 
 function getRightArray(allToDos){
@@ -70,6 +70,7 @@ function updateCategoryHTML(category, containerId, allToDos) {
   let  toDoArray = getRightArray(allToDos);
   let filteredToDos = toDoArray.filter((t) => t[1]["category"] === category);
   if (filteredToDos.length === 0) return;
+  document.getElementById(containerId).innerHTML = "";
   filteredToDos.forEach((element) => {
     document.getElementById(containerId).innerHTML += htmlTechnicalTaskSmall(element);
     let assignedToKeys = Object.entries(element[1]["assignedTo"] || {});
@@ -102,8 +103,8 @@ function allowDrop(ev) {
 
 async function moveToCategory(category) {
   let id = await getIdFromDb("/toDos", "id", currentDraggedElement);
-  console.log(id[0]);
-  await putData("/toDos/" + id[0] + "/category", category);
+  console.log("test",id);
+  await putData("/toDos/" + id + "/category", category);
   renderBoard();
   await updateHTML();
 }
@@ -145,5 +146,20 @@ function searchRightTask(input){
   console.log("Funktioniert", searchedTask);
 }
 
+function openTask(id){
+  console.log("id test", id);
+  
+  document.getElementById("bigTask").style.display =  "flex";
+  document.getElementById("bigTask").innerHTML = technicalTaskBig();
+  console.log("Öffnet");
+}
+
+function closeBigTask(){
+  document.getElementById("bigTask").style.display =  "none";
+}
+
+function eventStopPropagation(event) {
+  event.stopPropagation();
+}
 // Sicherung ToDos anlegen
 // await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum', story: {userStory: 'User Story', technicalTask:'Technical Task'}})
