@@ -54,8 +54,21 @@ function clearTaskContainer(){
   document.getElementById('done').innerHTML = "";
 }
 
+
+function getRightArray(allToDos){
+  if(searchedTask.length > 0){
+    let toDoArray = searchedTask
+    return toDoArray
+  } else {
+    let toDoArray = allToDos
+    return toDoArray;
+  }
+}
+
+
 function updateCategoryHTML(category, containerId, allToDos) {
-  let filteredToDos = allToDos.filter((t) => t[1]["category"] === category);
+  let  toDoArray = getRightArray(allToDos);
+  let filteredToDos = toDoArray.filter((t) => t[1]["category"] === category);
   if (filteredToDos.length === 0) return;
   filteredToDos.forEach((element) => {
     document.getElementById(containerId).innerHTML += htmlTechnicalTaskSmall(element);
@@ -113,16 +126,24 @@ function checkInput(id) {
 function searchTask(id) {
   let input = checkInput(id);
   if (input.length >= 3){
+    searchRightTask(input);
+    updateHTML();
+  } else if(input.length == 0) {
     searchedTask = [];
-    let filteredTasks = allToDos.filter(task  => 
-      task[1]['headline'].toLowerCase().includes(input)  || 
-      task[1]['description'].toLowerCase().includes(input)
-    );
-    console.log("Checken was gepush wird", filteredTasks[0]);
-    filteredTasks.forEach((element) => searchedTask.push(element));
-    console.log("Funktioniert", searchedTask);
     updateHTML();
   }
 }
+
+function searchRightTask(input){
+  searchedTask = [];
+  let filteredTasks = allToDos.filter(task  => 
+    task[1]['headline'].toLowerCase().includes(input)  || 
+    task[1]['description'].toLowerCase().includes(input)
+  );
+  console.log("Checken was gepush wird", filteredTasks[0]);
+  filteredTasks.forEach((element) => searchedTask.push(element));
+  console.log("Funktioniert", searchedTask);
+}
+
 // Sicherung ToDos anlegen
 // await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum', story: {userStory: 'User Story', technicalTask:'Technical Task'}})
