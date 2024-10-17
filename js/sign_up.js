@@ -2,16 +2,16 @@ async function addUser() {
     await updateLS()
     let confirmPassword = document.getElementById('confirmPassword').value;
     let newContact = getInputValues();
-    console.log('der neue Kontakt ist:',newContact)
-    if(!checkIfPasswordEqual(confirmPassword, newContact.password)){
-        return console.log('password stimmt nicht überein')      
+    console.log('der neue Kontakt ist:', newContact)
+    if (!checkIfPasswordEqual(confirmPassword, newContact.password)) {
+        return console.log('password stimmt nicht überein')
     }
     checkIfCheckboxChecked();
     let allEmails = getAllEmailsFromDb();
     let emailExist = checkIfEmailAlreadyExists(newContact.email, allEmails);
-    if (!emailExist) {postData('contacts', newContact)};
-    showSuccessPopup();     
-      
+    if (!emailExist) { postData('contacts', newContact) };
+    showSuccessPopup();
+
 }
 
 
@@ -22,13 +22,13 @@ function getInputValues() {
     let initials = createInitials(name);
     let letter = name.charAt(0).toUpperCase();
     let color = getRandomColor();
-    return {'name': name, 'email': email, 'password': password, 'initials': initials, 'letter': letter, 'color': color}
+    return { 'name': name, 'email': email, 'password': password, 'initials': initials, 'letter': letter, 'color': color }
 }
 
 
 function getAllEmailsFromDb() {
     let contactsEmails = [];
-    for (let i = 0; i < contactsOnly.length; i++){
+    for (let i = 0; i < contactsOnly.length; i++) {
         contactsEmails.push(contactsOnly[i].email)
     }
     console.log(contactsEmails);
@@ -41,7 +41,7 @@ function checkIfEmailAlreadyExists(email, allEmails) {
         console.log('Email existiert bereits!');
         document.getElementById('message-email-exist-p').classList.remove('d-none');
         return true;
-    }else {
+    } else {
         console.log('Email noch nicht vorhanden');
         return false;
     }
@@ -52,21 +52,21 @@ function checkIfCheckboxChecked() {
     let checkbox = document.getElementById('agreeCheckbox');
     let submitButton = document.getElementById('signUpButton');
     if (checkbox.checked) {
-        submitButton.disabled = false;   
-        console.log('checkbox ist aktiviert')    
-    }else {
+        submitButton.disabled = false;
+        console.log('checkbox ist aktiviert')
+    } else {
         submitButton.disabled = true;
     }
 }
 
 
 function checkIfPasswordEqual(confirmPassword, password) {
-    if(password === confirmPassword){
+    if (password === confirmPassword) {
         return true
-    }else {
+    } else {
         document.getElementById('message-wrong-password-p').classList.remove('d-none');
         return false
-    }     
+    }
 }
 
 
@@ -75,6 +75,44 @@ function showSuccessPopup() {
     animatedContainer.classList.add('visible');
     setTimeout(() => {
         animatedContainer.classList.remove('visible');
-        window.location.href ='login.html';  
+        window.location.href = 'login.html';
     }, 2000);
+}
+
+
+function changeImageWhenClickInputfield() {
+    let image = document.getElementById('lockImage');
+    image.src = "./assets/img/visibility_off.svg";
+}
+
+
+function changeImage() {
+    let passwordInput = document.getElementById('passwordInput');
+    let image = document.getElementById('lockImage');
+    if (image.src.includes("visibility_off.svg")) {
+        image.src = "./assets/img/visibility.svg";
+        passwordInput.type = "text";
+    } else {
+        image.src = "./assets/img/visibility_off.svg";
+        passwordInput.type = "password";
+    }
+}
+
+
+function changeConfirmImageWhenClickInputfield(){
+    let image = document.getElementById('confirmLockImage');
+    image.src = "./assets/img/visibility_off.svg";
+}
+
+
+function changeConfirmImage() {
+    let passwordConfirmInput = document.getElementById('confirmPasswordInput');
+    let image = document.getElementById('confirmLockImage');
+    if (image.src.includes("visibility_off.svg")) {
+        image.src = "./assets/img/visibility.svg";
+        passwordConfirmInput.type = "text";
+    } else {
+        image.src = "./assets/img/visibility_off.svg";
+        passwordConfirmInput.type = "password";
+    }
 }

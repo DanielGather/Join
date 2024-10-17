@@ -43,15 +43,15 @@
                 </div>
 
                 <div class="input-password-container">
-                    <input required class="input-password" placeholder="Password" id="password">
-                    <img src="./assets/img/lock.svg">
+                    <input required type="password" class="input-password" placeholder="Password" id="passwordInput" onfocus="changeImageWhenClickInputfield()">
+                    <img src="./assets/img/lock.svg" id="lockImage" onclick="changeImage()">
                 </div>
 
                 <div class="input-confirm-password-message-container">
                     <div class="input-confirm-password">
-                        <input required class="input-confirm-password" placeholder="Confirm Password"
-                            id="confirmPassword">
-                        <img src="./assets/img/lock.svg">
+                        <input required type="password" class="input-confirm-password" placeholder="Confirm Password"
+                            id="confirmPasswordInput" onfocus="changeConfirmImageWhenClickInputfield()">
+                        <img src="./assets/img/lock.svg" id="confirmLockImage" onclick="changeConfirmImage()">
                     </div>
                     <p class="message-wrong-password d-none" id="message-wrong-password-p">Your passwords don't match.
                         Please try again.</p>
