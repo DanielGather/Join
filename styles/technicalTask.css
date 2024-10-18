@@ -55,3 +55,21 @@
   cursor: pointer;
   z-index: 1;
 }
+
+.subTask{
+  display: flex;
+  flex-direction: column;
+}
+
+.singleSubTask{
+  display: flex;
+  gap: 1rem;
+  width: fit-content;
+  padding: 0.25rem 1rem;
+}
+
+.singleSubTask:hover{
+  cursor: pointer;
+  background-color: #e7e7e7;
+  border-radius: 0.5rem;
+}

@@ -1,5 +1,6 @@
 let currentDraggedElement;
 let allToDos;
+let bigTaskActive;
 let searchedTask = [];
 
 function boardJS() {
@@ -9,7 +10,6 @@ function boardJS() {
 }
 
 // TODO: SubTask berechnung durchführen für die Progressbar.
-// TODO: Such Funktion weiter anpassen. Funktion schreiben das immer das richtige array genommen wird. Wenn inputFled leer ist sollen wieder alles Tasks gerendert werden.
 // TODO: Wenn man in der suche nichts findet, feedback an den User das es nicht exestiert.
 
 async function updateHTML() {
@@ -29,32 +29,6 @@ async function updateHTML() {
   categories.forEach((category) => updateCategoryHTML(category.name, category.containerId, allToDos));
 }
 
-function getRightUserColor(element) {
-  let colorStory = element[1]["story"];
-  let containerId = element[1]["id"];
-  if (colorStory === "Technical Task") {
-    document.getElementById(`story${containerId}`).style.backgroundColor = "#1fd7c1";
-  }
-}
-
-function getRightPriority(element) {
-  let containerId = element[1]["id"];
-  let taskPriority = element[1]["priority"];
-  let lowPriority = "./assets/img/prio_low.svg";
-  let mediumPriority = "./assets/img/prio_medium.svg";
-  let urgentPriority = "./assets/img/prio_urgent.svg";
-  let priorityImg = taskPriority === "low" ? lowPriority : taskPriority === "medium" ? mediumPriority : urgentPriority;
-  document.getElementById(`priority${containerId}`).innerHTML = `<img src="${priorityImg}"/>`;
-}
-
-// function clearTaskContainer(){
-//   document.getElementById('awaitFeedback').innerHTML = "";
-//   document.getElementById('toDo').innerHTML = "";
-//   document.getElementById('inProgress').innerHTML = "";
-//   document.getElementById('done').innerHTML = "";
-// }
-
-
 function getRightArray(allToDos){
   if(searchedTask.length > 0){
     let toDoArray = searchedTask
@@ -65,25 +39,52 @@ function getRightArray(allToDos){
   }
 }
 
-
 function updateCategoryHTML(category, containerId, allToDos) {
   let  toDoArray = getRightArray(allToDos);
   let filteredToDos = toDoArray.filter((t) => t[1]["category"] === category);
+  console.log("filteredTodo", filteredToDos);
+  
   if (filteredToDos.length === 0) return;
   document.getElementById(containerId).innerHTML = "";
   filteredToDos.forEach((element) => {
     document.getElementById(containerId).innerHTML += htmlTechnicalTaskSmall(element);
-    let assignedToKeys = Object.entries(element[1]["assignedTo"] || {});
-    assignedToKeys.forEach(([key, value]) => {
-      document.getElementById(`assignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
-        <div class="smallCircleUserStory">
-          ${value}
-        </div>
-      `;
-    });
+    console.log("element",element);
+    renderAssignedTo(element);
     getRightUserColor(element);
     getRightPriority(element);
   });
+}
+
+function renderAssignedTo(element){
+  if(bigTaskActive){
+  renderAssignedToBigTask(element);
+  } else {
+  renderAssignedToSmallTask(element); 
+  }
+}
+
+function renderAssignedToBigTask(element){
+  let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
+  document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML = "";
+    assignedToEntries.forEach(([key,value]) => {
+      document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
+        <div class="d-flex alic gap1">
+        <div class="circle">${value}</div>
+        <div>${key}</div>
+        </div>
+      `;
+    });
+}
+
+function renderAssignedToSmallTask(element){
+  let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
+      assignedToEntries.forEach(([,value]) => {
+        document.getElementById(`assignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
+          <div class="smallCircleUserStory">
+            ${value}
+          </div>
+        `;
+      });
 }
 
 function renderBoard() {
@@ -147,15 +148,67 @@ function searchRightTask(input){
 }
 
 function openTask(id){
-  console.log("id test", id);
+  let task = allToDos.filter(task => task[1]['id'] == id)
+  showTask(task[0]);
+  console.log("Task test", task);
   
+}
+
+function showTask(task){
   document.getElementById("bigTask").style.display =  "flex";
-  document.getElementById("bigTask").innerHTML = technicalTaskBig();
-  console.log("Öffnet");
+  document.getElementById("bigTask").innerHTML = technicalTaskBig(task);
+  bigTaskActive = true;
+  renderSubTask(task);
+  renderAssignedTo(task);
+  getRightUserColor(task);
+  getRightPriority(task);
+}
+
+function renderSubTask(task){
+  let subTaskToEntries = Object.entries(task[1]['subtasks'])
+  subTaskToEntries.forEach(([,value]) => {
+    document.getElementById(`subTask${task[1]['id']}`).innerHTML += /*HTML*/`
+    <div class="singleSubTask"><input type="checkbox" /><span>${value}</span></div>
+    `
+  })
+}
+
+
+function getRightPriority(element) {
+  let containerId = element[1]["id"];
+  let taskPriority = element[1]["priority"];
+  let lowPriority = "./assets/img/prio_low.svg";
+  let mediumPriority = "./assets/img/prio_medium.svg";
+  let urgentPriority = "./assets/img/prio_urgent.svg";
+  let priorityImg = taskPriority === "low" ? lowPriority : taskPriority === "medium" ? mediumPriority : urgentPriority;
+  if (bigTaskActive){
+    containerId = `bigPriority${element[1]["id"]}`
+  } else {
+    containerId = `priority${element[1]["id"]}`
+  }
+  document.getElementById(containerId).innerHTML = `<img src="${priorityImg}"/>`;
+}
+
+
+
+function getRightUserColor(element) {
+  let colorStory = element[1]["story"];
+  let containerId;
+  if (bigTaskActive){
+    containerId = `bigStory${element[1]["id"]}`
+  } else {
+    containerId = `story${element[1]["id"]}`
+  }
+  if (colorStory === "Technical Task") {
+    document.getElementById(containerId).style.backgroundColor = "#1fd7c1";
+  } else{
+    document.getElementById(containerId).style.backgroundColor = "#0038ff";
+  }
 }
 
 function closeBigTask(){
   document.getElementById("bigTask").style.display =  "none";
+  bigTaskActive = false;
 }
 
 function eventStopPropagation(event) {

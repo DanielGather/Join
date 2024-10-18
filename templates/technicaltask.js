@@ -1,26 +1,26 @@
-function technicalTaskBig() {
+function technicalTaskBig(task) {
   return /*HTML*/ `
 <div onclick="eventStopPropagation(event)" class="task">
   <div class="d-flex jc-sb">
-    <div class="d-flex alic technicalTaskBackground userStory br1"><span>Technical Task</span></div>
+    <div id="bigStory${task[1]['id']}" class="d-flex alic technicalTaskBackground userStory br1"><span>${task[1]['story']}</span></div>
     <div><img class="hover" onclick="closeBigTask()" src="./assets/img/close.svg" alt="" /></div>
   </div>
   <div>
-    <h1 style="font-size: 61px;" id="title">CSS Architecture Planning</h1>
+    <h1 style="font-size: 61px;" id="title">${task[1]['headline']}</h1>
   </div>
   <div>
-    <span id="description">Define CSS naming conventions and structure</span>
+    <span id="description">${task[1]['description']}</span>
   </div>
   <div class="d-flex gap1">
     <span>Due date:</span>
-    <span>02/09/2023</span>
+    <span>${task[1]['date']}</span>
   </div>
   <div>
     <div class="priority">
       <span>Priority:</span>
       <div class="status">
-        <span>Urgent</span>
-        <img src="./assets/img/urgentTechnicalTask.svg" alt="" />
+        <span>${task[1]['priority']}</span>
+        <div id="bigPriority${task[1]['id']}" class="d-flex"><img src="./assets/img/urgentTechnicalTask.svg" alt="" /></div>
       </div>
     </div>
   </div>
@@ -28,26 +28,15 @@ function technicalTaskBig() {
     <span>Assigned To:</span>
   </div>
   <div class="d-flex dflex-col gap1">
-    <div class="d-flex alic gap1">
-      <div class="circle">SM</div>
-      <div>Benedikt Ziegler</div>
-    </div>
-    <div class="d-flex alic gap1">
-      <div class="circle">BZ</div>
-      <div>Sofia Müller (You)</div>
+    <div id="bigAssignedTo${task[1]['id']}" class="d-flex gap1 dflex-col">
     </div>
   </div>
   <div>
     <span>Subtasks</span>
   </div>
   <div>
-    <div class="d-flex gap1">
-      <div><input type="checkbox" /></div>
-      <span>Establish CSS Methodolgy</span>
-    </div>
-    <div class="d-flex gap1">
-      <div><input type="checkbox" /></div>
-      <span>Setup Base Styles</span>
+    <div id="subTask${task[1]['id']}" class="d-flex subTask">
+      
     </div>
   </div>
   <div class="d-flex jc-fe pt1">
