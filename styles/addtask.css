@@ -31,6 +31,74 @@ h1 {
     gap: 6px;
 }
 
+.inputAssignedToContainer {
+    border: 1px solid #D1D1D1;
+    display: flex;
+    justify-content: space-between;
+    height: 42px;
+    border-radius: var(--button-radius);
+    padding: 8px;
+    background-color: white;
+    align-items: center;
+
+    position: relative;
+    z-index: 2;
+}
+
+.dropDownContainer {
+    border: 1px solid #D1D1D1;
+    border-radius: var(--button-radius);
+    background-color: white;
+    margin-top: -42px;
+    padding-top: 52px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 230px;
+    overflow-y: auto;
+}
+
+.inputAssignedToContainer:focus-within {
+    border-color: var(--join-light-blue);
+}
+
+.inputAssignedToContainer input {
+    border: none;
+    outline: none;
+    height: 32px;
+}
+
+.inputAssignedToContainer img {
+    width: 8px;
+    height: 6px;
+}
+
+.dropDownContacts{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.initialNameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.initialsAssigned {
+    width: 42px;
+    height: 42px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 50%;
+    background-color: yellow;
+}
+
 .addTask-seperator-container {
     background-color: #D1D1D1;
     width: 2px;
@@ -115,9 +183,14 @@ h1 {
 
 .title-input {
     border-radius: var(--input-select-textarea-radius);
-    height: 28px;
+    height: 40px;
     padding: 8px;
     border: 1px solid #D1D1D1;
+    outline: none;
+}
+
+.title-input:focus, textarea:focus {
+    border-color: var(--join-light-blue);
 }
 
 .star {
@@ -133,6 +206,7 @@ textarea {
     padding: 8px;
     border: 1px solid #D1D1D1;
     resize: none;
+    outline: none;
 }
 
 select {

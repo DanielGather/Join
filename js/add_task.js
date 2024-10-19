@@ -18,3 +18,16 @@ function clear() {
 function createTask() {
     console.log("createTask test test");
 }
+
+
+function toggleAssignedToDropDown() {
+    let imgDropdownToggle = document.getElementById('imgDropdownToggle');
+    let dropdownMenu = document.getElementById('dropDownMenu');
+    if (dropdownMenu.style.display === 'none') {
+        dropdownMenu.style.display = 'flex';
+        imgDropdownToggle.src = './assets/img/arrow_drop_up.svg';
+    } else {
+        dropdownMenu.style.display = 'none';
+        imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+    }
+}
