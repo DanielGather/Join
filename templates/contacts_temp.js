@@ -18,7 +18,7 @@ function temp_contactCard(id, contact) {
             </div>
             <div class="contact-details">
                 <span>${contact.name}</span>
-                <a class="e-mail" href="javascript:void(0)">${contact.email}</a>
+                <span class="e-mail">${contact.email}</span>
             </div>
         </div>
     `

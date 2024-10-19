@@ -110,7 +110,7 @@
                     <input type="tel" id="inpPhone" name="phone" placeholder="Phone" required pattern="[0-9+ ]{10,}">
                   </div>
                   <div class="modal-buttons">
-                    <button class="center-center only-desk" onclick="closeModal('addContactDialog'), clearInputs()">
+                    <button type="button" class="center-center only-desk" onclick="closeModal('addContactDialog'), clearInputs()">
                       Cancel
                       <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.001 6.50008L12.244 11.7431M1.758 11.7431L7.001 6.50008L1.758 11.7431ZM12.244 1.25708L7 6.50008L12.244 1.25708ZM7 6.50008L1.758 1.25708L7 6.50008Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -137,7 +137,7 @@
               </div>
             </div>
             <div class="back-button-container">
-              <a class="center-center" href="./contacts.html">
+              <a class="center-center" onclick="returnToContacts()">
                 <img src="./assets/img/return_arrow.svg" alt="return" />
               </a>
             </div>
@@ -183,7 +183,7 @@
                     <input type="tel" id="editPhone" name="phone" placeholder="Phone" required pattern="[0-9+ ]{10,}">
                   </div>
                   <div class="modal-buttons">
-                    <button id="modalDeleteButton">
+                    <button type="button" id="modalDeleteButton">
                       Delete             
                     </button>
                     <button type="submit" class="button-dark center-center">    <!-- Save -->

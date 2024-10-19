@@ -34,6 +34,10 @@ function renderHeader() {
     document.getElementById('header').innerHTML = returnHeaderHtml();
 }
 
+function showPopUp(){
+    document.getElementById("popUp").classList.toggle("d-none");
+}
+
 async function updateLS() {
     let contactsArr = await getWhoelParthArr('contacts')
     let sortetContacts = sortArrayContacts(contactsArr);

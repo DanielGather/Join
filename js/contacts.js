@@ -161,6 +161,13 @@ async function deleteContact(id) {
     }
 }
 
+function returnToContacts() {
+    document.getElementById('sec_contactInfo').innerHTML = '';    
+    document.getElementById('secContacts').classList.remove('hide-mobile');
+    document.getElementById('secViewContact').classList.add('hide-mobile');
+    removeActiveLink('.contact-s-card', 'active-contact');
+}
+
 function openModal(id) {
     const modal = document.getElementById(id);
     let classToOpen;

@@ -131,8 +131,8 @@ function navbarTemplate() {
 
       <section class="copyright d-none-nav">
         <div class="copyright-links">
-          <a href="/privacy_policy.html">Privacy Policy</a>
-          <a href="/legal_notice.html">Legal notice</a>
+          <a id="privacyPolicyLink" href="./privacyPolicy.html">Privacy Policy</a>
+          <a id="legalNoticeLink" href="./legalNotice.html">Legal notice</a>
         </div>
       </section>
     `
