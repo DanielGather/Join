@@ -121,11 +121,14 @@
 
                             <div class="category-container">
                                 <label class="addTask-label">Category <span class="star">*</span></label>
-                                <select required>
-                                    <option value="" disabled selected>Select task category</option>
-                                    <option value="1">Technical Task</option>
-                                    <option value="2">User Story</option>
-                                </select>
+                                <div class="category-header-container">
+                                    <div id="category-header">Select task category</div>
+                                    <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgCategoryDropdownToggle" onclick="toggleCategoryDropDown()">
+                                </div>
+                                <div class="category-dropdown-container d-none" id="categoryDropdownMenu">
+                                    <div class="choose-category-container" onclick="setCategory('Technical Task')">Technical Task</div>
+                                    <div class="choose-category-container" onclick="setCategory('User Story')">User Story</div>
+                                </div>
                             </div>
 
                             <div class="subtasks-container">

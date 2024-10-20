@@ -31,3 +31,23 @@ function toggleAssignedToDropDown() {
         imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
     }
 }
+
+
+function toggleCategoryDropDown() {
+    let imgCategoryDropdownToggle = document.getElementById('imgCategoryDropdownToggle');
+    let categoryDropdownMenu = document.getElementById('categoryDropdownMenu');
+    if (categoryDropdownMenu.style.display === 'none') {
+        categoryDropdownMenu.style.display = 'flex';
+        imgCategoryDropdownToggle.src = './assets/img/arrow_drop_up.svg';
+    }else {
+        categoryDropdownMenu.style.display = 'none';
+        imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+    }
+}
+
+
+function setCategory(category) {
+    document.getElementById('category-header').innerText = category;
+    categoryDropdownMenu.style.display = 'none';
+    imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+}

@@ -46,7 +46,7 @@ h1 {
 }
 
 .dropDownContainer {
-    border: 1px solid #D1D1D1;
+    /* border: 1px solid #D1D1D1; */
     border-radius: var(--button-radius);
     background-color: white;
     margin-top: -42px;
@@ -56,6 +56,7 @@ h1 {
     gap: 12px;
     max-height: 230px;
     overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .inputAssignedToContainer:focus-within {
@@ -151,14 +152,16 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    display: none;
+    /* display: none; */
+    display: flex;
 }
 
 .subtasks-container {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    display: none;
+    /* display: none; */
+    display: flex;
 }
 
 .subtasks-input-add-container {
@@ -209,11 +212,47 @@ textarea {
     outline: none;
 }
 
-select {
+/* select {
     border-radius: var(--input-select-textarea-radius);
     height: 34px;
     padding: 8px;
     border: 1px solid #D1D1D1;
+} */
+
+.category-header-container {
+    border-radius: var(--input-select-textarea-radius);
+    height: 34px;
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+
+    position: relative;
+    z-index: 2;
+}
+
+.category-dropdown-container {
+    border-radius: var(--input-select-textarea-radius);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+    margin-top: -40px;
+    padding-top: 36px;
+}
+
+.choose-category-container {
+    border-radius: var(--input-select-textarea-radius);
+    height: 34px;
+    padding: 8px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.choose-category-container:hover {
+    border-radius: var(--input-select-textarea-radius);
+    background-color: rgb(223, 219, 219);
 }
 
 .form-confirmation {
@@ -289,13 +328,13 @@ select {
         /* Sorgt dafür, dass beide Container den verfügbaren Platz gleichmäßig nutzen */
     }
 
-    .category-container {
+    /* .category-container {
         display: flex;
-    }
+    } */
 
-    .subtasks-container {
+    /* .subtasks-container {
         display: flex;
-    }
+    } */
 
     .addTask-seperator-container {
         display: block;
