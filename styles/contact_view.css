@@ -86,7 +86,7 @@ h5 {
 
 .sec-contact-view {
     height: inherit;
-    width: 100%;
+    /* width: 100%; */
     padding: 48px 38px;
     background-color: var(--main-background);
 }
@@ -219,7 +219,7 @@ h5 {
     }
 
     .sec-contacts {
-        width: 453px;
+        width: 456px;
         height: inherit;
         box-shadow: 0px 7px 6px 0px rgb(0, 0, 0, 0.2);
     }

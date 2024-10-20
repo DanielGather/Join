@@ -1,11 +1,11 @@
 main {
-    padding: 0 12px;
     background-color: var(--main-background);
 }
 
 section.legalNotice {
     overflow: auto;
     height: 100%;
+    padding: 0 12px;
 }
 
 h1 {
@@ -64,11 +64,16 @@ section.legalNotice p {
     display: contents;
 }
 
+.back-button-container a {
+    position: absolute;
+    right: 12px;
+}
 
 /* @media (min-width: 1180px) { */
 @media (min-width: 800px) {
-    main {
-        padding: 0 60px;
+
+    section.legalNotice {
+        padding: 0 100px;
     }
 
     h1 {
@@ -79,5 +84,9 @@ section.legalNotice p {
         padding: 4px;
         border-radius: 20px;
         background-color: #EEEEEE;
+    }
+    
+    .back-button-container a {
+        right: 100px;
     }
 }
