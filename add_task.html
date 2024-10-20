@@ -42,12 +42,12 @@
             <div class="main-addTask-container">
                 <h1>Add Task</h1>
 
-                <form onsubmit="return handleSubmit(event)">
+                <form class="form-container" onsubmit="return handleSubmit(event)">
                     <div class="addTask-content-form-container">
                         <div class="title-description-assigned-container">
                             <div class="title-description-assigned">
                                 <label class="addTask-label">Title<span class="star">*</span></label>
-                                <input class="title-input" placeholder="Enter a title">
+                                <input required class="title-input" placeholder="Enter a title">
                             </div>
 
                             <div class="title-description-assigned">
@@ -104,7 +104,7 @@
                         <div class="dueDate-prio-category-subtasks-container">
                             <div class="dueDate-container">
                                 <label class="addTask-label">Due date<span class="star">*</span></label>
-                                <input class="title-input" type="date">
+                                <input required class="title-input" type="date">
                             </div>
 
                             <div class="prio-container">
@@ -134,8 +134,8 @@
                             <div class="subtasks-container">
                                 <label class="addTask-label">Subtasks</label>
                                 <div class="subtasks-input-add-container">
-                                    <input class="subtasks-input" placeholder="Add new subtask">
-                                    <button class="add-button"> <img src="./assets/img/add_dark.svg"></button>
+                                    <input class="subtasks-input" id="subtasks-input" type="text" placeholder="Add new subtask">
+                                    <img class="add-subtask" src="./assets/img/add_dark.svg">
                                 </div>
                             </div>
                         </div>

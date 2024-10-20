@@ -13,6 +13,12 @@ h1 {
     padding: 8px;
 }
 
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 82px;
+}
+
 .addTask-content-form-container {
     display: flex;
     flex-direction: column;
@@ -144,7 +150,6 @@ h1 {
     border-radius: var(--button-radius);
     border: 1px solid #D1D1D1;
     background-color: white;
-    cursor: pointer;
     flex: 1;
 }
 
@@ -166,22 +171,23 @@ h1 {
 
 .subtasks-input-add-container {
     border-radius: var(--input-select-textarea-radius);
-    height: 34px;
+    height: 42px;
     padding: 8px;
     border: 1px solid #D1D1D1;
     background-color: white;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .subtasks-input {
     border: none;
+    outline: none;
 }
 
-.add-button {
-    background-color: white;
-    border: none;
-    cursor: pointer;
+.add-subtask {
+    height: 10px;
+    width: 10px;
 }
 
 .title-input {
@@ -212,16 +218,9 @@ textarea {
     outline: none;
 }
 
-/* select {
-    border-radius: var(--input-select-textarea-radius);
-    height: 34px;
-    padding: 8px;
-    border: 1px solid #D1D1D1;
-} */
-
 .category-header-container {
     border-radius: var(--input-select-textarea-radius);
-    height: 34px;
+    height: 42px;
     padding: 8px;
     border: 1px solid #D1D1D1;
     display: flex;
@@ -312,6 +311,11 @@ textarea {
 @media(min-width: 450px) {
     .clear-button {
         display: flex;
+    }
+
+    .subtasks-container, .category-header-container, .urgent-medium-low-buttons,
+    .title-input, textarea, .inputAssignedToContainer {
+        cursor: pointer;
     }
 }
 
