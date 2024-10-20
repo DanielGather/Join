@@ -169,21 +169,19 @@ nav a {
         cursor: default;
     }
 
-    .copyright-links a:active:hover {
-        text-decoration: none;
-        background-color: #081A31;
-        font-weight: normal;
-        color: #CDCDCD;
-    }
-
-    .copyright-links a:active {
+    .copyright-links a.copyright-activ {
         text-decoration: none;
         font-weight: normal;
         background-color: #081A31;
         color: #CDCDCD;
         cursor: default;
     }
-
+    
+    .copyright-links a.copyright-activ:hover {
+        text-decoration: none;
+        font-weight: normal;
+        color: #CDCDCD;
+    }
 
 
     .nav-active:hover {

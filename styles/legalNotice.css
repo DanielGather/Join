@@ -22,6 +22,24 @@ h3 {
     font-size: 18px;
 }
 
+.center-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-button-container a:active {
+    padding: 4px;
+    border-radius: 20px;
+    background-color: #EEEEEE;
+}
+
 section.legalNotice ul {
     padding-left: 21px;
 }
@@ -57,5 +75,9 @@ section.legalNotice p {
         font-size: 61px;
     }
     
-
+    .back-button-container a:hover {
+        padding: 4px;
+        border-radius: 20px;
+        background-color: #EEEEEE;
+    }
 }

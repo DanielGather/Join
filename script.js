@@ -17,9 +17,14 @@ async function init(html) {
 }
 
 function renderNavBar(html) {
+    let className = 'nav-active';
+    if (html == 'privacyPolicy' || html == 'legalNotice') {
+        className = 'copyright-activ';
+    }
     document.getElementById('navBar').innerHTML = navbarTemplate();
     removeActiveLink('.nav-links a', 'nav-active');
-    document.getElementById(`${html}Link`).classList.add('nav-active');
+    removeActiveLink('.copyright-links a', 'copyright-activ');
+    document.getElementById(`${html}Link`).classList.add(className);
 }
 
 function removeActiveLink(selectElements, className) {
