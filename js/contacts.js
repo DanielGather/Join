@@ -193,7 +193,7 @@ function closeModal(id) {
 }
 
 function closeMobileModal() {
-    if (window.innerWidth >= 1180) {
+    if (window.innerWidth >= 1024) {
         closeModal('mobileMenuDialog')
     }
 }

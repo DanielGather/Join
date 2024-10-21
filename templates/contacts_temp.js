@@ -17,7 +17,7 @@ function temp_contactCard(id, contact) {
                 <div id="color${id}" class="contacts-profil-elipse">${contact.initials}</div>
             </div>
             <div class="contact-details">
-                <span>${contact.name}</span>
+                <span class="contact-name">${contact.name}</span>
                 <span class="e-mail">${contact.email}</span>
             </div>
         </div>

@@ -90,7 +90,7 @@ header a:hover{
   }
 }
 
-@media (min-width: 800px) {
+@media (min-width: 1024px) {
   .headline {
     display: unset;
     font-size: 1.5rem;
@@ -101,7 +101,7 @@ header a:hover{
 
 }
 
-@media (max-width:800px){
+@media (max-width: 1024px){
   .help{
     display: unset;
     padding: 0.5rem;
@@ -114,7 +114,7 @@ header a:hover{
   }
 }
 
-@media (min-width:800px){
+@media (min-width: 1024px){
   .header {
     padding: 0em 2rem 0 7rem;
   }

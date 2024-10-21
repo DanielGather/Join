@@ -68,7 +68,8 @@ nav a {
 }
 
 /* Desktop */
-@media (min-width: 800px) {
+ /* FIXME: desktopView for modal 800px*/
+@media (min-width: 1024px) {
 
     .desktop-view{
         height: 100vh;

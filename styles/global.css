@@ -32,7 +32,8 @@ main {
   overflow: auto;
 }
 
-@media (min-width: 800px) {
+ /* FIXME: desktopView for modal 800px*/
+@media (min-width: 1024px) {
   body {
     flex-direction: row;
   }
@@ -133,7 +134,8 @@ button svg {
   fill: white;
 }
 
-@media (min-width: 800px) {
+ /* FIXME: desktopView for modal 800px*/
+@media (min-width: 1024px) {
   button:hover {
     border-radius: var(--button-radius);
     border: 2px solid var(--join-light-blue);

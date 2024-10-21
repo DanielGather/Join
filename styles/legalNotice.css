@@ -5,7 +5,7 @@ main {
 section.legalNotice {
     overflow: auto;
     height: 100%;
-    padding: 0 12px;
+    padding: 0 20px;
 }
 
 h1 {
@@ -66,7 +66,7 @@ section.legalNotice p {
 
 .back-button-container a {
     position: absolute;
-    right: 12px;
+    right: 20px;
 }
 
 /* @media (min-width: 1180px) { */
@@ -88,5 +88,12 @@ section.legalNotice p {
     
     .back-button-container a {
         right: 100px;
+    }
+}
+
+@media (max-width: 400px) {
+    h1 {
+        font-size: 38px;
+        margin-bottom: 14px;
     }
 }
