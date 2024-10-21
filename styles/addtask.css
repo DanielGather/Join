@@ -59,13 +59,13 @@ h1 {
     padding-top: 52px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 6px;
     max-height: 230px;
     overflow-y: auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.inputAssignedToContainer:focus-within {
+.inputAssignedToContainer:focus-within, .subtasks-input-add-container:focus-within {
     border-color: var(--join-light-blue);
 }
 
@@ -249,7 +249,7 @@ textarea {
     cursor: pointer;
 }
 
-.choose-category-container:hover {
+.choose-category-container:hover, .dropDownContacts:hover {
     border-radius: var(--input-select-textarea-radius);
     background-color: rgb(223, 219, 219);
 }
