@@ -193,18 +193,6 @@ h5 {
     display: none;
   }
 
-  /* .swich-to-desk-headline {
-    display: flex;
-    align-items: center;
-    flex-direction: row-reverse;
-    gap: 26px;
-  } */
-
-  /* .view-contact-seperator {
-    width: 3px;
-    height: 60px;
-  } */
-
   .contact-info {
     gap: 40px;
   }
@@ -212,21 +200,6 @@ h5 {
   .contact-info span {
     font-size: 20px;
   }
-  /*
-  .name-container {
-    gap: 54px;
-  }
-
-  .contact-profil-elipse {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background-color: #ff7a00;
-    color: white;
-    font-size: 47px;
-    border: solid 4px white;
-  }
-   */
 
   .desc-options {
     display: flex;
