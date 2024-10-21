@@ -15,8 +15,9 @@ function clear() {
 }
 
 
-function createTask() {
+async function createTask() {
     console.log("createTask test test");
+    let newAddTask ;
 }
 
 

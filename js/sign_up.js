@@ -16,7 +16,11 @@ async function addUser() {
 
 
 function getInputValues() {
-    let name = document.getElementById('name').value.trim();
+
+    let name = document.getElementById('name').value
+    .trim()
+    .toLowerCase()
+    .replace(/\b\w/g, function(match) {return match.toUpperCase();});
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value.trim();
     let initials = createInitials(name);
