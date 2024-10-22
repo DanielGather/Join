@@ -119,6 +119,7 @@ input {
 
 .bigTaskContainer {
   display: none;
+  overflow: hidden;
   background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
   top: 0;
@@ -128,6 +129,9 @@ input {
   justify-content: center;
   align-items: center;
 }
+
+
+
 
 .hover{
   cursor: pointer;

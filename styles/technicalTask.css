@@ -1,4 +1,6 @@
 .task {
+  position: relative;
+  top: 20px;
   display: flex;
   background-color: white;
   flex-direction: column;
@@ -8,6 +10,21 @@
   border-radius: 2rem;
   box-shadow: -2px 0px 6px 0px rgb(0, 0, 0, 0.2);
 }
+
+.show {
+  animation: slideIn 0.5s forwards;
+  visibility: visible;
+}
+
+@keyframes slideIn{
+  from {
+    left: 100vw;
+  }
+  to {
+    left: 0;
+  }
+}
+
 
 .priority {
   display: flex;

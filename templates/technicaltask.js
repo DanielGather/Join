@@ -1,6 +1,6 @@
 function technicalTaskBig(task) {
   return /*HTML*/ `
-<div onclick="eventStopPropagation(event)" class="task">
+<div id="bigTaskCard" onclick="eventStopPropagation(event)" class="task">
   <div class="d-flex jc-sb">
     <div id="bigStory${task[1]['id']}" class="d-flex alic technicalTaskBackground userStory br1"><span>${task[1]['story']}</span></div>
     <div><img class="hover" onclick="closeBigTask()" src="./assets/img/close.svg" alt="" /></div>

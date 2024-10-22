@@ -176,6 +176,7 @@ function openTask(id){
 function showTask(task){
   document.getElementById("bigTask").style.display =  "flex";
   document.getElementById("bigTask").innerHTML = technicalTaskBig(task);
+  document.getElementById("bigTaskCard").classList.add('show');
   bigTaskActive = true;
   console.log("task",task);
   
