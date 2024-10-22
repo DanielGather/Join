@@ -60,7 +60,7 @@
                                 <div>
                                     <div class="inputAssignedToContainer">
                                         <input type="text" placeholder="Select contacts to assign">
-                                        <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()">
+                                        <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()"></div>
                                     </div>
                                     <div class="dropDownContainer d-none" id="dropDownMenu">
                                         <div class="dropDownContacts">
@@ -123,7 +123,7 @@
                                 <label class="addTask-label">Category <span class="star">*</span></label>
                                 <div class="category-header-container">
                                     <div id="category-header">Select task category</div>
-                                    <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgCategoryDropdownToggle" onclick="toggleCategoryDropDown()">
+                                    <div class="arrow-drop-down-img"><img  src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgCategoryDropdownToggle" onclick="toggleCategoryDropDown()"></div>
                                 </div>
                                 <div class="category-dropdown-container d-none" id="categoryDropdownMenu">
                                     <div class="choose-category-container" onclick="setCategory('Technical Task')">Technical Task</div>
@@ -135,9 +135,10 @@
                                 <label class="addTask-label">Subtasks</label>
                                 <div class="subtasks-input-add-container">
                                     <input class="subtasks-input" id="subtasks-input" type="text" placeholder="Add new subtask">
-                                    <img class="add-subtask" src="./assets/img/add_dark.svg">
+                                    <div class="add-subtask"><img src="./assets/img/add_dark.svg" onclick="addSubTask()"></div> 
                                 </div>
                             </div>
+                            <div class="rendered-task-container opacity-0" id="rendered-task-container"></div>
                         </div>
                     </div>
 

@@ -75,9 +75,9 @@ h1 {
     height: 32px;
 }
 
-.inputAssignedToContainer img {
-    width: 8px;
-    height: 6px;
+.inputAssignedToContainer img, .category-container img {
+    width: 10px;
+    height: 10px;
 }
 
 .dropDownContacts{
@@ -185,9 +185,32 @@ h1 {
     outline: none;
 }
 
-.add-subtask {
-    height: 10px;
-    width: 10px;
+.add-subtask, .arrow-drop-down-img {
+    height: 18px;
+    width: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.add-subtask img {
+    width: 12px;
+    height: 12px;
+}
+
+.add-subtask:hover, .arrow-drop-down-img:hover {
+    border-radius: 50%;
+    background-color: #D1D1D1;
+}
+
+.rendered-task-container {
+    height: 60px;
+    overflow-y: auto; 
+}
+
+.subtaskList {
+    padding-bottom: 8px;
 }
 
 .title-input {
@@ -304,6 +327,10 @@ textarea {
 
 .d-none {
     display: none;
+}
+
+.opacity-0 {
+    opacity: 0;
 }
 
 

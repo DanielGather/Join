@@ -1,3 +1,5 @@
+let subtaskArray = [];
+
 function handleSubmit(event) {   // prüfen welcher button geklickt wurde
     event.preventDefault();
     const submitButton = event.submitter;    
@@ -51,4 +53,22 @@ function setCategory(category) {
     document.getElementById('category-header').innerText = category;
     categoryDropdownMenu.style.display = 'none';
     imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+}
+
+
+function addSubTask() {
+    document.getElementById('rendered-task-container').style = 'opacity:1';
+    let subtaskInput = document.getElementById('subtasks-input').value;
+    subtaskArray.push(subtaskInput);
+    let taskContainer = document.getElementById('rendered-task-container');
+    taskContainer.innerHTML = '';
+    for (let i = 0; i < subtaskArray.length; i++){
+        let subtask = subtaskArray[i];
+        taskContainer.innerHTML += `
+        <ul class="subtaskList">
+            <li>${subtask}</li>
+        </ul>
+        `
+    }
+    document.getElementById('subtasks-input').value = '';
 }
