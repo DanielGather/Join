@@ -6,7 +6,7 @@ function technicalTaskBig(task) {
     <div><img class="hover" onclick="closeBigTask()" src="./assets/img/close.svg" alt="" /></div>
   </div>
   <div>
-    <h1 style="font-size: 61px;" id="title">${task[1]['headline']}</h1>
+    <h1 class="clamp" id="title">${task[1]['headline']}</h1>
   </div>
   <div>
     <span id="description">${task[1]['description']}</span>
