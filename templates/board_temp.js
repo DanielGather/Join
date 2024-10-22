@@ -8,6 +8,7 @@ function boardHtml() {
       </div>
       <div class="input-container">
         <input id="mobile" onkeyup="searchTask('mobile')" type="text" placeholder="Dein Text" />
+        <p id="mobileNoResultsMessage" style="display: none; color: red; position:absolute; top: -25px;">Keine Ergebnisse gefunden</p>
         <div class="icon-container">
           <div class="divider"></div>
           <img class="icon" src="./assets/img/search.svg" alt="" />
@@ -19,6 +20,7 @@ function boardHtml() {
         <div class="d-flex gap1 alic">
           <div class="input-container">
             <input id="desktop" onkeyup="searchTask('desktop')" type="text" placeholder="Dein Text" />
+            <p id="desktopNoResultsMessage" style="display: none; color: red; position:absolute; top: -25px;">Keine Ergebnisse gefunden</p>
             <div class="icon-container">
               <div class="divider"></div>
               <img class="icon" src="./assets/img/search.svg" alt="" />
@@ -54,9 +56,7 @@ function boardHtml() {
             <img class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
           <div ondrop="moveToCategory('awaitFeedback')" ondragleave="removeHighlight('awaitFeedback')" ondragover="allowDrop(event); highlight('awaitFeedback')" id="awaitFeedback" class="feedbackArea">
-          <div style="height:230px">
           <div class="noTask d-flex alic jc-c colorGrey fs16">No feedback</div>
-          </div>
           </div>
         </div>
 

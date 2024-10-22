@@ -50,10 +50,23 @@ function updateCategoryHTML(category, containerId, allToDos) {
     document.getElementById(containerId).innerHTML += htmlTechnicalTaskSmall(element);
     console.log("element",element);
     renderAssignedTo(element);
+    calculateSubtaskProgress(element)
     getRightUserColor(element);
     getRightPriority(element);
   });
 }
+
+function calculateSubtaskProgress(element){
+let elementToSubTaskArray = Object.entries(element[1]['subtasks'])
+let subTaskLenght = elementToSubTaskArray.length;
+let checkedSubTasks = elementToSubTaskArray.filter((checked) => checked[1]['status'] == true);
+document.getElementById(`subTaskSmall${element[1]['id']}`).innerHTML = `${checkedSubTasks.length}/${subTaskLenght} Subtasks`
+let progressBarPercentage =  checkedSubTasks.length / subTaskLenght * 100;
+document.getElementById(`progressbar${element[1]['id']}`).style.width = progressBarPercentage +"%"
+}
+
+
+
 
 function renderAssignedTo(element){
   if(bigTaskActive){
@@ -126,9 +139,10 @@ function checkInput(id) {
 }
 
 function searchTask(id) {
+  document.getElementById(`${id}NoResultsMessage`).style.display = "none";
   let input = checkInput(id);
   if (input.length >= 3){
-    searchRightTask(input);
+    searchRightTask(input, id);
     updateHTML();
   } else if(input.length == 0) {
     searchedTask = [];
@@ -136,15 +150,20 @@ function searchTask(id) {
   }
 }
 
-function searchRightTask(input){
+function searchRightTask(input, id){
   searchedTask = [];
   let filteredTasks = allToDos.filter(task  => 
     task[1]['headline'].toLowerCase().includes(input)  || 
     task[1]['description'].toLowerCase().includes(input)
   );
-  console.log("Checken was gepush wird", filteredTasks[0]);
+  checkInputValueExist(filteredTasks, id);
   filteredTasks.forEach((element) => searchedTask.push(element));
-  console.log("Funktioniert", searchedTask);
+}
+
+function checkInputValueExist(filteredTasks, id){
+  if(filteredTasks.length == 0){
+    document.getElementById(`${id}NoResultsMessage`).style.display = "block";
+  }
 }
 
 function openTask(id){
@@ -158,6 +177,8 @@ function showTask(task){
   document.getElementById("bigTask").style.display =  "flex";
   document.getElementById("bigTask").innerHTML = technicalTaskBig(task);
   bigTaskActive = true;
+  console.log("task",task);
+  
   renderSubTask(task);
   renderAssignedTo(task);
   getRightUserColor(task);
@@ -166,9 +187,13 @@ function showTask(task){
 
 function renderSubTask(task){
   let subTaskToEntries = Object.entries(task[1]['subtasks'])
+  console.log("Subtask",subTaskToEntries[0][1]['value']);
+  
   subTaskToEntries.forEach(([,value]) => {
+    console.log("Teste den Value", value);
+    
     document.getElementById(`subTask${task[1]['id']}`).innerHTML += /*HTML*/`
-    <div class="singleSubTask"><input type="checkbox" /><span>${value}</span></div>
+    <div class="singleSubTask"><input type="checkbox" /><span>${value.task}</span></div>
     `
   })
 }
@@ -214,5 +239,8 @@ function closeBigTask(){
 function eventStopPropagation(event) {
   event.stopPropagation();
 }
+
+
 // Sicherung ToDos anlegen
 // await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum', story: {userStory: 'User Story', technicalTask:'Technical Task'}})
+// await postData('/toDos/-O8rk7TAjcfN0IUq3qmd/subtasks',{status:true, value: 'duschen'})
