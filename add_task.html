@@ -24,8 +24,7 @@
     <!-- <link rel="stylesheet" href="./styles/root.css">
     <link rel="stylesheet" href="./fonts.css"> -->
 
-    <script src="./script.js"></script>
-    <script src="./js/add_task.js"></script>
+    
 
 
 </head>
@@ -47,7 +46,7 @@
                         <div class="title-description-assigned-container">
                             <div class="title-description-assigned">
                                 <label class="addTask-label">Title<span class="star">*</span></label>
-                                <input required class="title-input" placeholder="Enter a title">
+                                <input required class="title-input" placeholder="Enter a title" autocomplete="off">
                             </div>
 
                             <div class="title-description-assigned">
@@ -134,8 +133,13 @@
                             <div class="subtasks-container">
                                 <label class="addTask-label">Subtasks</label>
                                 <div class="subtasks-input-add-container">
-                                    <input class="subtasks-input" id="subtasks-input" type="text" placeholder="Add new subtask">
-                                    <div class="add-subtask"><img src="./assets/img/add_dark.svg" onclick="addSubTask()"></div> 
+                                    <input class="subtasks-input" id="subtasks-input" type="text" placeholder="Add new subtask" autocomplete="off">
+                                    <div class="add-subtask"><img src="./assets/img/add_dark.svg" alt="Plus-Icon" id="plusIcon" onclick="toggleSubtaskIcons()" ></div> 
+                                    <div class="close-separator-checked-container d-none" id="actionIcons">
+                                        <div class="subtask-close-icon"><img src="./assets/img/close.svg" alt="Close-Icon" onclick="deleteInputSubtaskValue()"></div>
+                                        <div class="subtask-separator"></div>
+                                        <div class="subtask-checked-icon"><img src="./assets/img/checked_subtask.svg" alt="Checked-Icon" onclick="addSubTask()"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="rendered-task-container opacity-0" id="rendered-task-container"></div>
@@ -151,14 +155,14 @@
                                     src="./assets/img/checked.svg"></button>
                         </div>
                     </div>
-
                 </form>
-
             </div>
-
         </main>
-
     </div>
+
+
+    <script src="./script.js"></script>
+    <script src="./js/add_task.js"></script>
 
 </body>
 

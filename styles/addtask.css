@@ -185,7 +185,7 @@ h1 {
     outline: none;
 }
 
-.add-subtask, .arrow-drop-down-img {
+.add-subtask, .arrow-drop-down-img, .subtask-close-icon, .subtask-checked-icon{
     height: 18px;
     width: 18px;
     display: flex;
@@ -199,7 +199,25 @@ h1 {
     height: 12px;
 }
 
-.add-subtask:hover, .arrow-drop-down-img:hover {
+.subtask-close-icon img, .subtask-checked-icon img {
+    width: 18px;
+    height: 18px;
+}
+
+.close-separator-checked-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.subtask-separator {
+    background-color: #D1D1D1;
+    width: 1px;
+    height: 24px;
+}
+
+.add-subtask:hover, .arrow-drop-down-img:hover, .subtask-close-icon:hover, .subtask-checked-icon:hover {
     border-radius: 50%;
     background-color: #D1D1D1;
 }
@@ -249,7 +267,8 @@ textarea {
     display: flex;
     justify-content: space-between;
     background-color: white;
-
+    align-items: center;
+    
     position: relative;
     z-index: 2;
 }

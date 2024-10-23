@@ -71,4 +71,26 @@ function addSubTask() {
         `
     }
     document.getElementById('subtasks-input').value = '';
+    document.getElementById('actionIcons').style = 'display:none';
+    document.getElementById('plusIcon').style = 'display:block';
+}
+
+
+function toggleSubtaskIcons() {
+    let plusIcon = document.getElementById('plusIcon');
+    let actionIcons = document.getElementById('actionIcons');
+    if(plusIcon.style.display === 'none') {
+        plusIcon.style.display = 'block';
+        actionIcons.style.display = 'none';
+    } else {
+        plusIcon.style.display = 'none';
+        actionIcons.style.display = 'flex';
+    }
+}
+
+
+function deleteInputSubtaskValue() {
+    document.getElementById('subtasks-input').value = '';
+    document.getElementById('actionIcons').style = 'display:none';
+    document.getElementById('plusIcon').style = 'display:block';
 }
