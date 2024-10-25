@@ -15,10 +15,10 @@ function boardJS() {
 async function updateHTML() {
   let toDos = await getData("toDos");
   console.log("todos", toDos);
-  
+
   allToDos = Object.entries(toDos);
   console.log(allToDos);
-  
+
   const categories = [
     { name: "toDo", containerId: "toDo" },
     { name: "inProgress", containerId: "inProgress" },
@@ -29,75 +29,72 @@ async function updateHTML() {
   categories.forEach((category) => updateCategoryHTML(category.name, category.containerId, allToDos));
 }
 
-function getRightArray(allToDos){
-  if(searchedTask.length > 0){
-    let toDoArray = searchedTask
-    return toDoArray
+function getRightArray(allToDos) {
+  if (searchedTask.length > 0) {
+    let toDoArray = searchedTask;
+    return toDoArray;
   } else {
-    let toDoArray = allToDos
+    let toDoArray = allToDos;
     return toDoArray;
   }
 }
 
 function updateCategoryHTML(category, containerId, allToDos) {
-  let  toDoArray = getRightArray(allToDos);
+  let toDoArray = getRightArray(allToDos);
   let filteredToDos = toDoArray.filter((t) => t[1]["category"] === category);
   console.log("filteredTodo", filteredToDos);
-  
+
   if (filteredToDos.length === 0) return;
   document.getElementById(containerId).innerHTML = "";
   filteredToDos.forEach((element) => {
     document.getElementById(containerId).innerHTML += htmlTechnicalTaskSmall(element);
-    console.log("element",element);
+    console.log("element", element);
     renderAssignedTo(element);
-    calculateSubtaskProgress(element)
+    calculateSubtaskProgress(element);
     getRightUserColor(element);
     getRightPriority(element);
   });
 }
 
-function calculateSubtaskProgress(element){
-let elementToSubTaskArray = Object.entries(element[1]['subtasks'])
-let subTaskLenght = elementToSubTaskArray.length;
-let checkedSubTasks = elementToSubTaskArray.filter((checked) => checked[1]['status'] == true);
-document.getElementById(`subTaskSmall${element[1]['id']}`).innerHTML = `${checkedSubTasks.length}/${subTaskLenght} Subtasks`
-let progressBarPercentage =  checkedSubTasks.length / subTaskLenght * 100;
-document.getElementById(`progressbar${element[1]['id']}`).style.width = progressBarPercentage +"%"
+function calculateSubtaskProgress(element) {
+  let elementToSubTaskArray = Object.entries(element[1]["subtasks"]);
+  let subTaskLenght = elementToSubTaskArray.length;
+  let checkedSubTasks = elementToSubTaskArray.filter((checked) => checked[1]["status"] == true);
+  document.getElementById(`subTaskSmall${element[1]["id"]}`).innerHTML = `${checkedSubTasks.length}/${subTaskLenght} Subtasks`;
+  let progressBarPercentage = (checkedSubTasks.length / subTaskLenght) * 100;
+  document.getElementById(`progressbar${element[1]["id"]}`).style.width = progressBarPercentage + "%";
 }
 
-
-
-
-function renderAssignedTo(element){
-  if(bigTaskActive){
-  renderAssignedToBigTask(element);
+function renderAssignedTo(element) {
+  if (bigTaskActive) {
+    renderAssignedToBigTask(element);
   } else {
-  renderAssignedToSmallTask(element); 
+    renderAssignedToSmallTask(element);
   }
 }
 
-function renderAssignedToBigTask(element){
+function renderAssignedToBigTask(element) {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML = "";
-    assignedToEntries.forEach(([key,value]) => {
-      document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
+  assignedToEntries.forEach(([key, value]) => {
+    document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
         <div class="d-flex alic gap1">
         <div class="circle">${value}</div>
         <div>${key}</div>
         </div>
       `;
-    });
+  });
 }
 
-function renderAssignedToSmallTask(element){
+function renderAssignedToSmallTask(element) {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
-      assignedToEntries.forEach(([,value]) => {
-        document.getElementById(`assignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
+  assignedToEntries.forEach(([, value]) => {
+    document.getElementById(`assignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
           <div class="smallCircleUserStory">
             ${value}
           </div>
         `;
-      });
+  });
 }
 
 function renderBoard() {
@@ -117,7 +114,7 @@ function allowDrop(ev) {
 
 async function moveToCategory(category) {
   let id = await getIdFromDb("/toDos", "id", currentDraggedElement);
-  console.log("test",id);
+  console.log("test", id);
   await putData("/toDos/" + id + "/category", category);
   renderBoard();
   await updateHTML();
@@ -141,64 +138,59 @@ function checkInput(id) {
 function searchTask(id) {
   document.getElementById(`${id}NoResultsMessage`).style.display = "none";
   let input = checkInput(id);
-  if (input.length >= 3){
+  if (input.length >= 3) {
     searchRightTask(input, id);
     updateHTML();
-  } else if(input.length == 0) {
+  } else if (input.length == 0) {
     searchedTask = [];
     updateHTML();
   }
 }
 
-function searchRightTask(input, id){
+function searchRightTask(input, id) {
   searchedTask = [];
-  let filteredTasks = allToDos.filter(task  => 
-    task[1]['headline'].toLowerCase().includes(input)  || 
-    task[1]['description'].toLowerCase().includes(input)
-  );
+  let filteredTasks = allToDos.filter((task) => task[1]["headline"].toLowerCase().includes(input) || task[1]["description"].toLowerCase().includes(input));
   checkInputValueExist(filteredTasks, id);
   filteredTasks.forEach((element) => searchedTask.push(element));
 }
 
-function checkInputValueExist(filteredTasks, id){
-  if(filteredTasks.length == 0){
+function checkInputValueExist(filteredTasks, id) {
+  if (filteredTasks.length == 0) {
     document.getElementById(`${id}NoResultsMessage`).style.display = "block";
   }
 }
 
-function openTask(id){
-  let task = allToDos.filter(task => task[1]['id'] == id)
+function openTask(id) {
+  let task = allToDos.filter((task) => task[1]["id"] == id);
   showTask(task[0]);
   console.log("Task test", task);
-  
 }
 
-function showTask(task){
-  document.getElementById("bigTask").style.display =  "flex";
+function showTask(task) {
+  document.getElementById("bigTask").style.display = "flex";
   document.getElementById("bigTask").innerHTML = technicalTaskBig(task);
-  document.getElementById("bigTaskCard").classList.add('show');
+  document.getElementById("bigTaskCard").classList.add("show");
   bigTaskActive = true;
-  console.log("task",task);
-  
+  console.log("task", task);
+
   renderSubTask(task);
   renderAssignedTo(task);
   getRightUserColor(task);
   getRightPriority(task);
 }
 
-function renderSubTask(task){
-  let subTaskToEntries = Object.entries(task[1]['subtasks'])
-  console.log("Subtask",subTaskToEntries[0][1]['value']);
-  
-  subTaskToEntries.forEach(([,value]) => {
-    console.log("Teste den Value", value);
-    
-    document.getElementById(`subTask${task[1]['id']}`).innerHTML += /*HTML*/`
-    <div class="singleSubTask"><input type="checkbox" /><span>${value.task}</span></div>
-    `
-  })
-}
+function renderSubTask(task) {
+  let subTaskToEntries = Object.entries(task[1]["subtasks"]);
+  console.log("Subtask", subTaskToEntries[0][1]["value"]);
 
+  subTaskToEntries.forEach(([, value]) => {
+    console.log("Teste den Value", value);
+
+    document.getElementById(`subTask${task[1]["id"]}`).innerHTML += /*HTML*/ `
+    <div class="singleSubTask"><input type="checkbox" /><span>${value.task}</span></div>
+    `;
+  });
+}
 
 function getRightPriority(element) {
   let containerId = element[1]["id"];
@@ -207,33 +199,31 @@ function getRightPriority(element) {
   let mediumPriority = "./assets/img/prio_medium.svg";
   let urgentPriority = "./assets/img/prio_urgent.svg";
   let priorityImg = taskPriority === "low" ? lowPriority : taskPriority === "medium" ? mediumPriority : urgentPriority;
-  if (bigTaskActive){
-    containerId = `bigPriority${element[1]["id"]}`
+  if (bigTaskActive) {
+    containerId = `bigPriority${element[1]["id"]}`;
   } else {
-    containerId = `priority${element[1]["id"]}`
+    containerId = `priority${element[1]["id"]}`;
   }
   document.getElementById(containerId).innerHTML = `<img src="${priorityImg}"/>`;
 }
 
-
-
 function getRightUserColor(element) {
   let colorStory = element[1]["story"];
   let containerId;
-  if (bigTaskActive){
-    containerId = `bigStory${element[1]["id"]}`
+  if (bigTaskActive) {
+    containerId = `bigStory${element[1]["id"]}`;
   } else {
-    containerId = `story${element[1]["id"]}`
+    containerId = `story${element[1]["id"]}`;
   }
   if (colorStory === "Technical Task") {
     document.getElementById(containerId).style.backgroundColor = "#1fd7c1";
-  } else{
+  } else {
     document.getElementById(containerId).style.backgroundColor = "#0038ff";
   }
 }
 
-function closeBigTask(){
-  document.getElementById("bigTask").style.display =  "none";
+function closeBigTask() {
+  document.getElementById("bigTask").style.display = "none";
   bigTaskActive = false;
 }
 
@@ -241,35 +231,34 @@ function eventStopPropagation(event) {
   event.stopPropagation();
 }
 
-function editTask(task){
-  let rightTask = allToDos.filter((id) => id[1]['id'] == task);
+function editTask(task) {
+  let rightTask = allToDos.filter((id) => id[1]["id"] == task);
   rightTask = rightTask[0][1];
   let fireBaseDate = rightTask.date;
   let date = getRightTimeZone(fireBaseDate);
-  let container = document.getElementById('bigTaskCard');
+  let container = document.getElementById("bigTaskCard");
   container.innerHTML = editTaskBoard(rightTask, date);
   highlightRightPriority(rightTask);
 }
 
-function highlightRightPriority(rightTask){
-  let urgent = document.getElementById('urgent');
-  let medium = document.getElementById('medium');
-  let low = document.getElementById('low');
-  let priority = rightTask.priority == "urgent" ? urgent : rightTask.priority == "medium" ? medium : rightTask.priority == "low" ? low :  "";
-  priority.classList.add
-console.log("test",priority);
+function highlightRightPriority(rightTask) {
+  let urgentId = document.getElementById("urgent");
+  let mediumId = document.getElementById("medium");
+  let lowId = document.getElementById("low");
+  let backgroundColorPriority = rightTask.priority == "urgent" ? "#f33d00" : rightTask.priority == "medium" ? "#ffa800" : rightTask.priority == "low" ? "#7ae228" : "";
+  let priority = rightTask.priority == "urgent" ? urgentId : rightTask.priority == "medium" ? mediumId : rightTask.priority == "low" ? lowId : "";
+  priority.style.backgroundColor = backgroundColorPriority;
+  console.log("test", priority);
 }
 
-
-function getRightTimeZone(fireBaseDate){
+function getRightTimeZone(fireBaseDate) {
   const switchDate = fireBaseDate;
-  const [fireBaseDay, fireBaseMonth, fireBaseYear] =  switchDate.split('.');
+  const [fireBaseDay, fireBaseMonth, fireBaseYear] = switchDate.split(".");
   const newDate = `${fireBaseYear}.${fireBaseMonth}.${fireBaseDay}`;
-
   const rawDate = new Date(newDate); // Datum aus der Datenbank holen
   const year = rawDate.getFullYear();
-  const month = String(rawDate.getMonth() + 1).padStart(2, '0'); // Monat +1, weil Monate bei 0 beginnen
-  const day = String(rawDate.getDate()).padStart(2, '0'); // Tag formatieren
+  const month = String(rawDate.getMonth() + 1).padStart(2, "0"); // Monat +1, weil Monate bei 0 beginnen
+  const day = String(rawDate.getDate()).padStart(2, "0"); // Tag formatieren
   const formattedDate = `${year}-${month}-${day}`;
   return formattedDate;
 }
