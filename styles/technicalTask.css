@@ -1,6 +1,5 @@
 .task {
   position: relative;
-  top: 20px;
   display: flex;
   background-color: white;
   flex-direction: column;

@@ -44,8 +44,8 @@ function technicalTaskBig(task) {
       <img class="hover" src="./assets/img/delete.svg" alt="" />
       <span class="hover">Delete</span>
       <span class="stroke"></span>
-      <img class="hover" src="./assets/img/edit.svg" alt="" />
-      <span class="hover">Edit</span>
+      <img onclick="editTask(${task[1]['id']})" class="hover" src="./assets/img/edit.svg" alt="" />
+      <span onclick="editTask(${task[1]['id']})" class="hover">Edit</span>
     </div>
   </div>
 </div>

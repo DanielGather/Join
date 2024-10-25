@@ -241,6 +241,38 @@ function eventStopPropagation(event) {
   event.stopPropagation();
 }
 
+function editTask(task){
+  let rightTask = allToDos.filter((id) => id[1]['id'] == task);
+  rightTask = rightTask[0][1];
+  let fireBaseDate = rightTask.date;
+  let date = getRightTimeZone(fireBaseDate);
+  let container = document.getElementById('bigTaskCard');
+  container.innerHTML = editTaskBoard(rightTask, date);
+  highlightRightPriority(rightTask);
+}
+
+function highlightRightPriority(rightTask){
+  let urgent = document.getElementById('urgent');
+  let medium = document.getElementById('medium');
+  let low = document.getElementById('low');
+  let priority = rightTask.priority == "urgent" ? urgent : rightTask.priority == "medium" ? medium : rightTask.priority == "low" ? low :  "";
+  priority.classList.add
+console.log("test",priority);
+}
+
+
+function getRightTimeZone(fireBaseDate){
+  const switchDate = fireBaseDate;
+  const [fireBaseDay, fireBaseMonth, fireBaseYear] =  switchDate.split('.');
+  const newDate = `${fireBaseYear}.${fireBaseMonth}.${fireBaseDay}`;
+
+  const rawDate = new Date(newDate); // Datum aus der Datenbank holen
+  const year = rawDate.getFullYear();
+  const month = String(rawDate.getMonth() + 1).padStart(2, '0'); // Monat +1, weil Monate bei 0 beginnen
+  const day = String(rawDate.getDate()).padStart(2, '0'); // Tag formatieren
+  const formattedDate = `${year}-${month}-${day}`;
+  return formattedDate;
+}
 
 // Sicherung ToDos anlegen
 // await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum', story: {userStory: 'User Story', technicalTask:'Technical Task'}})

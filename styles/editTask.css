@@ -1,0 +1,317 @@
+h1 {
+    font-size: var(--h1-font-size);
+}
+
+.main-addTask-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1120px;
+    max-height: 900px;
+    padding: 8px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 82px;
+}
+
+.addTask-content-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title-description-assigned-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title-description-assigned {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.inputAssignedToContainer {
+    border: 1px solid #D1D1D1;
+    display: flex;
+    justify-content: space-between;
+    height: 42px;
+    border-radius: var(--button-radius);
+    padding: 8px;
+    background-color: white;
+    align-items: center;
+
+    position: relative;
+    z-index: 2;
+}
+
+.dropDownContainer {
+    /* border: 1px solid #D1D1D1; */
+    border-radius: var(--button-radius);
+    background-color: white;
+    margin-top: -42px;
+    padding-top: 52px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 230px;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.inputAssignedToContainer:focus-within, .subtasks-input-add-container:focus-within {
+    border-color: var(--join-light-blue);
+}
+
+.inputAssignedToContainer input {
+    border: none;
+    outline: none;
+    height: 32px;
+}
+
+.inputAssignedToContainer img {
+    width: 8px;
+    height: 6px;
+}
+
+.dropDownContacts{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.initialNameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.initialsAssigned {
+    width: 42px;
+    height: 42px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 50%;
+    background-color: yellow;
+}
+
+.addTask-seperator-container {
+    background-color: #D1D1D1;
+    width: 2px;
+    height: 310px;
+    display: none;
+}
+
+.dueDate-prio-category-subtasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dueDate-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.prio-buttons {
+    display: flex;
+    height: 32px;
+    gap: 12px;
+}
+
+.prio-buttons button {
+    font-size: 14px;
+}
+
+.prio-buttons img {
+    width: 20px;
+    height: 14px;
+}
+
+.prio-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.urgent-medium-low-buttons {
+    border-radius: var(--button-radius);
+    border: 1px solid #D1D1D1;
+    background-color: white;
+    flex: 1;
+}
+
+.category-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    /* display: none; */
+    display: flex;
+}
+
+.subtasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    /* display: none; */
+    display: flex;
+}
+
+.subtasks-input-add-container {
+    border-radius: var(--input-select-textarea-radius);
+    height: 42px;
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subtasks-input {
+    border: none;
+    outline: none;
+}
+
+.add-subtask {
+    height: 10px;
+    width: 10px;
+}
+
+.title-input {
+    border-radius: var(--input-select-textarea-radius);
+    height: 40px;
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    outline: none;
+}
+
+.title-input:focus, textarea:focus {
+    border-color: var(--join-light-blue);
+}
+
+.star {
+    color: red;
+}
+
+.addTask-label {
+    font-size: var(--addTask-label-font-size);
+}
+
+textarea {
+    border-radius: var(--input-select-textarea-radius);
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    resize: none;
+    outline: none;
+}
+
+.category-header-container {
+    border-radius: var(--input-select-textarea-radius);
+    height: 42px;
+    padding: 8px;
+    border: 1px solid #D1D1D1;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+
+    position: relative;
+    z-index: 2;
+}
+
+.category-dropdown-container {
+    border-radius: var(--input-select-textarea-radius);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+    margin-top: -40px;
+    padding-top: 36px;
+}
+
+.choose-category-container {
+    border-radius: var(--input-select-textarea-radius);
+    height: 34px;
+    padding: 8px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.choose-category-container:hover, .dropDownContacts:hover {
+    border-radius: var(--input-select-textarea-radius);
+    background-color: rgb(223, 219, 219);
+}
+
+.form-confirmation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.clear-create-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.clear-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    height: 46px;
+    width: 100px;
+    border-radius: 10px;
+    border: 1px solid #2a3647;
+    background-color: var(--button-background-color-bright);
+    font-size: var(--button-font-size);
+    cursor: pointer;   
+}
+
+.create-task-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    border-radius: var(--button-radius);
+    border: 1px solid #2a3647;
+    background-color: var(--button-background-color-dark);
+    color: white;
+    font-size: var(--button-font-size);
+    font-weight: var(--button-font-weight);
+    cursor: pointer;
+}
+
+.required {
+    font-size: 12px;
+}
+
+.d-none {
+    display: none;
+}
+
+
+
+@media(min-width: 450px) {
+    .clear-button {
+        display: flex;
+    }
+
+    .subtasks-container, .category-header-container, .urgent-medium-low-buttons,
+    .title-input, textarea, .inputAssignedToContainer {
+        cursor: pointer;
+    }
+}
+
