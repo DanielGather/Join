@@ -4,10 +4,11 @@ h1 {
 
 .main-addTask-container {
     display: flex;
+    overflow: auto;
     flex-direction: column;
     gap: 20px;
     max-width: 1120px;
-    max-height: 900px;
+    max-height: 600px;
     padding: 8px;
 }
 
@@ -131,6 +132,10 @@ h1 {
 
 .prio-buttons button {
     font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
 
 .prio-buttons img {
@@ -183,7 +188,7 @@ h1 {
     outline: none;
 }
 
-.add-subtask {
+.add-subtask img {
     height: 10px;
     width: 10px;
 }
@@ -194,6 +199,10 @@ h1 {
     padding: 8px;
     border: 1px solid #D1D1D1;
     outline: none;
+}
+
+.title-input:hover{
+    cursor: pointer;
 }
 
 .title-input:focus, textarea:focus {

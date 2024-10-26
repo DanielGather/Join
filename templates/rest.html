@@ -1,107 +1,61 @@
-<div class="main-addTask-container">
-  <h1>Add Task</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/addtask.css">
+  <title>Document</title>
+</head>
+<script>
 
-  <form class="form-container" onsubmit="return handleSubmit(event)">
-    <div class="addTask-content-form-container">
-      <div class="title-description-assigned-container">
-        <div class="title-description-assigned">
-          <label class="addTask-label">Title<span class="star">*</span></label>
-          <input required class="title-input" placeholder="Enter a title" />
-        </div>
+function toggleDropdown() {
+    var menu = document.getElementById("dropdownMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
 
-        <div class="title-description-assigned">
-          <label class="addTask-label">Description</label>
-          <textarea rows="4" placeholder="Enter a Description"></textarea>
-        </div>
-
-        <div class="title-description-assigned">
-          <label class="addTask-label">Assigned to</label>
-          <div>
-            <div class="inputAssignedToContainer">
-              <input type="text" placeholder="Select contacts to assign" />
-              <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()" />
-            </div>
-            <div class="dropDownContainer d-none" id="dropDownMenu">
-              <div class="dropDownContacts">
-                <div class="initialNameContainer">
-                  <div class="initialsAssigned">CR</div>
-                  <p>Christiano Ronaldo</p>
-                </div>
-                <input type="checkbox" />
-              </div>
-
-              <div class="dropDownContacts">
-                <div class="initialNameContainer">
-                  <div class="initialsAssigned">LM</div>
-                  <p>Lionel Messi</p>
-                </div>
-                <input type="checkbox" />
-              </div>
-
-              <div class="dropDownContacts">
-                <div class="initialNameContainer">
-                  <div class="initialsAssigned">HK</div>
-                  <p>Harry Kane</p>
-                </div>
-                <input type="checkbox" />
-              </div>
-
-              <div class="dropDownContacts">
-                <div class="initialNameContainer">
-                  <div class="initialsAssigned">JB</div>
-                  <p>Jude Bellingham</p>
-                </div>
-                <input type="checkbox" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="dueDate-container">
-          <label class="addTask-label">Due date<span class="star">*</span></label>
-          <input required class="title-input" type="date" />
-        </div>
-        <div class="prio-container">
-          <label class="addTask-label">Prio</label>
-          <div class="prio-buttons">
-            <button class="urgent-medium-low-buttons">Urgent <img src="./assets/img/prio_urgent.svg" /></button>
-            <button class="urgent-medium-low-buttons">Medium <img src="./assets/img/prio_medium.svg" /></button>
-            <button class="urgent-medium-low-buttons">Low <img src="./assets/img/prio_low.svg" /></button>
-          </div>
-        </div>
-        <div class="category-container">
-          <label class="addTask-label">Category <span class="star">*</span></label>
-          <div class="category-header-container">
-            <div id="category-header">Select task category</div>
-            <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgCategoryDropdownToggle" onclick="toggleCategoryDropDown()" />
-          </div>
-          <div class="category-dropdown-container d-none" id="categoryDropdownMenu">
-            <div class="choose-category-container" onclick="setCategory('Technical Task')">Technical Task</div>
-            <div class="choose-category-container" onclick="setCategory('User Story')">User Story</div>
-          </div>
-        </div>
-        <div class="subtasks-container">
-          <label class="addTask-label">Subtasks</label>
-          <div class="subtasks-input-add-container">
-            <input class="subtasks-input" id="subtasks-input" type="text" placeholder="Add new subtask" />
-            <img class="add-subtask" src="./assets/img/add_dark.svg" />
-          </div>
-        </div>
-
-      </div>
-
-      <div class="dueDate-prio-category-subtasks-container">
+// Schließen, wenn man außerhalb des Dropdowns klickt
+window.onclick = function(event) {
+    if (!event.target.matches('button')) {
+        document.getElementById("dropdownMenu").style.display = "none";
+    }
+}
 
 
+</script>
+<STYle>
 
-      </div>
-    </div>
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    border-radius: 1rem;
+}
 
-    <div class="form-confirmation">
-      <div class="required"><span class="star">*</span>This field is required</div>
-      <div class="clear-create-button">
-        <button class="clear-button d-none" type="submit" id="clear">Clear <img src="./assets/img/vector.svg" /></button>
-        <button class="create-task-button" type="submit" id="createTask">Create Task <img src="./assets/img/checked.svg" /></button>
-      </div>
-    </div>
-  </form>
-</div>
+.hover:hover{
+  background-color: grey;
+}
+
+</STYle>
+<body>
+  <button onclick="toggleDropdown()">Dropdown</button>
+  <div id="dropdownMenu" class="dropdown-content">
+      <div class="hover" href="#">Option 1</div>
+      <div href="#">Option 2</div>
+      <div href="#">Option 3</div>
+      <div href="#">Option 3</div>
+      <div href="#">Option 3</div>
+      <div href="#">Option 3</div>
+      <div href="#">Option 3</div>
+      <div href="#">Option 3</div>
+      <div href="#">Option 3</div>
+      <div href="#">Option 3</div>
+      <div href="#">Option 3</div>
+      <div href="#">Option 3</div>
+  </div>
+  
+
+</body>
+</html>
+
+

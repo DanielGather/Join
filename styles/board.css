@@ -130,11 +130,20 @@ input {
   align-items: center;
 }
 
-
-
-
 .hover{
   cursor: pointer;
+}
+
+.svgUrgent{
+  color: #ff3d00 ;
+}
+
+.svgMedium{
+  color: #ffa800 ;
+}
+
+.svgLow{
+  color: #7ae229 ;
 }
 
 @media (min-width: 700px) {

@@ -2,6 +2,7 @@ let currentDraggedElement;
 let allToDos;
 let bigTaskActive;
 let searchedTask = [];
+let editTaskOpen;
 
 function boardJS() {
   renderBoard();
@@ -223,22 +224,31 @@ function getRightUserColor(element) {
 }
 
 function closeBigTask() {
-  document.getElementById("bigTask").style.display = "none";
+  if(editTaskOpen){
+    document.getElementById("svgUrgent").style.color = "#ff3d00"
+    document.getElementById("svgMedium").style.color = "#ffa800"
+    document.getElementById("svgLow").style.color = "#7ae229"
+    document.getElementById("bigTask").style.display = "none";
+  } else {
+    document.getElementById("bigTask").style.display = "none";
+  }
   bigTaskActive = false;
+  editTaskOpen = false;
 }
 
 function eventStopPropagation(event) {
   event.stopPropagation();
 }
 
-function editTask(task) {
+async function editTask(task) {
   let rightTask = allToDos.filter((id) => id[1]["id"] == task);
   rightTask = rightTask[0][1];
   let fireBaseDate = rightTask.date;
   let date = getRightTimeZone(fireBaseDate);
   let container = document.getElementById("bigTaskCard");
-  container.innerHTML = editTaskBoard(rightTask, date);
+  container.innerHTML = await editTaskBoard(rightTask, date);
   highlightRightPriority(rightTask);
+  editTaskOpen = true
 }
 
 function highlightRightPriority(rightTask) {
@@ -248,7 +258,10 @@ function highlightRightPriority(rightTask) {
   let backgroundColorPriority = rightTask.priority == "urgent" ? "#f33d00" : rightTask.priority == "medium" ? "#ffa800" : rightTask.priority == "low" ? "#7ae228" : "";
   let priority = rightTask.priority == "urgent" ? urgentId : rightTask.priority == "medium" ? mediumId : rightTask.priority == "low" ? lowId : "";
   priority.style.backgroundColor = backgroundColorPriority;
-  console.log("test", priority);
+  let svgId = rightTask.priority == "urgent" ? "svgUrgent" : rightTask.priority == "medium" ? "svgMedium" : rightTask.priority == "low" ? "svgLow" : "";
+  let svgContainer = document.getElementById(`${svgId}`)
+  svgContainer.removeAttribute("class");
+  priority.style.color = "white";
 }
 
 function getRightTimeZone(fireBaseDate) {
