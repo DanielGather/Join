@@ -10,6 +10,38 @@
   box-shadow: -2px 0px 6px 0px rgb(0, 0, 0, 0.2);
 }
 
+.task {
+  --sb-track-color: #232E33;
+  --sb-thumb-color: #444746;
+  --sb-size: 8px;
+}
+
+.task::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.task::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+.task::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+  
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .task {
+    scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
+}
+
+
+
+
+
 .show {
   animation: slideIn 0.5s forwards;
   visibility: visible;

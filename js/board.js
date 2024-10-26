@@ -224,10 +224,10 @@ function getRightUserColor(element) {
 }
 
 function closeBigTask() {
-  if(editTaskOpen){
-    document.getElementById("svgUrgent").style.color = "#ff3d00"
-    document.getElementById("svgMedium").style.color = "#ffa800"
-    document.getElementById("svgLow").style.color = "#7ae229"
+  if (editTaskOpen) {
+    document.getElementById("svgUrgent").style.color = "#ff3d00";
+    document.getElementById("svgMedium").style.color = "#ffa800";
+    document.getElementById("svgLow").style.color = "#7ae229";
     document.getElementById("bigTask").style.display = "none";
   } else {
     document.getElementById("bigTask").style.display = "none";
@@ -248,7 +248,7 @@ async function editTask(task) {
   let container = document.getElementById("bigTaskCard");
   container.innerHTML = await editTaskBoard(rightTask, date);
   highlightRightPriority(rightTask);
-  editTaskOpen = true
+  editTaskOpen = true;
 }
 
 function highlightRightPriority(rightTask) {
@@ -258,10 +258,14 @@ function highlightRightPriority(rightTask) {
   let backgroundColorPriority = rightTask.priority == "urgent" ? "#f33d00" : rightTask.priority == "medium" ? "#ffa800" : rightTask.priority == "low" ? "#7ae228" : "";
   let priority = rightTask.priority == "urgent" ? urgentId : rightTask.priority == "medium" ? mediumId : rightTask.priority == "low" ? lowId : "";
   priority.style.backgroundColor = backgroundColorPriority;
-  let svgId = rightTask.priority == "urgent" ? "svgUrgent" : rightTask.priority == "medium" ? "svgMedium" : rightTask.priority == "low" ? "svgLow" : "";
-  let svgContainer = document.getElementById(`${svgId}`)
-  svgContainer.removeAttribute("class");
   priority.style.color = "white";
+  svgColors(rightTask);
+}
+
+function svgColors(rightTask){
+  let svgId = rightTask.priority == "urgent" ? "svgUrgent" : rightTask.priority == "medium" ? "svgMedium" : rightTask.priority == "low" ? "svgLow" : "";
+  let svgContainer = document.getElementById(`${svgId}`);
+  svgContainer.removeAttribute("class");
 }
 
 function getRightTimeZone(fireBaseDate) {

@@ -1,3 +1,6 @@
+
+
+
 .boardDesktop {
   display: none;
 }
@@ -28,7 +31,7 @@
 input {
   border: none;
   outline: none;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   padding: 10px;
 }
 
@@ -130,20 +133,20 @@ input {
   align-items: center;
 }
 
-.hover{
+.hover {
   cursor: pointer;
 }
 
-.svgUrgent{
-  color: #ff3d00 ;
+.svgUrgent {
+  color: #ff3d00;
 }
 
-.svgMedium{
-  color: #ffa800 ;
+.svgMedium {
+  color: #ffa800;
 }
 
-.svgLow{
-  color: #7ae229 ;
+.svgLow {
+  color: #7ae229;
 }
 
 @media (min-width: 700px) {
