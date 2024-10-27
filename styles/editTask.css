@@ -4,12 +4,48 @@ h1 {
 
 .main-addTask-container {
     display: flex;
+    overflow: auto;
     flex-direction: column;
     gap: 20px;
     max-width: 1120px;
-    max-height: 900px;
+    max-height: 600px;
     padding: 8px;
 }
+
+.main-addTask-container,
+.dropDownContainer {
+    --sb-track-color: white;
+    --sb-thumb-color: #a8a8a8;
+    --sb-size: 8px;
+  }
+  
+  .main-addTask-container::-webkit-scrollbar,
+  .dropDownContainer::-webkit-scrollbar {
+    width: var(--sb-size);
+  }
+  
+  .main-addTask-container::-webkit-scrollbar,
+  .dropDownContainer::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 4px;
+  }
+  
+  .main-addTask-container::-webkit-scrollbar,
+  .dropDownContainer::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 4px;
+    
+  }
+  
+  @supports not selector(::-webkit-scrollbar) {
+    .main-addTask-container,
+    .dropDownContainer {
+      scrollbar-color: var(--sb-thumb-color)
+                       var(--sb-track-color);
+    }
+  }
+
+
 
 .form-container {
     display: flex;
@@ -53,12 +89,12 @@ h1 {
     /* border: 1px solid #D1D1D1; */
     border-radius: var(--button-radius);
     background-color: white;
-    margin-top: -42px;
-    padding-top: 52px;
+    /* margin-top: -42px;
+    padding-top: 52px; */
     display: flex;
     flex-direction: column;
     gap: 6px;
-    max-height: 230px;
+    max-height: 150px;
     overflow-y: auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -131,6 +167,10 @@ h1 {
 
 .prio-buttons button {
     font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
 
 .prio-buttons img {
@@ -183,7 +223,7 @@ h1 {
     outline: none;
 }
 
-.add-subtask {
+.add-subtask img {
     height: 10px;
     width: 10px;
 }
@@ -194,6 +234,10 @@ h1 {
     padding: 8px;
     border: 1px solid #D1D1D1;
     outline: none;
+}
+
+.title-input:hover{
+    cursor: pointer;
 }
 
 .title-input:focus, textarea:focus {
