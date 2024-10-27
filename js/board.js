@@ -70,7 +70,7 @@ function renderAssignedTo(element) {
   if (bigTaskActive) {
     renderAssignedToBigTask(element);
   } else {
-    renderAssignedToSmallTask(element);
+    renderAssignedToSmallTask(element, "taskSmall");
   }
 }
 
@@ -87,10 +87,10 @@ function renderAssignedToBigTask(element) {
   });
 }
 
-function renderAssignedToSmallTask(element) {
+function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   assignedToEntries.forEach(([, value]) => {
-    document.getElementById(`assignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
+    document.getElementById(`assignedTo${element[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
           <div class="smallCircleUserStory">
             ${value}
           </div>
@@ -174,23 +174,79 @@ function showTask(task) {
   bigTaskActive = true;
   console.log("task", task);
 
-  renderSubTask(task);
+  renderSubTask(task, "bigTask");
   renderAssignedTo(task);
   getRightUserColor(task);
   getRightPriority(task);
 }
 
-function renderSubTask(task) {
+function renderSubTask(task, context = "default") {
   let subTaskToEntries = Object.entries(task[1]["subtasks"]);
   console.log("Subtask", subTaskToEntries[0][1]["value"]);
-
   subTaskToEntries.forEach(([, value]) => {
-    console.log("Teste den Value", value);
-
-    document.getElementById(`subTask${task[1]["id"]}`).innerHTML += /*HTML*/ `
-    <div class="singleSubTask"><input type="checkbox" /><span>${value.task}</span></div>
-    `;
+    console.log("Teste den Value", value.task);
+    if (context == "bigTask") {
+      returnSubTask(task, context, value);
+    } else {
+      returnEditableSubTask(task, context, value);
+    }
   });
+}
+
+function returnSubTask(task, context, value) {
+  document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
+  <div class="singleSubTask"><input type="checkbox" /><span>${value.task}</span></div>
+  `;
+}
+
+function returnEditableSubTask(task, context, value) {
+  document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
+      <ul id="${value.task}" class="subTaskList subTaskHover">
+        <li id="${value.task}_edit" contenteditable="false">${value.task}</li>
+        <div class="subTaskIcons">
+        <img onclick="editSubTask(${value.task},'edit')" src="../assets/img/edit.svg" alt="">
+        <div class="seperator"></div>
+        <img onclick="deleteSubTask(${value.task})" src="../assets/img/delete.svg" alt="">
+    </div>
+      `;
+}
+
+function editSubTask(id, context = "default") {
+  console.log("id", id);
+  let changeField = document.getElementById(`${id.id}`);
+  let task = document.getElementById(`${id.id}_${context}`);
+  if (task.contentEditable === "false") {
+    changeField.innerHTML = returnInputField(id);
+    changeClassesOnList(id);
+    focusInputField(id);
+  }
+  console.log("Editier FUnktioniert");
+}
+
+function changeClassesOnList(id) {
+  document.getElementById(id.id).classList.remove("subTaskList");
+  document.getElementById(id.id).classList.remove("subTaskHover");
+  document.getElementById(id.id).classList.add("inputFieldDesign");
+}
+
+function returnInputField(id) {
+  return `
+    <input class="inputFieldEdit" id="${id.id}_input" type="text" value="${id.id}">
+    <img onclick="deleteSubTask(${id.id})" src="../assets/img/delete.svg" alt="">
+    <img onclick="deleteSubTask(${id.id})" src="../assets/img/checked_subtask.svg" alt="">
+    `;
+}
+
+function focusInputField(id) {
+  let inputField = document.getElementById(`${id.id}_input`);
+  inputField.focus();
+  inputField.select();
+}
+
+function deleteSubTask(id) {
+  let element = document.getElementById(id.id);
+  element.remove();
+  console.log("LöschenFUnktionierte", id.id);
 }
 
 function getRightPriority(element) {
@@ -242,11 +298,16 @@ function eventStopPropagation(event) {
 
 async function editTask(task) {
   let rightTask = allToDos.filter((id) => id[1]["id"] == task);
+  let firstLevelArray = rightTask[0];
   rightTask = rightTask[0][1];
   let fireBaseDate = rightTask.date;
   let date = getRightTimeZone(fireBaseDate);
   let container = document.getElementById("bigTaskCard");
+  console.log("rightTask", rightTask);
+
   container.innerHTML = await editTaskBoard(rightTask, date);
+  renderAssignedToSmallTask(firstLevelArray, "editTask");
+  renderSubTask(firstLevelArray, "editTask");
   highlightRightPriority(rightTask);
   editTaskOpen = true;
 }
@@ -262,7 +323,7 @@ function highlightRightPriority(rightTask) {
   svgColors(rightTask);
 }
 
-function svgColors(rightTask){
+function svgColors(rightTask) {
   let svgId = rightTask.priority == "urgent" ? "svgUrgent" : rightTask.priority == "medium" ? "svgMedium" : rightTask.priority == "low" ? "svgLow" : "";
   let svgContainer = document.getElementById(`${svgId}`);
   svgContainer.removeAttribute("class");

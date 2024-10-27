@@ -32,6 +32,7 @@ async function editTaskBoard(task, date) {
               <input type="text" placeholder="Select contacts to assign" />
               <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()" />
             </div>
+            <div class="d-flex gap1 pt1" id="assignedTo${task["id"]}_editTask"></div>
             <div class="dropDownContainer d-none" id="dropDownMenu">
               <div class="dropDownContacts">
                 <div class="initialNameContainer">
@@ -93,7 +94,7 @@ async function editTaskBoard(task, date) {
                                 </div>
                             </div>
       </div>
-      <div class="rendered-task-container opacity-0" id="rendered-task-container"></div>
+      <div class="rendered-task-container opacity-0" id="subTask${task.id}_editTask"></div>
 
       </div>
     </div>

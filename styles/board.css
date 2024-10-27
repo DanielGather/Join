@@ -133,6 +133,12 @@ input {
   align-items: center;
 }
 
+.subTaskHover:hover{
+background-color: var(--main-background-color);
+border-radius: 0.5rem;
+cursor: pointer;
+}
+
 .hover {
   cursor: pointer;
 }

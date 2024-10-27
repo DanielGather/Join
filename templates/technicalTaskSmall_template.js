@@ -11,7 +11,7 @@ function htmlTechnicalTaskSmall(element) {
         <span id="subTaskSmall${element[1]['id']}" class="subTaskFont" style="width:100%">1/2 Subtasks</span>
       </div>
       <div class="d-flex jc-sb alic">
-        <div id="assignedTo${element[1]['id']}" class="d-flex pl035">
+        <div id="assignedTo${element[1]['id']}_taskSmall" class="d-flex pl035">
         </div>
         <div id="priority${element[1]['id']}"><img  src="./assets/img/prioMedia.svg" alt="" /></div>
       </div>
