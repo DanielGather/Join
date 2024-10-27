@@ -46,7 +46,7 @@
                         <div class="title-description-assigned-container">
                             <div class="title-description-assigned">
                                 <label class="addTask-label">Title<span class="star">*</span></label>
-                                <input required class="title-input" placeholder="Enter a title" autocomplete="off">
+                                <input required class="title-input" id="addTaskTitle" placeholder="Enter a title" autocomplete="off">
                             </div>
 
                             <div class="title-description-assigned">
@@ -62,38 +62,39 @@
                                         <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()"></div>
                                     </div>
                                     <div class="dropDownContainer d-none" id="dropDownMenu">
-                                        <div class="dropDownContacts">
-                                            <div class="initialNameContainer">
-                                                <div class="initialsAssigned">CR</div>
-                                                <p>Christiano Ronaldo</p>
+                                        <div class="dropDownContacts" id="dropDownContacts">
+                                            <div class="initialNameContainer" id="initialNameContainer">
+                                                <div class="initialsAssigned" id="initialsAssigned">CR</div>
+                                                <p id="contactNameAddTask">Christiano Ronaldo</p>
                                             </div>
-                                            <input type="checkbox">
+                                            <input type="checkbox" id="contactCheckbox" onclick="renderInitials()">
                                         </div>
 
-                                        <div class="dropDownContacts">
-                                            <div class="initialNameContainer">
-                                                <div class="initialsAssigned">LM</div>
-                                                <p>Lionel Messi</p>
+                                        <div class="dropDownContacts" id="dropDownContacts">
+                                            <div class="initialNameContainer" id="initialNameContainer">
+                                                <div class="initialsAssigned" id="initialsAssigned">LM</div>
+                                                <p id="contactNameAddTask">Lionel Messi</p>
                                             </div>
-                                            <input type="checkbox">
+                                            <input type="checkbox" id="contactCheckbox" onclick="renderInitials()">
                                         </div>
 
-                                        <div class="dropDownContacts">
-                                            <div class="initialNameContainer">
-                                                <div class="initialsAssigned">HK</div>
-                                                <p>Harry Kane</p>
+                                        <div class="dropDownContacts" id="dropDownContacts">
+                                            <div class="initialNameContainer" id="initialNameContainer">
+                                                <div class="initialsAssigned" id="initialsAssigned">HK</div>
+                                                <p id="contactNameAddTask">Harry Kane</p>
                                             </div>
-                                            <input type="checkbox">
+                                            <input type="checkbox" id="contactCheckbox" onclick="renderInitials()">
                                         </div>
 
-                                        <div class="dropDownContacts">
-                                            <div class="initialNameContainer">
-                                                <div class="initialsAssigned">JB</div>
-                                                <p>Jude Bellingham</p>
+                                        <div class="dropDownContacts" id="dropDownContacts">
+                                            <div class="initialNameContainer" id="initialNameContainer">
+                                                <div class="initialsAssigned" id="initialsAssigned">JB</div>
+                                                <p id="contactNameAddTask">Jude Bellingham</p>
                                             </div>
-                                            <input type="checkbox">
+                                            <input type="checkbox" id="contactCheckbox" onclick="renderInitials()">
                                         </div>
                                     </div>
+                                    <div class="renderedInitialsContainer" id="renderedInitialsContainer"></div>
                                 </div>
                             </div>
                         </div>

@@ -16,7 +16,7 @@ h1 {
 .form-container {
     display: flex;
     flex-direction: column;
-    gap: 82px;
+    gap: 52px;
 }
 
 .addTask-content-form-container {
@@ -104,6 +104,22 @@ h1 {
     border: 1px solid white;
     border-radius: 50%;
     background-color: yellow;
+}
+
+.renderedInitialsContainer {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    overflow: auto;
+}
+
+.renderedInitial{
+    border: 1px solid green;
+    border-radius: 50px;
+    height: 32px;
+    width: 32px;
+    padding: 4px;
+   
 }
 
 .addTask-seperator-container {

@@ -4,18 +4,18 @@ header {
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0em 1rem;
   box-shadow: -2px 0px 6px 0px rgb(0, 0, 0, 0.2);
 }
 
-.header img {
-  width: 2em;
-  height: 2.5em;
+.header .help-button {
+  width: 20px;
+  height: 20px;
 }
 
 .userIcons {
@@ -26,15 +26,22 @@ header {
 }
 
 .circle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--join-light-blue);
   display: flex;
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  border: 2px solid black;
+  border: 2px solid var(--join-dark-blue);
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 100%;
   z-index: 1;
+}
+
+.circle:hover {
+  background-color: #E2E6EC;
 }
 
 .help{
@@ -70,11 +77,12 @@ header {
   box-shadow: -2px 0px 6px 0px rgb(0,0,0, 0.2);
 }
 
-header a{
+.header-link {
   text-decoration: none;
   color: #CDCDCD;
 }
-header a:hover{
+
+.header-link:hover {
   background-color: #2a3d59;
 }
 
@@ -84,21 +92,45 @@ header a:hover{
   display: none;
 }
 
-@media (max-width: 500px) {
-  .smallCircle {
+.headline span {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+@media (max-width: 1024px) {
+  .help-button {
     display: none;
   }
 }
 
 @media (min-width: 1024px) {
+  .help-button {
+    transition: transform 0.2s;
+  }
+
+  .header .help-button:hover {
+    transform: scale(1.3);
+  }
+
+  .userIcons {
+    gap: 1.3rem;
+  }
+
   .headline {
     display: unset;
-    font-size: 1.5rem;
   }
+
   .joinLogo {
     display: none;
   }
 
+  .circle {
+    font-size: 28px;
+    font-weight: 600;
+    border: 3px solid var(--join-dark-blue);
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 }
 
 @media (max-width: 1024px){
@@ -117,5 +149,10 @@ header a:hover{
 @media (min-width: 1024px){
   .header {
     padding: 0em 2rem 0 7rem;
+    height: 6rem;
+  }
+
+  .posRelative{
+    top: 6rem;
   }
 }

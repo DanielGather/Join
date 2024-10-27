@@ -183,11 +183,12 @@ h5 {
   }
 }
 
-/* FIXME: desktopView for modal 1180px*/
+/* // TODO: Kommentar */
 @media (min-width: 1024px) {
   .mobile-menu-button {
     display: none;
   }
+
 
   .back-button-container {
     display: none;
@@ -234,20 +235,54 @@ h5 {
     font-size: 27px;
   }
 
-  .sec-contacts {
-    width: 456px;
-    height: inherit;
-    box-shadow: 0px 7px 6px 0px rgb(0, 0, 0, 0.2);
-    z-index: 5;
-  }
+  
 }
 
 .hide-mobile {
   display: none;
 }
 
-/* FIXME: desktopView for modal 1180px*/
-@media (min-width: 1024px) {
+/* zwischen size */
+@media (min-width: 800px) {
+  .sec-contacts {
+    max-width: 320px;
+    box-shadow: 0px 7px 6px 0px rgb(0, 0, 0, 0.2);
+    z-index: 5;
+  }
+
+  .add-contact-desk {
+    margin: 20px 14px 12px 14px;
+  }
+
+  #renderContainer_contacts {
+    padding: 0 14px 42px 14px;
+  }
+
+  .contact-s-card {
+    padding: 15px 10px;
+    gap: 16px;
+  }
+
+  .contacts-letter {
+    height: 58px;
+    padding: 17px 24px;
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  .sec-contact-view {
+    padding: 48px 24px;
+  }
+
+  .back-button-container {
+    display: none;
+}
+}
+
+/* @media (min-width: 1024px) { */
+@media (min-width: 800px) {
   .add-contact-desk {
     display: block;
   }
@@ -255,10 +290,6 @@ h5 {
   #renderContainer_contacts {
     height: calc(100% - 90px);
     overflow: auto;
-  }
-
-  .mobile-menu-button {
-    display: none;
   }
 
   .contact-s-card:not(.active-contact):hover {

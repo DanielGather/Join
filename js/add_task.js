@@ -18,8 +18,54 @@ function clear() {
 
 
 async function createTask() {
+    await updateLS();
     console.log("createTask test test");
-    let newAddTask ;
+    let newTask = getInputValues();
+    //console.log('neue Task:', newTask);
+    //postData('toDos', newTask);
+    console.log(newTask);
+}
+
+
+function getInputValues() {
+    let title = getTitle();
+    return title
+}
+
+
+function getTitle() {
+    let title = document.getElementById('addTaskTitle').value.trim();
+    return title;
+}
+
+
+function getDescription() {
+    // Description holen
+}
+
+
+function getDueDate() {
+    // Fälligkeitsdatum holen
+}
+
+
+function taskAssignedToContact() {
+    // Task an Kontakt zuweisen
+}
+
+
+function taskPrioType() {
+    // Priorität zuweisen
+}
+
+
+function chooseCategory() {
+    // Category auswählen
+}
+
+
+function getSubtasks() {
+    //subtask holen
 }
 
 
@@ -93,4 +139,20 @@ function deleteInputSubtaskValue() {
     document.getElementById('subtasks-input').value = '';
     document.getElementById('actionIcons').style = 'display:none';
     document.getElementById('plusIcon').style = 'display:block';
+}
+
+
+function renderInitials() {
+    let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
+    renderedInitialsContainer.innerHTML = '';
+    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            let initialsAssigned = checkbox.closest('.dropDownContacts').querySelector('.initialsAssigned');
+            let newInitialElement = document.createElement('div');
+            newInitialElement.classList.add('renderedInitial');
+            newInitialElement.textContent = initialsAssigned.textContent;
+            renderedInitialsContainer.appendChild(newInitialElement);
+        }
+    })
 }
