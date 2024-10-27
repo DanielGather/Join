@@ -162,7 +162,7 @@ h1 {
     gap: 6px;
 }
 
-.urgent-medium-low-buttons {
+.urgentButton, .mediumButton, .lowButton  {
     border-radius: var(--button-radius);
     border: 1px solid #D1D1D1;
     background-color: white;

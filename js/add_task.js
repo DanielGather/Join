@@ -18,18 +18,24 @@ function clear() {
 
 
 async function createTask() {
-    await updateLS();
+    //await updateLS();
     console.log("createTask test test");
     let newTask = getInputValues();
-    //console.log('neue Task:', newTask);
+    console.log('neue Task:', newTask);
     //postData('toDos', newTask);
-    console.log(newTask);
+    
 }
 
 
 function getInputValues() {
     let title = getTitle();
-    return title
+    let dueDate = getDueDate();
+    let priority = taskPrioType();
+    let category = chooseCategory();
+    let assignedTo = taskAssignedToContact();
+    let subTasks = getSubtasks();
+    //return title
+    return {'headline': title, 'date': dueDate, 'priority': priority, 'story': category, }
 }
 
 
@@ -45,7 +51,8 @@ function getDescription() {
 
 
 function getDueDate() {
-    // Fälligkeitsdatum holen
+    let dueDate = document.getElementById('inputDate').value;
+    return dueDate
 }
 
 

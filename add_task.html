@@ -104,17 +104,17 @@
                         <div class="dueDate-prio-category-subtasks-container">
                             <div class="dueDate-container">
                                 <label class="addTask-label">Due date<span class="star">*</span></label>
-                                <input required class="title-input" type="date">
+                                <input required class="title-input" type="date" id="inputDate">
                             </div>
 
                             <div class="prio-container">
                                 <label class="addTask-label">Prio</label>
                                 <div class="prio-buttons">
-                                    <button class="urgent-medium-low-buttons">Urgent <img
+                                    <button class="urgentButton" id="urgentButton" onclick="taskPrioType('Urgent')">Urgent <img
                                             src="./assets/img/prio_urgent.svg"></button>
-                                    <button class="urgent-medium-low-buttons">Medium <img
+                                    <button class="mediumButton" id="mediumButton" onclick="taskPrioType('Medium')">Medium <img
                                             src="./assets/img/prio_medium.svg"></button>
-                                    <button class="urgent-medium-low-buttons">Low <img
+                                    <button class="lowButton" id="lowButton" onclick="taskPrioType('Low')">Low <img
                                             src="./assets/img/prio_low.svg"></button>
                                 </div>
                             </div>
