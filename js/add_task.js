@@ -94,3 +94,18 @@ function deleteInputSubtaskValue() {
     document.getElementById('actionIcons').style = 'display:none';
     document.getElementById('plusIcon').style = 'display:block';
 }
+
+function renderInitials() {
+    let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
+    renderedInitialsContainer.innerHTML = '';
+    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            let initialsAssigned = checkbox.closest('.dropDownContacts').querySelector('.initialsAssigned');
+            let newInitialElement = document.createElement('div');
+            newInitialElement.classList.add('renderedInitial');
+            newInitialElement.textContent = initialsAssigned.textContent;
+            renderedInitialsContainer.appendChild(newInitialElement);
+        }
+    })
+}
