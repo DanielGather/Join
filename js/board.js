@@ -45,8 +45,8 @@ function updateCategoryHTML(category, containerId, allToDos) {
   let filteredToDos = toDoArray.filter((t) => t[1]["category"] === category);
   console.log("filteredTodo", filteredToDos);
 
-  if (filteredToDos.length === 0) return;
   document.getElementById(containerId).innerHTML = "";
+  if (filteredToDos.length === 0) return;
   filteredToDos.forEach((element) => {
     document.getElementById(containerId).innerHTML += htmlTechnicalTaskSmall(element);
     console.log("element", element);
