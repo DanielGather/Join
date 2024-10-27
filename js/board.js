@@ -45,8 +45,8 @@ function updateCategoryHTML(category, containerId, allToDos) {
   let filteredToDos = toDoArray.filter((t) => t[1]["category"] === category);
   console.log("filteredTodo", filteredToDos);
 
+  // if (filteredToDos.length === 0) return;
   document.getElementById(containerId).innerHTML = "";
-  if (filteredToDos.length === 0) return;
   filteredToDos.forEach((element) => {
     document.getElementById(containerId).innerHTML += htmlTechnicalTaskSmall(element);
     console.log("element", element);
@@ -55,6 +55,19 @@ function updateCategoryHTML(category, containerId, allToDos) {
     getRightUserColor(element);
     getRightPriority(element);
   });
+  checkChildElement();
+}
+
+function checkChildElement(){
+  let elements = document.querySelectorAll('.allCategories');
+  elements.forEach((element) => {
+    if (!element.hasChildNodes()){
+      let createDiv = document.createElement('div');
+      createDiv.className = 'noTask d-flex alic jc-c colorGrey fs16'
+      createDiv.textContent = 'No tasks To do';
+      element.appendChild(createDiv);
+    }
+  })
 }
 
 function calculateSubtaskProgress(element) {
