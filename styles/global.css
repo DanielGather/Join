@@ -41,10 +41,13 @@ main {
   .desktop-view {
     height: 100vh;
     width: calc(100% - 232px);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
   }
 
   main {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 96px);
   }
 }
 
