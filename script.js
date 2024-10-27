@@ -1,6 +1,6 @@
 const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.app/';
 
-let userLS = 'guest';
+let userId = '-O9LX4TBR5QazOMqtHn';
 let contactsLS = [];
 let contactsOnly = [];
 const colors = [
@@ -10,20 +10,26 @@ const colors = [
 ];
 
 async function init(html) {
-    updateLS();
+    await updateLS();
+    renderHeader(html);
     renderNavBar(html);
-    renderHeader();
     // await getIdFromDb('contacts', 'name', 'Finn Taylor');
 }
 
 function renderNavBar(html) {
+    document.getElementById('navBar').innerHTML = navbarTemplate();
+    removeActiveLink('.nav-links a', 'nav-active');
+    removeActiveLink('.copyright-links a', 'copyright-activ');
+    
+    if (html == 'help') {
+        return;
+    };
+
     let className = 'nav-active';
     if (html == 'privacyPolicy' || html == 'legalNotice') {
         className = 'copyright-activ';
     }
-    document.getElementById('navBar').innerHTML = navbarTemplate();
-    removeActiveLink('.nav-links a', 'nav-active');
-    removeActiveLink('.copyright-links a', 'copyright-activ');
+
     document.getElementById(`${html}Link`).classList.add(className);
 }
 
@@ -35,8 +41,27 @@ function removeActiveLink(selectElements, className) {
     });
 }
 
-function renderHeader() {
-    document.getElementById('header').innerHTML = returnHeaderHtml();
+function hideHelpButton() {
+    document.getElementById('helpButton').style.display = 'none';
+}
+
+function hideHeaderButtons() {
+    document.getElementById('headerButtonsContainer').style.display = 'none';
+}
+
+function renderHeader(html = '') {
+    let user = contactsLS.filter(contact => contact[0] == userId);
+    let userProfil = undefined//user[0][1].initials;
+    if (userProfil == undefined) {userProfil = 'G'}
+    document.getElementById('header').innerHTML = returnHeaderHtml(userProfil);
+
+    if (html == 'help') {
+        return hideHelpButton();
+    };
+
+    if (html == 'privacyPolicy' || html == 'legalNotice') {
+        return hideHeaderButtons();
+    }
 }
 
 function showPopUp(){
@@ -159,4 +184,17 @@ function getRandomColor() {
     // Wähle eine zufällige Farbe aus dem gewichteten Array
     const randomColor = weightedColors[Math.floor(Math.random() * weightedColors.length)];
     return randomColor;
+}
+
+
+
+
+// USER
+
+function saveUser() {
+    localStorage.setItem("userID", userId);
+}
+
+function loadUser() {
+    userId = localStorage.getItem("userID");
 }
