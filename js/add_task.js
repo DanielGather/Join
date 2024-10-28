@@ -1,4 +1,5 @@
 let subtaskArray = [];
+let choosedContact = [];
 
 function handleSubmit(event) {   // prüfen welcher button geklickt wurde
     event.preventDefault();
@@ -152,6 +153,7 @@ function deleteInputSubtaskValue() {
 function renderInitials() {
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = '';
+    choosedContact = [];
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
