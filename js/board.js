@@ -221,15 +221,17 @@ function returnEditableSubTask(task, context, value) {
       <ul id="${value.task}" class="subTaskList subTaskHover">
         <li id="${value.task}_edit" contenteditable="false">${value.task}</li>
         <div class="subTaskIcons">
-        <img onclick="editSubTask(${value.task},'edit')" src="../assets/img/edit.svg" alt="">
+        <img onclick="editSubTask(${value.task},'edit')" src="./assets/img/edit.svg" alt="">
         <div class="seperator"></div>
-        <img onclick="deleteSubTask(${value.task})" src="../assets/img/delete.svg" alt="">
+        <img onclick="deleteSubTask(${value.task})" src="./assets/img/delete.svg" alt="">
     </div>
       `;
 }
 
 function editSubTask(id, context = "default") {
   console.log("id", id);
+  console.log("id.id", id.id);
+  
   let changeField = document.getElementById(`${id.id}`);
   let task = document.getElementById(`${id.id}_${context}`);
   if (task.contentEditable === "false") {
@@ -249,8 +251,8 @@ function changeClassesOnList(id) {
 function returnInputField(id) {
   return `
     <input class="inputFieldEdit" id="${id.id}_input" type="text" value="${id.id}">
-    <img onclick="deleteSubTask(${id.id})" src="../assets/img/delete.svg" alt="">
-    <img onclick="deleteSubTask(${id.id})" src="../assets/img/checked_subtask.svg" alt="">
+    <img onclick="deleteSubTask(${id.id})" src="./assets/img/delete.svg" alt="">
+    <img onclick="deleteSubTask(${id.id})" src="./assets/img/checked_subtask.svg" alt="">
     `;
 }
 
