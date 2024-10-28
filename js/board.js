@@ -208,8 +208,12 @@ function renderSubTask(task, context = "default") {
 
 function returnSubTask(task, context, value) {
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-  <div class="singleSubTask"><input type="checkbox" /><span>${value.task}</span></div>
+  <div class="singleSubTask"><input onclick="checkCheckbox()" type="checkbox" /><span>${value.task}</span></div>
   `;
+}
+
+function checkCheckbox(){
+  console.log("CHeckbox funktioniert");
 }
 
 function returnEditableSubTask(task, context, value) {

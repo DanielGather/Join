@@ -35,7 +35,8 @@ function getInputValues() {
     let assignedTo = taskAssignedToContact();
     let subTasks = getSubtasks();
     //return title
-    return {'headline': title, 'date': dueDate, 'priority': priority, 'story': category, }
+    return {
+        'headline': title, 'date': dueDate, 'priority': priority, 'story': category, }
 }
 
 
