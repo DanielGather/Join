@@ -22,7 +22,7 @@ function getInputValues() {
     .toLowerCase()
     .replace(/\b\w/g, function(match) {return match.toUpperCase();});
     let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value.trim();
+    let password = document.getElementById('passwordInput').value.trim();
     let initials = createInitials(name);
     let letter = name.charAt(0).toUpperCase();
     let color = getRandomColor();
