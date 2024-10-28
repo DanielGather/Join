@@ -1,6 +1,6 @@
 async function addUser() {
     await updateLS()
-    let confirmPassword = document.getElementById('confirmPassword').value;
+    let confirmPassword = document.getElementById('confirmPasswordInput').value;
     let newContact = getInputValues();
     console.log('der neue Kontakt ist:', newContact)
     if (!checkIfPasswordEqual(confirmPassword, newContact.password)) {
