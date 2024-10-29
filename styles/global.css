@@ -115,6 +115,9 @@ main {
   display: none;
 }
 
+.flex-grow{
+  flex-grow: 1;
+}
 button {
   border-radius: var(--button-radius);
   border: 2px solid #2a3647;
@@ -145,7 +148,7 @@ button svg {
   button:hover {
     border-radius: var(--button-radius);
     border: 2px solid var(--join-light-blue);
-    font-size: 20px;
+    /* font-size: 20px; */
     font-weight: 400;
     color: var(--join-light-blue);
     background-color: white;
@@ -156,7 +159,7 @@ button svg {
   }
 
   .button-dark:hover {
-    font-size: 21px;
+    /* font-size: 21px; */
     font-weight: 700;
     color: white;
     background-color: var(--join-light-blue);

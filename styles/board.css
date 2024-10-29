@@ -1,53 +1,26 @@
-
 /* TABLE OF CONTENT 
 
 1. global styles
 2. typography
 3. components
 4. layouts
-
-
+5. media queries
 
 */
-
-
-
-
-
 
 /* =============
 1. global styles   
 ================ */
 
-/* =============
-2. typography   
-================ */
-
-/* =============
-3. components
-================ */
-
-/* =============
-4. layouts 
-================ */
-
-
-
-
-.boardDesktop {
-  display: none;
+input {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  padding: 10px;
 }
 
-.main {
-  display: flex;
-  justify-content: center;
-}
-
-.board {
-  min-width: 20rem;
-  max-width: 70rem;
-  padding: 4.5rem 2rem;
-  width: 100%;
+.fs16 {
+  font-size: 16px;
 }
 
 .input-container {
@@ -59,13 +32,6 @@
   border-radius: 4px;
   padding: 0 10px;
   flex-grow: 1;
-}
-
-input {
-  border: none;
-  outline: none;
-  /* flex-grow: 1; */
-  padding: 10px;
 }
 
 .icon-container {
@@ -125,27 +91,6 @@ input {
   gap: 1rem;
 }
 
-.createTaskButton {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem 0.75rem;
-}
-
-.createTaskButton:hover {
-  width: unset;
-  height: unset;
-  fill: unset;
-}
-
-.responsiveButton {
-  cursor: pointer;
-}
-
-.fs16 {
-  font-size: 16px;
-}
-
 .toDos {
   min-width: 15.75rem;
 }
@@ -167,10 +112,10 @@ input {
   z-index: 1;
 }
 
-.subTaskHover:hover{
-background-color: var(--main-background-color);
-border-radius: 0.5rem;
-cursor: pointer;
+.subTaskHover:hover {
+  background-color: var(--main-background-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .hover {
@@ -188,6 +133,54 @@ cursor: pointer;
 .svgLow {
   color: #7ae229;
 }
+
+/* =============
+2. typography   
+================ */
+
+/* =============
+3. components
+================ */
+
+.createTaskButton {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.createTaskButton:hover {
+  width: unset;
+  height: unset;
+  fill: unset;
+}
+
+.responsiveButton {
+  cursor: pointer;
+}
+
+/* =============
+4. layouts 
+================ */
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.board {
+  min-width: 20rem;
+  max-width: 70rem;
+  padding: 4.5rem 2rem;
+  width: 100%;
+}
+
+.boardDesktop {
+  display: none;
+}
+
+/* =============
+5. media queries   
+================ */
 
 @media (min-width: 700px) {
   .taskArea {

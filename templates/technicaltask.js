@@ -34,7 +34,7 @@ function technicalTaskBig(task) {
   <div>
     <span>Subtasks</span>
   </div>
-  <div>
+  <div class="flex-grow">
     <div id="subTask${task[1]['id']}_bigTask" class="d-flex subTask">
       
     </div>
@@ -50,25 +50,4 @@ function technicalTaskBig(task) {
   </div>
 </div>
 `;
-}
-
-
-
-function renderSubTask(task, context = "default") {
-  let subTaskToEntries = Object.entries(task[1]["subtasks"]);
-  console.log("Subtask", subTaskToEntries[0][1]["value"]);
-
-  subTaskToEntries.forEach(([, value]) => {
-    console.log("Teste den Value", value);
-    if(context == "bigTask"){
-    document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-    <div class="singleSubTask"><input type="checkbox" /><span>${value.task}</span></div>
-    `;
-    } else {
-      document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-      <ul class="subTaskList">
-        <li>${value.task}</li>
-      `
-    }
-  });
 }

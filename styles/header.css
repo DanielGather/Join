@@ -41,32 +41,30 @@ header {
 }
 
 .circle:hover {
-  background-color: #E2E6EC;
+  background-color: #e2e6ec;
 }
 
-.help{
+.help {
   display: none;
 }
 
-.brHelp{
+.brHelp {
   display: none;
 }
 
-.posRelative{
+.posRelative {
   position: relative;
   top: 5rem;
   right: 1rem;
 }
 
-
-.posAbs{
+.posAbs {
   position: absolute;
   top: 0px;
   right: 0px;
 }
 
-
-.popUp{
+.popUp {
   background-color: var(--join-dark-blue);
   font-size: 12px;
   width: 100%;
@@ -74,18 +72,17 @@ header {
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
-  box-shadow: -2px 0px 6px 0px rgb(0,0,0, 0.2);
+  box-shadow: -2px 0px 6px 0px rgb(0, 0, 0, 0.2);
 }
 
 .header-link {
   text-decoration: none;
-  color: #CDCDCD;
+  color: #cdcdcd;
 }
 
 .header-link:hover {
   background-color: #2a3d59;
 }
-
 
 .headline {
   width: 100%;
@@ -133,26 +130,26 @@ header {
   }
 }
 
-@media (max-width: 1024px){
-  .help{
+@media (max-width: 1024px) {
+  .help {
     display: unset;
     padding: 0.5rem;
   }
-  .brHelp{
+  .brHelp {
     display: unset;
   }
-  .posRelative{
+  .posRelative {
     right: 0.5rem;
   }
 }
 
-@media (min-width: 1024px){
+@media (min-width: 1024px) {
   .header {
     padding: 0em 2rem 0 7rem;
     height: 6rem;
   }
 
-  .posRelative{
+  .posRelative {
     top: 6rem;
   }
 }
