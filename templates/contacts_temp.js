@@ -17,7 +17,7 @@ function temp_contactCard(id, contact) {
                 <div id="color${id}" class="contacts-profil-elipse">${contact.initials}</div>
             </div>
             <div class="contact-details">
-                <span class="contact-name">${contact.name}</span>
+                <span class="contacts-name">${contact.name}</span>
                 <span class="e-mail">${contact.email}</span>
             </div>
         </div>
@@ -29,7 +29,7 @@ function temp_contactInfo(id, contact) {
         <div class="name-container">
             <div id="colorInfo${id}" class="contact-profil-elipse center-center">${contact.initials}</div>
             <div class="d-flex column g-8">
-                <h2>${contact.name}</h2>
+                <h2 class="contact-name">${contact.name}</h2>
                 <div class="desc-options">
                     <a class="d-flex a-center g-12 w-70" href="#" onclick="openModal('editContactDialog'), openEditContact('${id}')">
                         <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,6 +58,9 @@ function temp_contactInfo(id, contact) {
                 <h5>Phone</h5>
                 <a class="phone-number" href="tel:${contact.phone}">${contact.phone}</a>
             </div>
+        </div>
+        <div class="mobile-menu-button center-center" onclick="openModal('mobileMenuDialog')">
+            <img src="./assets/img/menu_dots.svg" alt="menu" />
         </div>
     `
 }

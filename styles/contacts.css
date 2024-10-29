@@ -45,10 +45,6 @@ main {
   );
 }
 
-.contact-s-card .contact-name {
-  font-size: 20px;
-}
-
 .contact-img-container {
   display: flex;
   justify-content: center;
@@ -75,11 +71,26 @@ main {
   align-items: start;
 }
 
+.contact-s-card .contact-name {
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Setzt "..." bei Überlänge */
+  font-size: min(16px, 4.5vw);
+}
+
 .e-mail {
   color: var(--email-blue);
   text-decoration: none;
   display: contents;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 16px;
+}
+
+.contact-details .e-mail {
+  font-size: min(16px, 4vw);
 }
 
 h3 {
@@ -116,6 +127,10 @@ h3 {
   padding: 12px;
 }
 
+.contact-s-card .contacts-name {
+  white-space: nowrap;
+  font-size: min(20px, 5vw);
+}
 
 
 

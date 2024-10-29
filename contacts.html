@@ -69,7 +69,7 @@
 
           <div id="renderContainer_contacts"></div>
           
-          <div onclick="openModal('addContactDialog')" class="mobile-menu-button center-center">
+          <div onclick="openModal('addContactDialog')" id="addContactMobileButton" class="mobile-menu-button center-center">
             <img src="./assets/img/add_contact.svg" alt="menu" />
           </div>
 
@@ -143,9 +143,6 @@
             </div>
           </div>
           <div id="sec_contactInfo" class="contact-info"></div>
-          <div class="mobile-menu-button center-center" onclick="openModal('mobileMenuDialog')">
-            <img src="./assets/img/menu_dots.svg" alt="menu" />
-          </div>
 
 
           <dialog onclick="closeOnClickOutside(event, 'editContactDialog')" id="editContactDialog">

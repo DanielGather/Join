@@ -82,6 +82,10 @@ h5 {
   display: contents;
 }
 
+.contact-info .contact-name {
+  font-size: min(36px, 8vw);
+}
+
 /* ------------------------------------global */
 
 .sec-contact-view {
@@ -111,7 +115,7 @@ h5 {
 
 .contact-profil-elipse {
   min-width: 80px;
-  height: 80px;
+  aspect-ratio: 1 / 1;
   border-radius: 50px;
   background-color: #ff7a00;
   color: white;
@@ -136,7 +140,7 @@ h5 {
   background-color: #eeeeee;
 }
 
-@media (min-width: 1320px) {
+@media (min-width: 1200px) {
   .contact-headline {
     flex-direction: row;
     align-items: center;
@@ -177,18 +181,13 @@ h5 {
     border: solid 4px white;
   }
 
-  h2 {
+  .contact-info .contact-name {
     font-size: 47px;
     font-weight: 500;
   }
 }
 
-/* // TODO: Kommentar */
 @media (min-width: 1024px) {
-  .mobile-menu-button {
-    display: none;
-  }
-
 
   .back-button-container {
     display: none;
@@ -235,7 +234,9 @@ h5 {
     font-size: 27px;
   }
 
-  
+  .mobile-menu-button {
+    display: none;
+  }
 }
 
 .hide-mobile {
@@ -245,7 +246,7 @@ h5 {
 /* zwischen size */
 @media (min-width: 800px) {
   .sec-contacts {
-    max-width: 320px;
+    max-width: 380px;
     box-shadow: 0px 7px 6px 0px rgb(0, 0, 0, 0.2);
     z-index: 5;
   }
@@ -278,7 +279,11 @@ h5 {
 
   .back-button-container {
     display: none;
-}
+  }
+
+  #addContactMobileButton {
+    display: none;
+  }
 }
 
 /* @media (min-width: 1024px) { */
@@ -288,7 +293,7 @@ h5 {
   }
 
   #renderContainer_contacts {
-    height: calc(100% - 90px);
+    height: calc(100% - 92px);
     overflow: auto;
   }
 
@@ -318,4 +323,42 @@ h5 {
 
 .d-none {
   display: none;
+}
+
+/* mini */
+@media (max-width: 400px) {
+  #renderContainer_contacts {
+    padding: 0 16px 42px 16px;
+  }
+
+  .contacts-letter {
+    padding: 17px 20px;
+  }
+
+  .contact-s-card {
+    padding: 15px 8px;
+    gap: 18px;
+  }
+
+  .contact-s-card .contacts-name {
+    font-size: min(20px, 5vw);
+  }
+
+  .sec-contact-view {
+    padding: 48px 16px;
+  }
+
+  .contact-profil-elipse {
+    font-size: 24px;
+    min-width: 60px;
+  }
+
+  .name-container {
+    gap: 10px;
+  }
+
+  .contact-info .contact-name {
+    font-size: min(36px, 8vw);
+  }
+
 }
