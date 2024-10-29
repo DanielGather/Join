@@ -1,4 +1,37 @@
 
+/* TABLE OF CONTENT 
+
+1. global styles
+2. typography
+3. components
+4. layouts
+
+
+
+*/
+
+
+
+
+
+
+/* =============
+1. global styles   
+================ */
+
+/* =============
+2. typography   
+================ */
+
+/* =============
+3. components
+================ */
+
+/* =============
+4. layouts 
+================ */
+
+
 
 
 .boardDesktop {
@@ -131,6 +164,7 @@ input {
   height: 100vh;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .subTaskHover:hover{

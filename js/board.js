@@ -58,16 +58,16 @@ function updateCategoryHTML(category, containerId, allToDos) {
   checkChildElement();
 }
 
-function checkChildElement(){
-  let elements = document.querySelectorAll('.allCategories');
+function checkChildElement() {
+  let elements = document.querySelectorAll(".allCategories");
   elements.forEach((element) => {
-    if (!element.hasChildNodes()){
-      let createDiv = document.createElement('div');
-      createDiv.className = 'noTask d-flex alic jc-c colorGrey fs16'
-      createDiv.textContent = 'No tasks To do';
+    if (!element.hasChildNodes()) {
+      let createDiv = document.createElement("div");
+      createDiv.className = "noTask d-flex alic jc-c colorGrey fs16";
+      createDiv.textContent = "No tasks To do";
       element.appendChild(createDiv);
     }
-  })
+  });
 }
 
 function calculateSubtaskProgress(element) {
@@ -212,7 +212,7 @@ function returnSubTask(task, context, value) {
   `;
 }
 
-function checkCheckbox(){
+function checkCheckbox() {
   console.log("CHeckbox funktioniert");
 }
 
@@ -224,18 +224,19 @@ function returnEditableSubTask(task, context, value) {
         <img onclick="editSubTask(${value.task},'edit')" src="./assets/img/edit.svg" alt="">
         <div class="seperator"></div>
         <img onclick="deleteSubTask(${value.task})" src="./assets/img/delete.svg" alt="">
-    </div>
+        </div>
+  </ul>
       `;
 }
 
-function editSubTask(id, context = "default") {
+function editSubTask(id, context = "default" ) {
   console.log("id", id);
   console.log("id.id", id.id);
-  
+
   let changeField = document.getElementById(`${id.id}`);
   let task = document.getElementById(`${id.id}_${context}`);
   if (task.contentEditable === "false") {
-    changeField.innerHTML = returnInputField(id);
+    changeField.innerHTML = changeToInputField(id);
     changeClassesOnList(id);
     focusInputField(id);
   }
@@ -243,17 +244,30 @@ function editSubTask(id, context = "default") {
 }
 
 function changeClassesOnList(id) {
-  document.getElementById(id.id).classList.remove("subTaskList");
-  document.getElementById(id.id).classList.remove("subTaskHover");
-  document.getElementById(id.id).classList.add("inputFieldDesign");
+  document.getElementById(id.id).classList.toggle("subTaskList");
+  document.getElementById(id.id).classList.toggle("subTaskHover");
+  document.getElementById(id.id).classList.toggle("inputFieldDesign");
 }
 
-function returnInputField(id) {
+function changeToInputField(id) {
   return `
     <input class="inputFieldEdit" id="${id.id}_input" type="text" value="${id.id}">
     <img onclick="deleteSubTask(${id.id})" src="./assets/img/delete.svg" alt="">
-    <img onclick="deleteSubTask(${id.id})" src="./assets/img/checked_subtask.svg" alt="">
+    <img onclick="changeBackToList(${id.id})" src="./assets/img/checked_subtask.svg" alt="">
     `;
+}
+
+function changeBackToList(id){
+  let changeField = document.getElementById(`${id.id}`);
+  changeField.innerHTML = /*HTML*/  `
+    <li id="${id.id}_edit" contenteditable="false">${id.id}</li>
+        <div class="subTaskIcons">
+        <img onclick="editSubTask(${id.id},'edit')" src="./assets/img/edit.svg" alt="">
+        <div class="seperator"></div>
+        <img onclick="deleteSubTask(${id.id})" src="./assets/img/delete.svg" alt="">
+        </div>
+  `
+  changeClassesOnList(id);
 }
 
 function focusInputField(id) {

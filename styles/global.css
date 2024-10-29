@@ -3,6 +3,8 @@
   margin: 0px;
 }
 
+
+
 @font-face {
   font-family: Inter;
   src: url("../assets/font/Inter/Inter-VariableFont_opsz\,wght.ttf");
@@ -14,6 +16,7 @@
 }
 
 body {
+  scroll-behavior: smooth;
   margin: 0;
   height: 100vh;
   font-family: Inter;
