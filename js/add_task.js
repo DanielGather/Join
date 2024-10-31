@@ -30,14 +30,20 @@ async function createTask() {
 
 function getInputValues() {
     let title = getTitle();
+    let description = getDescription();
     let dueDate = getDueDate();
     let priority = taskPrioType();
     let category = chooseCategory();
-    let assignedTo = taskAssignedToContact();
+    let assignedTo = renderInitials();
     let subTasks = getSubtasks();
-    //return title
+    //return assignedTo;
     return {
-        'headline': title, 'date': dueDate, 'priority': priority, 'story': category,
+        'headline': title,
+        'date': dueDate,
+        'priority': priority,
+        'story': category,
+        'description': description,
+        'assignedTo': assignedTo,
     }
 }
 
@@ -49,7 +55,8 @@ function getTitle() {
 
 
 function getDescription() {
-    // Description holen
+    let description = document.getElementById('textForDescription').value;
+    return description;
 }
 
 
@@ -154,16 +161,25 @@ function deleteInputSubtaskValue() {
 
 
 function renderInitials() {
+    let checkedContacts = [];
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = '';
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
             let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
-            console.log(checkedContact);
-            renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials (checkedContact);
-        } 
+            //console.log('checked Contact:', checkedContact);
+            
+            let key = checkedContact[0].name;
+            let value = checkedContact[0].initials;
+            let newObject = { [key]: value }
+            checkedContacts.push(newObject);
+
+            console.log(checkedContacts);
+            renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
+        }
     })
+    return checkedContacts;
 }
 
 
@@ -172,6 +188,6 @@ function renderAssignedToContacts() {
     for (let i = 0; i < contactsOnly.length; i++) {
         let contact = contactsOnly[i];
         document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(contact);
-        console.log('name und initials:', contact.name, contact.initial);
+        //console.log('name und initials:', contact.name, contact.initial);
     }
 }
