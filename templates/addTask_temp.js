@@ -5,7 +5,14 @@ function temp_generateHtmlAssignedToContacts(contact) {
             <div class="initialsAssigned" id="initialsAssigned" style="background-color: ${contact.color}">${contact.initials}</div>
             <p id="contactNameAddTask">${contact.name}</p>
         </div>
-        <input type="checkbox" id="${contact.email}" onclick="renderInitials('${contact.initials}', '${contact.color}')">
+        <input type="checkbox" id="${contact.email}" onclick="renderInitials()">
     </div>
+    `
+}
+
+
+function temp_generateHtmlAssignedToInitials (checkedContact) {
+    return /*html*/`
+    <div class="renderedInitial" style="background-color:${checkedContact[0].color}">${checkedContact[0].initials}</div>
     `
 }

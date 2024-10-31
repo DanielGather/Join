@@ -153,55 +153,25 @@ function deleteInputSubtaskValue() {
 }
 
 
-function renderInitials(initial, color) {
+function renderInitials() {
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = '';
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
-            let checketContact = contactsOnly.filter(contact => contact.email == checkbox.id);
-
-            renderedInitialsContainer.innerHTML += /*html*/`
-            <div class="renderedInitial" style="background-color: ${color}">${initial}</div>
-            `
+            let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
+            console.log(checkedContact);
+            renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials (checkedContact);
         } 
     })
 }
 
 
-
-
-/*
-function renderInitials(initial, color) {
-    let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
-    renderedInitialsContainer.innerHTML = '';
-    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
-    checkboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-             let newDivElement = document.createElement('div');
-             newDivElement.classList.add('renderedInitial');
-             newDivElement.style.backgroundColor = color;
-             newDivElement.textContent = initial;
-             renderedInitialsContainer.appendChild(newDivElement);
-        }
-    })
-}*/
-
-
-// function renderInitials(initial, color) {
-//     document.getElementById('renderedInitialsContainer').innerHTML += /*html*/`
-//       <div class="renderedInitial" style="background-color: ${color}">${initial}</div>
-//       `
-// }
-
-
 function renderAssignedToContacts() {
     document.getElementById('dropDownMenu').innerHTML = '';
     for (let i = 0; i < contactsOnly.length; i++) {
-        let name = contactsOnly[i].name;
-        let initial = contactsOnly[i].initials;
-        let color = contactsOnly[i].color;
-        document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(name, initial, color);
-        console.log('name und initials:', name, initial);
+        let contact = contactsOnly[i];
+        document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(contact);
+        console.log('name und initials:', contact.name, contact.initial);
     }
 }
