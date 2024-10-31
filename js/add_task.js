@@ -79,6 +79,7 @@ function getSubtasks() {
 
 
 function toggleAssignedToDropDown() {
+    renderAssignedToContacts();
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
     let dropdownMenu = document.getElementById('dropDownMenu');
     if (dropdownMenu.style.display === 'none') {
@@ -165,4 +166,16 @@ function renderInitials() {
             renderedInitialsContainer.appendChild(newInitialElement);
         }
     })
+}
+
+
+function renderAssignedToContacts() {
+    document.getElementById('dropDownMenu').innerHTML = '';
+    for (let i = 0; i < contactsOnly.length; i++) {
+        let name = contactsOnly[i].name;
+        let initial = contactsOnly[i].initials;
+        let color = contactsOnly[i].color;
+        document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(name, initial, color);
+        console.log('name und initials:', name , initial);
+    }
 }
