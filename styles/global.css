@@ -118,6 +118,7 @@ main {
 .flex-grow{
   flex-grow: 1;
 }
+
 button {
   border-radius: var(--button-radius);
   border: 2px solid #2a3647;

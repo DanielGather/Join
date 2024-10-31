@@ -108,3 +108,10 @@ function getRightArray(allToDos) {
     return toDoArray;
   }
 }
+
+function getAssignedBackgroundColor(key,value){
+  let contact = 
+  contactsLS.filter((contact) => contact[1].name.toUpperCase() === key.toUpperCase() && contact[1].initials.toUpperCase() === value.toUpperCase());
+  console.log("kontakt testen", contact);
+  return  contact[0][1].color;
+}

@@ -3,6 +3,7 @@ let allToDos;
 let bigTaskActive;
 let searchedTask = [];
 let editTaskOpen;
+let checkboxId = 1;
 
 function boardJS() {
   renderBoard();
@@ -73,25 +74,29 @@ function renderAssignedToBigTask(element) {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML = "";
   assignedToEntries.forEach(([key, value]) => {
+   let backgroundColor = getAssignedBackgroundColor(key,value);
     document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
         <div class="d-flex alic gap1">
-        <div class="circle">${value}</div>
+        <div class="circle" style = "background-color: ${backgroundColor}">${value}</div>
         <div>${key}</div>
         </div>
       `;
+
   });
 }
 
 function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
-  assignedToEntries.forEach(([, value]) => {
+  assignedToEntries.forEach(([key, value]) => {
+    let backgroundColor = getAssignedBackgroundColor(key, value)
     document.getElementById(`assignedTo${element[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-          <div class="smallCircleUserStory">
+          <div class="smallCircleUserStory" style = "background-color: ${backgroundColor}">
             ${value}
           </div>
         `;
   });
 }
+
 
 function renderSubTask(task, context = "default") {
   let subTaskToEntries = Object.entries(task[1]["subtasks"]);
@@ -107,9 +112,30 @@ function renderSubTask(task, context = "default") {
 }
 
 function returnSubTask(task, context, value) {
+
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-  <div class="singleSubTask"><input onclick="checkCheckbox()" type="checkbox" /><span>${value.task}</span></div>
+  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]['id']}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
   `;
+  checkboxId += +1
+}
+
+async function checkCheckbox(checkboxId,toDoId,value){
+  let newValue = JSON.parse(value);
+  console.log("testen123123",newValue);
+  
+  let checkbox = document.getElementById(`checkbox${checkboxId}`)
+  let getTaskId = await getIdFromDb("/toDos", "id", toDoId)
+  console.log("TaskID",getTaskId);
+  let subTaskId = await getIdFromDb("/toDos/"+getTaskId+"/subtasks", "task", newValue.task)
+  console.log("subtaskid",subTaskId);
+  
+  console.log(checkbox.checked);
+
+  if(checkbox.checked){
+    putData("/toDos/" + getTaskId + "/subtasks/" + subTaskId +"/status", true)
+  } else{
+    putData("/toDos/" + getTaskId + "/subtasks/" + subTaskId +"/status", false)
+  }
 }
 
 function returnEditableSubTask(task, context, value) {
@@ -224,10 +250,7 @@ function closeBigTask() {
   }
   bigTaskActive = false;
   editTaskOpen = false;
-}
-
-function checkCheckbox() {
-  console.log("CHeckbox funktioniert");
+  updateHTML();
 }
 
 // Sicherung ToDos anlegen
