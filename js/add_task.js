@@ -3,18 +3,18 @@ let choosedContact = [];
 
 function handleSubmit(event) {   // prüfen welcher button geklickt wurde
     event.preventDefault();
-    const submitButton = event.submitter;    
+    const submitButton = event.submitter;
     if (submitButton.id === "clear") {
-        clear(); 
+        clear();
     } else if (submitButton.id === "createTask") {
-        createTask(); 
-    }   
+        createTask();
+    }
     return false;
 }
 
 
 function clear() {
-    console.log("clear test test"); 
+    console.log("clear test test");
 }
 
 
@@ -24,7 +24,7 @@ async function createTask() {
     let newTask = getInputValues();
     console.log('neue Task:', newTask);
     //postData('toDos', newTask);
-    
+
 }
 
 
@@ -37,7 +37,8 @@ function getInputValues() {
     let subTasks = getSubtasks();
     //return title
     return {
-        'headline': title, 'date': dueDate, 'priority': priority, 'story': category, }
+        'headline': title, 'date': dueDate, 'priority': priority, 'story': category,
+    }
 }
 
 
@@ -98,7 +99,7 @@ function toggleCategoryDropDown() {
     if (categoryDropdownMenu.style.display === 'none') {
         categoryDropdownMenu.style.display = 'flex';
         imgCategoryDropdownToggle.src = './assets/img/arrow_drop_up.svg';
-    }else {
+    } else {
         categoryDropdownMenu.style.display = 'none';
         imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
     }
@@ -118,7 +119,7 @@ function addSubTask() {
     subtaskArray.push(subtaskInput);
     let taskContainer = document.getElementById('rendered-task-container');
     taskContainer.innerHTML = '';
-    for (let i = 0; i < subtaskArray.length; i++){
+    for (let i = 0; i < subtaskArray.length; i++) {
         let subtask = subtaskArray[i];
         taskContainer.innerHTML += `
         <ul class="subtaskList">
@@ -135,7 +136,7 @@ function addSubTask() {
 function toggleSubtaskIcons() {
     let plusIcon = document.getElementById('plusIcon');
     let actionIcons = document.getElementById('actionIcons');
-    if(plusIcon.style.display === 'none') {
+    if (plusIcon.style.display === 'none') {
         plusIcon.style.display = 'block';
         actionIcons.style.display = 'none';
     } else {
@@ -152,21 +153,44 @@ function deleteInputSubtaskValue() {
 }
 
 
-function renderInitials() {
+function renderInitials(initial, color) {
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = '';
-    choosedContact = [];
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
-            let initialsAssigned = checkbox.closest('.dropDownContacts').querySelector('.initialsAssigned');
-            let newInitialElement = document.createElement('div');
-            newInitialElement.classList.add('renderedInitial');
-            newInitialElement.textContent = initialsAssigned.textContent;
-            renderedInitialsContainer.appendChild(newInitialElement);
+            renderedInitialsContainer.innerHTML += /*html*/`
+            <div class="renderedInitial" style="background-color: ${color}">${initial}</div>
+            `
         }
     })
 }
+
+
+
+
+/*
+function renderInitials(initial, color) {
+    let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
+    renderedInitialsContainer.innerHTML = '';
+    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+             let newDivElement = document.createElement('div');
+             newDivElement.classList.add('renderedInitial');
+             newDivElement.style.backgroundColor = color;
+             newDivElement.textContent = initial;
+             renderedInitialsContainer.appendChild(newDivElement);
+        }
+    })
+}*/
+
+
+// function renderInitials(initial, color) {
+//     document.getElementById('renderedInitialsContainer').innerHTML += /*html*/`
+//       <div class="renderedInitial" style="background-color: ${color}">${initial}</div>
+//       `
+// }
 
 
 function renderAssignedToContacts() {
@@ -176,6 +200,6 @@ function renderAssignedToContacts() {
         let initial = contactsOnly[i].initials;
         let color = contactsOnly[i].color;
         document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(name, initial, color);
-        console.log('name und initials:', name , initial);
+        console.log('name und initials:', name, initial);
     }
 }
