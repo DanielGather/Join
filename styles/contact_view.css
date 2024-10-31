@@ -116,7 +116,7 @@ h5 {
 .contact-profil-elipse {
   min-width: 80px;
   aspect-ratio: 1 / 1;
-  border-radius: 50px;
+  border-radius: 50%;
   background-color: #ff7a00;
   color: white;
   font-size: 27px;
@@ -172,11 +172,8 @@ h5 {
   }
 
   .contact-profil-elipse {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+    min-width: 120px;
     background-color: #ff7a00;
-    color: white;
     font-size: 47px;
     border: solid 4px white;
   }
@@ -255,10 +252,6 @@ h5 {
     margin: 20px 14px 12px 14px;
   }
 
-  #renderContainer_contacts {
-    padding: 0 14px 42px 14px;
-  }
-
   .contact-s-card {
     padding: 15px 10px;
     gap: 16px;
@@ -327,9 +320,6 @@ h5 {
 
 /* mini */
 @media (max-width: 400px) {
-  #renderContainer_contacts {
-    padding: 0 16px 42px 16px;
-  }
 
   .contacts-letter {
     padding: 17px 20px;

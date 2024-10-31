@@ -153,14 +153,17 @@ function deleteInputSubtaskValue() {
 }
 
 
-function renderInitials(initial, color) {
+function renderInitials() {
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = '';
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
+            let checketContact = contactsOnly.filter(contact => contact.email == checkbox.id);
+
             renderedInitialsContainer.innerHTML += /*html*/`
-            <div class="renderedInitial" style="background-color: ${color}">${initial}</div>
+            <div class="renderedInitial" style="background-color: ${checketContact[0].color}">${checketContact[0].initials}</div>
             `
         }
     })
@@ -196,10 +199,8 @@ function renderInitials(initial, color) {
 function renderAssignedToContacts() {
     document.getElementById('dropDownMenu').innerHTML = '';
     for (let i = 0; i < contactsOnly.length; i++) {
-        let name = contactsOnly[i].name;
-        let initial = contactsOnly[i].initials;
-        let color = contactsOnly[i].color;
-        document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(name, initial, color);
-        console.log('name und initials:', name, initial);
+        let contact = contactsOnly[i];
+        document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(contact);
+        // console.log('name und initials:', contact.name, contact.initial);
     }
 }
