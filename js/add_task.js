@@ -1,5 +1,7 @@
 let subtaskArray = [];
 let choosedContact = [];
+let priority = null;
+
 
 function handleSubmit(event) {   // prüfen welcher button geklickt wurde
     event.preventDefault();
@@ -32,7 +34,7 @@ function getInputValues() {
     let title = getTitle();
     let description = getDescription();
     let dueDate = getDueDate();
-    let priority = taskPrioType();
+    let priority = chooseTaskPrioType();
     let category = chooseCategory();
     let assignedTo = renderInitials();
     let subTasks = getSubtasks();
@@ -71,9 +73,32 @@ function taskAssignedToContact() {
 }
 
 
-function taskPrioType() {
-    // Priorität zuweisen
+function chooseTaskPrioType(priorityType) {
+    if (priority === priorityType){
+        setButtonColorForPrio(null);
+        priority = null;
+        console.log('Prioauswahl deaktiviert:', priority);
+        return null;
+    }
+    priority = priorityType;
+    setButtonColorForPrio(priorityType);
+    console.log('Prioauswahl:', priority);
+    return priority;
 }
+
+
+function setButtonColorForPrio(priorityType) {
+    document.getElementById("urgentButton").style.backgroundColor = '';
+    document.getElementById("mediumButton").style.backgroundColor = '';
+    document.getElementById("lowButton").style.backgroundColor = '';
+    if (priorityType === "Urgent") {
+        document.getElementById("urgentButton").style.backgroundColor = '#FF3D19';
+    } else if (priorityType === "Medium") {
+        document.getElementById("mediumButton").style.backgroundColor = '#FFA827';
+    } else if (priorityType === "Low") {
+        document.getElementById("lowButton").style.backgroundColor = '#7AE22B';
+    }
+}   
 
 
 function chooseCategory() {
