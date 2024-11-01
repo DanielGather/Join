@@ -27,6 +27,9 @@ function renderContactsLetter() {
 }
 
 function renderContactCards(id, contact) {
+    if (contact.phone == undefined) {
+        contact.phone = '-/-'
+    }
     document.getElementById(`contactsOf_${contact.letter}`).innerHTML += temp_contactCard(id, contact);
     coloringProfImg(id, contact);
 }
@@ -105,7 +108,10 @@ function fillInputs(id) {
     let contact = idToContact(id);
     document.getElementById('editName').value = contact.name;
     document.getElementById('editEmail').value = contact.email;
-    document.getElementById('editPhone').value = contact.phone || '';
+    if (contact.phone == undefined || contact.phone == '-/-') {
+        contact.phone = '';
+    }
+    document.getElementById('editPhone').value = contact.phone;
 }
 
 function showEditImg(id) {
@@ -227,6 +233,10 @@ function showAlert() {
 }
 
 
+
+
+
+// backup
 
 let demo = [
     {

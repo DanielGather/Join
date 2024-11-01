@@ -6,11 +6,13 @@ section.legalNotice {
     overflow: auto;
     height: 100%;
     padding: 0 20px;
+    padding-bottom: 50px;
 }
 
 h1 {
     font-size: 47px;
     margin: 30px 0;
+    margin-top: 60px;
 }
 
 h2 {
@@ -69,8 +71,36 @@ section.legalNotice p {
     right: 20px;
 }
 
+ol {
+    padding-left: 0;
+    list-style-type: none;
+    counter-reset: item;
+}
+
+
+ol li {
+    text-indent: 0px;
+    position: relative;
+    padding-left: 28px;
+    counter-increment: item;
+}
+
+
+ol li::before {
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.oList-padding {
+    padding-left: 28px;
+}
+
 /* @media (min-width: 1180px) { */
-@media (min-width: 800px) {
+@media (min-width: 1024px) {
 
     section.legalNotice {
         padding: 0 100px;
@@ -78,6 +108,7 @@ section.legalNotice p {
 
     h1 {
         font-size: 61px;
+        margin-top: 104px;
     }
     
     .back-button-container a:hover {
@@ -88,6 +119,7 @@ section.legalNotice p {
     
     .back-button-container a {
         right: 100px;
+        top: 220px;
     }
 }
 
@@ -95,5 +127,20 @@ section.legalNotice p {
     h1 {
         font-size: 38px;
         margin-bottom: 14px;
+    }
+
+    .oList-padding {
+        padding-left: 16px;
+    }
+}
+
+@media (min-width: 1440px) {
+    main {
+        display: flex;
+        justify-content: center;
+    }
+
+    section.legalNotice {
+        max-width: 1204px;
     }
 }
