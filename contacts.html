@@ -128,22 +128,24 @@
         </section>
 
         <section id="secViewContact" class="sec-contact-view hide-mobile">
-          <div class="d-flex s-between">
-            <div class="column g-8 contact-headline">
-              <h1>Contacts</h1>
-              <div class="swich-to-desk-headline">
-                <h3>Better with a team</h3>
-                <div class="view-contact-seperator"></div>
+
+          <div>
+            <div class="d-flex s-between">
+              <div class="column g-8 contact-headline">
+                <h1>Contacts</h1>
+                <div class="swich-to-desk-headline">
+                  <h3>Better with a team</h3>
+                  <div class="view-contact-seperator"></div>
+                </div>
+              </div>
+              <div class="back-button-container">
+                <a class="center-center" onclick="returnToContacts()">
+                  <img src="./assets/img/return_arrow.svg" alt="return" />
+                </a>
               </div>
             </div>
-            <div class="back-button-container">
-              <a class="center-center" onclick="returnToContacts()">
-                <img src="./assets/img/return_arrow.svg" alt="return" />
-              </a>
-            </div>
+            <div id="sec_contactInfo" class="contact-info"></div>
           </div>
-          <div id="sec_contactInfo" class="contact-info"></div>
-
 
           <dialog onclick="closeOnClickOutside(event, 'editContactDialog')" id="editContactDialog">
             <section class="modal-content">

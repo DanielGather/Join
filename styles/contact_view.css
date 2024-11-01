@@ -140,47 +140,83 @@ h5 {
   background-color: #eeeeee;
 }
 
-@media (min-width: 1200px) {
-  .contact-headline {
-    flex-direction: row;
-    align-items: center;
-    gap: 26px;
+.hide-mobile {
+  display: none;
+}
+
+/* zwischen size */
+@media (min-width: 800px) {
+  .sec-contacts {
+    max-width: 380px;
+    box-shadow: 0px 7px 6px 0px rgb(0, 0, 0, 0.2);
+    z-index: 5;
   }
 
-  .swich-to-desk-headline {
-    display: flex;
-    align-items: center;
-    flex-direction: row-reverse;
-    gap: 26px;
+  #renderContainer_contacts {
+    padding: 0 clamp(16px, 100% - 348px, 48px);
+    padding-bottom: 42px;
   }
 
-  .view-contact-seperator {
-    width: 3px;
-    height: 60px;
+  .add-contact-desk {
+    margin: 0 clamp(16px, 100% - 348px, 48px);
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+  .contact-s-card {
+    padding: 15px 10px;
+    gap: 16px;
   }
 
-  .contact-info span {
-    font-size: 20px;
+  .contacts-letter {
+    height: 58px;
+    padding: 17px 24px;
   }
 
-  .contact-info {
-    gap: 50px;
-  }
-
-  .name-container {
-    gap: 54px;
-  }
-
-  .contact-profil-elipse {
-    min-width: 120px;
-    background-color: #ff7a00;
-    font-size: 47px;
-    border: solid 4px white;
-  }
-
-  .contact-info .contact-name {
-    font-size: 47px;
+  h2 {
+    font-size: 32px;
     font-weight: 500;
+  }
+  .sec-contact-view {
+    padding: 48px 24px;
+  }
+
+  .back-button-container {
+    display: none;
+  }
+
+  #addContactMobileButton {
+    display: none;
+  }
+}
+
+@media (min-width: 800px) {
+  .add-contact-desk {
+    display: block;
+  }
+
+  #renderContainer_contacts {
+    height: calc(100% - 92px);
+    overflow: auto;
+  }
+
+  .contact-s-card:not(.active-contact):hover {
+    background: linear-gradient(
+      0deg,
+      rgba(241, 241, 241, 1) 50%,
+      rgba(250, 250, 250, 1) 100%
+    );
+  }
+
+  .active-contact {
+    background-color: var(--join-dark-blue);
+  }
+  .active-contact span {
+    color: white;
+  }
+
+  .hide-mobile {
+    display: unset;
   }
 }
 
@@ -236,87 +272,56 @@ h5 {
   }
 }
 
-.hide-mobile {
-  display: none;
-}
-
-/* zwischen size */
-@media (min-width: 800px) {
+@media (min-width: 1220px) {
   .sec-contacts {
-    max-width: 380px;
+    max-width: clamp(380px, 100vw - 838px, 453px);
     box-shadow: 0px 7px 6px 0px rgb(0, 0, 0, 0.2);
     z-index: 5;
   }
 
-  .add-contact-desk {
-    margin: 20px 14px 12px 14px;
+  .contact-headline {
+    flex-direction: row;
+    align-items: center;
+    gap: 26px;
   }
 
-  .contact-s-card {
-    padding: 15px 10px;
-    gap: 16px;
+  .swich-to-desk-headline {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 26px;
   }
 
-  .contacts-letter {
-    height: 58px;
-    padding: 17px 24px;
+  .view-contact-seperator {
+    width: 3px;
+    height: 60px;
   }
 
-  h2 {
-    font-size: 32px;
+  .contact-info span {
+    font-size: 20px;
+  }
+
+  .contact-info {
+    gap: 50px;
+  }
+
+  .name-container {
+    gap: 54px;
+  }
+
+  .contact-profil-elipse {
+    min-width: 120px;
+    background-color: #ff7a00;
+    font-size: 47px;
+    border: solid 4px white;
+  }
+
+  .contact-info .contact-name {
+    font-size: 47px;
     font-weight: 500;
   }
-  .sec-contact-view {
-    padding: 48px 24px;
-  }
-
-  .back-button-container {
-    display: none;
-  }
-
-  #addContactMobileButton {
-    display: none;
-  }
 }
 
-/* @media (min-width: 1024px) { */
-@media (min-width: 800px) {
-  .add-contact-desk {
-    display: block;
-  }
-
-  #renderContainer_contacts {
-    height: calc(100% - 92px);
-    overflow: auto;
-  }
-
-  .contact-s-card:not(.active-contact):hover {
-    background: linear-gradient(
-      0deg,
-      rgba(241, 241, 241, 1) 50%,
-      rgba(250, 250, 250, 1) 100%
-    );
-  }
-
-  .active-contact {
-    background-color: var(--join-dark-blue);
-  }
-  .active-contact span {
-    color: white;
-  }
-
-  .hide-mobile {
-    display: unset;
-  }
-}
-
-.only-desk {
-  display: none;
-}
-
-.d-none {
-  display: none;
-}
 
 /* mini */
 @media (max-width: 400px) {
@@ -352,3 +357,25 @@ h5 {
   }
 
 }
+
+@media (min-width: 1400px) {
+  .sec-contact-view {
+    padding: 48px 64px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .sec-contact-view {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.only-desk {
+  display: none;
+}
+
+.d-none {
+  display: none;
+}
+
