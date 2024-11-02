@@ -19,12 +19,11 @@ h1 {
 }
 
 .smallCircleUserStory {
-  background-color: black;
   display: flex;
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  border: 2px solid black;
+  border: 1.5px solid white;
   color: white;
   width: 2rem;
   height: 2rem;

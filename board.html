@@ -18,27 +18,27 @@
     <link rel="stylesheet" href="./styles/technicalTask.css" />
     <link rel="stylesheet" href="./styles/header.css" />
 
-    <script src="./templates/navbar_temp.js"></script>
-    <script src="./templates/header_temp.js"></script>
-    <script src="./templates/technicaltask.js"></script>
+    <script defer src="./script.js" ></script>
+    <script src="./templates/navbar_temp.js" ></script>
+    <script src="./templates/header_temp.js" ></script>
+    <script src="./templates/technicaltask.js" ></script>
     <script src="./js/header.js"></script>
     <script src="./js/add_task.js"></script>
 
     <!-- Dazugehörige tamplates .js -->
-     <script src="./js/dragAndDrop.js"></script>
-     <script src="./js/help_functions.js"></script>
-     <script src="./templates/svg_temp.js"></script>
-    <script src="./templates/board_temp.js"></script>
-    <script defer src="./js/board.js"></script>
-    <script defer src="./script.js"></script>
-    <script src="./templates/technicalTaskSmall_template.js"></script>
-    <script src="./templates/editTaskBoard.js"></script>
+     <script src="./js/dragAndDrop.js" ></script>
+     <script src="./templates/svg_temp.js" ></script>
+     <script src="./templates/board_temp.js" ></script>
+     <script src="./js/board.js" ></script>
+     <script src="./js/help_functions.js" ></script>
+    <script src="./templates/technicalTaskSmall_template.js" ></script>
+    <script src="./templates/editTaskBoard.js" ></script>
     <!-- <script src="./js/test_db_users_daniel.js"></script> -->
 
     <title>Join-Board</title>
   </head>
 
-  <body onload="init('board'), boardJS()">
+  <body onload=initBoard()>
     <nav id="navBar">Test</nav>
     <div class="desktop-view">
       <header id="header"></header>

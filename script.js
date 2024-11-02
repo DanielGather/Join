@@ -9,6 +9,8 @@ const colors = [
     '#FFE62B', '#FF4646', '#FFBB2B', '#462F8A'
 ];
 
+document.dispatchEvent(new Event('dataLoaded'));
+
 async function init(html) {
     await updateLS();
     renderHeader(html);

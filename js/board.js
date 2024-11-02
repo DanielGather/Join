@@ -5,6 +5,11 @@ let searchedTask = [];
 let editTaskOpen;
 let checkboxId = 1;
 
+async function initBoard(){
+  await init('board');
+  boardJS();
+}
+
 function boardJS() {
   renderBoard();
   navbarTemplate();
@@ -84,6 +89,7 @@ function renderAssignedToBigTask(element) {
 
 function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
+
   assignedToEntries.forEach(([key, value]) => {
     let backgroundColor = getAssignedBackgroundColor(key, value)
     document.getElementById(`assignedTo${element[1]["id"]}_${context}`).innerHTML += /*HTML*/ `

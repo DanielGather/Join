@@ -54,7 +54,6 @@
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  border: 2px solid black;
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 100%;
@@ -65,8 +64,8 @@
   display: flex;
   cursor: pointer;
   align-items: center;
+  border: 1.5px solid white;
   justify-content: center;
-  border: 2px solid black;
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 100%;
