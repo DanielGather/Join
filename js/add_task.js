@@ -26,7 +26,7 @@ function clear() {
 async function createTask() {
     //await updateLS();
     console.log("createTask test test");
-    idNum++; 
+    idNum++;
     let newTask = getInputValues();
     postData('toDos', newTask);
     console.log('neue Task:', newTask);
@@ -40,8 +40,7 @@ function getInputValues() {
     let priority = statusPriority;
     let category = selectedCategory;
     let assignedTo = assignedToContacts;
-    let subTasks = addSubTask();
-    //return subTasks;
+    let subTasks = subtaskArray;
     return {
         'headline': title,
         'date': dueDate,
@@ -74,14 +73,8 @@ function getDueDate() {
 }
 
 
-/*
-function taskAssignedToContact() {
-    // Task an Kontakt zuweisen
-}*/
-
-
 function chooseTaskPrioType(priorityType) {
-    if (statusPriority === priorityType){
+    if (statusPriority === priorityType) {
         setButtonColorForPrio(null);
         statusPriority = null;
         console.log('Prioauswahl deaktiviert:', statusPriority);
@@ -90,7 +83,7 @@ function chooseTaskPrioType(priorityType) {
     statusPriority = priorityType;
     setButtonColorForPrio(priorityType);
     console.log('Prioauswahl:', statusPriority);
-    return statusPriority;
+    //return statusPriority;
 }
 
 
@@ -105,13 +98,7 @@ function setButtonColorForPrio(priorityType) {
     } else if (priorityType === "Low") {
         document.getElementById("lowButton").style.backgroundColor = '#7AE22B';
     }
-}   
-
-
-/*
-function getSubtasks() {
-    //subtask holen
-}*/
+}
 
 
 function toggleAssignedToDropDown() {
@@ -147,32 +134,30 @@ function setCategory(category) {
     imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
     selectedCategory = category;
     console.log('category ist:', selectedCategory);
-    return selectedCategory;
+    //return selectedCategory;
 }
 
 
 function addSubTask() {
-    let allSubtasks = [];
     document.getElementById('rendered-task-container').style = 'opacity:1';
-    let subtaskInput = document.getElementById('subtasks-input').value;
-    subtaskArray.push(subtaskInput);
-    let taskContainer = document.getElementById('rendered-task-container');
-    taskContainer.innerHTML = '';
-    for (let i = 0; i < subtaskArray.length; i++) {
-        let subtask = subtaskArray[i];
-        let newSingleTaskObject = { task: subtask };
-        allSubtasks.push(newSingleTaskObject);
-        taskContainer.innerHTML += `
+    let subtaskInput = document.getElementById('subtasks-input').value.trim();
+    if (subtaskInput) {
+        subtaskArray.push({ task: subtaskInput });
+        let taskContainer = document.getElementById('rendered-task-container');
+        taskContainer.innerHTML = '';
+        for (let i = 0; i < subtaskArray.length; i++) {
+            let subtask = subtaskArray[i].task;
+            taskContainer.innerHTML += `
         <ul class="subtaskList">
             <li>${subtask}</li>
         </ul>
         `
+        }
     }
     document.getElementById('subtasks-input').value = '';
     document.getElementById('actionIcons').style = 'display:none';
     document.getElementById('plusIcon').style = 'display:block';
-    console.log('allSubtasks:', allSubtasks);
-    return allSubtasks;
+    console.log('subtaskArray:', subtaskArray);
 }
 
 
@@ -204,8 +189,6 @@ function renderInitials() {
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
             let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
-            //console.log('checked Contact:', checkedContact);
-            
             let key = checkedContact[0].name;
             let value = checkedContact[0].initials;
             let newObject = { [key]: value };
@@ -215,7 +198,7 @@ function renderInitials() {
             renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
         }
     })
-    return checkedContacts;
+    //return checkedContacts;
 }
 
 
