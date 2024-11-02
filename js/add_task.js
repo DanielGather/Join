@@ -2,6 +2,7 @@ let subtaskArray = [];
 let choosedContact = [];
 let statusPriority = null;
 let selectedCategory = null;
+let assignedToContacts = null;
 let idNum = 0;
 
 
@@ -38,7 +39,7 @@ function getInputValues() {
     let dueDate = getDueDate();
     let priority = statusPriority;
     let category = selectedCategory;
-    let assignedTo = renderInitials();
+    let assignedTo = assignedToContacts;
     let subTasks = addSubTask();
     //return subTasks;
     return {
@@ -209,7 +210,7 @@ function renderInitials() {
             let value = checkedContact[0].initials;
             let newObject = { [key]: value };
             checkedContacts.push(newObject);
-
+            assignedToContacts = checkedContacts;
             console.log(checkedContacts);
             renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
         }
