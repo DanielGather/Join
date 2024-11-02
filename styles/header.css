@@ -25,7 +25,7 @@ header {
   gap: 2rem;
 }
 
-.circle {
+header .circle {
   font-size: 20px;
   font-weight: 600;
   color: var(--join-light-blue);
@@ -40,7 +40,7 @@ header {
   z-index: 1;
 }
 
-.circle:hover {
+header .circle:hover {
   background-color: #e2e6ec;
 }
 
@@ -121,7 +121,7 @@ header {
     display: none;
   }
 
-  .circle {
+  header .circle {
     font-size: 28px;
     font-weight: 600;
     border: 3px solid var(--join-dark-blue);

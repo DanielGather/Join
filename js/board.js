@@ -13,9 +13,7 @@ function boardJS() {
 
 function renderBoard() {
   let htmlContent = document.getElementById("main");
-  let headerContent = document.getElementById("header");
   htmlContent.innerHTML = boardHtml();
-  headerContent.innerHTML = returnHeaderHtml();
 }
 
 async function updateHTML() {
@@ -81,7 +79,6 @@ function renderAssignedToBigTask(element) {
         <div>${key}</div>
         </div>
       `;
-
   });
 }
 
