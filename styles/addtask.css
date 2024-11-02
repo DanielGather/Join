@@ -65,7 +65,8 @@ h1 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.inputAssignedToContainer:focus-within, .subtasks-input-add-container:focus-within {
+.inputAssignedToContainer:focus-within,
+.subtasks-input-add-container:focus-within {
     border-color: var(--join-light-blue);
 }
 
@@ -75,14 +76,15 @@ h1 {
     height: 32px;
 }
 
-.inputAssignedToContainer img, .category-container img {
+.inputAssignedToContainer img,
+.category-container img {
     width: 10px;
     height: 10px;
 }
 
-.dropDownContacts{
+.dropDownContacts {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
     padding: 0 20px;
 }
@@ -113,13 +115,13 @@ h1 {
     overflow: auto;
 }
 
-.renderedInitial{
+.renderedInitial {
     border: 1px solid green;
     border-radius: 50px;
     height: 32px;
     width: 32px;
     padding: 4px;
-   
+
 }
 
 .addTask-seperator-container {
@@ -162,7 +164,9 @@ h1 {
     gap: 6px;
 }
 
-.urgentButton, .mediumButton, .lowButton  {
+.urgentButton,
+.mediumButton,
+.lowButton {
     border-radius: var(--button-radius);
     border: 1px solid #D1D1D1;
     background-color: white;
@@ -201,7 +205,10 @@ h1 {
     outline: none;
 }
 
-.add-subtask, .arrow-drop-down-img, .subtask-close-icon, .subtask-checked-icon{
+.add-subtask,
+.arrow-drop-down-img,
+.subtask-close-icon,
+.subtask-checked-icon {
     height: 18px;
     width: 18px;
     display: flex;
@@ -215,7 +222,8 @@ h1 {
     height: 12px;
 }
 
-.subtask-close-icon img, .subtask-checked-icon img {
+.subtask-close-icon img,
+.subtask-checked-icon img {
     width: 18px;
     height: 18px;
 }
@@ -233,14 +241,17 @@ h1 {
     height: 24px;
 }
 
-.add-subtask:hover, .arrow-drop-down-img:hover, .subtask-close-icon:hover, .subtask-checked-icon:hover {
+.add-subtask:hover,
+.arrow-drop-down-img:hover,
+.subtask-close-icon:hover,
+.subtask-checked-icon:hover {
     border-radius: 50%;
     background-color: #D1D1D1;
 }
 
 .rendered-task-container {
     height: 60px;
-    overflow-y: auto; 
+    overflow-y: auto;
 }
 
 .subtaskList {
@@ -255,7 +266,8 @@ h1 {
     outline: none;
 }
 
-.title-input:focus, textarea:focus {
+.title-input:focus,
+textarea:focus {
     border-color: var(--join-light-blue);
 }
 
@@ -284,7 +296,7 @@ textarea {
     justify-content: space-between;
     background-color: white;
     align-items: center;
-    
+
     position: relative;
     z-index: 2;
 }
@@ -307,7 +319,8 @@ textarea {
     cursor: pointer;
 }
 
-.choose-category-container:hover, .dropDownContacts:hover {
+.choose-category-container:hover,
+.dropDownContacts:hover {
     border-radius: var(--input-select-textarea-radius);
     background-color: rgb(223, 219, 219);
 }
@@ -337,7 +350,7 @@ textarea {
     border: 1px solid #2a3647;
     background-color: var(--button-background-color-bright);
     font-size: var(--button-font-size);
-    cursor: pointer;   
+    cursor: pointer;
 }
 
 .create-task-button {
@@ -354,6 +367,31 @@ textarea {
     font-size: var(--button-font-size);
     font-weight: var(--button-font-weight);
     cursor: pointer;
+}
+
+.popup-addTask-container {
+    background-color: #2a3647;
+    width: 312px;
+    height: 74px;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    position: fixed;
+    gap: 22px;
+    bottom: -80px;
+    left: 50%;
+
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: bottom 0.3s ease, opactiy 0.3s ease;
+}
+
+.popup-addTask-container.visible {
+    bottom: 50%;
+    opacity: 1;
 }
 
 .required {
@@ -375,8 +413,12 @@ textarea {
         display: flex;
     }
 
-    .subtasks-container, .category-header-container, .urgent-medium-low-buttons,
-    .title-input, textarea, .inputAssignedToContainer {
+    .subtasks-container,
+    .category-header-container,
+    .urgent-medium-low-buttons,
+    .title-input,
+    textarea,
+    .inputAssignedToContainer {
         cursor: pointer;
     }
 }

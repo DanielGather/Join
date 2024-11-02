@@ -30,6 +30,7 @@ async function createTask() {
     let newTask = getInputValues();
     postData('toDos', newTask);
     console.log('neue Task:', newTask);
+    showAddTaskSuccessPopup();
 }
 
 
@@ -209,4 +210,14 @@ function renderAssignedToContacts() {
         document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(contact);
         //console.log('name und initials:', contact.name, contact.initial);
     }
+}
+
+
+function showAddTaskSuccessPopup() {
+    let animatedContainer = document.getElementById('popup-addTask-container');
+    animatedContainer.classList.add('visible');
+    setTimeout(() => {
+        animatedContainer.classList.remove('visible');
+        window.location.href = 'board.html';
+    }, 2000);
 }
