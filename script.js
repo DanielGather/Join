@@ -1,6 +1,6 @@
 const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.app/';
 
-let userId = '-O9LX4TBR5QazOMqtHn';
+let userId = '-O9GTT8Io_s_RWTB3MXG';
 let contactsLS = [];
 let contactsOnly = [];
 const colors = [
@@ -15,7 +15,6 @@ async function init(html) {
     await updateLS();
     renderHeader(html);
     renderNavBar(html);
-    // await getIdFromDb('contacts', 'name', 'Finn Taylor');
 }
 
 function renderNavBar(html) {
@@ -52,10 +51,8 @@ function hideHeaderButtons() {
 }
 
 function renderHeader(html = '') {
-    let user = contactsLS.filter(contact => contact[0] == userId);
-    let userProfil = undefined//user[0][1].initials;
-    if (userProfil == undefined) {userProfil = 'G'}
-    document.getElementById('header').innerHTML = returnHeaderHtml(userProfil);
+    let initials = getUserInitials();
+    document.getElementById('header').innerHTML = returnHeaderHtml(initials);
 
     if (html == 'help') {
         return hideHelpButton();
@@ -193,6 +190,20 @@ function getRandomColor() {
 
 // USER
 
+function getUserInitials() {
+    let user = getUser()
+    
+    if (user == undefined) {return 'G'};
+    return user[1].initials;
+}
+
+function getUser() {
+    let user = contactsLS.find(contact => contact[0] == userId);
+
+    return user;
+}
+
+
 function saveUser() {
     localStorage.setItem("userID", userId);
 }
@@ -200,3 +211,4 @@ function saveUser() {
 function loadUser() {
     userId = localStorage.getItem("userID");
 }
+
