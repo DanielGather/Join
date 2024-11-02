@@ -1,6 +1,6 @@
 let subtaskArray = [];
 let choosedContact = [];
-let priority = null;
+let statusPriority = null;
 let selectedCategory = null;
 let idNum = 0;
 
@@ -37,8 +37,8 @@ function getInputValues() {
     let title = getTitle();
     let description = getDescription();
     let dueDate = getDueDate();
-    let priority = chooseTaskPrioType();
-    let category = setCategory();
+    let priority = statusPriority;
+    let category = selectedCategory;
     let assignedTo = renderInitials();
     let subTasks = addSubTask();
     //return subTasks;
@@ -80,16 +80,16 @@ function taskAssignedToContact() {
 
 
 function chooseTaskPrioType(priorityType) {
-    if (priority === priorityType){
+    if (statusPriority === priorityType){
         setButtonColorForPrio(null);
-        priority = null;
-        console.log('Prioauswahl deaktiviert:', priority);
+        statusPriority = null;
+        console.log('Prioauswahl deaktiviert:', statusPriority);
         return null;
     }
-    priority = priorityType;
+    statusPriority = priorityType;
     setButtonColorForPrio(priorityType);
-    console.log('Prioauswahl:', priority);
-    return priority;
+    console.log('Prioauswahl:', statusPriority);
+    return statusPriority;
 }
 
 
