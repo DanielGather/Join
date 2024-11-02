@@ -20,6 +20,20 @@ function handleSubmit(event) {   // prüfen welcher button geklickt wurde
 
 function clear() {
     console.log("clear test test");
+    document.getElementById('addTaskTitle').value = '';          
+    document.getElementById('textForDescription').value = '';     
+    document.getElementById('inputDate').value = '';              
+    document.getElementById('subtasks-input').value = '';
+    priority = null;
+    setButtonColorForPrio(null);   
+    document.getElementById('category-header').innerText = 'Select task category';
+    selectedCategory = null; 
+    document.getElementById('dropDownMenu').innerHTML = '';             
+    document.getElementById('renderedInitialsContainer').innerHTML = ''; 
+    document.getElementById('rendered-task-container').innerHTML = '';   
+    document.getElementById('rendered-task-container').style.opacity = '0'; 
+    subtaskArray = [];
+    choosedContact = [];
 }
 
 
