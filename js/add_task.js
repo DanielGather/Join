@@ -27,9 +27,8 @@ async function createTask() {
     console.log("createTask test test");
     idNum++; 
     let newTask = getInputValues();
+    postData('toDos', newTask);
     console.log('neue Task:', newTask);
-    //postData('toDos', newTask);
-
 }
 
 
@@ -51,6 +50,7 @@ function getInputValues() {
         'assignedTo': assignedTo,
         'subtasks': subTasks,
         'id': idNum,
+        'category': 'toDo',
     };
 }
 
