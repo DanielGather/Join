@@ -197,7 +197,8 @@ function deleteInputSubtaskValue() {
 
 
 function renderInitials() {
-    let checkedContacts = [];
+    //let checkedContacts = [];
+    let checkedContacts = {};
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = '';
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
@@ -206,13 +207,14 @@ function renderInitials() {
             let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
             let key = checkedContact[0].name;
             let value = checkedContact[0].initials;
-            let newObject = { [key]: value };
-            checkedContacts.push(newObject);
-            assignedToContacts = checkedContacts;
-            console.log(checkedContacts);
+            //let newObject = { [key]: value };
+            //checkedContacts.push(newObject);
+            checkedContacts[key] = value;
+            assignedToContacts = checkedContacts;  
             renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
         }
     })
+    console.log('assigned to:', checkedContacts);
     //return checkedContacts;
 }
 
