@@ -42,15 +42,15 @@
                     <p class="message-email-exist d-none" id="message-email-exist-p">Email already exists !</p>
                 </div>
 
-                <div class="input-password-container">
-                    <input required type="password" class="input-password" placeholder="Password" id="passwordInput" onfocus="changeImageWhenClickInputfield()">
+                <div class="input-password-container" id="signUp-input-password-container">
+                    <input required type="password" class="input-password" placeholder="Password" id="passwordInput" onfocus="changeImageWhenClickInputfield()" onblur="resetPasswordInputBorderColor()">
                     <img src="./assets/img/lock.svg" id="lockImage" onclick="changeImage()">
                 </div>
 
-                <div class="input-confirm-password-message-container">
+                <div class="input-confirm-password-message-container" id="signUp-input-confirm-password-message-container">
                     <div class="input-confirm-password">
                         <input required type="password" class="input-confirm-password" placeholder="Confirm Password"
-                            id="confirmPasswordInput" onfocus="changeConfirmImageWhenClickInputfield()">
+                            id="confirmPasswordInput" onfocus="changeConfirmImageWhenClickInputfield()" onblur="resetConfirmPasswordInputBorderColor()">
                         <img src="./assets/img/lock.svg" id="confirmLockImage" onclick="changeConfirmImage()">
                     </div>
                     <p class="message-wrong-password d-none" id="message-wrong-password-p">Your passwords don't match.

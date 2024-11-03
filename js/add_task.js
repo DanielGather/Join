@@ -152,7 +152,7 @@ function setCategory(category) {
     //return selectedCategory;
 }
 
-
+/*
 function addSubTask() {
     document.getElementById('rendered-task-container').style = 'opacity:1';
     let subtaskInput = document.getElementById('subtasks-input').value.trim();
@@ -162,6 +162,34 @@ function addSubTask() {
         taskContainer.innerHTML = '';
         for (let i = 0; i < subtaskArray.length; i++) {
             let subtask = subtaskArray[i].task;
+            taskContainer.innerHTML += `
+        <ul class="subtaskList">
+            <li>${subtask}</li>
+        </ul>
+        `
+        }
+    }
+    document.getElementById('subtasks-input').value = '';
+    document.getElementById('actionIcons').style = 'display:none';
+    document.getElementById('plusIcon').style = 'display:block';
+    console.log('subtaskArray:', subtaskArray);
+}*/
+
+
+function addSubTask() {
+    //let newSubtask = {};
+    document.getElementById('rendered-task-container').style = 'opacity:1';
+    let subtaskInput = document.getElementById('subtasks-input').value.trim();
+    if (subtaskInput) {
+        subtaskArray.push(subtaskInput);
+        let taskContainer = document.getElementById('rendered-task-container');
+        taskContainer.innerHTML = '';
+        let task = 'task';
+        for (let i = 0; i < subtaskArray.length; i++) {
+            let subtask = subtaskArray[i];
+            let newSubtask = {};
+            newSubtask[task] = subtask;
+            postData('toDos/subtasks', newSubtask);
             taskContainer.innerHTML += `
         <ul class="subtaskList">
             <li>${subtask}</li>
