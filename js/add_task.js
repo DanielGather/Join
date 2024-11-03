@@ -42,18 +42,19 @@ async function createTask() {
     idNum++;
     let newTask = getInputValues();
     //postData('toDos', newTask);
-    const taskId = await postData('toDos', newTask);
+    const taskId = (await postData('toDos', newTask)).name;
     console.log('taskId lautet:', taskId);
     if (subtaskArray.length > 0) {
         for (let i = 0; i < subtaskArray.length; i++) {
             let subtask = {
                 task: subtaskArray[i],
             };
-            await postData(`toDos/${taskId}/subtasks`, subtask);
+            const subtaskId = await postData(`toDos/${taskId}/subtasks`, subtask);
+            console.log('Subtask-ID lautet:', subtaskId.name); 
         }
     }
     console.log('neue Task:', newTask);
-    //showAddTaskSuccessPopup();
+    showAddTaskSuccessPopup();
 }
 
 
@@ -64,7 +65,7 @@ function getInputValues() {
     let priority = statusPriority;
     let category = selectedCategory;
     let assignedTo = assignedToContacts;
-    let subTasks = subtaskArray;
+    //let subTasks = subtaskArray;
     return {
         'headline': title,
         'date': dueDate,
@@ -72,7 +73,7 @@ function getInputValues() {
         'story': category,
         'description': description,
         'assignedTo': assignedTo,
-        'subtasks': subTasks,
+        //'subtasks': subTasks,
         'id': idNum,
         'category': 'toDo',
     };
