@@ -38,13 +38,22 @@ function clear() {
 
 
 async function createTask() {
-    //await updateLS();
     console.log("createTask test test");
     idNum++;
     let newTask = getInputValues();
-    postData('toDos', newTask);
+    //postData('toDos', newTask);
+    const taskId = await postData('toDos', newTask);
+    console.log('taskId lautet:', taskId);
+    if (subtaskArray.length > 0) {
+        for (let i = 0; i < subtaskArray.length; i++) {
+            let subtask = {
+                task: subtaskArray[i],
+            };
+            await postData(`toDos/${taskId}/subtasks`, subtask);
+        }
+    }
     console.log('neue Task:', newTask);
-    showAddTaskSuccessPopup();
+    //showAddTaskSuccessPopup();
 }
 
 
@@ -184,12 +193,12 @@ function addSubTask() {
         subtaskArray.push(subtaskInput);
         let taskContainer = document.getElementById('rendered-task-container');
         taskContainer.innerHTML = '';
-        let task = 'task';
+        //let task = 'task';
         for (let i = 0; i < subtaskArray.length; i++) {
             let subtask = subtaskArray[i];
-            let newSubtask = {};
-            newSubtask[task] = subtask;
-            postData('toDos/subtasks', newSubtask);
+            //let newSubtask = {};
+            //newSubtask[task] = subtask;
+            //postData('toDos/subtasks', newSubtask);
             taskContainer.innerHTML += `
         <ul class="subtaskList">
             <li>${subtask}</li>
