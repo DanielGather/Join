@@ -3,7 +3,7 @@ let choosedContact = [];
 let statusPriority = null;
 let selectedCategory = null;
 let assignedToContacts = null;
-let idNum = 0;
+let allCurrentIds = [];
 
 
 function handleSubmit(event) {   // prüfen welcher button geklickt wurde
@@ -38,16 +38,17 @@ function clear() {
 
 
 async function createTask() {
+    await getAllToDos();
     console.log("createTask test test");
-    idNum++;
-    let newTask = getInputValues();
+    let idNum = createNewId();
+    let newTask = getInputValues(idNum);
     //postData('toDos', newTask);
     const taskId = (await postData('toDos', newTask)).name;
     console.log('taskId lautet:', taskId);
     if (subtaskArray.length > 0) {
         for (let i = 0; i < subtaskArray.length; i++) {
             let subtask = {
-                status : true,
+                status : false,
                 task: subtaskArray[i],
             };
             const subtaskId = await postData(`toDos/${taskId}/subtasks`, subtask);
@@ -59,13 +60,14 @@ async function createTask() {
 }
 
 
-function getInputValues() {
+function getInputValues(idNum) {
     let title = getTitle();
     let description = getDescription();
     let dueDate = getDueDate();
     let priority = statusPriority;
     let category = selectedCategory;
     let assignedTo = assignedToContacts;
+    let toDoId = idNum;
     //let subTasks = subtaskArray;
     return {
         'headline': title,
@@ -75,9 +77,27 @@ function getInputValues() {
         'description': description,
         'assignedTo': assignedTo,
         //'subtasks': subTasks,
-        'id': idNum,
+        'id': toDoId,
         'category': 'toDo',
     };
+}
+
+
+async function getAllToDos() {
+    let data = await getData("toDos");
+    let allCurrentToDos = Object.values(data);
+    console.log('alle Todos:', allCurrentToDos);
+    for (let i = 0; i < allCurrentToDos.length; i++){
+        let singleId = allCurrentToDos[i].id;
+        allCurrentIds.push(singleId);
+    }
+    console.log('alle Ids:', allCurrentIds);
+  }
+
+
+function createNewId() {
+    let maxId = Math.max(...allCurrentIds);
+    return maxId + 1;
 }
 
 
