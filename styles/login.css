@@ -71,7 +71,7 @@ h1 {
     gap: 10px;
 }
 
-.input-email-container{
+.input-email-container {
     border-radius: 12px;
     height: 42px;
     padding: 8px;
@@ -99,11 +99,15 @@ h1 {
     width: 100%;
 }
 
-.input-password-container{
+.input-password-container {
     display: flex;
     max-width: 430px;
     margin: 0 auto;
     width: 100%;
+}
+
+.input-password-message-container:focus-within {
+    border-color: var(--join-light-blue);
 }
 
 .message-wrong-passwords {
@@ -134,7 +138,8 @@ h1 {
     width: 100%;
 }
 
-.input-email:focus, .input-password:focus {
+.input-email:focus,
+.input-password:focus {
     outline: none;
 }
 

@@ -1,8 +1,8 @@
 function changeImageWhenClickInputfield() {
     let image = document.getElementById('lockImage');
     image.src = "./assets/img/visibility_off.svg";
-    //let container = document.getElementById('signUp-input-password-container');
-    //container.classList.add('light-blue-border');
+    let container = document.getElementById('input-password-container');
+    container.classList.add('light-blue-border');
 }
 
 
@@ -17,3 +17,4 @@ function makePasswordVisible() {
         passwordInput.type = "password";
     }
 }
+
