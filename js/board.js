@@ -5,8 +5,8 @@ let searchedTask = [];
 let editTaskOpen;
 let checkboxId = 1;
 
-async function initBoard(){
-  await init('board');
+async function initBoard() {
+  await init("board");
   boardJS();
 }
 
@@ -77,7 +77,7 @@ function renderAssignedToBigTask(element) {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML = "";
   assignedToEntries.forEach(([key, value]) => {
-   let backgroundColor = getAssignedBackgroundColor(key,value);
+    let backgroundColor = getAssignedBackgroundColor(key, value);
     document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
         <div class="d-flex alic gap1">
         <div class="circle" style = "background-color: ${backgroundColor}">${value}</div>
@@ -91,7 +91,7 @@ function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
 
   assignedToEntries.forEach(([key, value]) => {
-    let backgroundColor = getAssignedBackgroundColor(key, value)
+    let backgroundColor = getAssignedBackgroundColor(key, value);
     document.getElementById(`assignedTo${element[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
           <div class="smallCircleUserStory" style = "background-color: ${backgroundColor}">
             ${value}
@@ -99,7 +99,6 @@ function renderAssignedToSmallTask(element, context = "default") {
         `;
   });
 }
-
 
 function renderSubTask(task, context = "default") {
   let subTaskToEntries = Object.entries(task[1]["subtasks"]);
@@ -110,34 +109,27 @@ function renderSubTask(task, context = "default") {
       returnSubTask(task, context, value);
     } else {
       returnEditableSubTask(task, context, value);
+      console.log("123", value);
     }
   });
 }
 
 function returnSubTask(task, context, value) {
-
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]['id']}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
+  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
   `;
-  checkboxId += +1
+  checkboxId += +1;
 }
 
-async function checkCheckbox(checkboxId,toDoId,value){
+async function checkCheckbox(checkboxId, toDoId, value) {
   let newValue = JSON.parse(value);
-  console.log("testen123123",newValue);
-  
-  let checkbox = document.getElementById(`checkbox${checkboxId}`)
-  let getTaskId = await getIdFromDb("/toDos", "id", toDoId)
-  console.log("TaskID",getTaskId);
-  let subTaskId = await getIdFromDb("/toDos/"+getTaskId+"/subtasks", "task", newValue.task)
-  console.log("subtaskid",subTaskId);
-  
-  console.log(checkbox.checked);
-
-  if(checkbox.checked){
-    putData("/toDos/" + getTaskId + "/subtasks/" + subTaskId +"/status", true)
-  } else{
-    putData("/toDos/" + getTaskId + "/subtasks/" + subTaskId +"/status", false)
+  let checkbox = document.getElementById(`checkbox${checkboxId}`);
+  let getTaskId = await getIdFromDb("/toDos", "id", toDoId);
+  let subTaskId = await getIdFromDb("/toDos/" + getTaskId + "/subtasks", "task", newValue.task);
+  if (checkbox.checked) {
+    putData("/toDos/" + getTaskId + "/subtasks/" + subTaskId + "/status", true);
+  } else {
+    putData("/toDos/" + getTaskId + "/subtasks/" + subTaskId + "/status", false);
   }
 }
 
@@ -254,6 +246,30 @@ function closeBigTask() {
   bigTaskActive = false;
   editTaskOpen = false;
   updateHTML();
+}
+
+async function changeTitleOrDescriptionInFirebase(id, context = null) {
+  let title = document.getElementById(id + "_" + context).value;
+  let getTaskId = await getIdFromDb("/toDos", "id", id);
+  let path = "/toDos/" + getTaskId + "/" + context;
+  putData(path, title);
+}
+
+function addNewSubTask(id, context = null) {
+  console.log("TesteSubTask", id, context);
+  let subTaskValue = document.getElementById("subtasks-input").value;
+  let subTaskContainer = document.getElementById("subTask"+ id + "_" + context);
+  subTaskContainer.innerHTML += returnNewSubTaskHtml(subTaskValue, subTaskContainer);
+  addSubTaskInFireBase(subTaskValue, id);
+}
+
+async function addSubTaskInFireBase(subTaskValue, id) {
+  let getTaskId = await getIdFromDb("/toDos", "id", id)
+  let subtask = {
+    status: false,
+    task: subTaskValue,
+  };
+  postData("/toDos/" + getTaskId + "/subtasks", subtask)
 }
 
 // Sicherung ToDos anlegen

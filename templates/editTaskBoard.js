@@ -6,12 +6,12 @@ async function editTaskBoard(task, date) {
       <div class="title-description-assigned-container">
         <div class="title-description-assigned">
           <label class="addTask-label"><span class="star">*</span></label>
-          <input required class="title-input" value="${task.headline}" placeholder="Enter a title"/>
+          <input id="${task["id"]}_headline" onblur="changeTitleOrDescriptionInFirebase(${task['id']}, 'headline')" required class="title-input" value="${task.headline}" placeholder="Enter a title"/>
         </div>
 
         <div class="title-description-assigned">
           <label class="addTask-label">Description</label>
-          <textarea rows="4" placeholder="Enter a Description">${task.description}</textarea>
+          <textarea id="${task["id"]}_description" onblur="changeTitleOrDescriptionInFirebase(${task['id']},'description')" rows="4" placeholder="Enter a Description">${task.description}</textarea>
         </div>
         <div class="dueDate-container">
           <label class="addTask-label">Due date<span class="star">*</span></label>
@@ -20,9 +20,9 @@ async function editTaskBoard(task, date) {
         <div class="prio-container">
           <label class="addTask-label">Prio</label>
           <div class="prio-buttons">
-            <button id="urgent" class="urgent-medium-low-buttons">Urgent ${urgentSvg}</button>
-            <button id="medium" class="urgent-medium-low-buttons">Medium ${mediumSvg}</button>
-            <button id="low" class="urgent-medium-low-buttons">Low ${lowSvg}</button>
+            <button onclick="chooseTaskPrioType('Urgent')" id="urgentButton" class="urgent-medium-low-buttons">Urgent ${urgentSvg}</button>
+            <button onclick="chooseTaskPrioType('Medium')" id="mediumButton" class="urgent-medium-low-buttons">Medium ${mediumSvg}</button>
+            <button onclick="chooseTaskPrioType('Low')" id="lowButton" class="urgent-medium-low-buttons">Low ${lowSvg}</button>
           </div>
         </div>
         <div class="title-description-assigned">
@@ -70,7 +70,7 @@ async function editTaskBoard(task, date) {
         </div>
         
         
-        <div class="category-container">
+        <!-- <div class="category-container">
           <label class="addTask-label">Category <span class="star">*</span></label>
           <div class="category-header-container">
             <div id="category-header">Select task category</div>
@@ -80,7 +80,7 @@ async function editTaskBoard(task, date) {
             <div class="choose-category-container" onclick="setCategory('Technical Task')">Technical Task</div>
             <div class="choose-category-container" onclick="setCategory('User Story')">User Story</div>
           </div>
-        </div>
+        </div> -->
         <div class="subtasks-container">
                                 <label class="addTask-label">Subtasks</label>
                                 <div class="subtasks-input-add-container">
@@ -89,7 +89,7 @@ async function editTaskBoard(task, date) {
                                     <div class="close-separator-checked-container d-none" id="actionIcons">
                                         <div class="subtask-close-icon"><img src="./assets/img/close.svg" alt="Close-Icon" onclick="deleteInputSubtaskValue()"></div>
                                         <div class="subtask-separator"></div>
-                                        <div class="subtask-checked-icon"><img src="./assets/img/checked_subtask.svg" alt="Checked-Icon" onclick="addSubTask()"></div>
+                                        <div class="subtask-checked-icon"><img src="./assets/img/checked_subtask.svg" alt="Checked-Icon" onclick="addNewSubTask(${task['id']},'editTask')"></div>
                                     </div>
                                 </div>
                             </div>

@@ -115,3 +115,16 @@ function getAssignedBackgroundColor(key,value){
   console.log("kontakt testen", contact);
   return  contact[0][1].color;
 }
+
+function returnNewSubTaskHtml(subTaskValue, subTaskContainer){
+  return /*HTML*/`
+  <ul id="${subTaskValue}" class="subTaskList subTaskHover">
+  <li id="${subTaskValue}_edit" contenteditable="false">${subTaskValue}</li>
+        <div class="subTaskIcons">
+        <img onclick="editSubTask(${subTaskValue},'edit')" src="./assets/img/edit.svg" alt="">
+        <div class="seperator"></div>
+        <img onclick="deleteSubTask(${subTaskValue})" src="./assets/img/delete.svg" alt="">
+        </div>
+</ul>
+  `
+}
