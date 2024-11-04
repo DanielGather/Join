@@ -94,3 +94,8 @@
 .clamp {
   font-size: clamp(2.5rem, 5vw, 4rem);
 }
+
+.assignedToContainer{
+  max-height: 250px;
+  overflow: auto;
+}

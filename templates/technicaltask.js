@@ -28,7 +28,7 @@ function technicalTaskBig(task) {
     <span>Assigned To:</span>
   </div>
   <div class="d-flex dflex-col gap1">
-    <div id="bigAssignedTo${task[1]['id']}" class="d-flex gap1 dflex-col">
+    <div id="bigAssignedTo${task[1]['id']}" class="assignedToContainer d-flex gap1 dflex-col">
     </div>
   </div>
   <div>

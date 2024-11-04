@@ -23,11 +23,7 @@ function renderBoard() {
 
 async function updateHTML() {
   let toDos = await getData("toDos");
-  console.log("todos", toDos);
-
   allToDos = Object.entries(toDos);
-  console.log(allToDos);
-
   const categories = [
     { name: "toDo", containerId: "toDo" },
     { name: "inProgress", containerId: "inProgress" },
@@ -40,11 +36,9 @@ async function updateHTML() {
 function updateCategoryHTML(category, containerId, allToDos) {
   let toDoArray = getRightArray(allToDos);
   let filteredToDos = toDoArray.filter((t) => t[1]["category"] === category);
-  console.log("filteredTodo", filteredToDos);
   document.getElementById(containerId).innerHTML = "";
   filteredToDos.forEach((element) => {
     document.getElementById(containerId).innerHTML += htmlTechnicalTaskSmall(element);
-    console.log("element", element);
     renderAssignedTo(element);
     calculateSubtaskProgress(element);
     getRightUserColor(element);
@@ -89,11 +83,12 @@ function renderAssignedToBigTask(element) {
 
 function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
-
-  assignedToEntries.forEach(([key, value]) => {
+  let AddNewMargin = assignedToEntries.length >= 8;
+  assignedToEntries.forEach(([key, value], index) => {
     let backgroundColor = getAssignedBackgroundColor(key, value);
+    let newClass = AddNewMargin && index !== 0 ? "newMargin" : "";
     document.getElementById(`assignedTo${element[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-          <div class="smallCircleUserStory" style = "background-color: ${backgroundColor}">
+          <div class="${newClass} smallCircleUserStory" style = "background-color: ${backgroundColor}">
             ${value}
           </div>
         `;
@@ -102,14 +97,11 @@ function renderAssignedToSmallTask(element, context = "default") {
 
 function renderSubTask(task, context = "default") {
   let subTaskToEntries = Object.entries(task[1]["subtasks"]);
-  console.log("Subtask", subTaskToEntries[0][1]["value"]);
   subTaskToEntries.forEach(([, value]) => {
-    console.log("Teste den Value", value.task);
     if (context == "bigTask") {
       returnSubTask(task, context, value);
     } else {
       returnEditableSubTask(task, context, value);
-      console.log("123", value);
     }
   });
 }
@@ -140,7 +132,7 @@ function returnEditableSubTask(task, context, value) {
         <div class="subTaskIcons">
         <img onclick="editSubTask(${value.task},'edit')" src="./assets/img/edit.svg" alt="">
         <div class="seperator"></div>
-        <img onclick="deleteSubTask(${value.task})" src="./assets/img/delete.svg" alt="">
+        <img onclick="deleteSubTask(${value.task}, ${task[1]['id']})" src="./assets/img/delete.svg" alt="">
         </div>
   </ul>
       `;
@@ -151,9 +143,8 @@ async function editTask(task) {
   let firstLevelArray = rightTask[0];
   rightTask = rightTask[0][1];
   let fireBaseDate = rightTask.date;
-  let date = getRightTimeZone(fireBaseDate);
+  let date = getRightTimeValue(fireBaseDate);
   let container = document.getElementById("bigTaskCard");
-  console.log("rightTask", rightTask);
   container.innerHTML = await editTaskBoard(rightTask, date);
   renderAssignedToSmallTask(firstLevelArray, "editTask");
   renderSubTask(firstLevelArray, "editTask");
@@ -162,8 +153,6 @@ async function editTask(task) {
 }
 
 function editSubTask(id, context = "default") {
-  console.log("id", id);
-  console.log("id.id", id.id);
   let changeField = document.getElementById(`${id.id}`);
   let task = document.getElementById(`${id.id}_${context}`);
   if (task.contentEditable === "false") {
@@ -171,7 +160,6 @@ function editSubTask(id, context = "default") {
     changeClassesOnList(id);
     focusInputField(id);
   }
-  console.log("Editier FUnktioniert");
 }
 
 function changeToInputField(id) {
@@ -201,10 +189,12 @@ function changeBackToList(id) {
   changeClassesOnList(id);
 }
 
-function deleteSubTask(id) {
+async function deleteSubTask(id, taskId) {
   let element = document.getElementById(id.id);
   element.remove();
-  console.log("LöschenFUnktionierte", id.id);
+  let getTaskId = await getIdFromDb("/toDos", "id", taskId);
+  let subTaskId = await getIdFromDb("/toDos/" + getTaskId + "/subtasks", "task", id.id);
+  deleteData("/toDos/" + getTaskId + "/subtasks/" + subTaskId);
 }
 
 function calculateSubtaskProgress(element) {
@@ -219,7 +209,6 @@ function calculateSubtaskProgress(element) {
 function openTask(id) {
   let task = allToDos.filter((task) => task[1]["id"] == id);
   showTask(task[0]);
-  console.log("Task test", task);
 }
 
 function showTask(task) {
@@ -227,7 +216,6 @@ function showTask(task) {
   document.getElementById("bigTask").innerHTML = technicalTaskBig(task);
   document.getElementById("bigTaskCard").classList.add("show");
   bigTaskActive = true;
-  console.log("task", task);
   renderSubTask(task, "bigTask");
   renderAssignedTo(task);
   getRightUserColor(task);
@@ -248,28 +236,34 @@ function closeBigTask() {
   updateHTML();
 }
 
-async function changeTitleOrDescriptionInFirebase(id, context = null) {
+async function changeTitleDescriptionDateInFirebase(id, context = null) {
   let title = document.getElementById(id + "_" + context).value;
   let getTaskId = await getIdFromDb("/toDos", "id", id);
   let path = "/toDos/" + getTaskId + "/" + context;
+  if(context == "date"){
+    title = changeTimeFormat(title);
+  }
   putData(path, title);
 }
 
 function addNewSubTask(id, context = null) {
-  console.log("TesteSubTask", id, context);
   let subTaskValue = document.getElementById("subtasks-input").value;
-  let subTaskContainer = document.getElementById("subTask"+ id + "_" + context);
+  let subTaskContainer = document.getElementById("subTask" + id + "_" + context);
   subTaskContainer.innerHTML += returnNewSubTaskHtml(subTaskValue, subTaskContainer);
   addSubTaskInFireBase(subTaskValue, id);
 }
 
 async function addSubTaskInFireBase(subTaskValue, id) {
-  let getTaskId = await getIdFromDb("/toDos", "id", id)
+  let getTaskId = await getIdFromDb("/toDos", "id", id);
   let subtask = {
     status: false,
     task: subTaskValue,
   };
-  postData("/toDos/" + getTaskId + "/subtasks", subtask)
+  postData("/toDos/" + getTaskId + "/subtasks", subtask);
+}
+
+function setFocusOnDate(id){
+ document.getElementById(id + "_date").focus();
 }
 
 // Sicherung ToDos anlegen

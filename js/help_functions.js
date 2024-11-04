@@ -1,4 +1,4 @@
-function getRightTimeZone(fireBaseDate) {
+function getRightTimeValue(fireBaseDate) {
   const switchDate = fireBaseDate;
   const [fireBaseDay, fireBaseMonth, fireBaseYear] = switchDate.split(".");
   const newDate = `${fireBaseYear}.${fireBaseMonth}.${fireBaseDay}`;
@@ -8,6 +8,13 @@ function getRightTimeZone(fireBaseDate) {
   const day = String(rawDate.getDate()).padStart(2, "0"); // Tag formatieren
   const formattedDate = `${year}-${month}-${day}`;
   return formattedDate;
+}
+
+function changeTimeFormat(wrongFormat){
+  let dateInput = wrongFormat;
+  let date = new Date(dateInput);
+  let rightFormat = date.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+  return rightFormat;  
 }
 
 function svgColors(rightTask) {

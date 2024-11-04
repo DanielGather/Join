@@ -134,6 +134,10 @@ input {
   color: #7ae229;
 }
 
+.newMargin{
+  margin-left: -1.5rem;
+}
+
 /* =============
 2. typography   
 ================ */

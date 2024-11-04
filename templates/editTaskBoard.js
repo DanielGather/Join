@@ -6,16 +6,16 @@ async function editTaskBoard(task, date) {
       <div class="title-description-assigned-container">
         <div class="title-description-assigned">
           <label class="addTask-label"><span class="star">*</span></label>
-          <input id="${task["id"]}_headline" onblur="changeTitleOrDescriptionInFirebase(${task['id']}, 'headline')" required class="title-input" value="${task.headline}" placeholder="Enter a title"/>
+          <input id="${task["id"]}_headline" onblur="changeTitleDescriptionDateInFirebase(${task['id']}, 'headline')" required class="title-input" value="${task.headline}" placeholder="Enter a title"/>
         </div>
 
         <div class="title-description-assigned">
           <label class="addTask-label">Description</label>
-          <textarea id="${task["id"]}_description" onblur="changeTitleOrDescriptionInFirebase(${task['id']},'description')" rows="4" placeholder="Enter a Description">${task.description}</textarea>
+          <textarea id="${task["id"]}_description" onblur="changeTitleDescriptionDateInFirebase(${task['id']},'description')" rows="4" placeholder="Enter a Description">${task.description}</textarea>
         </div>
         <div class="dueDate-container">
           <label class="addTask-label">Due date<span class="star">*</span></label>
-          <input required class="title-input" value="${date}" type="date" />
+          <input id="${task["id"]}_date" onclick="setFocusOnDate(${task['id']})" onblur="changeTitleDescriptionDateInFirebase(${task['id']},'date')" required class="title-input" value="${date}" type="date" />
         </div>
         <div class="prio-container">
           <label class="addTask-label">Prio</label>
