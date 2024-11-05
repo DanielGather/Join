@@ -115,11 +115,7 @@ function getDescription() {
 
 function getDueDate() {
     let dueDate = document.getElementById('inputDate').value;
-<<<<<<< HEAD
-    
-=======
     dueDate = changeTimeFormat(dueDate);
->>>>>>> 2f873eee258ceafd04733bca1c708cb7d43bbfda
     return dueDate
 }
 
