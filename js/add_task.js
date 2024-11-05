@@ -1,5 +1,5 @@
 let subtaskArray = [];
-let choosedContact = [];
+//let choosedContact = [];
 let statusPriority = null;
 let selectedCategory = null;
 let assignedToContacts = null;
@@ -33,7 +33,7 @@ function clear() {
     document.getElementById('rendered-task-container').innerHTML = '';   
     document.getElementById('rendered-task-container').style.opacity = '0'; 
     subtaskArray = [];
-    choosedContact = [];
+    //choosedContact = [];
 }
 
 
@@ -115,7 +115,11 @@ function getDescription() {
 
 function getDueDate() {
     let dueDate = document.getElementById('inputDate').value;
+<<<<<<< HEAD
     
+=======
+    dueDate = changeTimeFormat(dueDate);
+>>>>>>> 2f873eee258ceafd04733bca1c708cb7d43bbfda
     return dueDate
 }
 
