@@ -225,6 +225,10 @@ function addSubTask() {
             taskContainer.innerHTML += `
         <ul class="subtaskList">
             <li>${subtask}</li>
+            <div class="subtask-icon-container">
+                <img src="./assets/img/subtask_pencil.svg" alt="pencil" onclick="editSubtask()">
+                <img src="./assets/img/delete.svg" alt="delete" onclick="deleteSubtask()">
+            </div>
         </ul>
         `
         }
