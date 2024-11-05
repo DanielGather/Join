@@ -54,7 +54,7 @@ function getRightPriority(element) {
 }
 
 function focusInputField(id) {
-  let inputField = document.getElementById(`${id.id}_input`);
+  let inputField = document.getElementById(`${id}_input`);
   inputField.focus();
   inputField.select();
 }
@@ -122,14 +122,14 @@ function getAssignedBackgroundColor(key,value){
   return  contact[0][1].color;
 }
 
-function returnNewSubTaskHtml(subTaskValue,idSubTaskValue){
+function returnNewSubTaskHtml(subTaskValue,idSubTaskValue,index,taskId){
   return /*HTML*/`
-  <ul id="${idSubTaskValue}" class="subTaskList subTaskHover">
+  <ul id="${idSubTaskValue}_${index}" class="subTaskList subTaskHover">
   <li id="${idSubTaskValue}_edit" contenteditable="false">${subTaskValue}</li>
         <div class="subTaskIcons">
-        <img onclick="editSubTask(${idSubTaskValue},'edit')" src="./assets/img/edit.svg" alt="">
+        <img onclick="editSubTask('${idSubTaskValue}','edit',${index}, ${taskId}, '${subTaskValue}')" src="./assets/img/edit.svg" alt="">
         <div class="seperator"></div>
-        <img onclick="deleteSubTask(${idSubTaskValue})" src="./assets/img/delete.svg" alt="">
+        <img onclick="deleteSubTask('${idSubTaskValue}', ${index}, ${taskId}, '${subTaskValue}')" src="./assets/img/delete.svg" alt="">
         </div>
 </ul>
   `

@@ -95,17 +95,6 @@ function renderAssignedToSmallTask(element, context = "default") {
   });
 }
 
-function renderSubTask(task, context = "default") {
-  let subTaskToEntries = Object.entries(task[1]["subtasks"]);
-  subTaskToEntries.forEach(([, value]) => {
-    if (context == "bigTask") {
-      returnSubTask(task, context, value);
-    } else {
-      returnEditableSubTask(task, context, value);
-    }
-  });
-}
-
 function returnSubTask(task, context, value) {
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
   <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
@@ -125,17 +114,57 @@ async function checkCheckbox(checkboxId, toDoId, value) {
   }
 }
 
-function returnEditableSubTask(task, context, value) {
+function returnEditableSubTask(task, context, value, index) {
+  let idWithNoSpace = value.task.replace(/\s+/g, "");
+  console.log("idwithnospcae", idWithNoSpace);
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-      <ul id="${value.task}" class="subTaskList subTaskHover">
-        <li id="${value.task}_edit" contenteditable="false">${value.task}</li>
+      <ul id="${idWithNoSpace}_${index}" class="subTaskList subTaskHover">
+        <li id="${idWithNoSpace}_edit" contenteditable="false">${value.task}</li>
         <div class="subTaskIcons">
-        <img onclick="editSubTask(${value.task},'edit')" src="./assets/img/edit.svg" alt="">
+        <img onclick="editSubTask('${idWithNoSpace}','edit', ${index}, ${task[1]["id"]}, '${value.task}')" src="./assets/img/edit.svg" alt="">
         <div class="seperator"></div>
-        <img onclick="deleteSubTask(${value.task}, ${task[1]['id']})" src="./assets/img/delete.svg" alt="">
+        <img onclick="deleteSubTask('${idWithNoSpace}', ${index}, ${task[1]["id"]}, '${value.task}') " src="./assets/img/delete.svg" alt="">
         </div>
   </ul>
       `;
+  // addSubTaskFunction(task, context,index);
+}
+
+// function addSubTaskFunction(task, context, index){
+//   const meinDiv = document.getElementById('addSubTask');
+//   meinDiv.onclick = function() {
+//     addNewSubTask(task, context,index);
+// };
+// }
+
+function renderSubTask(task, context = "default") {
+  let subTaskToEntries = Object.entries(task[1]["subtasks"]);
+  subTaskToEntries.forEach(([, value], index) => {
+    if (context == "bigTask") {
+      returnSubTask(task, context, value);
+    } else {
+      returnEditableSubTask(task, context, value, index);
+    }
+  });
+}
+
+function setCounter() {
+  let counter = parseInt(localStorage.getItem("counter") || "0", 10);
+  counter += 1;
+  localStorage.setItem("counter", counter);
+  return counter;
+}
+
+function addNewSubTask(task, context = null) {
+  let counter = setCounter();
+  // let taskId = task[1].id;
+  let subTaskValue = document.getElementById("subtasks-input").value;
+  if (subTaskValue) {
+    let idSubTaskValue = subTaskValue.replace(/\s+/g, "");
+    let subTaskContainer = document.getElementById("subTask" + task + "_" + context);
+    subTaskContainer.innerHTML += returnNewSubTaskHtml(subTaskValue, idSubTaskValue, counter, task);
+    addSubTaskInFireBase(subTaskValue, task);
+  }
 }
 
 async function editTask(task) {
@@ -152,55 +181,54 @@ async function editTask(task) {
   editTaskOpen = true;
 }
 
-function editSubTask(id, context = "default") {
-  let changeField = document.getElementById(`${id.id}`);
-  let task = document.getElementById(`${id.id}_${context}`);
+function editSubTask(id, context = "default", index, taskId, valueTask) {
+  let changeField = document.getElementById(`${id}_${index}`);
+  let task = document.getElementById(`${id}_${context}`);
   if (task.contentEditable === "false") {
-
-    changeField.innerHTML = changeToInputField(id);
-    changeClassesOnList(id);
+    changeField.innerHTML = changeToInputField(id, index, taskId, valueTask);
+    changeClassesOnList(id, index);
     focusInputField(id);
   }
 }
 
-function changeToInputField(id) {
+function changeToInputField(id, index, taskId, valueTask) {
   return `
-    <input class="inputFieldEdit" id="${id.id}_input" type="text" value="${id.id}">
-    <img onclick="deleteSubTask(${id.id})" src="./assets/img/delete.svg" alt="">
-    <img onclick="changeBackToList(${id.id})" src="./assets/img/checked_subtask.svg" alt="">
+    <input class="inputFieldEdit" id="${id}_input" type="text" value="${id}">
+    <img onclick="deleteSubTask('${id}',${index},${taskId},'${valueTask}')" src="./assets/img/delete.svg" alt="">
+    <img onclick="changeBackToList('${id}', ${index},${taskId},'${valueTask}')" src="./assets/img/checked_subtask.svg" alt="">
     `;
 }
 
-function changeClassesOnList(id) {
-  document.getElementById(id.id).classList.toggle("subTaskList");
-  document.getElementById(id.id).classList.toggle("subTaskHover");
-  document.getElementById(id.id).classList.toggle("inputFieldDesign");
+function changeClassesOnList(id, index) {
+  document.getElementById(`${id}_${index}`).classList.toggle("subTaskList");
+  document.getElementById(`${id}_${index}`).classList.toggle("subTaskHover");
+  document.getElementById(`${id}_${index}`).classList.toggle("inputFieldDesign");
 }
 
-function changeBackToList(id) {
-  let changeField = document.getElementById(`${id.id}`);
+function changeBackToList(id, index, taskId, valueTask) {
+  let changeField = document.getElementById(`${id}_${index}`);
   changeField.innerHTML = /*HTML*/ `
-    <li id="${id.id}_edit" contenteditable="false">${id.id}</li>
+    <li id="${id}_edit" contenteditable="false">${id}</li>
         <div class="subTaskIcons">
-        <img onclick="editSubTask(${id.id},'edit')" src="./assets/img/edit.svg" alt="">
+        <img onclick="editSubTask('${id}','edit', ${index})" src="./assets/img/edit.svg" alt="">
         <div class="seperator"></div>
-        <img onclick="deleteSubTask(${id.id})" src="./assets/img/delete.svg" alt="">
+        <img onclick="deleteSubTask('${id}', ${index}, ${taskId}, '${valueTask}')" src="./assets/img/delete.svg" alt="">
         </div>
   `;
-  changeClassesOnList(id);
+  changeClassesOnList(id, index);
 }
 
-async function deleteSubTask(id, taskId) {
-  let element = document.getElementById(id.id);
+async function deleteSubTask(idWithNoSpace, index, taskId, valueTask) {
+  let element = document.getElementById(idWithNoSpace + "_" + index);
   element.remove();
   let getTaskId = await getIdFromDb("/toDos", "id", taskId);
-  let subTaskId = await getIdFromDb("/toDos/" + getTaskId + "/subtasks", "task", id.id);
+  let subTaskId = await getIdFromDb("/toDos/" + getTaskId + "/subtasks", "task", valueTask);
   deleteData("/toDos/" + getTaskId + "/subtasks/" + subTaskId);
 }
 
 function calculateSubtaskProgress(element) {
   let id = element[1]["id"];
-  if(element[1]["subtasks"] !== undefined){
+  if (element[1]["subtasks"] !== undefined) {
     let elementToSubTaskArray = Object.entries(element[1]["subtasks"]);
     let subTaskLenght = elementToSubTaskArray.length;
     let checkedSubTasks = elementToSubTaskArray.filter((checked) => checked[1]["status"] == true);
@@ -208,7 +236,7 @@ function calculateSubtaskProgress(element) {
     let progressBarPercentage = (checkedSubTasks.length / subTaskLenght) * 100;
     document.getElementById(`progressbar${element[1]["id"]}`).style.width = progressBarPercentage + "%";
   } else {
-    document.getElementById("progressbarContainer" + id ).remove();
+    document.getElementById("progressbarContainer" + id).remove();
   }
 }
 
@@ -246,22 +274,15 @@ async function changeTitleDescriptionDateInFirebase(id, context = null) {
   let title = document.getElementById(id + "_" + context).value;
   let getTaskId = await getIdFromDb("/toDos", "id", id);
   let path = "/toDos/" + getTaskId + "/" + context;
-  if(context == "date"){
+  if (context == "date") {
     title = changeTimeFormat(title);
   }
   putData(path, title);
 }
 
-function addNewSubTask(id, context = null) {
-  let subTaskValue = document.getElementById("subtasks-input").value;
-  let idSubTaskValue = subTaskValue.replace(/\s+/g, "")
-  let subTaskContainer = document.getElementById("subTask" + id + "_" + context);
-  subTaskContainer.innerHTML += returnNewSubTaskHtml(subTaskValue, idSubTaskValue);
-  addSubTaskInFireBase(subTaskValue, id);
-}
-
 async function addSubTaskInFireBase(subTaskValue, id) {
   let getTaskId = await getIdFromDb("/toDos", "id", id);
+  subTaskValue = subTaskValue.trim();
   let subtask = {
     status: false,
     task: subTaskValue,
@@ -269,8 +290,8 @@ async function addSubTaskInFireBase(subTaskValue, id) {
   postData("/toDos/" + getTaskId + "/subtasks", subtask);
 }
 
-function setFocusOnDate(id){
- document.getElementById(id + "_date").focus();
+function setFocusOnDate(id) {
+  document.getElementById(id + "_date").focus();
 }
 
 // function showAddTask(){
