@@ -156,6 +156,7 @@ function editSubTask(id, context = "default") {
   let changeField = document.getElementById(`${id.id}`);
   let task = document.getElementById(`${id.id}_${context}`);
   if (task.contentEditable === "false") {
+
     changeField.innerHTML = changeToInputField(id);
     changeClassesOnList(id);
     focusInputField(id);
@@ -198,12 +199,17 @@ async function deleteSubTask(id, taskId) {
 }
 
 function calculateSubtaskProgress(element) {
-  let elementToSubTaskArray = Object.entries(element[1]["subtasks"]);
-  let subTaskLenght = elementToSubTaskArray.length;
-  let checkedSubTasks = elementToSubTaskArray.filter((checked) => checked[1]["status"] == true);
-  document.getElementById(`subTaskSmall${element[1]["id"]}`).innerHTML = `${checkedSubTasks.length}/${subTaskLenght} Subtasks`;
-  let progressBarPercentage = (checkedSubTasks.length / subTaskLenght) * 100;
-  document.getElementById(`progressbar${element[1]["id"]}`).style.width = progressBarPercentage + "%";
+  let id = element[1]["id"];
+  if(element[1]["subtasks"] !== undefined){
+    let elementToSubTaskArray = Object.entries(element[1]["subtasks"]);
+    let subTaskLenght = elementToSubTaskArray.length;
+    let checkedSubTasks = elementToSubTaskArray.filter((checked) => checked[1]["status"] == true);
+    document.getElementById(`subTaskSmall${element[1]["id"]}`).innerHTML = `${checkedSubTasks.length}/${subTaskLenght} Subtasks`;
+    let progressBarPercentage = (checkedSubTasks.length / subTaskLenght) * 100;
+    document.getElementById(`progressbar${element[1]["id"]}`).style.width = progressBarPercentage + "%";
+  } else {
+    document.getElementById("progressbarContainer" + id ).remove();
+  }
 }
 
 function openTask(id) {
@@ -248,8 +254,9 @@ async function changeTitleDescriptionDateInFirebase(id, context = null) {
 
 function addNewSubTask(id, context = null) {
   let subTaskValue = document.getElementById("subtasks-input").value;
+  let idSubTaskValue = subTaskValue.replace(/\s+/g, "")
   let subTaskContainer = document.getElementById("subTask" + id + "_" + context);
-  subTaskContainer.innerHTML += returnNewSubTaskHtml(subTaskValue, subTaskContainer);
+  subTaskContainer.innerHTML += returnNewSubTaskHtml(subTaskValue, idSubTaskValue);
   addSubTaskInFireBase(subTaskValue, id);
 }
 
@@ -265,6 +272,11 @@ async function addSubTaskInFireBase(subTaskValue, id) {
 function setFocusOnDate(id){
  document.getElementById(id + "_date").focus();
 }
+
+// function showAddTask(){
+//   let addTaskContainer = document.getElementById("boardAddTask");
+//   addTaskContainer.innerHTML = returnAddTaskHtml();
+// }
 
 // Sicherung ToDos anlegen
 // await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum', story: {userStory: 'User Story', technicalTask:'Technical Task'}})

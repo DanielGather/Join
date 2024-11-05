@@ -14,7 +14,7 @@ function changeTimeFormat(wrongFormat){
   let dateInput = wrongFormat;
   let date = new Date(dateInput);
   let rightFormat = date.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
-  return rightFormat;  
+  return rightFormat;
 }
 
 function svgColors(rightTask) {
@@ -119,18 +119,17 @@ function getRightArray(allToDos) {
 function getAssignedBackgroundColor(key,value){
   let contact = 
   contactsLS.filter((contact) => contact[1].name.toUpperCase() === key.toUpperCase() && contact[1].initials.toUpperCase() === value.toUpperCase());
-  console.log("kontakt testen", contact);
   return  contact[0][1].color;
 }
 
-function returnNewSubTaskHtml(subTaskValue, subTaskContainer){
+function returnNewSubTaskHtml(subTaskValue,idSubTaskValue){
   return /*HTML*/`
-  <ul id="${subTaskValue}" class="subTaskList subTaskHover">
-  <li id="${subTaskValue}_edit" contenteditable="false">${subTaskValue}</li>
+  <ul id="${idSubTaskValue}" class="subTaskList subTaskHover">
+  <li id="${idSubTaskValue}_edit" contenteditable="false">${subTaskValue}</li>
         <div class="subTaskIcons">
-        <img onclick="editSubTask(${subTaskValue},'edit')" src="./assets/img/edit.svg" alt="">
+        <img onclick="editSubTask(${idSubTaskValue},'edit')" src="./assets/img/edit.svg" alt="">
         <div class="seperator"></div>
-        <img onclick="deleteSubTask(${subTaskValue})" src="./assets/img/delete.svg" alt="">
+        <img onclick="deleteSubTask(${idSubTaskValue})" src="./assets/img/delete.svg" alt="">
         </div>
 </ul>
   `

@@ -115,6 +115,7 @@ function getDescription() {
 
 function getDueDate() {
     let dueDate = document.getElementById('inputDate').value;
+    
     return dueDate
 }
 

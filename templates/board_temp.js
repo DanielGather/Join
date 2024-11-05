@@ -26,7 +26,7 @@ function boardHtml() {
               <img class="icon" src="./assets/img/search.svg" alt="" />
             </div>
           </div>
-          <button class="createTaskButton alic button-dark fs16">Add task<img src="./assets/img/add.svg"></button>
+          <button onclick="showAddTask()" class="createTaskButton alic button-dark fs16">Add task<img src="./assets/img/add.svg"></button>
         </div>
       </div>
       <div id="taskArea" class="taskArea d-flex gap1">
@@ -70,5 +70,8 @@ function boardHtml() {
         </div>
       </div>
     </div>
+    <!-- <div>
+      <div class="addTaskBoard" id="boardAddTask"></div>
+    </div> -->
     `;
 }
