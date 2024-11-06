@@ -4,7 +4,7 @@ function returnAddTaskHtml() {
                 <h1>Add Task</h1>
 
                 <form class="form-container" onsubmit="return handleSubmit(event)">
-                    <div class="addTask-content-form-container">
+                    <div class="addTaskBoard-content-form-container">
                         <div class="title-description-assigned-container">
                             <div class="title-description-assigned">
                                 <label class="addTask-label">Title<span class="star">*</span></label>
@@ -38,7 +38,7 @@ function returnAddTaskHtml() {
                             </div>
                         </div>
 
-                        <div class="addTask-seperator-container"></div>
+                        <div class="addTask-seperator"></div>
 
                         <div class="dueDate-prio-category-subtasks-container">
                             <div class="dueDate-container">

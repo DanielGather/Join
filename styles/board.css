@@ -11,6 +11,10 @@
 /* =============
 1. global styles   
 ================ */
+*{
+  word-break: break-word;
+}
+
 
 input {
   border: none;
@@ -24,14 +28,87 @@ input {
 }
 
 .addTaskBoard{
+  position: relative;
+  
+  width:60rem;
+  height: 50rem;
+  border-radius: 2rem;
+  padding: 4rem;
+  background-color: white;
+}
+
+.addTaskContainer{
+  display: none;
   position: absolute;
-  top: 25%;
-  left: 25%;
-  background-color: black;
-  width: 100%;
-  height: 100%;
-  width: 600px;
-  height: 600px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.show {
+  animation: slideIn 0.5s forwards;
+  visibility: visible;
+}
+
+@keyframes slideIn {
+  from {
+    left: 100vw;
+  }
+  to {
+    left: 0;
+  }
+}
+
+.addTaskBoard-content-form-container{
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.addTask-seperator{
+  background-color: #d1d1d1;
+  width: 1px;
+  height: 75%;
+
+}
+
+.popup-addTask-container {
+  background-color: #2a3647;
+  width: 312px;
+  height: 74px;
+  color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  position: fixed;
+  gap: 22px;
+  bottom: -80px;
+  left: 50%;
+
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: bottom 0.3s ease, opactiy 0.3s ease;
+}
+
+.popup-addTask-container.visible {
+  bottom: 50%;
+  opacity: 1;
+}
+
+.addTask-seperator-container {
+  background-color: #D1D1D1;
+  width: 2px;
+  height: 310px;
+  display: none;
 }
 
 .input-container {

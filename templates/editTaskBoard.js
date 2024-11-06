@@ -6,23 +6,23 @@ async function editTaskBoard(task, date) {
       <div class="title-description-assigned-container">
         <div class="title-description-assigned">
           <label class="addTask-label"><span class="star">*</span></label>
-          <input id="${task["id"]}_headline" onblur="changeTitleDescriptionDateInFirebase(${task['id']}, 'headline')" required class="title-input" value="${task.headline}" placeholder="Enter a title"/>
+          <input id="${task["id"]}_headline" onblur="changeDataInFireBase(${task['id']}, 'headline')" required class="title-input" value="${task.headline}" placeholder="Enter a title"/>
         </div>
 
         <div class="title-description-assigned">
           <label class="addTask-label">Description</label>
-          <textarea id="${task["id"]}_description" onblur="changeTitleDescriptionDateInFirebase(${task['id']},'description')" rows="4" placeholder="Enter a Description">${task.description}</textarea>
+          <textarea id="${task["id"]}_description" onblur="changeDataInFireBase(${task['id']},'description')" rows="4" placeholder="Enter a Description">${task.description}</textarea>
         </div>
         <div class="dueDate-container">
           <label class="addTask-label">Due date<span class="star">*</span></label>
-          <input id="${task["id"]}_date" onclick="setFocusOnDate(${task['id']})" onblur="changeTitleDescriptionDateInFirebase(${task['id']},'date')" required class="title-input" value="${date}" type="date" />
+          <input id="${task["id"]}_date" onclick="setFocusOnDate(${task['id']})" onblur="changeDataInFireBase(${task['id']},'date')" required class="title-input" value="${date}" type="date" />
         </div>
         <div class="prio-container">
           <label class="addTask-label">Prio</label>
           <div class="prio-buttons">
-            <button onclick="chooseTaskPrioType('Urgent')" id="urgentButton" class="urgent-medium-low-buttons">Urgent ${urgentSvg}</button>
-            <button onclick="chooseTaskPrioType('Medium')" id="mediumButton" class="urgent-medium-low-buttons">Medium ${mediumSvg}</button>
-            <button onclick="chooseTaskPrioType('Low')" id="lowButton" class="urgent-medium-low-buttons">Low ${lowSvg}</button>
+            <button onclick="chooseTaskPrioType('Urgent'); changeDataInFireBase(${task['id']},'priority', 'urgent')" id="urgentButton" class="urgent-medium-low-buttons">Urgent ${urgentSvg}</button>
+            <button onclick="chooseTaskPrioType('Medium'); changeDataInFireBase(${task['id']},'priority', 'medium')" id="mediumButton" class="urgent-medium-low-buttons">Medium ${mediumSvg}</button>
+            <button onclick="chooseTaskPrioType('Low'); changeDataInFireBase(${task['id']},'priority', 'low')" id="lowButton" class="urgent-medium-low-buttons">Low ${lowSvg}</button>
           </div>
         </div>
         <div class="title-description-assigned">

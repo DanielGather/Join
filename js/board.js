@@ -273,8 +273,17 @@ function closeBigTask() {
   updateHTML();
 }
 
-async function changeTitleDescriptionDateInFirebase(id, context = null) {
-  let title = document.getElementById(id + "_" + context).value;
+function closeAddTask(){
+  document.getElementById("addTaskBoard").style.display = "none";
+}
+
+async function changeDataInFireBase(id, context = null, priority = null) {
+  let title;
+if(!priority){
+  title = document.getElementById(id + "_" + context).value;
+} else {
+  title = priority;
+}
   let getTaskId = await getIdFromDb("/toDos", "id", id);
   let path = "/toDos/" + getTaskId + "/" + context;
   if (context == "date") {
@@ -297,10 +306,12 @@ function setFocusOnDate(id) {
   document.getElementById(id + "_date").focus();
 }
 
-// function showAddTask(){
-//   let addTaskContainer = document.getElementById("boardAddTask");
-//   addTaskContainer.innerHTML = returnAddTaskHtml();
-// }
+function showAddTask(){
+  document.getElementById("addTaskBoard").style.display = "flex"
+  let addTaskContainer = document.getElementById("boardAddTask");
+  document.getElementById("boardAddTask").classList.add("show");
+  addTaskContainer.innerHTML = returnAddTaskHtml();
+}
 
 // Sicherung ToDos anlegen
 // await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum', story: {userStory: 'User Story', technicalTask:'Technical Task'}})
