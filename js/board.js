@@ -157,7 +157,7 @@ function setCounter() {
 
 function addNewSubTask(task, context = null) {
   let counter = setCounter();
-  // let taskId = task[1].id;
+  let subTask = document.getElementById("subtasks-input");
   let subTaskValue = document.getElementById("subtasks-input").value;
   if (subTaskValue) {
     let idSubTaskValue = subTaskValue.replace(/\s+/g, "");
@@ -165,6 +165,7 @@ function addNewSubTask(task, context = null) {
     subTaskContainer.innerHTML += returnNewSubTaskHtml(subTaskValue, idSubTaskValue, counter, task);
     addSubTaskInFireBase(subTaskValue, task);
   }
+  subTask.value = "";
 }
 
 async function editTask(task) {
@@ -193,7 +194,7 @@ function editSubTask(id, context = "default", index, taskId, valueTask) {
 
 function changeToInputField(id, index, taskId, valueTask) {
   return `
-    <input class="inputFieldEdit" id="${id}_input" type="text" value="${id}">
+    <input class="inputFieldEdit" id="${id}_input" type="text" value="${valueTask}">
     <img onclick="deleteSubTask('${id}',${index},${taskId},'${valueTask}')" src="./assets/img/delete.svg" alt="">
     <img onclick="changeBackToList('${id}', ${index},${taskId},'${valueTask}')" src="./assets/img/checked_subtask.svg" alt="">
     `;
@@ -207,15 +208,17 @@ function changeClassesOnList(id, index) {
 
 function changeBackToList(id, index, taskId, valueTask) {
   let changeField = document.getElementById(`${id}_${index}`);
-  changeField.innerHTML = /*HTML*/ `
-    <li id="${id}_edit" contenteditable="false">${id}</li>
-        <div class="subTaskIcons">
-        <img onclick="editSubTask('${id}','edit', ${index})" src="./assets/img/edit.svg" alt="">
-        <div class="seperator"></div>
-        <img onclick="deleteSubTask('${id}', ${index}, ${taskId}, '${valueTask}')" src="./assets/img/delete.svg" alt="">
-        </div>
-  `;
+  let newValue = document.getElementById(`${id}_input`).value;
+  changeField.innerHTML = htmlChangeToList(id, newValue, taskId, valueTask, index);
   changeClassesOnList(id, index);
+  updateSubTask(valueTask, newValue, taskId);
+}
+
+async function updateSubTask(valueTask, newValue, taskId) {
+  let getTaskId = await getIdFromDb("/toDos", "id", taskId);
+  let subTaskId = await getIdFromDb("/toDos/" + getTaskId + "/subtasks", "task", valueTask);
+  let path = "/toDos/" + getTaskId + "/subtasks/" + subTaskId + "/task/";
+  putData(path, newValue);
 }
 
 async function deleteSubTask(idWithNoSpace, index, taskId, valueTask) {
