@@ -138,11 +138,11 @@ function setButtonColorForPrio(priorityType) {
     document.getElementById("urgentButton").style.backgroundColor = '';
     document.getElementById("mediumButton").style.backgroundColor = '';
     document.getElementById("lowButton").style.backgroundColor = '';
-    if (priorityType === "Urgent") {
+    if (priorityType === "urgent") {
         document.getElementById("urgentButton").style.backgroundColor = '#FF3D19';
-    } else if (priorityType === "Medium") {
+    } else if (priorityType === "medium") {
         document.getElementById("mediumButton").style.backgroundColor = '#FFA827';
-    } else if (priorityType === "Low") {
+    } else if (priorityType === "low") {
         document.getElementById("lowButton").style.backgroundColor = '#7AE22B';
     }
 }
