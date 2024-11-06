@@ -214,29 +214,64 @@ function addSubTask() {
     let subtaskInput = document.getElementById('subtasks-input').value.trim();
     if (subtaskInput) {
         subtaskArray.push(subtaskInput);
-        let taskContainer = document.getElementById('rendered-task-container');
-        taskContainer.innerHTML = '';
-        //let task = 'task';
-        for (let i = 0; i < subtaskArray.length; i++) {
-            let subtask = subtaskArray[i];
-            //let newSubtask = {};
-            //newSubtask[task] = subtask;
-            //postData('toDos/subtasks', newSubtask);
-            taskContainer.innerHTML += `
-        <ul class="subtaskList">
-            <li>${subtask}</li>
-            <div class="subtask-icon-container">
-                <img src="./assets/img/subtask_pencil.svg" alt="pencil" onclick="editSubtask()">
-                <img src="./assets/img/delete.svg" alt="delete" onclick="deleteSubtask()">
-            </div>
-        </ul>
-        `
-        }
+        renderSubtasks();
     }
     document.getElementById('subtasks-input').value = '';
     document.getElementById('actionIcons').style = 'display:none';
     document.getElementById('plusIcon').style = 'display:block';
     console.log('subtaskArray:', subtaskArray);
+}
+
+
+function renderSubtasks() {
+    let taskContainer = document.getElementById('rendered-task-container');
+    taskContainer.innerHTML = '';
+    for (let i = 0; i < subtaskArray.length; i++) {
+        let subtask = subtaskArray[i];
+        taskContainer.innerHTML += `
+    <ul class="subtaskList" id="subtaskList-${i}">
+        <li id="subtaskText-${i}">${subtask}</li>
+        <div class="subtask-icon-container">
+            <img src="./assets/img/subtask_pencil.svg" alt="pencil" onclick="editSubtask(${i})">
+            <img src="./assets/img/delete.svg" alt="delete" onclick="deleteSubtask(${i})">
+        </div>
+    </ul>
+    `;
+    }
+}
+
+
+function editSubtask(index) {
+    let subtaskElementContainer = document.getElementById(`subtaskList-${index}`);
+    subtaskElementContainer.innerHTML = `
+        <div class="subtask-edit-container">
+            <input type="text" id="editInput-${index}" value="${subtaskArray[index]}">
+            <div>
+                <img src="./assets/img/delete.svg" alt="delete" onclick="cancelEditSubtask()">
+                <img src="./assets/img/addtask_check.svg" alt="checkIcon" onclick="saveEditSubtask(${index})">
+            </div>  
+        </div>
+    `;
+}
+
+
+function saveEditSubtask(index){
+    let editedSubtaskValue = document.getElementById(`editInput-${index}`).value.trim();
+    if (editedSubtaskValue) {
+        subtaskArray[index] = editedSubtaskValue;
+        renderSubtasks();
+    }
+}
+
+
+function cancelEditSubtask() {
+    renderSubtasks();
+}
+
+
+function deleteSubtask(index) {
+    subtaskArray.splice(index, 1);
+    renderSubtasks();
 }
 
 

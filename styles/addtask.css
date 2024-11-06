@@ -278,6 +278,24 @@ h1 {
     cursor: pointer;
 }
 
+.subtask-edit-container {
+    display: flex;
+    max-width: 530px;
+    width: 100%;
+    justify-content: space-between;
+    outline: none;
+}
+
+.subtask-edit-container input {
+    border: none;
+}
+
+.subtask-edit-container img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
 .title-input {
     border-radius: var(--input-select-textarea-radius);
     height: 40px;
