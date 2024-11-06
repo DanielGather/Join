@@ -79,6 +79,22 @@ input {
 
 }
 
+.renderedInitialsContainer {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  overflow: auto;
+}
+
+.renderedInitial {
+  border: 1px solid green;
+  border-radius: 50px;
+  height: 32px;
+  width: 32px;
+  padding: 4px;
+
+}
+
 .popup-addTask-container {
   background-color: #2a3647;
   width: 312px;

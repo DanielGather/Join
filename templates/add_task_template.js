@@ -23,7 +23,7 @@ function returnAddTaskHtml() {
                                         <input type="text" placeholder="Select contacts to assign">
                                         <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()"></div>
                                     </div>
-                                    <div class="dropDownContainer d-none" id="dropDownMenu">
+                                    <div class="dropDownContainer" id="dropDownMenu" style="display: none">
                                         <!-- <div class="dropDownContacts" id="dropDownContacts">
                                             <div class="initialNameContainer" id="initialNameContainer">
                                                 <div class="initialsAssigned" id="initialsAssigned">CR</div>
@@ -64,7 +64,7 @@ function returnAddTaskHtml() {
                                     <div id="category-header">Select task category</div>
                                     <div class="arrow-drop-down-img"><img  src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgCategoryDropdownToggle" onclick="toggleCategoryDropDown()"></div>
                                 </div>
-                                <div class="category-dropdown-container d-none" id="categoryDropdownMenu">
+                                <div class="category-dropdown-container" id="categoryDropdownMenu" style="display:none;">
                                     <div class="choose-category-container" onclick="setCategory('Technical Task')">Technical Task</div>
                                     <div class="choose-category-container" onclick="setCategory('User Story')">User Story</div>
                                 </div>

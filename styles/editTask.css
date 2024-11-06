@@ -95,8 +95,13 @@ img {
   z-index: 2;
 }
 
+.inputAssignedToContainer img,
+.category-container img {
+    width: 10px;
+    height: 10px;
+}
+
 .dropDownContainer {
-  /* border: 1px solid #D1D1D1; */
   border-radius: var(--button-radius);
   background-color: white;
   margin-top: -42px;
@@ -130,9 +135,12 @@ img {
   height: 32px;
 }
 
-.inputAssignedToContainer img {
-  width: 8px;
-  height: 6px;
+.add-subtask:hover,
+.arrow-drop-down-img:hover,
+.subtask-close-icon:hover,
+.subtask-checked-icon:hover {
+    border-radius: 50%;
+    background-color: #D1D1D1;
 }
 
 .dropDownContacts {
