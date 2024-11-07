@@ -1,6 +1,6 @@
 let subtaskArray = [];
 //let choosedContact = [];
-let statusPriority = null;
+let statusPriority = 'medium';
 let selectedCategory = null;
 let assignedToContacts = null;
 let allCurrentIds = [];
@@ -20,18 +20,18 @@ function handleSubmit(event) {   // prüfen welcher button geklickt wurde
 
 function clear() {
     console.log("clear test test");
-    document.getElementById('addTaskTitle').value = '';          
-    document.getElementById('textForDescription').value = '';     
-    document.getElementById('inputDate').value = '';              
+    document.getElementById('addTaskTitle').value = '';
+    document.getElementById('textForDescription').value = '';
+    document.getElementById('inputDate').value = '';
     document.getElementById('subtasks-input').value = '';
     priority = null;
-    setButtonColorForPrio(null);   
+    setButtonColorForPrio(null);
     document.getElementById('category-header').innerText = 'Select task category';
-    selectedCategory = null; 
-    document.getElementById('dropDownMenu').innerHTML = '';             
-    document.getElementById('renderedInitialsContainer').innerHTML = ''; 
-    document.getElementById('rendered-task-container').innerHTML = '';   
-    document.getElementById('rendered-task-container').style.opacity = '0'; 
+    selectedCategory = null;
+    document.getElementById('dropDownMenu').innerHTML = '';
+    document.getElementById('renderedInitialsContainer').innerHTML = '';
+    document.getElementById('rendered-task-container').innerHTML = '';
+    document.getElementById('rendered-task-container').style.opacity = '0';
     subtaskArray = [];
     //choosedContact = [];
 }
@@ -48,11 +48,11 @@ async function createTask() {
     if (subtaskArray.length > 0) {
         for (let i = 0; i < subtaskArray.length; i++) {
             let subtask = {
-                status : false,
+                status: false,
                 task: subtaskArray[i],
             };
             const subtaskId = await postData(`toDos/${taskId}/subtasks`, subtask);
-            console.log('Subtask-ID lautet:', subtaskId.name); 
+            console.log('Subtask-ID lautet:', subtaskId.name);
         }
     }
     console.log('neue Task:', newTask);
@@ -87,12 +87,12 @@ async function getAllToDos() {
     let data = await getData("toDos");
     let allCurrentToDos = Object.values(data);
     console.log('alle Todos:', allCurrentToDos);
-    for (let i = 0; i < allCurrentToDos.length; i++){
+    for (let i = 0; i < allCurrentToDos.length; i++) {
         let singleId = allCurrentToDos[i].id;
         allCurrentIds.push(singleId);
     }
     console.log('alle Ids:', allCurrentIds);
-  }
+}
 
 
 function createNewId() {
@@ -136,14 +136,23 @@ function chooseTaskPrioType(priorityType) {
 
 function setButtonColorForPrio(priorityType) {
     document.getElementById("urgentButton").style.backgroundColor = '';
+    document.getElementById("urgentButton").style.color = '';
     document.getElementById("mediumButton").style.backgroundColor = '';
+    document.getElementById("mediumButton").style.color = '';
     document.getElementById("lowButton").style.backgroundColor = '';
+    document.getElementById("lowButton").style.color = '';
     if (priorityType === "urgent") {
         document.getElementById("urgentButton").style.backgroundColor = '#FF3D19';
+        document.getElementById("urgentButton").style.color = 'white';
+        document.getElementById("urgentButtonImg").src = './assets/img/prio-urgent-white.svg';
     } else if (priorityType === "medium") {
         document.getElementById("mediumButton").style.backgroundColor = '#FFA827';
+        document.getElementById("mediumButton").style.color = 'white';
+        document.getElementById("mediumButtonImg").src = './assets/img/prio-medium-white.svg';
     } else if (priorityType === "low") {
         document.getElementById("lowButton").style.backgroundColor = '#7AE22B';
+        document.getElementById("lowButton").style.color = 'white';
+        document.getElementById("lowButtonImg").src = './assets/img/prio-low-white.svg';
     }
 }
 
@@ -229,13 +238,16 @@ function renderSubtasks() {
     for (let i = 0; i < subtaskArray.length; i++) {
         let subtask = subtaskArray[i];
         taskContainer.innerHTML += `
-    <ul class="subtaskList" id="subtaskList-${i}">
-        <li id="subtaskText-${i}">${subtask}</li>
-        <div class="subtask-icon-container">
-            <img src="./assets/img/subtask_pencil.svg" alt="pencil" onclick="editSubtask(${i})">
-            <img src="./assets/img/delete.svg" alt="delete" onclick="deleteSubtask(${i})">
+        <div class="subtask-single-container">
+            <ul class="subtaskList" id="subtaskList-${i}">
+                <li id="subtaskText-${i}">${subtask}</li>
+                <div class="subtask-icon-container">
+                    <img src="./assets/img/subtask_pencil.svg" alt="pencil" onclick="editSubtask(${i})">
+                    <div class="subtask-separator"></div>
+                    <img src="./assets/img/delete.svg" alt="delete" onclick="deleteSubtask(${i})">
+                </div>
+            </ul>
         </div>
-    </ul>
     `;
     }
 }
@@ -246,8 +258,9 @@ function editSubtask(index) {
     subtaskElementContainer.innerHTML = `
         <div class="subtask-edit-container">
             <input type="text" id="editInput-${index}" value="${subtaskArray[index]}">
-            <div>
+            <div class="editSubtask-icon-container">
                 <img src="./assets/img/delete.svg" alt="delete" onclick="cancelEditSubtask()">
+                <div class="subtask-separator"></div>
                 <img src="./assets/img/addtask_check.svg" alt="checkIcon" onclick="saveEditSubtask(${index})">
             </div>  
         </div>
@@ -255,7 +268,7 @@ function editSubtask(index) {
 }
 
 
-function saveEditSubtask(index){
+function saveEditSubtask(index) {
     let editedSubtaskValue = document.getElementById(`editInput-${index}`).value.trim();
     if (editedSubtaskValue) {
         subtaskArray[index] = editedSubtaskValue;
@@ -309,7 +322,7 @@ function renderInitials() {
             //let newObject = { [key]: value };
             //checkedContacts.push(newObject);
             checkedContacts[key] = value;
-            assignedToContacts = checkedContacts;  
+            assignedToContacts = checkedContacts;
             renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
         }
     })

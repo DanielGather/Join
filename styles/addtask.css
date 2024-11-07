@@ -207,6 +207,7 @@ h1 {
 .subtasks-input {
     border: none;
     outline: none;
+    width: 100%;
 }
 
 .add-subtask,
@@ -245,6 +246,15 @@ h1 {
     height: 24px;
 }
 
+.subtask-single-container {
+    background-color: #E7E7E7;
+    border-radius: var(--input-select-textarea-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .add-subtask:hover,
 .arrow-drop-down-img:hover,
 .subtask-close-icon:hover,
@@ -259,17 +269,20 @@ h1 {
 }
 
 .subtaskList {
-    padding-bottom: 8px;
+    /* padding-bottom: 8px; */
+    /* padding: 6px 0; */
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
-.subtask-icon-container {
+.subtask-icon-container, .editSubtask-icon-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
     padding-right: 12px;
+
 }
 
 .subtask-icon-container img {
@@ -283,10 +296,18 @@ h1 {
     max-width: 530px;
     width: 100%;
     justify-content: space-between;
-    outline: none;
+    border: none;
+    border-bottom: 1px solid var(--join-light-blue);
+    background-color: white;
 }
 
 .subtask-edit-container input {
+    border: none;
+    
+}
+
+.subtask-edit-container input:focus {
+    outline: none;
     border: none;
 }
 
