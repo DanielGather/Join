@@ -157,8 +157,8 @@ function setButtonColorForPrio(priorityType) {
 }
 
 
-function toggleAssignedToDropDown() {
-    renderAssignedToContacts();
+function toggleAssignedToDropDown(trueOrFalse) {
+    renderAssignedToContacts(trueOrFalse);
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
     let dropdownMenu = document.getElementById('dropDownMenu');
     if (dropdownMenu.style.display === 'none') {
@@ -308,7 +308,9 @@ function deleteInputSubtaskValue() {
 }
 
 
-function renderInitials() {
+function renderInitials(trueOrFalse) {
+    console.log("Teste True or False ", trueOrFalse);
+    
     //let checkedContacts = [];
     let checkedContacts = {};
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
@@ -331,11 +333,11 @@ function renderInitials() {
 }
 
 
-function renderAssignedToContacts() {
+function renderAssignedToContacts(trueOrFalse) {
     document.getElementById('dropDownMenu').innerHTML = '';
     for (let i = 0; i < contactsOnly.length; i++) {
         let contact = contactsOnly[i];
-        document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(contact);
+        document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(contact, trueOrFalse);
         //console.log('name und initials:', contact.name, contact.initial);
     }
 }

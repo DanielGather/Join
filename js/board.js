@@ -10,6 +10,19 @@ async function initBoard() {
   boardJS();
 }
 
+function triggerForm(event, id){
+  event.preventDefault()
+  let headlineInputValue = document.getElementById(`${id}_headline`).value
+  let dateInputValue = document.getElementById(`${id}_date`).value
+  if(headlineInputValue !== "" && dateInputValue !== ""){
+    closeBigTask()
+  }
+}
+
+function triggerButton(){
+  document.getElementById("createTask").click();
+}
+
 function boardJS() {
   renderBoard();
   navbarTemplate();
@@ -138,14 +151,16 @@ function returnEditableSubTask(task, context, value, index) {
 // }
 
 function renderSubTask(task, context = "default") {
-  let subTaskToEntries = Object.entries(task[1]["subtasks"]);
-  subTaskToEntries.forEach(([, value], index) => {
-    if (context == "bigTask") {
-      returnSubTask(task, context, value);
-    } else {
-      returnEditableSubTask(task, context, value, index);
-    }
-  });
+  if(task[1]["subtasks"]){
+    let subTaskToEntries = Object.entries(task[1]["subtasks"]);
+    subTaskToEntries.forEach(([, value], index) => {
+      if (context == "bigTask") {
+        returnSubTask(task, context, value);
+      } else {
+        returnEditableSubTask(task, context, value, index);
+      }
+    });
+  }
 }
 
 function setCounter() {
@@ -273,6 +288,8 @@ function closeBigTask() {
   updateHTML();
 }
 
+
+
 function closeAddTask(){
   document.getElementById("addTaskBoard").style.display = "none";
 }
@@ -307,11 +324,25 @@ function setFocusOnDate(id) {
 }
 
 function showAddTask(){
-  document.getElementById("addTaskBoard").style.display = "flex"
-  let addTaskContainer = document.getElementById("boardAddTask");
-  document.getElementById("boardAddTask").classList.add("show");
-  addTaskContainer.innerHTML = returnAddTaskHtml();
+  if(window.innerWidth >= 1000){
+    document.getElementById("addTaskBoard").style.display = "flex"
+    let addTaskContainer = document.getElementById("boardAddTask");
+    document.getElementById("boardAddTask").classList.add("show");
+    addTaskContainer.innerHTML = returnAddTaskHtml();
+  } else {
+    console.log("Fenster ist zu klein");
+    window.location.href = "./add_task.html";
+  }
 }
+
+async function deleteTask(taskId){
+  let getTaskId = await getIdFromDb("/toDos", "id", taskId);
+  deleteData("/toDos/" + getTaskId);
+  closeBigTask();
+  updateHTML();
+}
+
+
 
 // Sicherung ToDos anlegen
 // await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum', story: {userStory: 'User Story', technicalTask:'Technical Task'}})

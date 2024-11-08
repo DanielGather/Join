@@ -49,11 +49,13 @@ function returnAddTaskHtml() {
                             <div class="prio-container">
                                 <label class="addTask-label">Prio</label>
                                 <div class="prio-buttons">
-                                    <button class="urgentButton" id="urgentButton" onclick="chooseTaskPrioType('Urgent')">Urgent <img
+                                    <button class="urgentButton" id="urgentButton" onclick="chooseTaskPrioType('urgent')">Urgent
+                                        <img id="urgentButtonImg"
                                             src="./assets/img/prio_urgent.svg"></button>
-                                    <button class="mediumButton" id="mediumButton" onclick="chooseTaskPrioType('Medium')">Medium <img
+                                    <button class="mediumButton" id="mediumButton" onclick="chooseTaskPrioType('medium')">Medium 
+                                        <img id="mediumButtonImg"
                                             src="./assets/img/prio_medium.svg"></button>
-                                    <button class="lowButton" id="lowButton" onclick="chooseTaskPrioType('Low')">Low <img
+                                    <button class="lowButton" id="lowButton" onclick="chooseTaskPrioType('low')">Low <img id="lowButtonImg"
                                             src="./assets/img/prio_low.svg"></button>
                                 </div>
                             </div>
