@@ -145,6 +145,7 @@ function setButtonColorForPrio(priorityType) {
         document.getElementById("urgentButton").style.backgroundColor = '#FF3D19';
         document.getElementById("urgentButton").style.color = 'white';
         document.getElementById("urgentButtonImg").src = './assets/img/prio-urgent-white.svg';
+        document.getElementById("mediumButtonImg").src = './assets/img/prio_medium.svg';
     } else if (priorityType === "medium") {
         document.getElementById("mediumButton").style.backgroundColor = '#FFA827';
         document.getElementById("mediumButton").style.color = 'white';
@@ -153,6 +154,7 @@ function setButtonColorForPrio(priorityType) {
         document.getElementById("lowButton").style.backgroundColor = '#7AE22B';
         document.getElementById("lowButton").style.color = 'white';
         document.getElementById("lowButtonImg").src = './assets/img/prio-low-white.svg';
+        document.getElementById("mediumButtonImg").src = './assets/img/prio_medium.svg';
     }
 }
 
