@@ -5,11 +5,6 @@ let searchedTask = [];
 let editTaskOpen;
 let checkboxId = 1;
 
-async function initBoard() {
-  await init("board");
-  boardJS();
-}
-
 function triggerForm(event, id){
   event.preventDefault()
   let headlineInputValue = document.getElementById(`${id}_headline`).value
