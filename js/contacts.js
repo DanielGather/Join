@@ -3,9 +3,12 @@ window.addEventListener('resize', closeMobileModal);
 let editId;
 
 async function contactsJS() {
+    renderContactsLetter();
+}
+
+async function updatePage() {
     await updateLS();
     renderContactsLetter();
-
 }
 
 function renderContactsLetter() {
@@ -27,9 +30,7 @@ function renderContactsLetter() {
 }
 
 function renderContactCards(id, contact) {
-    if (contact.phone == undefined) {
-        contact.phone = '-/-'
-    }
+    contact.phone = contact.phone || '-/-';
     document.getElementById(`contactsOf_${contact.letter}`).innerHTML += temp_contactCard(id, contact);
     coloringProfImg(id, contact);
 }
@@ -82,7 +83,7 @@ function clearInputs() {
 }
 
 async function openNewContact(id) {
-    await contactsJS();
+    await updatePage();
     viewContact(id);
     renderContactInfos(id);
 }
@@ -147,6 +148,8 @@ async function saveEdit(event) {
     await putData(`contacts/${editId}`, editContact);
     closeModal('editContactDialog');
     await openNewContact(editId);
+    loadUser();
+    renderHeader('contacts');
 }
 
 function deleteButtonModal(id) {
@@ -159,12 +162,22 @@ function deleteButtonModal(id) {
 async function deleteContact(id) {
     if (id !== undefined) {
         await deleteData(`contacts/${id}`);
-        document.getElementById('sec_contactInfo').innerHTML = '';
-        await contactsJS();
-
-        document.getElementById('secContacts').classList.remove('hide-mobile');
-        document.getElementById('secViewContact').classList.add('hide-mobile');
+        if (id == userId) {
+            deleteUser();
+        } else {    
+            document.getElementById('sec_contactInfo').innerHTML = '';
+            await updatePage();
+            
+            document.getElementById('secContacts').classList.remove('hide-mobile');
+            document.getElementById('secViewContact').classList.add('hide-mobile');
+        }
     }
+}
+
+function deleteUser() {
+    localStorage.setItem("remember", "false");
+    logOut();
+    window.location.href = "./index.html";
 }
 
 function returnToContacts() {

@@ -16,8 +16,7 @@ function returnHeaderHtml(initials){
               <br>
               <a class="p050 header-link" href="./privacyPolicy.html">Privacy Policy</a>
               <br>
-              <a class="p050 header-link" href="./index.html">Log out</a>
-            </div>
+              <a onclick="logOut(); return true;" class="p050 header-link" href="./index.html">Log out</a>            </div>
           </div>
         <div id="helpButton" class="help-button">
           <a href="./help.html"><img src="./assets/img/helpButton.svg" alt="help"></a>

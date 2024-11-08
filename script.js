@@ -1,6 +1,7 @@
 const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.app/';
 
-let userId = '-O9GTT8Io_s_RWTB3MXG';
+let userId;
+let userInfo;
 let contactsLS = [];
 let contactsOnly = [];
 const colors = [
@@ -12,10 +13,22 @@ const colors = [
 document.dispatchEvent(new Event('dataLoaded'));
 
 async function init(html) {
-    await updateLS();
-    renderHeader(html);
-    renderNavBar(html);
+    if (checkLoginStatus()) {
+        
+        await updateLS();
+        loadUser();
+        
+        renderHeader(html);
+        renderNavBar(html);
+        
+        if (html == 'board') {
+            boardJS();
+        } else if (html == 'contacts') {
+            contactsJS();
+        }
+    }
 }
+
 
 function renderNavBar(html) {
     document.getElementById('navBar').innerHTML = navbarTemplate();
@@ -29,6 +42,9 @@ function renderNavBar(html) {
     let className = 'nav-active';
     if (html == 'privacyPolicy' || html == 'legalNotice') {
         className = 'copyright-activ';
+        if (localStorage.getItem('logIn')) {
+            document.getElementById('').display = 'none';
+        }
     }
 
     document.getElementById(`${html}Link`).classList.add(className);
@@ -42,25 +58,25 @@ function removeActiveLink(selectElements, className) {
     });
 }
 
+function renderHeader(html = '') {
+    let initials = getUserInitials() || 'G';
+    document.getElementById('header').innerHTML = returnHeaderHtml(initials);
+    
+    if (html == 'help') {
+        return hideHelpButton();
+    };
+    
+    if (html == 'privacyPolicy' || html == 'legalNotice') {
+        return hideHeaderButtons();
+    }
+}
+
 function hideHelpButton() {
     document.getElementById('helpButton').style.display = 'none';
 }
 
 function hideHeaderButtons() {
     document.getElementById('headerButtonsContainer').style.display = 'none';
-}
-
-function renderHeader(html = '') {
-    let initials = getUserInitials();
-    document.getElementById('header').innerHTML = returnHeaderHtml(initials);
-
-    if (html == 'help') {
-        return hideHelpButton();
-    };
-
-    if (html == 'privacyPolicy' || html == 'legalNotice') {
-        return hideHeaderButtons();
-    }
 }
 
 function showPopUp(){
@@ -189,26 +205,43 @@ function getRandomColor() {
 
 
 // USER
-
-function getUserInitials() {
-    let user = getUser()
-    
-    if (user == undefined) {return 'G'};
-    return user[1].initials;
+function loadUser() {
+    userId = localStorage.getItem("user");
+    if (userId == 'guest') {
+        userInfo = 'guest';
+    } else {
+        let user = getUserFromContacts(userId);
+        userInfo = user[1];
+    }
 }
 
-function getUser() {
-    let user = contactsLS.find(contact => contact[0] == userId);
-
+function getUserFromContacts(id) {
+    let user = contactsLS.find(contact => contact[0] == id);
     return user;
 }
 
-
-function saveUser() {
-    localStorage.setItem("userID", userId);
+function getUserInitials() {
+    return userInfo.initials;
 }
 
-function loadUser() {
-    userId = localStorage.getItem("userID");
+// MUSS vor jeder Seite ausgeführt werden außer index & privatePolicy
+function checkLoginStatus() {
+    let user = localStorage.getItem("user");
+    let logIn = localStorage.getItem("logIn") == "true";
+
+    if (!logIn) {
+        window.location.href = "./index.html";
+    } else {
+        console.log("User ist eingeloggt", user);
+        return true;
+    }
 }
 
+function logOut() {
+    let remember = localStorage.getItem("remember") == "true";
+    localStorage.removeItem('logIn');
+    if (!remember) {localStorage.removeItem('user')}
+}
+
+// TODO: feghler:
+// render index
