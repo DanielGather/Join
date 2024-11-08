@@ -1,9 +1,9 @@
 async function editTaskBoard(task, date) {
   return /*HTML*/ `
+  <form  onsubmit="triggerForm(event, ${task['id']}); return false" class="form-container">
     <div class="main-addTask-container">
-  <form class="form-container" onsubmit="return handleSubmit(event)">
     <div class="addTask-content-form-container">
-      <div class="title-description-assigned-container">
+      <div class="edit-assigned-container">
         <div class="title-description-assigned">
           <label class="addTask-label"><span class="star">*</span></label>
           <input id="${task["id"]}_headline" onblur="changeDataInFireBase(${task['id']}, 'headline')" required class="title-input" value="${task.headline}" placeholder="Enter a title"/>
@@ -30,10 +30,10 @@ async function editTaskBoard(task, date) {
           <div>
             <div class="inputAssignedToContainer">
               <input type="text" placeholder="Select contacts to assign" />
-              <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()" />
+              <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown('true')" />
             </div>
             <div class="d-flex gap1 pt1" id="assignedTo${task["id"]}_editTask"></div>
-            <div class="dropDownContainer d-none" id="dropDownMenu">
+            <div class="dropDownContainer" style="display:none"; id="dropDownMenu">
               <div class="dropDownContacts">
                 <div class="initialNameContainer">
                   <div class="initialsAssigned">CR</div>
@@ -89,7 +89,7 @@ async function editTaskBoard(task, date) {
                                     <div class="close-separator-checked-container d-none" id="actionIcons">
                                         <div class="subtask-close-icon"><img src="./assets/img/close.svg" alt="Close-Icon" onclick="deleteInputSubtaskValue()"></div>
                                         <div class="subtask-separator"></div>
-                                        <div class="subtask-checked-icon"><img src="./assets/img/checked_subtask.svg" alt="Checked-Icon" onclick="addNewSubTask(${task['id']},'editTask')"></div>
+                                        <div class="subtask-checked-icon"><img src="./assets/img/checked_subtask.svg" alt="Checked-Icon" onclick="addNewSubTask(${task["id"]},'editTask')"></div>
                                     </div>
                                 </div>
                             </div>

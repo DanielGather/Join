@@ -41,8 +41,8 @@ function technicalTaskBig(task) {
   </div>
   <div class="d-flex jc-fe pt1">
     <div class="d-flex alic gap1">
-      <img class="hover" src="./assets/img/delete.svg" alt="" />
-      <span class="hover">Delete</span>
+      <img onclick="deleteTask(${task[1]['id']})" class="hover" src="./assets/img/delete.svg" alt="" />
+      <span onclick="deleteTask(${task[1]['id']})" class="hover">Delete</span>
       <span class="stroke"></span>
       <img onclick="editTask(${task[1]['id']})" class="hover" src="./assets/img/edit.svg" alt="" />
       <span onclick="editTask(${task[1]['id']})" class="hover">Edit</span>

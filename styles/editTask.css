@@ -75,6 +75,12 @@ img {
   width: 45%;
 }
 
+.edit-assigned-container{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .title-description-assigned {
   display: flex;
   flex-direction: column;
