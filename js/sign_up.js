@@ -69,6 +69,7 @@ function checkIfPasswordEqual(confirmPassword, password) {
         return true
     } else {
         document.getElementById('message-wrong-password-p').classList.remove('d-none');
+        document.getElementById('signUp-input-confirm-password-message-container').classList.add('red-border');
         return false
     }
 }
@@ -87,6 +88,14 @@ function showSuccessPopup() {
 function changeImageWhenClickInputfield() {
     let image = document.getElementById('lockImage');
     image.src = "./assets/img/visibility_off.svg";
+    let container = document.getElementById('signUp-input-password-container');
+    container.classList.add('light-blue-border');
+}
+
+
+function resetPasswordInputBorderColor() {
+    let container = document.getElementById('signUp-input-password-container');
+    container.classList.remove('light-blue-border');
 }
 
 
@@ -106,6 +115,14 @@ function changeImage() {
 function changeConfirmImageWhenClickInputfield(){
     let image = document.getElementById('confirmLockImage');
     image.src = "./assets/img/visibility_off.svg";
+    let container = document.getElementById('signUp-input-confirm-password-message-container');
+    container.classList.add('light-blue-border');
+}
+
+
+function resetConfirmPasswordInputBorderColor() {
+    let container = document.getElementById('signUp-input-confirm-password-message-container');
+    container.classList.remove('light-blue-border');
 }
 
 

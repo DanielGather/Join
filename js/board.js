@@ -5,9 +5,22 @@ let searchedTask = [];
 let editTaskOpen;
 let checkboxId = 1;
 
-async function initBoard(){
-  await init('board');
+async function initBoard() {
+  await init("board");
   boardJS();
+}
+
+function triggerForm(event, id){
+  event.preventDefault()
+  let headlineInputValue = document.getElementById(`${id}_headline`).value
+  let dateInputValue = document.getElementById(`${id}_date`).value
+  if(headlineInputValue !== "" && dateInputValue !== ""){
+    closeBigTask()
+  }
+}
+
+function triggerButton(){
+  document.getElementById("createTask").click();
 }
 
 function boardJS() {
@@ -23,11 +36,7 @@ function renderBoard() {
 
 async function updateHTML() {
   let toDos = await getData("toDos");
-  console.log("todos", toDos);
-
   allToDos = Object.entries(toDos);
-  console.log(allToDos);
-
   const categories = [
     { name: "toDo", containerId: "toDo" },
     { name: "inProgress", containerId: "inProgress" },
@@ -40,11 +49,9 @@ async function updateHTML() {
 function updateCategoryHTML(category, containerId, allToDos) {
   let toDoArray = getRightArray(allToDos);
   let filteredToDos = toDoArray.filter((t) => t[1]["category"] === category);
-  console.log("filteredTodo", filteredToDos);
   document.getElementById(containerId).innerHTML = "";
   filteredToDos.forEach((element) => {
     document.getElementById(containerId).innerHTML += htmlTechnicalTaskSmall(element);
-    console.log("element", element);
     renderAssignedTo(element);
     calculateSubtaskProgress(element);
     getRightUserColor(element);
@@ -77,7 +84,7 @@ function renderAssignedToBigTask(element) {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML = "";
   assignedToEntries.forEach(([key, value]) => {
-   let backgroundColor = getAssignedBackgroundColor(key,value);
+    let backgroundColor = getAssignedBackgroundColor(key, value);
     document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
         <div class="d-flex alic gap1">
         <div class="circle" style = "background-color: ${backgroundColor}">${value}</div>
@@ -89,69 +96,91 @@ function renderAssignedToBigTask(element) {
 
 function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
-
-  assignedToEntries.forEach(([key, value]) => {
-    let backgroundColor = getAssignedBackgroundColor(key, value)
+  let AddNewMargin = assignedToEntries.length >= 8;
+  assignedToEntries.forEach(([key, value], index) => {
+    let backgroundColor = getAssignedBackgroundColor(key, value);
+    let newClass = AddNewMargin && index !== 0 ? "newMargin" : "";
     document.getElementById(`assignedTo${element[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-          <div class="smallCircleUserStory" style = "background-color: ${backgroundColor}">
+          <div class="${newClass} smallCircleUserStory" style = "background-color: ${backgroundColor}">
             ${value}
           </div>
         `;
   });
 }
 
-
-function renderSubTask(task, context = "default") {
-  let subTaskToEntries = Object.entries(task[1]["subtasks"]);
-  console.log("Subtask", subTaskToEntries[0][1]["value"]);
-  subTaskToEntries.forEach(([, value]) => {
-    console.log("Teste den Value", value.task);
-    if (context == "bigTask") {
-      returnSubTask(task, context, value);
-    } else {
-      returnEditableSubTask(task, context, value);
-    }
-  });
-}
-
 function returnSubTask(task, context, value) {
-
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]['id']}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
+  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
   `;
-  checkboxId += +1
+  checkboxId += +1;
 }
 
-async function checkCheckbox(checkboxId,toDoId,value){
+async function checkCheckbox(checkboxId, toDoId, value) {
   let newValue = JSON.parse(value);
-  console.log("testen123123",newValue);
-  
-  let checkbox = document.getElementById(`checkbox${checkboxId}`)
-  let getTaskId = await getIdFromDb("/toDos", "id", toDoId)
-  console.log("TaskID",getTaskId);
-  let subTaskId = await getIdFromDb("/toDos/"+getTaskId+"/subtasks", "task", newValue.task)
-  console.log("subtaskid",subTaskId);
-  
-  console.log(checkbox.checked);
-
-  if(checkbox.checked){
-    putData("/toDos/" + getTaskId + "/subtasks/" + subTaskId +"/status", true)
-  } else{
-    putData("/toDos/" + getTaskId + "/subtasks/" + subTaskId +"/status", false)
+  let checkbox = document.getElementById(`checkbox${checkboxId}`);
+  let getTaskId = await getIdFromDb("/toDos", "id", toDoId);
+  let subTaskId = await getIdFromDb("/toDos/" + getTaskId + "/subtasks", "task", newValue.task);
+  if (checkbox.checked) {
+    putData("/toDos/" + getTaskId + "/subtasks/" + subTaskId + "/status", true);
+  } else {
+    putData("/toDos/" + getTaskId + "/subtasks/" + subTaskId + "/status", false);
   }
 }
 
-function returnEditableSubTask(task, context, value) {
+function returnEditableSubTask(task, context, value, index) {
+  let idWithNoSpace = value.task.replace(/\s+/g, "");
+  console.log("idwithnospcae", idWithNoSpace);
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-      <ul id="${value.task}" class="subTaskList subTaskHover">
-        <li id="${value.task}_edit" contenteditable="false">${value.task}</li>
+      <ul id="${idWithNoSpace}_${index}" class="subTaskList subTaskHover">
+        <li id="${idWithNoSpace}_edit" contenteditable="false">${value.task}</li>
         <div class="subTaskIcons">
-        <img onclick="editSubTask(${value.task},'edit')" src="./assets/img/edit.svg" alt="">
+        <img onclick="editSubTask('${idWithNoSpace}','edit', ${index}, ${task[1]["id"]}, '${value.task}')" src="./assets/img/edit.svg" alt="">
         <div class="seperator"></div>
-        <img onclick="deleteSubTask(${value.task})" src="./assets/img/delete.svg" alt="">
+        <img onclick="deleteSubTask('${idWithNoSpace}', ${index}, ${task[1]["id"]}, '${value.task}') " src="./assets/img/delete.svg" alt="">
         </div>
   </ul>
       `;
+  // addSubTaskFunction(task, context,index);
+}
+
+// function addSubTaskFunction(task, context, index){
+//   const meinDiv = document.getElementById('addSubTask');
+//   meinDiv.onclick = function() {
+//     addNewSubTask(task, context,index);
+// };
+// }
+
+function renderSubTask(task, context = "default") {
+  if(task[1]["subtasks"]){
+    let subTaskToEntries = Object.entries(task[1]["subtasks"]);
+    subTaskToEntries.forEach(([, value], index) => {
+      if (context == "bigTask") {
+        returnSubTask(task, context, value);
+      } else {
+        returnEditableSubTask(task, context, value, index);
+      }
+    });
+  }
+}
+
+function setCounter() {
+  let counter = parseInt(localStorage.getItem("counter") || "0", 10);
+  counter += 1;
+  localStorage.setItem("counter", counter);
+  return counter;
+}
+
+function addNewSubTask(task, context = null) {
+  let counter = setCounter();
+  let subTask = document.getElementById("subtasks-input");
+  let subTaskValue = document.getElementById("subtasks-input").value;
+  if (subTaskValue) {
+    let idSubTaskValue = subTaskValue.replace(/\s+/g, "");
+    let subTaskContainer = document.getElementById("subTask" + task + "_" + context);
+    subTaskContainer.innerHTML += returnNewSubTaskHtml(subTaskValue, idSubTaskValue, counter, task);
+    addSubTaskInFireBase(subTaskValue, task);
+  }
+  subTask.value = "";
 }
 
 async function editTask(task) {
@@ -159,9 +188,8 @@ async function editTask(task) {
   let firstLevelArray = rightTask[0];
   rightTask = rightTask[0][1];
   let fireBaseDate = rightTask.date;
-  let date = getRightTimeZone(fireBaseDate);
+  let date = getRightTimeValue(fireBaseDate);
   let container = document.getElementById("bigTaskCard");
-  console.log("rightTask", rightTask);
   container.innerHTML = await editTaskBoard(rightTask, date);
   renderAssignedToSmallTask(firstLevelArray, "editTask");
   renderSubTask(firstLevelArray, "editTask");
@@ -169,65 +197,70 @@ async function editTask(task) {
   editTaskOpen = true;
 }
 
-function editSubTask(id, context = "default") {
-  console.log("id", id);
-  console.log("id.id", id.id);
-  let changeField = document.getElementById(`${id.id}`);
-  let task = document.getElementById(`${id.id}_${context}`);
+function editSubTask(id, context = "default", index, taskId, valueTask) {
+  let changeField = document.getElementById(`${id}_${index}`);
+  let task = document.getElementById(`${id}_${context}`);
   if (task.contentEditable === "false") {
-    changeField.innerHTML = changeToInputField(id);
-    changeClassesOnList(id);
+    changeField.innerHTML = changeToInputField(id, index, taskId, valueTask);
+    changeClassesOnList(id, index);
     focusInputField(id);
   }
-  console.log("Editier FUnktioniert");
 }
 
-function changeToInputField(id) {
+function changeToInputField(id, index, taskId, valueTask) {
   return `
-    <input class="inputFieldEdit" id="${id.id}_input" type="text" value="${id.id}">
-    <img onclick="deleteSubTask(${id.id})" src="./assets/img/delete.svg" alt="">
-    <img onclick="changeBackToList(${id.id})" src="./assets/img/checked_subtask.svg" alt="">
+    <input class="inputFieldEdit" id="${id}_input" type="text" value="${valueTask}">
+    <img onclick="deleteSubTask('${id}',${index},${taskId},'${valueTask}')" src="./assets/img/delete.svg" alt="">
+    <img onclick="changeBackToList('${id}', ${index},${taskId},'${valueTask}')" src="./assets/img/checked_subtask.svg" alt="">
     `;
 }
 
-function changeClassesOnList(id) {
-  document.getElementById(id.id).classList.toggle("subTaskList");
-  document.getElementById(id.id).classList.toggle("subTaskHover");
-  document.getElementById(id.id).classList.toggle("inputFieldDesign");
+function changeClassesOnList(id, index) {
+  document.getElementById(`${id}_${index}`).classList.toggle("subTaskList");
+  document.getElementById(`${id}_${index}`).classList.toggle("subTaskHover");
+  document.getElementById(`${id}_${index}`).classList.toggle("inputFieldDesign");
 }
 
-function changeBackToList(id) {
-  let changeField = document.getElementById(`${id.id}`);
-  changeField.innerHTML = /*HTML*/ `
-    <li id="${id.id}_edit" contenteditable="false">${id.id}</li>
-        <div class="subTaskIcons">
-        <img onclick="editSubTask(${id.id},'edit')" src="./assets/img/edit.svg" alt="">
-        <div class="seperator"></div>
-        <img onclick="deleteSubTask(${id.id})" src="./assets/img/delete.svg" alt="">
-        </div>
-  `;
-  changeClassesOnList(id);
+function changeBackToList(id, index, taskId, valueTask) {
+  let changeField = document.getElementById(`${id}_${index}`);
+  let newValue = document.getElementById(`${id}_input`).value;
+  changeField.innerHTML = htmlChangeToList(id, newValue, taskId, valueTask, index);
+  changeClassesOnList(id, index);
+  updateSubTask(valueTask, newValue, taskId);
 }
 
-function deleteSubTask(id) {
-  let element = document.getElementById(id.id);
+async function updateSubTask(valueTask, newValue, taskId) {
+  let getTaskId = await getIdFromDb("/toDos", "id", taskId);
+  let subTaskId = await getIdFromDb("/toDos/" + getTaskId + "/subtasks", "task", valueTask);
+  let path = "/toDos/" + getTaskId + "/subtasks/" + subTaskId + "/task/";
+  putData(path, newValue);
+}
+
+async function deleteSubTask(idWithNoSpace, index, taskId, valueTask) {
+  let element = document.getElementById(idWithNoSpace + "_" + index);
   element.remove();
-  console.log("LöschenFUnktionierte", id.id);
+  let getTaskId = await getIdFromDb("/toDos", "id", taskId);
+  let subTaskId = await getIdFromDb("/toDos/" + getTaskId + "/subtasks", "task", valueTask);
+  deleteData("/toDos/" + getTaskId + "/subtasks/" + subTaskId);
 }
 
 function calculateSubtaskProgress(element) {
-  let elementToSubTaskArray = Object.entries(element[1]["subtasks"]);
-  let subTaskLenght = elementToSubTaskArray.length;
-  let checkedSubTasks = elementToSubTaskArray.filter((checked) => checked[1]["status"] == true);
-  document.getElementById(`subTaskSmall${element[1]["id"]}`).innerHTML = `${checkedSubTasks.length}/${subTaskLenght} Subtasks`;
-  let progressBarPercentage = (checkedSubTasks.length / subTaskLenght) * 100;
-  document.getElementById(`progressbar${element[1]["id"]}`).style.width = progressBarPercentage + "%";
+  let id = element[1]["id"];
+  if (element[1]["subtasks"] !== undefined) {
+    let elementToSubTaskArray = Object.entries(element[1]["subtasks"]);
+    let subTaskLenght = elementToSubTaskArray.length;
+    let checkedSubTasks = elementToSubTaskArray.filter((checked) => checked[1]["status"] == true);
+    document.getElementById(`subTaskSmall${element[1]["id"]}`).innerHTML = `${checkedSubTasks.length}/${subTaskLenght} Subtasks`;
+    let progressBarPercentage = (checkedSubTasks.length / subTaskLenght) * 100;
+    document.getElementById(`progressbar${element[1]["id"]}`).style.width = progressBarPercentage + "%";
+  } else {
+    document.getElementById("progressbarContainer" + id).remove();
+  }
 }
 
 function openTask(id) {
   let task = allToDos.filter((task) => task[1]["id"] == id);
   showTask(task[0]);
-  console.log("Task test", task);
 }
 
 function showTask(task) {
@@ -235,7 +268,6 @@ function showTask(task) {
   document.getElementById("bigTask").innerHTML = technicalTaskBig(task);
   document.getElementById("bigTaskCard").classList.add("show");
   bigTaskActive = true;
-  console.log("task", task);
   renderSubTask(task, "bigTask");
   renderAssignedTo(task);
   getRightUserColor(task);
@@ -255,6 +287,62 @@ function closeBigTask() {
   editTaskOpen = false;
   updateHTML();
 }
+
+
+
+function closeAddTask(){
+  document.getElementById("addTaskBoard").style.display = "none";
+}
+
+async function changeDataInFireBase(id, context = null, priority = null) {
+  let title;
+if(!priority){
+  title = document.getElementById(id + "_" + context).value;
+} else {
+  title = priority;
+}
+  let getTaskId = await getIdFromDb("/toDos", "id", id);
+  let path = "/toDos/" + getTaskId + "/" + context;
+  if (context == "date") {
+    title = changeTimeFormat(title);
+  }
+  putData(path, title);
+}
+
+async function addSubTaskInFireBase(subTaskValue, id) {
+  let getTaskId = await getIdFromDb("/toDos", "id", id);
+  subTaskValue = subTaskValue.trim();
+  let subtask = {
+    status: false,
+    task: subTaskValue,
+  };
+  postData("/toDos/" + getTaskId + "/subtasks", subtask);
+}
+
+function setFocusOnDate(id) {
+  document.getElementById(id + "_date").focus();
+}
+
+function showAddTask(){
+  if(window.innerWidth >= 1000){
+    document.getElementById("addTaskBoard").style.display = "flex"
+    let addTaskContainer = document.getElementById("boardAddTask");
+    document.getElementById("boardAddTask").classList.add("show");
+    addTaskContainer.innerHTML = returnAddTaskHtml();
+  } else {
+    console.log("Fenster ist zu klein");
+    window.location.href = "./add_task.html";
+  }
+}
+
+async function deleteTask(taskId){
+  let getTaskId = await getIdFromDb("/toDos", "id", taskId);
+  deleteData("/toDos/" + getTaskId);
+  closeBigTask();
+  updateHTML();
+}
+
+
 
 // Sicherung ToDos anlegen
 // await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum', story: {userStory: 'User Story', technicalTask:'Technical Task'}})

@@ -1,4 +1,4 @@
-function getRightTimeZone(fireBaseDate) {
+function getRightTimeValue(fireBaseDate) {
   const switchDate = fireBaseDate;
   const [fireBaseDay, fireBaseMonth, fireBaseYear] = switchDate.split(".");
   const newDate = `${fireBaseYear}.${fireBaseMonth}.${fireBaseDay}`;
@@ -8,6 +8,13 @@ function getRightTimeZone(fireBaseDate) {
   const day = String(rawDate.getDate()).padStart(2, "0"); // Tag formatieren
   const formattedDate = `${year}-${month}-${day}`;
   return formattedDate;
+}
+
+function changeTimeFormat(wrongFormat){
+  let dateInput = wrongFormat;
+  let date = new Date(dateInput);
+  let rightFormat = date.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+  return rightFormat;
 }
 
 function svgColors(rightTask) {
@@ -47,7 +54,7 @@ function getRightPriority(element) {
 }
 
 function focusInputField(id) {
-  let inputField = document.getElementById(`${id.id}_input`);
+  let inputField = document.getElementById(`${id}_input`);
   inputField.focus();
   inputField.select();
 }
@@ -112,6 +119,18 @@ function getRightArray(allToDos) {
 function getAssignedBackgroundColor(key,value){
   let contact = 
   contactsLS.filter((contact) => contact[1].name.toUpperCase() === key.toUpperCase() && contact[1].initials.toUpperCase() === value.toUpperCase());
-  console.log("kontakt testen", contact);
   return  contact[0][1].color;
+}
+
+function returnNewSubTaskHtml(subTaskValue,idSubTaskValue,index,taskId){
+  return /*HTML*/`
+  <ul id="${idSubTaskValue}_${index}" class="subTaskList subTaskHover">
+  <li id="${idSubTaskValue}_edit" contenteditable="false">${subTaskValue}</li>
+        <div class="subTaskIcons">
+        <img onclick="editSubTask('${idSubTaskValue}','edit',${index}, ${taskId}, '${subTaskValue}')" src="./assets/img/edit.svg" alt="">
+        <div class="seperator"></div>
+        <img onclick="deleteSubTask('${idSubTaskValue}', ${index}, ${taskId}, '${subTaskValue}')" src="./assets/img/delete.svg" alt="">
+        </div>
+</ul>
+  `
 }

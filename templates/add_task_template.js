@@ -1,48 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-
-    <link rel="stylesheet" href="./styles/global.css" />
-    <link rel="stylesheet" href="./styles/root.css" />
-    <link rel="stylesheet" href="./styles/header.css" />
-    <link rel="stylesheet" href="./styles/addtask.css">
-    <link rel="stylesheet" href="./styles/navbar.css" />
-
-    <!-- Dazugehörige style .css -->
-
-
-    <!-- Dazugehörige tamplates .js -->
-    <script src="./templates/navbar_temp.js"></script>
-    <script src="./templates/header_temp.js"></script>
-
-
-    <!-- <link rel="stylesheet" href="./styles/root.css">
-    <link rel="stylesheet" href="./fonts.css"> -->
-
-    
-
-
-</head>
-
-<body onload="init('addTask'); setButtonColorForPrio(statusPriority)">
-
-    <nav id="navBar"></nav>
-
-    <div class="desktop-view">
-        <header id="header"></header>
-
-        <main id="main">
-
+function returnAddTaskHtml() {
+  return /*HTML*/ ` 
             <div class="main-addTask-container">
                 <h1>Add Task</h1>
 
                 <form class="form-container" onsubmit="return handleSubmit(event)">
-                    <div class="addTask-content-form-container">
+                    <div class="addTaskBoard-content-form-container">
                         <div class="title-description-assigned-container">
                             <div class="title-description-assigned">
                                 <label class="addTask-label">Title<span class="star">*</span></label>
@@ -59,9 +21,9 @@
                                 <div>
                                     <div class="inputAssignedToContainer">
                                         <input type="text" placeholder="Select contacts to assign">
-                                        <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown('false')"></div>
+                                        <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()"></div>
                                     </div>
-                                    <div class="dropDownContainer d-none" id="dropDownMenu">
+                                    <div class="dropDownContainer" id="dropDownMenu" style="display: none">
                                         <!-- <div class="dropDownContacts" id="dropDownContacts">
                                             <div class="initialNameContainer" id="initialNameContainer">
                                                 <div class="initialsAssigned" id="initialsAssigned">CR</div>
@@ -76,7 +38,7 @@
                             </div>
                         </div>
 
-                        <div class="addTask-seperator-container"></div>
+                        <div class="addTask-seperator"></div>
 
                         <div class="dueDate-prio-category-subtasks-container">
                             <div class="dueDate-container">
@@ -87,9 +49,11 @@
                             <div class="prio-container">
                                 <label class="addTask-label">Prio</label>
                                 <div class="prio-buttons">
-                                    <button class="urgentButton" id="urgentButton" onclick="chooseTaskPrioType('urgent')">Urgent <img id="urgentButtonImg"
+                                    <button class="urgentButton" id="urgentButton" onclick="chooseTaskPrioType('urgent')">Urgent
+                                        <img id="urgentButtonImg"
                                             src="./assets/img/prio_urgent.svg"></button>
-                                    <button class="mediumButton" id="mediumButton" onclick="chooseTaskPrioType('medium')">Medium <img id="mediumButtonImg"
+                                    <button class="mediumButton" id="mediumButton" onclick="chooseTaskPrioType('medium')">Medium 
+                                        <img id="mediumButtonImg"
                                             src="./assets/img/prio_medium.svg"></button>
                                     <button class="lowButton" id="lowButton" onclick="chooseTaskPrioType('low')">Low <img id="lowButtonImg"
                                             src="./assets/img/prio_low.svg"></button>
@@ -102,7 +66,7 @@
                                     <div id="category-header">Select task category</div>
                                     <div class="arrow-drop-down-img"><img  src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgCategoryDropdownToggle" onclick="toggleCategoryDropDown()"></div>
                                 </div>
-                                <div class="category-dropdown-container d-none" id="categoryDropdownMenu">
+                                <div class="category-dropdown-container" id="categoryDropdownMenu" style="display:none;">
                                     <div class="choose-category-container" onclick="setCategory('Technical Task')">Technical Task</div>
                                     <div class="choose-category-container" onclick="setCategory('User Story')">User Story</div>
                                 </div>
@@ -141,13 +105,5 @@
             </div>
         </main>
     </div>
-
-
-    <script src="./script.js"></script>
-    <script src="./js/add_task.js"></script>
-    <script src="./templates/addTask_temp.js"></script>
-    <script src="./js/help_functions.js"></script>
-
-</body>
-
-</html>
+    `;
+}

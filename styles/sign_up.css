@@ -177,6 +177,14 @@ a {
   text-decoration: none;
 }
 
+.light-blue-border {
+  border-color: var(--join-light-blue);
+}
+
+.red-border {
+  border-color: red;
+}
+
 .popup-container {
   background-color: #2a3647;
   width: 312px;

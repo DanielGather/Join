@@ -28,7 +28,7 @@ function technicalTaskBig(task) {
     <span>Assigned To:</span>
   </div>
   <div class="d-flex dflex-col gap1">
-    <div id="bigAssignedTo${task[1]['id']}" class="d-flex gap1 dflex-col">
+    <div id="bigAssignedTo${task[1]['id']}" class="assignedToContainer d-flex gap1 dflex-col">
     </div>
   </div>
   <div>
@@ -41,8 +41,8 @@ function technicalTaskBig(task) {
   </div>
   <div class="d-flex jc-fe pt1">
     <div class="d-flex alic gap1">
-      <img class="hover" src="./assets/img/delete.svg" alt="" />
-      <span class="hover">Delete</span>
+      <img onclick="deleteTask(${task[1]['id']})" class="hover" src="./assets/img/delete.svg" alt="" />
+      <span onclick="deleteTask(${task[1]['id']})" class="hover">Delete</span>
       <span class="stroke"></span>
       <img onclick="editTask(${task[1]['id']})" class="hover" src="./assets/img/edit.svg" alt="" />
       <span onclick="editTask(${task[1]['id']})" class="hover">Edit</span>

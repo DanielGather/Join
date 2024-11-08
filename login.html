@@ -38,9 +38,9 @@
             </div>
 
             <div class="input-password-message-container">
-                <div class="input-password-container">
-                    <input class="input-password" placeholder="Password">
-                    <img src="./assets/img/lock.svg">
+                <div class="input-password-container" id="input-password-container">
+                    <input required type="password" class="input-password" placeholder="Password" id="passwordInput" onfocus="changeImageWhenClickInputfield()" autocomplete="off">
+                    <img src="./assets/img/lock.svg" id="lockImage" onclick="makePasswordVisible()">
                 </div>
                 <p class="message-wrong-passwords">Check your email and password. Please try again.</p>           
             </div>

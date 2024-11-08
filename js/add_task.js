@@ -1,9 +1,9 @@
 let subtaskArray = [];
-let choosedContact = [];
-let statusPriority = null;
+//let choosedContact = [];
+let statusPriority = 'medium';
 let selectedCategory = null;
 let assignedToContacts = null;
-let idNum = 0;
+let allCurrentIds = [];
 
 
 function handleSubmit(event) {   // prüfen welcher button geklickt wurde
@@ -20,42 +20,55 @@ function handleSubmit(event) {   // prüfen welcher button geklickt wurde
 
 function clear() {
     console.log("clear test test");
-    document.getElementById('addTaskTitle').value = '';          
-    document.getElementById('textForDescription').value = '';     
-    document.getElementById('inputDate').value = '';              
+    document.getElementById('addTaskTitle').value = '';
+    document.getElementById('textForDescription').value = '';
+    document.getElementById('inputDate').value = '';
     document.getElementById('subtasks-input').value = '';
     priority = null;
-    setButtonColorForPrio(null);   
+    setButtonColorForPrio(null);
     document.getElementById('category-header').innerText = 'Select task category';
-    selectedCategory = null; 
-    document.getElementById('dropDownMenu').innerHTML = '';             
-    document.getElementById('renderedInitialsContainer').innerHTML = ''; 
-    document.getElementById('rendered-task-container').innerHTML = '';   
-    document.getElementById('rendered-task-container').style.opacity = '0'; 
+    selectedCategory = null;
+    document.getElementById('dropDownMenu').innerHTML = '';
+    document.getElementById('renderedInitialsContainer').innerHTML = '';
+    document.getElementById('rendered-task-container').innerHTML = '';
+    document.getElementById('rendered-task-container').style.opacity = '0';
     subtaskArray = [];
-    choosedContact = [];
+    //choosedContact = [];
 }
 
 
 async function createTask() {
-    //await updateLS();
+    await getAllToDos();
     console.log("createTask test test");
-    idNum++;
-    let newTask = getInputValues();
-    postData('toDos', newTask);
+    let idNum = createNewId();
+    let newTask = getInputValues(idNum);
+    //postData('toDos', newTask);
+    const taskId = (await postData('toDos', newTask)).name;
+    console.log('taskId lautet:', taskId);
+    if (subtaskArray.length > 0) {
+        for (let i = 0; i < subtaskArray.length; i++) {
+            let subtask = {
+                status: false,
+                task: subtaskArray[i],
+            };
+            const subtaskId = await postData(`toDos/${taskId}/subtasks`, subtask);
+            console.log('Subtask-ID lautet:', subtaskId.name);
+        }
+    }
     console.log('neue Task:', newTask);
     showAddTaskSuccessPopup();
 }
 
 
-function getInputValues() {
+function getInputValues(idNum) {
     let title = getTitle();
     let description = getDescription();
     let dueDate = getDueDate();
     let priority = statusPriority;
     let category = selectedCategory;
     let assignedTo = assignedToContacts;
-    let subTasks = subtaskArray;
+    let toDoId = idNum;
+    //let subTasks = subtaskArray;
     return {
         'headline': title,
         'date': dueDate,
@@ -63,10 +76,28 @@ function getInputValues() {
         'story': category,
         'description': description,
         'assignedTo': assignedTo,
-        'subtasks': subTasks,
-        'id': idNum,
+        //'subtasks': subTasks,
+        'id': toDoId,
         'category': 'toDo',
     };
+}
+
+
+async function getAllToDos() {
+    let data = await getData("toDos");
+    let allCurrentToDos = Object.values(data);
+    console.log('alle Todos:', allCurrentToDos);
+    for (let i = 0; i < allCurrentToDos.length; i++) {
+        let singleId = allCurrentToDos[i].id;
+        allCurrentIds.push(singleId);
+    }
+    console.log('alle Ids:', allCurrentIds);
+}
+
+
+function createNewId() {
+    let maxId = Math.max(...allCurrentIds);
+    return maxId + 1;
 }
 
 
@@ -84,6 +115,7 @@ function getDescription() {
 
 function getDueDate() {
     let dueDate = document.getElementById('inputDate').value;
+    dueDate = changeTimeFormat(dueDate);
     return dueDate
 }
 
@@ -104,20 +136,31 @@ function chooseTaskPrioType(priorityType) {
 
 function setButtonColorForPrio(priorityType) {
     document.getElementById("urgentButton").style.backgroundColor = '';
+    document.getElementById("urgentButton").style.color = '';
     document.getElementById("mediumButton").style.backgroundColor = '';
+    document.getElementById("mediumButton").style.color = '';
     document.getElementById("lowButton").style.backgroundColor = '';
-    if (priorityType === "Urgent") {
+    document.getElementById("lowButton").style.color = '';
+    if (priorityType === "urgent") {
         document.getElementById("urgentButton").style.backgroundColor = '#FF3D19';
-    } else if (priorityType === "Medium") {
+        document.getElementById("urgentButton").style.color = 'white';
+        document.getElementById("urgentButtonImg").src = './assets/img/prio-urgent-white.svg';
+        document.getElementById("mediumButtonImg").src = './assets/img/prio_medium.svg';
+    } else if (priorityType === "medium") {
         document.getElementById("mediumButton").style.backgroundColor = '#FFA827';
-    } else if (priorityType === "Low") {
+        document.getElementById("mediumButton").style.color = 'white';
+        document.getElementById("mediumButtonImg").src = './assets/img/prio-medium-white.svg';
+    } else if (priorityType === "low") {
         document.getElementById("lowButton").style.backgroundColor = '#7AE22B';
+        document.getElementById("lowButton").style.color = 'white';
+        document.getElementById("lowButtonImg").src = './assets/img/prio-low-white.svg';
+        document.getElementById("mediumButtonImg").src = './assets/img/prio_medium.svg';
     }
 }
 
 
-function toggleAssignedToDropDown() {
-    renderAssignedToContacts();
+function toggleAssignedToDropDown(trueOrFalse) {
+    renderAssignedToContacts(trueOrFalse);
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
     let dropdownMenu = document.getElementById('dropDownMenu');
     if (dropdownMenu.style.display === 'none') {
@@ -152,7 +195,7 @@ function setCategory(category) {
     //return selectedCategory;
 }
 
-
+/*
 function addSubTask() {
     document.getElementById('rendered-task-container').style = 'opacity:1';
     let subtaskInput = document.getElementById('subtasks-input').value.trim();
@@ -173,6 +216,77 @@ function addSubTask() {
     document.getElementById('actionIcons').style = 'display:none';
     document.getElementById('plusIcon').style = 'display:block';
     console.log('subtaskArray:', subtaskArray);
+}*/
+
+
+function addSubTask() {
+    //let newSubtask = {};
+    document.getElementById('rendered-task-container').style = 'opacity:1';
+    let subtaskInput = document.getElementById('subtasks-input').value.trim();
+    if (subtaskInput) {
+        subtaskArray.push(subtaskInput);
+        renderSubtasks();
+    }
+    document.getElementById('subtasks-input').value = '';
+    document.getElementById('actionIcons').style = 'display:none';
+    document.getElementById('plusIcon').style = 'display:block';
+    console.log('subtaskArray:', subtaskArray);
+}
+
+
+function renderSubtasks() {
+    let taskContainer = document.getElementById('rendered-task-container');
+    taskContainer.innerHTML = '';
+    for (let i = 0; i < subtaskArray.length; i++) {
+        let subtask = subtaskArray[i];
+        taskContainer.innerHTML += `
+        <div class="subtask-single-container">
+            <ul class="subtaskList" id="subtaskList-${i}">
+                <li id="subtaskText-${i}">${subtask}</li>
+                <div class="subtask-icon-container">
+                    <img src="./assets/img/subtask_pencil.svg" alt="pencil" onclick="editSubtask(${i})">
+                    <div class="subtask-separator"></div>
+                    <img src="./assets/img/delete.svg" alt="delete" onclick="deleteSubtask(${i})">
+                </div>
+            </ul>
+        </div>
+    `;
+    }
+}
+
+
+function editSubtask(index) {
+    let subtaskElementContainer = document.getElementById(`subtaskList-${index}`);
+    subtaskElementContainer.innerHTML = `
+        <div class="subtask-edit-container">
+            <input type="text" id="editInput-${index}" value="${subtaskArray[index]}">
+            <div class="editSubtask-icon-container">
+                <img src="./assets/img/delete.svg" alt="delete" onclick="cancelEditSubtask()">
+                <div class="subtask-separator"></div>
+                <img src="./assets/img/addtask_check.svg" alt="checkIcon" onclick="saveEditSubtask(${index})">
+            </div>  
+        </div>
+    `;
+}
+
+
+function saveEditSubtask(index) {
+    let editedSubtaskValue = document.getElementById(`editInput-${index}`).value.trim();
+    if (editedSubtaskValue) {
+        subtaskArray[index] = editedSubtaskValue;
+        renderSubtasks();
+    }
+}
+
+
+function cancelEditSubtask() {
+    renderSubtasks();
+}
+
+
+function deleteSubtask(index) {
+    subtaskArray.splice(index, 1);
+    renderSubtasks();
 }
 
 
@@ -196,8 +310,11 @@ function deleteInputSubtaskValue() {
 }
 
 
-function renderInitials() {
-    let checkedContacts = [];
+function renderInitials(trueOrFalse) {
+    console.log("Teste True or False ", trueOrFalse);
+    
+    //let checkedContacts = [];
+    let checkedContacts = {};
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = '';
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
@@ -206,22 +323,23 @@ function renderInitials() {
             let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
             let key = checkedContact[0].name;
             let value = checkedContact[0].initials;
-            let newObject = { [key]: value };
-            checkedContacts.push(newObject);
+            //let newObject = { [key]: value };
+            //checkedContacts.push(newObject);
+            checkedContacts[key] = value;
             assignedToContacts = checkedContacts;
-            console.log(checkedContacts);
             renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
         }
     })
+    console.log('assigned to:', checkedContacts);
     //return checkedContacts;
 }
 
 
-function renderAssignedToContacts() {
+function renderAssignedToContacts(trueOrFalse) {
     document.getElementById('dropDownMenu').innerHTML = '';
     for (let i = 0; i < contactsOnly.length; i++) {
         let contact = contactsOnly[i];
-        document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(contact);
+        document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(contact, trueOrFalse);
         //console.log('name und initials:', contact.name, contact.initial);
     }
 }
