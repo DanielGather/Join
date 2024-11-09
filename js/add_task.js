@@ -163,12 +163,11 @@ function toggleAssignedToDropDown(trueOrFalse) {
     renderAssignedToContacts(trueOrFalse);
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
     let dropdownMenu = document.getElementById('dropDownMenu');
-    if (dropdownMenu.style.display === 'none') {
-        dropdownMenu.style.display = 'flex';
-        imgDropdownToggle.src = './assets/img/arrow_drop_up.svg';
-    } else {
-        dropdownMenu.style.display = 'none';
+    dropdownMenu.classList.toggle('d-none');
+    if (dropdownMenu.classList.contains('d-none')) {
         imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+    } else {
+        imgDropdownToggle.src = './assets/img/arrow_drop_up.svg';
     }
 }
 
@@ -176,12 +175,11 @@ function toggleAssignedToDropDown(trueOrFalse) {
 function toggleCategoryDropDown() {
     let imgCategoryDropdownToggle = document.getElementById('imgCategoryDropdownToggle');
     let categoryDropdownMenu = document.getElementById('categoryDropdownMenu');
-    if (categoryDropdownMenu.style.display === 'none') {
-        categoryDropdownMenu.style.display = 'flex';
-        imgCategoryDropdownToggle.src = './assets/img/arrow_drop_up.svg';
-    } else {
-        categoryDropdownMenu.style.display = 'none';
+    categoryDropdownMenu.classList.toggle('d-none');
+    if (categoryDropdownMenu.classList.contains('d-none')) {
         imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+    } else {
+        imgCategoryDropdownToggle.src = './assets/img/arrow_drop_up.svg';
     }
 }
 
@@ -312,7 +310,7 @@ function deleteInputSubtaskValue() {
 
 function renderInitials(trueOrFalse) {
     console.log("Teste True or False ", trueOrFalse);
-    
+
     //let checkedContacts = [];
     let checkedContacts = {};
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
