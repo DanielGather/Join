@@ -251,12 +251,20 @@ h1 {
 }
 
 .subtask-single-container {
-    background-color: #E7E7E7;
+    /* background-color: #E7E7E7; */
     border-radius: var(--input-select-textarea-radius);
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+}
+
+.subtask-single-container:hover {
+    background-color: #E7E7E7;
+}
+
+.subtask-single-container:hover .subtask-icon-container {
+    display: flex;
 }
 
 .add-subtask:hover,
@@ -280,13 +288,21 @@ h1 {
     width: 100%;
 }
 
-.subtask-icon-container, .editSubtask-icon-container {
+.subtask-icon-container {
+    /* display: flex; */
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-right: 12px;
+    display: none;
+}
+
+.editSubtask-icon-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
     padding-right: 12px;
-
 }
 
 .subtask-icon-container img {
@@ -307,7 +323,7 @@ h1 {
 
 .subtask-edit-container input {
     border: none;
-    
+    padding-left: 16px;
 }
 
 .subtask-edit-container input:focus {

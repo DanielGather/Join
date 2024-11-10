@@ -55,7 +55,7 @@ async function createTask() {
         }
     };
     console.log('neue Task:', newTask);
-    showAddTaskSuccessPopup();
+    //showAddTaskSuccessPopup();
 }
 
 
@@ -248,8 +248,8 @@ function renderSubtasks() {
     for (let i = 0; i < subtaskArray.length; i++) {
         let subtask = subtaskArray[i];
         taskContainer.innerHTML += `
-        <div class="subtask-single-container">
-            <ul class="subtaskList" id="subtaskList-${i}">
+        <div class="subtask-single-container" id="subtask-List-Container-${i}">
+            <ul class="subtaskList" >
                 <li id="subtaskText-${i}">${subtask}</li>
                 <div class="subtask-icon-container">
                     <img src="./assets/img/subtask_pencil.svg" alt="pencil" onclick="editSubtask(${i})">
@@ -264,7 +264,7 @@ function renderSubtasks() {
 
 
 function editSubtask(index) {
-    let subtaskElementContainer = document.getElementById(`subtaskList-${index}`);
+    let subtaskElementContainer = document.getElementById(`subtask-List-Container-${index}`);
     subtaskElementContainer.innerHTML = `
         <div class="subtask-edit-container">
             <input type="text" id="editInput-${index}" value="${subtaskArray[index]}">
@@ -321,26 +321,26 @@ function deleteInputSubtaskValue() {
 function renderInitials(trueOrFalse) {
     console.log("Teste True or False ", trueOrFalse);
 
-    let checkedContacts = {};
-    //assignedToContacts = getCheckedContacts();
+    //let checkedContacts = {};
+    assignedToContacts = getCheckedContacts();
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = '';
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
             let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
-            let key = checkedContact[0].name;
-            let value = checkedContact[0].initials;
-            checkedContacts[key] = value;
-            assignedToContacts = checkedContacts;
+            //let key = checkedContact[0].name;
+            //let value = checkedContact[0].initials;
+            //checkedContacts[key] = value;
+            //assignedToContacts = checkedContacts;
             renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
         }
     })
-    console.log('assigned to:', checkedContacts);
+    //console.log('assigned to:', checkedContacts);
 }
 
 
-/*
+
 function getCheckedContacts() {
     let checkedContacts = {};
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
@@ -350,11 +350,11 @@ function getCheckedContacts() {
             let key = checkedContact[0].name;
             let value = checkedContact[0].initials;
             checkedContacts[key] = value;
-            assignedToContacts = checkedContacts;
         }
     });
     console.log('assigned to:', checkedContacts);
-}*/
+    return checkedContacts;
+}
 
 
 function renderAssignedToContacts(trueOrFalse) {
