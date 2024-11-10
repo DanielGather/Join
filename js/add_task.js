@@ -55,7 +55,7 @@ async function createTask() {
         }
     };
     console.log('neue Task:', newTask);
-    //showAddTaskSuccessPopup();
+    showAddTaskSuccessPopup();
 }
 
 
