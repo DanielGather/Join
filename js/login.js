@@ -83,7 +83,7 @@ function fillRememberUser() {
 }
 
 function renderLogIn() {
-    document.getElementById('userRenderContainer').innerHTML = temp_logIn();
+    document.getElementById('renderForm').innerHTML = temp_logIn();
     
     let remember = localStorage.getItem('remember') == 'true';
     if (remember) {
@@ -92,8 +92,15 @@ function renderLogIn() {
 }
 
 function renderSignUp() {
-    document.getElementById('userRenderContainer').innerHTML = temp_singUp();
+    document.getElementById('renderForm').innerHTML = temp_singUp();
+    document.getElementById('logInHeader').classList.toggle('hidden'); 
+    document.getElementById('buttonsToSingUp').classList.toggle('hidden');
+    document.getElementById('renderForm').classList.toggle("form-render-container-singUp");
+}
 
-    console.log('render signUp');
-    
+function returnButton() {
+    document.getElementById('renderForm').innerHTML = temp_logIn();
+    document.getElementById('logInHeader').classList.toggle('hidden'); 
+    document.getElementById('buttonsToSingUp').classList.toggle('hidden');
+    document.getElementById('renderForm').classList.toggle("form-render-container-singUp");
 }

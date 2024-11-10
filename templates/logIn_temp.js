@@ -1,13 +1,13 @@
 function temp_logIn() {
     return /*html*/`
-        <div class="header-seperator-container">
+        <div class="form-headline">
             <h1>Log in</h1>
             <div class="w-100">
-                <div class="login-seperator"> </div>
+                <div class="seperator"> </div>
             </div>
         </div>
 
-        <form id="logInForm" class="logIn-form" onsubmit="userLogIn(event)">
+        <form id="logInForm" class="logIn-form" onsubmit="userLogIn(event)"> <!-- delete id?, class-->
 
             <div class="input-icon">
                 <img src="./assets/img/input_mail_icon.svg">
@@ -27,7 +27,7 @@ function temp_logIn() {
                 <label for="myCheckbox">Remember me</label>
             </div>
 
-            <div class="button-login-guest-container">
+            <div class="form-buttons-container">
                 <button type="submit" class="button-dark">Log in</button>
                 <button onclick="guestLogIn()" type="button">Guest Log in</button>
             </div>
@@ -38,31 +38,33 @@ function temp_logIn() {
 
 function temp_singUp() {
     return /*html*/`
-        <div class="header-seperator-container">
+        <div class="form-headline">
             <div class="return-container">
-                <div class="return-button">
+                <div class="return-button" onclick="returnButton()">
                     <img src="./assets/img/vector_blue.svg">
                 </div>
             </div>
             <h1>Sign up</h1>
             <div class="w-100">
-                <div class="login-seperator"> </div>
+                <div class="seperator"> </div>
             </div>
         </div>
 
        
 
-        <form id="logInForm" class="logIn-form" onsubmit="addUser(event)">
+        <form class="form-singUp" onsubmit="addUser(event)">
         <!-- <form onsubmit="addUser(); return false"> -->
 
             <div class="input-icon">
                 <img src="./assets/img/person.svg">
                 <input type="text" id="inpName" name="email" placeholder="Name" required autocomplete="off">
             </div>
-            <!-- <div class="input-name-container">
+            <!--
+            <div class="input-name-container">
                 <input required class="input-name" placeholder="Name" id="name" autocomplete="off">
                 <img src="./assets/img/person.svg">
-            </div> -->
+            </div>
+            -->
 
 
             <div class="input-icon">
@@ -129,12 +131,10 @@ function temp_singUp() {
 
 
 
-            <div class="button-login-guest-container">
-                <button type="submit" class="button-dark">Sign up</button>
+            <div class="form-buttons-container">
+                <button type="submit" id="signUpButton" class="button-dark" disabled>Sign up</button>
             </div>
-            <!-- <div class="button-container">
-                <button type="submit" id="signUpButton" disabled>Sign up</button>
-            </div> -->
+
         </form>
     `
 }

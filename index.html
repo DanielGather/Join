@@ -15,7 +15,7 @@
     <script src="./script.js"></script>
     <script src="./js/login.js"></script>
 
-    <title>Join</title>
+    <title>Join - Log In</title>
 </head>
 
 
@@ -32,29 +32,32 @@
     </svg>
 
 
-    <div class="main-container">
+    <div class="overlay">  <!--  main-container -->
 
-        <div class="header">
-            <div class="sign-up-button-desktop-view">
+        <header>
+            <div id="logInHeader" class="header-desktop">
                 <p>Not a Join user?</p>
-                <button class="button-dark">Sign up</button>
+                <button class="button-dark" onclick="renderSignUp()">Sign up</button>
             </div>
-        </div>
+        </header>
 
-        <div id="userRenderContainer" class="main-content">
-            <!-- render -->
+        <main>
 
-        </div>
-
-        <div class="text-button-container">
-            <p>Not a Join user?</p>
-            <button onclick="renderSignUp()">Sign up</button>
-        </div>
-
-        <div class="policy-notice-container">
+            <div id="renderForm" class="form-render-container">
+                <!-- render -->
+                
+            </div>
+            
+            <div id="buttonsToSingUp" class="singUp-container">
+                <p>Not a Join user?</p>
+                <button class="button-dark" onclick="renderSignUp()">Sign up</button>
+            </div>
+        </main>
+            
+        <footer>
             <a href="./privacyPolicy.html" target="_blank">Privacy policy</a>
             <a href="./legalNotice.html" target="_blank">Legal notice</a>
-        </div>
+        </footer>
 
     </div>
 </body>
