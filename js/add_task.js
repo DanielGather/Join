@@ -4,6 +4,9 @@ let statusPriority = 'medium';
 let selectedCategory = null;
 let assignedToContacts = null;
 let allCurrentIds = [];
+let checkedContactNames = [];
+let checkedContactInitials = [];
+let checkedContactColors = [];
 
 
 function handleSubmit(event) {   // prüfen welcher button geklickt wurde
@@ -321,10 +324,14 @@ function deleteInputSubtaskValue() {
 function renderInitials(trueOrFalse) {
     console.log("Teste True or False ", trueOrFalse);
 
+    checkedContactNames = [];
+    checkedContactInitials = [];
+    checkedContactColors = [];
+
     //let checkedContacts = {};
     assignedToContacts = getCheckedContacts();
-    let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
-    renderedInitialsContainer.innerHTML = '';
+    //let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
+    //renderedInitialsContainer.innerHTML = '';
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
@@ -333,12 +340,29 @@ function renderInitials(trueOrFalse) {
             //let value = checkedContact[0].initials;
             //checkedContacts[key] = value;
             //assignedToContacts = checkedContacts;
-            renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
+            let name = checkedContact[0].name;
+            let initial = checkedContact[0].initials;
+            let color = checkedContact[0].color;
+            checkedContactNames.push(name);
+            checkedContactInitials.push(initial);
+            checkedContactColors.push(color);
+            //renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
         }
     })
-    //console.log('assigned to:', checkedContacts);
-}
 
+    let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
+    renderedInitialsContainer.innerHTML = ''; 
+    checkedContactInitials.forEach((initial, index) => {
+        let color = checkedContactColors[index]; 
+        renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(initial, color);
+    });
+    //console.log('assigned to:', checkedContacts);
+    console.log('die checkContactnames:', checkedContactNames);
+    console.log('die checkContactinitials:', checkedContactInitials);
+    console.log('die checkContactcolor:', checkedContactColors);
+    
+    renderAssignedToContacts(trueOrFalse);
+}
 
 
 function getCheckedContacts() {
@@ -356,7 +380,7 @@ function getCheckedContacts() {
     return checkedContacts;
 }
 
-
+/*
 function renderAssignedToContacts(trueOrFalse) {
     document.getElementById('dropDownMenu').innerHTML = '';
     for (let i = 0; i < contactsOnly.length; i++) {
@@ -364,6 +388,34 @@ function renderAssignedToContacts(trueOrFalse) {
         document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(contact, trueOrFalse);
         //console.log('name und initials:', contact.name, contact.initial);
     }
+}*/
+
+function renderAssignedToContacts(trueOrFalse) {
+    let dropDownMenu = document.getElementById('dropDownMenu');
+    dropDownMenu.innerHTML = '';
+    checkedContactNames.forEach(name => {
+        let contact = contactsOnly.find(contact => contact.name === name);
+        if (contact) {
+            dropDownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact, trueOrFalse);
+        }
+    });
+    contactsOnly.forEach(contact => {
+        if (!checkedContactNames.includes(contact.name)) {
+            dropDownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact, trueOrFalse);
+        }
+    });
+    updateCheckboxStatus();
+}
+
+function updateCheckboxStatus() {
+    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        if (checkedContactNames.includes(contactsOnly.find(contact => contact.email === checkbox.id).name)) {
+            checkbox.checked = true;
+        } else {
+            checkbox.checked = false;
+        }
+    });
 }
 
 

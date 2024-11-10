@@ -11,8 +11,8 @@ function temp_generateHtmlAssignedToContacts(contact, trueOrFalse) {
 }
 
 
-function temp_generateHtmlAssignedToInitials (checkedContact) {
+function temp_generateHtmlAssignedToInitials (initial, color) {
     return /*html*/`
-    <div class="renderedInitial" style="background-color:${checkedContact[0].color}">${checkedContact[0].initials}</div>
+    <div class="renderedInitial" style="background-color: ${color};">${initial}</div>
     `
 }
