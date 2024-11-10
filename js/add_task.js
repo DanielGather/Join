@@ -42,7 +42,6 @@ async function createTask() {
     console.log("createTask test test");
     let idNum = createNewId();
     let newTask = getInputValues(idNum);
-    //postData('toDos', newTask);
     const taskId = (await postData('toDos', newTask)).name;
     console.log('taskId lautet:', taskId);
     if (subtaskArray.length > 0) {
@@ -54,7 +53,7 @@ async function createTask() {
             const subtaskId = await postData(`toDos/${taskId}/subtasks`, subtask);
             console.log('Subtask-ID lautet:', subtaskId.name);
         }
-    }
+    };
     console.log('neue Task:', newTask);
     showAddTaskSuccessPopup();
 }
@@ -68,7 +67,6 @@ function getInputValues(idNum) {
     let category = selectedCategory;
     let assignedTo = assignedToContacts;
     let toDoId = idNum;
-    //let subTasks = subtaskArray;
     return {
         'headline': title,
         'date': dueDate,
@@ -96,6 +94,9 @@ async function getAllToDos() {
 
 
 function createNewId() {
+    if(allCurrentIds.length === 0){
+        return 1;
+    }
     let maxId = Math.max(...allCurrentIds);
     return maxId + 1;
 }
@@ -135,17 +136,14 @@ function chooseTaskPrioType(priorityType) {
 
 
 function setButtonColorForPrio(priorityType) {
-    document.getElementById("urgentButton").style.backgroundColor = '';
-    document.getElementById("urgentButton").style.color = '';
-    document.getElementById("mediumButton").style.backgroundColor = '';
-    document.getElementById("mediumButton").style.color = '';
-    document.getElementById("lowButton").style.backgroundColor = '';
-    document.getElementById("lowButton").style.color = '';
+    resetButtonStyles();
+    if (priorityType === null) {
+        priorityType = 'medium'; // Standard auf 'medium' setzen, wenn null
+    }
     if (priorityType === "urgent") {
         document.getElementById("urgentButton").style.backgroundColor = '#FF3D19';
         document.getElementById("urgentButton").style.color = 'white';
         document.getElementById("urgentButtonImg").src = './assets/img/prio-urgent-white.svg';
-        document.getElementById("mediumButtonImg").src = './assets/img/prio_medium.svg';
     } else if (priorityType === "medium") {
         document.getElementById("mediumButton").style.backgroundColor = '#FFA827';
         document.getElementById("mediumButton").style.color = 'white';
@@ -154,8 +152,20 @@ function setButtonColorForPrio(priorityType) {
         document.getElementById("lowButton").style.backgroundColor = '#7AE22B';
         document.getElementById("lowButton").style.color = 'white';
         document.getElementById("lowButtonImg").src = './assets/img/prio-low-white.svg';
-        document.getElementById("mediumButtonImg").src = './assets/img/prio_medium.svg';
     }
+}
+
+
+function resetButtonStyles() { 
+    document.getElementById("urgentButton").style.backgroundColor = '';
+    document.getElementById("urgentButton").style.color = '';
+    document.getElementById("urgentButtonImg").src = './assets/img/prio_urgent.svg';
+    document.getElementById("mediumButton").style.backgroundColor = '';
+    document.getElementById("mediumButton").style.color = '';
+    document.getElementById("mediumButtonImg").src = './assets/img/prio_medium.svg';
+    document.getElementById("lowButton").style.backgroundColor = '';
+    document.getElementById("lowButton").style.color = '';
+    document.getElementById("lowButtonImg").src = './assets/img/prio_low.svg';
 }
 
 
@@ -311,8 +321,8 @@ function deleteInputSubtaskValue() {
 function renderInitials(trueOrFalse) {
     console.log("Teste True or False ", trueOrFalse);
 
-    //let checkedContacts = [];
     let checkedContacts = {};
+    //assignedToContacts = getCheckedContacts();
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = '';
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
@@ -321,16 +331,30 @@ function renderInitials(trueOrFalse) {
             let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
             let key = checkedContact[0].name;
             let value = checkedContact[0].initials;
-            //let newObject = { [key]: value };
-            //checkedContacts.push(newObject);
             checkedContacts[key] = value;
             assignedToContacts = checkedContacts;
             renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
         }
     })
     console.log('assigned to:', checkedContacts);
-    //return checkedContacts;
 }
+
+
+/*
+function getCheckedContacts() {
+    let checkedContacts = {};
+    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
+            let key = checkedContact[0].name;
+            let value = checkedContact[0].initials;
+            checkedContacts[key] = value;
+            assignedToContacts = checkedContacts;
+        }
+    });
+    console.log('assigned to:', checkedContacts);
+}*/
 
 
 function renderAssignedToContacts(trueOrFalse) {
