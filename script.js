@@ -250,26 +250,3 @@ function logOut() {
     localStorage.removeItem('logIn');
     if (!remember) {localStorage.removeItem('user')}
 }
-
-/*
-
-#navBar
-    display: none
-#main
-    height: unset;
-body
-    height: unset;
-
-
-
-
-
-
-
-body
-    height: unset;
-
-
-
-*/
-
