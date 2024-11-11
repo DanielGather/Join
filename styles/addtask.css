@@ -51,16 +51,20 @@ h1 {
     z-index: 2;
 }
 
+.input-dropDownMenu-container {
+    position: relative;
+}
+
 .dropDownContainer {
     /* border: 1px solid #D1D1D1; */
     border-radius: var(--button-radius);
     background-color: white;
-    margin-top: -42px;
-    padding-top: 52px;
+    /* margin-top: -42px; */
+    padding-top: 8px;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    max-height: 230px;
+    max-height: 176px;
     overflow-y: auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: absolute;
@@ -428,7 +432,7 @@ textarea {
     align-items: center;
     gap: 12px;
     height: 46px;
-    width: 100px;
+    width: 72px;
     border-radius: 10px;
     border: 1px solid #2a3647;
     background-color: var(--button-background-color-bright);
@@ -442,7 +446,7 @@ textarea {
     justify-content: center;
     gap: 12px;
     height: 46px;
-    width: 166px;
+    width: 134px;
     border-radius: var(--button-radius);
     border: 1px solid #2a3647;
     background-color: var(--button-background-color-dark);
@@ -478,7 +482,7 @@ textarea {
 }
 
 .required {
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .d-none {
@@ -492,9 +496,9 @@ textarea {
 
 
 @media(min-width: 450px) {
-    .clear-button {
+    /* .clear-button {
         display: flex;
-    }
+    } */
 
     .subtasks-container,
     .category-header-container,
