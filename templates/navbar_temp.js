@@ -32,7 +32,7 @@ function navbarTemplate() {
         </svg>
       </section>
 
-      <section class="nav-links">
+      <section id="navLinks" class="nav-links">
         <a id="summaryLink" class="nav-active" href="../summary.html">
           <svg
             class="nav-icon"

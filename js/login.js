@@ -34,8 +34,6 @@ function showWrongMessage() {
     document.getElementById('wrongMessage').style.display = 'block';
 }
 
-
-// user
 function setUser(id, remember) {
     localStorage.setItem("user", id);
     localStorage.setItem("logIn", "true");
@@ -57,8 +55,6 @@ function userLogIn(event) {
         window.location.href = "./summary.html";
     } else {showWrongMessage()}
 }
-
-
 
 function checkPasswordAndUser() {
     const inpEmail = document.getElementById('inpMail').value.trim();

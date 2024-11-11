@@ -2,6 +2,7 @@ const BASE_URL = 'https://join-cf048-default-rtdb.europe-west1.firebasedatabase.
 
 let userId;
 let userInfo;
+let offlineMod = false;
 let contactsLS = [];
 let contactsOnly = [];
 const colors = [
@@ -12,7 +13,7 @@ const colors = [
 
 
 async function init(html) {
-    if (checkLoginStatus()) {
+    if (checkLoginStatus(html)) {
         
         await updateLS();
         loadUser();
@@ -41,8 +42,13 @@ function renderNavBar(html) {
     let className = 'nav-active';
     if (html == 'privacyPolicy' || html == 'legalNotice') {
         className = 'copyright-activ';
-        if (localStorage.getItem('logIn')) {
-            document.getElementById('').display = 'none';
+        if (offlineMod) {
+            document.getElementById('navLinks').style.display = 'none';
+
+            document.getElementById('navBar').classList.add("mobile-hide");
+            document.getElementById('navLinks').classList.add("mobile-hide");
+            document.getElementById('main').classList.add("mobile-h-unset");
+            document.body.classList.add("mobile-h-unset");
         }
     }
 
@@ -200,13 +206,10 @@ function getRandomColor() {
     return randomColor;
 }
 
-
-
-
 // USER
 function loadUser() {
     userId = localStorage.getItem("user");
-    if (userId == 'guest') {
+    if (userId == 'guest' || userId == null) {
         userInfo = 'guest';
     } else {
         let user = getUserFromContacts(userId);
@@ -223,13 +226,19 @@ function getUserInitials() {
     return userInfo.initials;
 }
 
-// MUSS vor jeder Seite ausgeführt werden außer index & privatePolicy
-function checkLoginStatus() {
+function checkLoginStatus(html) {
     let user = localStorage.getItem("user");
     let logIn = localStorage.getItem("logIn") == "true";
 
+    const publicPages = ['legalNotice', 'privacyPolicy'];
+
     if (!logIn) {
-        window.location.href = "./index.html";
+        if (!publicPages.includes(html)) {
+            window.location.href = "./index.html";
+        } else {
+            offlineMod = true;
+            return true;
+        }
     } else {
         console.log("User ist eingeloggt", user);
         return true;
@@ -242,5 +251,25 @@ function logOut() {
     if (!remember) {localStorage.removeItem('user')}
 }
 
-// TODO: feghler:
-// render index
+/*
+
+#navBar
+    display: none
+#main
+    height: unset;
+body
+    height: unset;
+
+
+
+
+
+
+
+body
+    height: unset;
+
+
+
+*/
+
