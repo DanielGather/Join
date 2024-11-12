@@ -427,3 +427,20 @@ function showAddTaskSuccessPopup() {
         window.location.href = 'board.html';
     }, 2000);
 }
+
+
+document.getElementById('subtasks-input').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        console.log('Enter-Taste von addsubmit wurde gedrückt');
+        addSubTask();
+    }
+});
+
+
+document.getElementById('addTaskTitle').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        console.log('enter taste test test test');
+    }
+});
