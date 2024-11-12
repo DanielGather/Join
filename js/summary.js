@@ -145,11 +145,22 @@ function greetRight(){
  * element with ID "currentUserLogin" to "Guest"; otherwise, it displays the `userInfo` value.
  */
 function showRightUser(){
-  let user = document.getElementById("currentUserLogin");
-  console.log("user", userInfo);
-  if(userInfo = "quest"){
-    user.innerHTML = "Guest";
+  let userGreeting = document.getElementById("currentUserLogin");
+  console.log("user", userInfo.name);
+  if(userInfo == "quest"){
+    userGreeting.innerHTML = "Guest";
   } else {
-    user.innerHTML = userInfo;
+    userGreeting.innerHTML = userInfo.name;
   }
 }
+/*
+function showRightUser(){
+  let user = document.getElementById("currentUserLogin");
+  console.log("user", userInfo);                              <-- userInfo.name
+  if(userInfo = "quest"){                                     <-- eigentlicher Fehler: vergleich mit '=' statt '=='
+    user.innerHTML = "Guest";
+  } else {
+    user.innerHTML = userInfo;                                <-- userInfo.name
+  }
+}
+*/
