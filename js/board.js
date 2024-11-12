@@ -170,6 +170,7 @@ async function editTask(task) {
   renderAssignedToSmallTask(firstLevelArray, "editTask");
   renderSubTask(firstLevelArray, "editTask");
   highlightRightPriority(rightTask);
+  enterSubTask();
   editTaskOpen = true;
 }
 
@@ -350,4 +351,14 @@ function triggerButton(){
   } else {
     document.getElementById("createTask").click();
   }
+}
+
+function enterSubTask(){
+  const subTaskInput = document.getElementById("subtasks-input");
+  subTaskInput.addEventListener("keydown", function (e){
+    if(e.code === "Enter"){
+      e.preventDefault();
+      console.log("Enter Funktioniert");
+    }
+  });
 }
