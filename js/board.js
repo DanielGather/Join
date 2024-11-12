@@ -2,21 +2,9 @@ let currentDraggedElement;
 let allToDos;
 let bigTaskActive;
 let searchedTask = [];
-let editTaskOpen;
+let editTaskOpen = false;
 let checkboxId = 1;
 
-function triggerForm(event, id){
-  event.preventDefault()
-  let headlineInputValue = document.getElementById(`${id}_headline`).value
-  let dateInputValue = document.getElementById(`${id}_date`).value
-  if(headlineInputValue !== "" && dateInputValue !== ""){
-    closeBigTask()
-  }
-}
-
-function triggerButton(){
-  document.getElementById("createTask").click();
-}
 
 function boardJS() {
   renderBoard();
@@ -28,6 +16,7 @@ function renderBoard() {
   let htmlContent = document.getElementById("main");
   htmlContent.innerHTML = boardHtml();
 }
+
 
 async function updateHTML() {
   let toDos = await getData("toDos");
@@ -135,15 +124,7 @@ function returnEditableSubTask(task, context, value, index) {
         </div>
   </ul>
       `;
-  // addSubTaskFunction(task, context,index);
 }
-
-// function addSubTaskFunction(task, context, index){
-//   const meinDiv = document.getElementById('addSubTask');
-//   meinDiv.onclick = function() {
-//     addNewSubTask(task, context,index);
-// };
-// }
 
 function renderSubTask(task, context = "default") {
   if(task[1]["subtasks"]){
@@ -330,6 +311,11 @@ function showAddTask(){
   }
 }
 
+/**
+ * The function deletes a task from the database
+ * 
+ * @param {integer} taskId - Delivers the number of the corresponding elements
+ */
 async function deleteTask(taskId){
   let getTaskId = await getIdFromDb("/toDos", "id", taskId);
   deleteData("/toDos/" + getTaskId);
@@ -337,8 +323,31 @@ async function deleteTask(taskId){
   updateHTML();
 }
 
+/**
+ * This function triggers the form and checks whether the required fields are empty.
+ * 
+ * @param {event} event - Triggers the Event.
+ * @param {integer} id - Delivers the number of the corresponding elements.
+ */
+function triggerForm(event, id){
+  event.preventDefault()
+  let headlineInputValue = document.getElementById(`${id}_headline`).value
+  let dateInputValue = document.getElementById(`${id}_date`).value
+  if(headlineInputValue !== "" && dateInputValue !== ""){
+    closeBigTask()
+  }
+}
 
-
-// Sicherung ToDos anlegen
-// await postData('/toDos',{headline:'Kochwelt Page & Recipe Recommender', id: 1, category:'done', description:'Build start page with recipe recommendation', assignedTo: {user1: 1, user2: 2, user3: 3}, subtasks:{task1: 1, task2: 2}, priority: 'medium', date: 'Datum', story: {userStory: 'User Story', technicalTask:'Technical Task'}})
-// await postData('/toDos/-O8rk7TAjcfN0IUq3qmd/subtasks',{status:true, value: 'duschen'})
+/**
+ * The function is there to ensure that the form button is still triggered when you click next to the open task. 
+ * 
+ * @param {boolean} editTaskOpen - editTaskOpen is a global variable that checks whether the task is currently only open or whether it is currently in edit mode.
+ * 
+ */
+function triggerButton(){
+  if(editTaskOpen == false){
+    closeBigTask();
+  } else {
+    document.getElementById("createTask").click();
+  }
+}

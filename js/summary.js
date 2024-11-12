@@ -9,6 +9,8 @@ async function summaryJS() {
   checkPriority();
   taskInBoard();
   printDeadlineDate();
+  greetRight();
+  showRightUser();
 }
 
 async function getAllToDos() {
@@ -72,4 +74,25 @@ function formatDate(date) {
   let month = months[date.getMonth()];
   let year = date.getFullYear();
   return `${month} ${day}, ${year}`;
+}
+
+function greetRight(){
+  let container = document.getElementById("dayTime");
+  let currentTime =  new Date().toLocaleTimeString();
+  let morningTime = "07:00:00";
+  let afternoonTime = "12:00:00";
+  let eveningTime = "18:00:00"
+  let greeting = currentTime > morningTime && currentTime < afternoonTime ? "Good Morning" : currentTime > afternoonTime && currentTime <  eveningTime ? "Good Evening" : "Good Afternoon";
+  container.innerHTML = greeting;
+  console.log("Uhrzeit",greeting);
+}
+
+function showRightUser(){
+  let user = document.getElementById("currentUserLogin");
+  console.log("user", userInfo);
+  if(userInfo == "quest"){
+    user.innerHTML = "Guest";
+  } else {
+    user.innerHTML = userInfo;
+  }
 }

@@ -4,7 +4,7 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
+   <title>Summary</title>
 
    <link rel="stylesheet" href="./styles/global.css" />
    <link rel="stylesheet" href="./styles/root.css" />
@@ -27,7 +27,7 @@
 
 </head>
 
-<body onload="init('summary'), summaryJS()">
+<body onload="init('summary')">
 
    <nav id="navBar"></nav>
 
@@ -97,8 +97,8 @@
                </div>
 
                <div class="greeting-container">
-                  <p class="greeting-daytime">Good morning,</p>
-                  <p class="greeting-name">Sofia Müller</p>
+                  <p id="dayTime" class="greeting-daytime">Good morning,</p>
+                  <p id="currentUserLogin" class="greeting-name"></p>
                </div>
 
                <div class="greeting-guest-container d-none">
