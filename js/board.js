@@ -66,10 +66,10 @@ function renderAssignedTo(element) {
 
 function renderAssignedToBigTask(element) {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
-  document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML = "";
+  document.getElementById("renderedInitialsContainer").innerHTML = "";
   assignedToEntries.forEach(([key, value]) => {
     let backgroundColor = getAssignedBackgroundColor(key, value);
-    document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
+    document.getElementById("renderedInitialsContainer").innerHTML += /*HTML*/ `
         <div class="d-flex alic gap1">
         <div class="circle" style = "background-color: ${backgroundColor}">${value}</div>
         <div>${key}</div>
@@ -94,7 +94,7 @@ function renderAssignedToSmallTask(element, context = "default") {
 
 function returnSubTask(task, context, value) {
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
+  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]['id']}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
   `;
   checkboxId += +1;
 }
@@ -167,10 +167,10 @@ async function editTask(task) {
   let date = getRightTimeValue(fireBaseDate);
   let container = document.getElementById("bigTaskCard");
   container.innerHTML = await editTaskBoard(rightTask, date);
-  renderAssignedToSmallTask(firstLevelArray, "editTask");
+  renderAssignedTo(firstLevelArray, "editTask");
   renderSubTask(firstLevelArray, "editTask");
   highlightRightPriority(rightTask);
-  enterSubTask();
+  // enterSubTask();
   editTaskOpen = true;
 }
 
@@ -351,14 +351,4 @@ function triggerButton(){
   } else {
     document.getElementById("createTask").click();
   }
-}
-
-function enterSubTask(){
-  const subTaskInput = document.getElementById("subtasks-input");
-  subTaskInput.addEventListener("keydown", function (e){
-    if(e.code === "Enter"){
-      e.preventDefault();
-      console.log("Enter Funktioniert");
-    }
-  });
 }
