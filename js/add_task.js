@@ -199,8 +199,11 @@ function toggleCategoryDropDown() {
 
 
 function setCategory(category) {
+    let categoryDropdownMenu = document.getElementById('categoryDropdownMenu');
+    let imgCategoryDropdownToggle = document.getElementById('imgCategoryDropdownToggle');
     document.getElementById('category-header').innerText = category;
-    categoryDropdownMenu.style.display = 'none';
+    //categoryDropdownMenu.style.display = 'none';
+    categoryDropdownMenu.classList.add('d-none');
     imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
     selectedCategory = category;
     console.log('category ist:', selectedCategory);
