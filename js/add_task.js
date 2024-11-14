@@ -364,7 +364,6 @@ function renderInitials(trueOrFalse) {
     renderAssignedToContacts(trueOrFalse);
 }
 
-
 function getCheckedContacts() {
     let checkedContacts = {};
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");

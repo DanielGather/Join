@@ -116,10 +116,10 @@ function getRightArray(allToDos) {
   }
 }
 
-function getAssignedBackgroundColor(key,value){
+function getContact(value){
   let contact = 
-  contactsLS.filter((contact) => contact[1].name.toUpperCase() === key.toUpperCase() && contact[1].initials.toUpperCase() === value.toUpperCase());
-  return  contact[0][1].color;
+  contactsLS.filter((contact) => contact[1].email.toUpperCase() === value.toUpperCase());
+  return  contact[0][1];
 }
 
 function returnNewSubTaskHtml(subTaskValue,idSubTaskValue,index,taskId){

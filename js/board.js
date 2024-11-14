@@ -67,12 +67,12 @@ function renderAssignedTo(element) {
 function renderAssignedToBigTask(element) {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   document.getElementById("renderedInitialsContainer").innerHTML = "";
-  assignedToEntries.forEach(([key, value]) => {
-    let backgroundColor = getAssignedBackgroundColor(key, value);
+  assignedToEntries.forEach(([, value]) => {
+    let contact = getContact(value);
     document.getElementById("renderedInitialsContainer").innerHTML += /*HTML*/ `
         <div class="d-flex alic gap1">
-        <div class="circle" style = "background-color: ${backgroundColor}">${value}</div>
-        <div>${key}</div>
+        <div class="circle" style = "background-color: ${contact.color}">${contact.initials}</div>
+        ${!editTaskOpen ? `<div>${contact.name}</div>` : ""}
         </div>
       `;
   });
@@ -81,12 +81,13 @@ function renderAssignedToBigTask(element) {
 function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   let AddNewMargin = assignedToEntries.length >= 8;
-  assignedToEntries.forEach(([key, value], index) => {
-    let backgroundColor = getAssignedBackgroundColor(key, value);
+  assignedToEntries.forEach(([ ,value], index) => {
+    let contact = getContact(value);
+    // document.getElementById(contact.email).checked = true;
     let newClass = AddNewMargin && index !== 0 ? "newMargin" : "";
     document.getElementById(`assignedTo${element[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-          <div class="${newClass} smallCircleUserStory" style = "background-color: ${backgroundColor}">
-            ${value}
+          <div class="${newClass} smallCircleUserStory" style = "background-color: ${contact.color}">
+            ${contact.initials}
           </div>
         `;
   });
@@ -160,6 +161,7 @@ function addNewSubTask(task, context = null) {
 }
 
 async function editTask(task) {
+  editTaskOpen = true;
   let rightTask = allToDos.filter((id) => id[1]["id"] == task);
   let firstLevelArray = rightTask[0];
   rightTask = rightTask[0][1];
@@ -171,7 +173,6 @@ async function editTask(task) {
   renderSubTask(firstLevelArray, "editTask");
   highlightRightPriority(rightTask);
   // enterSubTask();
-  editTaskOpen = true;
 }
 
 function editSubTask(id, context = "default", index, taskId, valueTask) {
