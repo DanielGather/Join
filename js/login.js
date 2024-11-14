@@ -105,6 +105,7 @@ function renderSignUp() {
     document.getElementById('logInHeader').classList.toggle('hidden');
     document.getElementById('buttonsToSingUp').classList.toggle('hidden');
     document.getElementById('renderForm').classList.toggle("form-render-container-singUp");
+    document.title = "Join - Sign Up"
 }
 
 function returnButton() {
@@ -112,6 +113,7 @@ function returnButton() {
     document.getElementById('logInHeader').classList.toggle('hidden'); 
     document.getElementById('buttonsToSingUp').classList.toggle('hidden');
     document.getElementById('renderForm').classList.toggle("form-render-container-singUp");
+    document.title = "Join - Log In"
 }
 
 async function addUser(event) {
@@ -133,7 +135,7 @@ async function addUser(event) {
     await postData('contacts', newContact);
     await updateLS();
     showSuccessPopup();
-    renderLogIn();
+    returnButton();
 }
 
 function resetWrongMessages() {
