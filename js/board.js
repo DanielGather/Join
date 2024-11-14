@@ -64,6 +64,14 @@ function renderAssignedTo(element) {
   }
 }
 
+// function checkRightUser(){
+//   let contact = getContact
+// }
+
+async function renderContactsDropDown(){
+  await toggleAssignedToDropDown();
+}
+
 function renderAssignedToBigTask(element) {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   document.getElementById("renderedInitialsContainer").innerHTML = "";

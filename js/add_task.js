@@ -172,8 +172,9 @@ function resetButtonStyles() {
 }
 
 
-function toggleAssignedToDropDown(trueOrFalse) {
+async function toggleAssignedToDropDown(trueOrFalse) {
     renderAssignedToContacts(trueOrFalse);
+    
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
     let dropdownMenu = document.getElementById('dropDownMenu');
     dropdownMenu.classList.toggle('d-none');
