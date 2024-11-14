@@ -134,3 +134,17 @@ function returnNewSubTaskHtml(subTaskValue,idSubTaskValue,index,taskId){
 </ul>
   `
 }
+
+function uncheckCheckboxen(){
+  let checkboxen = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+  checkboxen.forEach((checkbox)=>{
+    checkbox.checked = false;
+  })
+}
+
+function setCheckboxesBasedOnFirebaseData(taskId){
+  let task = allToDos.filter((toDo) => toDo[1]["id"] === taskId);
+  let id = task[0][1]["assignedTo"].email;
+  let checkbox = document.getElementById(id);
+  checkbox.checked = true;
+}

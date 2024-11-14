@@ -5,7 +5,6 @@ let searchedTask = [];
 let editTaskOpen = false;
 let checkboxId = 1;
 
-
 function boardJS() {
   renderBoard();
   navbarTemplate();
@@ -16,7 +15,6 @@ function renderBoard() {
   let htmlContent = document.getElementById("main");
   htmlContent.innerHTML = boardHtml();
 }
-
 
 async function updateHTML() {
   let toDos = await getData("toDos");
@@ -68,8 +66,15 @@ function renderAssignedTo(element) {
 //   let contact = getContact
 // }
 
-async function renderContactsDropDown(){
+async function renderContactsDropDown(taskId) {
   await toggleAssignedToDropDown();
+  updateCheckbox(taskId);
+}
+
+function updateCheckbox(taskId) {
+  uncheckCheckboxen();
+  setCheckboxesBasedOnFirebaseData(taskId);
+  renderInitials();
 }
 
 function renderAssignedToBigTask(element) {
@@ -89,7 +94,7 @@ function renderAssignedToBigTask(element) {
 function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   let AddNewMargin = assignedToEntries.length >= 8;
-  assignedToEntries.forEach(([ ,value], index) => {
+  assignedToEntries.forEach(([, value], index) => {
     let contact = getContact(value);
     // document.getElementById(contact.email).checked = true;
     let newClass = AddNewMargin && index !== 0 ? "newMargin" : "";
@@ -103,7 +108,7 @@ function renderAssignedToSmallTask(element, context = "default") {
 
 function returnSubTask(task, context, value) {
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]['id']}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
+  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
   `;
   checkboxId += +1;
 }
@@ -136,7 +141,7 @@ function returnEditableSubTask(task, context, value, index) {
 }
 
 function renderSubTask(task, context = "default") {
-  if(task[1]["subtasks"]){
+  if (task[1]["subtasks"]) {
     let subTaskToEntries = Object.entries(task[1]["subtasks"]);
     subTaskToEntries.forEach(([, value], index) => {
       if (context == "bigTask") {
@@ -274,19 +279,17 @@ function closeBigTask() {
   updateHTML();
 }
 
-
-
-function closeAddTask(){
+function closeAddTask() {
   document.getElementById("addTaskBoard").style.display = "none";
 }
 
 async function changeDataInFireBase(id, context = null, priority = null) {
   let title;
-if(!priority){
-  title = document.getElementById(id + "_" + context).value;
-} else {
-  title = priority;
-}
+  if (!priority) {
+    title = document.getElementById(id + "_" + context).value;
+  } else {
+    title = priority;
+  }
   let getTaskId = await getIdFromDb("/toDos", "id", id);
   let path = "/toDos/" + getTaskId + "/" + context;
   if (context == "date") {
@@ -309,9 +312,9 @@ function setFocusOnDate(id) {
   document.getElementById(id + "_date").focus();
 }
 
-function showAddTask(){
-  if(window.innerWidth >= 1000){
-    document.getElementById("addTaskBoard").style.display = "flex"
+function showAddTask() {
+  if (window.innerWidth >= 1000) {
+    document.getElementById("addTaskBoard").style.display = "flex";
     let addTaskContainer = document.getElementById("boardAddTask");
     document.getElementById("boardAddTask").classList.add("show");
     addTaskContainer.innerHTML = returnAddTaskHtml();
@@ -323,10 +326,10 @@ function showAddTask(){
 
 /**
  * The function deletes a task from the database
- * 
+ *
  * @param {integer} taskId - Delivers the number of the corresponding elements
  */
-async function deleteTask(taskId){
+async function deleteTask(taskId) {
   let getTaskId = await getIdFromDb("/toDos", "id", taskId);
   deleteData("/toDos/" + getTaskId);
   closeBigTask();
@@ -335,27 +338,27 @@ async function deleteTask(taskId){
 
 /**
  * This function triggers the form and checks whether the required fields are empty.
- * 
+ *
  * @param {event} event - Triggers the Event.
  * @param {integer} id - Delivers the number of the corresponding elements.
  */
-function triggerForm(event, id){
-  event.preventDefault()
-  let headlineInputValue = document.getElementById(`${id}_headline`).value
-  let dateInputValue = document.getElementById(`${id}_date`).value
-  if(headlineInputValue !== "" && dateInputValue !== ""){
-    closeBigTask()
+function triggerForm(event, id) {
+  event.preventDefault();
+  let headlineInputValue = document.getElementById(`${id}_headline`).value;
+  let dateInputValue = document.getElementById(`${id}_date`).value;
+  if (headlineInputValue !== "" && dateInputValue !== "") {
+    closeBigTask();
   }
 }
 
 /**
- * The function is there to ensure that the form button is still triggered when you click next to the open task. 
- * 
+ * The function is there to ensure that the form button is still triggered when you click next to the open task.
+ *
  * @param {boolean} editTaskOpen - editTaskOpen is a global variable that checks whether the task is currently only open or whether it is currently in edit mode.
- * 
+ *
  */
-function triggerButton(){
-  if(editTaskOpen == false){
+function triggerButton() {
+  if (editTaskOpen == false) {
     closeBigTask();
   } else {
     document.getElementById("createTask").click();
