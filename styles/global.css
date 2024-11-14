@@ -165,6 +165,14 @@ button svg {
     border: 2px solid var(--join-light-blue);
   }
 
+  .button-dark:active {
+    /* font-size: 21px; */
+    font-weight: 700;
+    color: white;
+    background-color: #091931;
+    border: 2px solid #091931;
+  }
+
   .button-dark:hover svg {
     fill: white;
   }

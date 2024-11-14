@@ -385,7 +385,7 @@ form {
 }
 
 form.form-singUp {
-    gap: 16px;
+    gap: 24px;
 }
 
 form .input-icon input {
@@ -399,8 +399,8 @@ form .input-icon input {
 }
   
 form input:focus-visible {
-border-color: var(--join-light-blue);
-outline: var(--join-light-blue);
+    border-color: var(--join-light-blue);
+    outline: var(--join-light-blue);
 }
 
 form input::placeholder {
@@ -428,9 +428,6 @@ border-color: #FF001F !important;
 outline: #FF001F !important;
 }
 
-
-
-
 .eyeIcons {
     display: none;
     cursor: pointer;
@@ -439,7 +436,13 @@ outline: #FF001F !important;
 .input-icon:focus-within #lockIcon {
     display: none;
 }
+.input-icon:focus-within #lockIconConfirm {
+    display: none;
+}
 .input-icon input:not(:placeholder-shown) + #lockIcon {
+    display: none;
+}
+.input-icon input:not(:placeholder-shown) + #lockIconConfirm {
     display: none;
 }
 .input-icon:focus-within .eyeIcons {
@@ -502,3 +505,55 @@ outline: #FF001F !important;
         text-decoration: underline;
     }
 }
+
+
+
+
+
+button:disabled {
+    border: 2px solid #2a3647;
+    background-color: var(--join-dark-blue);
+    cursor: default;
+    box-shadow: unset;
+}
+button:disabled:hover {
+    border: 2px solid #2a3647;
+    background-color: var(--join-dark-blue);
+    cursor: default;
+    box-shadow: unset;
+}
+button:disabled:active {
+    border: 2px solid #2a3647;
+    background-color: var(--join-dark-blue);
+    cursor: default;
+    box-shadow: unset;
+}
+
+.show-message {
+    display: block;
+}
+
+
+.popup-container {
+    background-color: #2a3647;
+    width: 312px;
+    height: 74px;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    position: fixed;
+    bottom: -80px;
+    left: 50%;
+  
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: bottom 0.3s ease, opactiy 0.3s ease;
+  }
+  
+  .popup-container.visible {
+    bottom: 50%;
+    opacity: 1;
+  }
