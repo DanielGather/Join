@@ -371,12 +371,19 @@ function renderInitials(trueOrFalse) {
 function getCheckedContacts() {
     let checkedContacts = {};
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    let counter = 1;
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
             let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
-            let key = checkedContact[0].name;
-            let value = checkedContact[0].initials;
+            //let key = checkedContact[0].name;
+            //let value = checkedContact[0].initials;
+            //let value = checkedContact[0].name;
+            //let value = checkedContact[0].name;
+            //let key = checkedContact[0].email;
+            let key = 'userEmail' + counter;
+            let value = checkedContact[0].email;
             checkedContacts[key] = value;
+            counter++;
         }
     });
     console.log('assigned to:', checkedContacts);
