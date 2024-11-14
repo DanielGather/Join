@@ -41,7 +41,7 @@ function clear() {
 
 
 async function createTask() {
-    // await getAllToDos();
+    await getAllToDos();
     console.log("createTask test test");
     let idNum = createNewId();
     let newTask = getInputValues(idNum);
