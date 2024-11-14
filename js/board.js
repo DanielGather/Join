@@ -66,15 +66,17 @@ function renderAssignedTo(element) {
 //   let contact = getContact
 // }
 
-async function renderContactsDropDown(taskId) {
-  await toggleAssignedToDropDown();
-  updateCheckbox(taskId);
+async function renderContactsDropDown(taskId, trueOrFalse) {
+  await toggleAssignedToDropDown(trueOrFalse);
+  console.log(trueOrFalse);
+  
+  updateCheckbox(taskId, trueOrFalse);
 }
 
-function updateCheckbox(taskId) {
+function updateCheckbox(taskId, trueOrFalse) {
   uncheckCheckboxen();
   setCheckboxesBasedOnFirebaseData(taskId);
-  renderInitials();
+  renderInitials(trueOrFalse);
 }
 
 function renderAssignedToBigTask(element) {

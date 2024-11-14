@@ -30,7 +30,7 @@ async function editTaskBoard(task, date) {
           <div style="position:relative;">
             <div class="inputAssignedToContainer">
               <input type="text" placeholder="Select contacts to assign" />
-              <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="renderContactsDropDown(${task['id']})" />
+              <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="renderContactsDropDown(${task['id']}, true)" />
             </div>
             <div class="d-flex gap1 pt1" id="renderedInitialsContainer"></div>
             <div class="dropDownContainerEdit d-none" id="dropDownMenu">

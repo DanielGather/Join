@@ -10,7 +10,7 @@ function getRightTimeValue(fireBaseDate) {
   return formattedDate;
 }
 
-function changeTimeFormat(wrongFormat){
+function changeTimeFormat(wrongFormat) {
   let dateInput = wrongFormat;
   let date = new Date(dateInput);
   let rightFormat = date.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
@@ -116,14 +116,13 @@ function getRightArray(allToDos) {
   }
 }
 
-function getContact(value){
-  let contact = 
-  contactsLS.filter((contact) => contact[1].email.toUpperCase() === value.toUpperCase());
-  return  contact[0][1];
+function getContact(value) {
+  let contact = contactsLS.filter((contact) => contact[1].email.toUpperCase() === value.toUpperCase());
+  return contact[0][1];
 }
 
-function returnNewSubTaskHtml(subTaskValue,idSubTaskValue,index,taskId){
-  return /*HTML*/`
+function returnNewSubTaskHtml(subTaskValue, idSubTaskValue, index, taskId) {
+  return /*HTML*/ `
   <ul id="${idSubTaskValue}_${index}" class="subTaskList subTaskHover">
   <li id="${idSubTaskValue}_edit" contenteditable="false">${subTaskValue}</li>
         <div class="subTaskIcons">
@@ -132,19 +131,21 @@ function returnNewSubTaskHtml(subTaskValue,idSubTaskValue,index,taskId){
         <img onclick="deleteSubTask('${idSubTaskValue}', ${index}, ${taskId}, '${subTaskValue}')" src="./assets/img/delete.svg" alt="">
         </div>
 </ul>
-  `
+  `;
 }
 
-function uncheckCheckboxen(){
+function uncheckCheckboxen() {
   let checkboxen = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
-  checkboxen.forEach((checkbox)=>{
+  checkboxen.forEach((checkbox) => {
     checkbox.checked = false;
-  })
+  });
 }
 
-function setCheckboxesBasedOnFirebaseData(taskId){
+function setCheckboxesBasedOnFirebaseData(taskId) {
   let task = allToDos.filter((toDo) => toDo[1]["id"] === taskId);
-  let id = task[0][1]["assignedTo"].email;
-  let checkbox = document.getElementById(id);
-  checkbox.checked = true;
+  let assignedToEntries = Object.entries(task[0][1]["assignedTo"]);
+  assignedToEntries.forEach(([, emailId]) => {
+    let checkbox = document.getElementById(emailId);
+    checkbox.checked = true;
+  });
 }
