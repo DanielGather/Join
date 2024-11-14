@@ -64,15 +64,23 @@ function renderAssignedTo(element) {
   }
 }
 
+// function checkRightUser(){
+//   let contact = getContact
+// }
+
+async function renderContactsDropDown(){
+  await toggleAssignedToDropDown();
+}
+
 function renderAssignedToBigTask(element) {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
-  document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML = "";
-  assignedToEntries.forEach(([key, value]) => {
-    let backgroundColor = getAssignedBackgroundColor(key, value);
-    document.getElementById(`bigAssignedTo${element[1]["id"]}`).innerHTML += /*HTML*/ `
+  document.getElementById("renderedInitialsContainer").innerHTML = "";
+  assignedToEntries.forEach(([, value]) => {
+    let contact = getContact(value);
+    document.getElementById("renderedInitialsContainer").innerHTML += /*HTML*/ `
         <div class="d-flex alic gap1">
-        <div class="circle" style = "background-color: ${backgroundColor}">${value}</div>
-        <div>${key}</div>
+        <div class="circle" style = "background-color: ${contact.color}">${contact.initials}</div>
+        ${!editTaskOpen ? `<div>${contact.name}</div>` : ""}
         </div>
       `;
   });
@@ -81,12 +89,13 @@ function renderAssignedToBigTask(element) {
 function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   let AddNewMargin = assignedToEntries.length >= 8;
-  assignedToEntries.forEach(([key, value], index) => {
-    let backgroundColor = getAssignedBackgroundColor(key, value);
+  assignedToEntries.forEach(([ ,value], index) => {
+    let contact = getContact(value);
+    // document.getElementById(contact.email).checked = true;
     let newClass = AddNewMargin && index !== 0 ? "newMargin" : "";
     document.getElementById(`assignedTo${element[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-          <div class="${newClass} smallCircleUserStory" style = "background-color: ${backgroundColor}">
-            ${value}
+          <div class="${newClass} smallCircleUserStory" style = "background-color: ${contact.color}">
+            ${contact.initials}
           </div>
         `;
   });
@@ -94,7 +103,7 @@ function renderAssignedToSmallTask(element, context = "default") {
 
 function returnSubTask(task, context, value) {
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
+  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]['id']}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
   `;
   checkboxId += +1;
 }
@@ -160,6 +169,7 @@ function addNewSubTask(task, context = null) {
 }
 
 async function editTask(task) {
+  editTaskOpen = true;
   let rightTask = allToDos.filter((id) => id[1]["id"] == task);
   let firstLevelArray = rightTask[0];
   rightTask = rightTask[0][1];
@@ -167,10 +177,10 @@ async function editTask(task) {
   let date = getRightTimeValue(fireBaseDate);
   let container = document.getElementById("bigTaskCard");
   container.innerHTML = await editTaskBoard(rightTask, date);
-  renderAssignedToSmallTask(firstLevelArray, "editTask");
+  renderAssignedTo(firstLevelArray, "editTask");
   renderSubTask(firstLevelArray, "editTask");
   highlightRightPriority(rightTask);
-  editTaskOpen = true;
+  // enterSubTask();
 }
 
 function editSubTask(id, context = "default", index, taskId, valueTask) {

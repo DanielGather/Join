@@ -20,20 +20,20 @@ async function editTaskBoard(task, date) {
         <div class="prio-container">
           <label class="addTask-label">Prio</label>
           <div class="prio-buttons">
-            <button onclick="chooseTaskPrioType('Urgent'); changeDataInFireBase(${task['id']},'priority', 'urgent')" id="urgentButton" class="urgent-medium-low-buttons">Urgent ${urgentSvg}</button>
-            <button onclick="chooseTaskPrioType('Medium'); changeDataInFireBase(${task['id']},'priority', 'medium')" id="mediumButton" class="urgent-medium-low-buttons">Medium ${mediumSvg}</button>
-            <button onclick="chooseTaskPrioType('Low'); changeDataInFireBase(${task['id']},'priority', 'low')" id="lowButton" class="urgent-medium-low-buttons">Low ${lowSvg}</button>
+            <button type="button" onclick="chooseTaskPrioType('Urgent'); changeDataInFireBase(${task['id']},'priority', 'urgent')" id="urgentButton" class="urgent-medium-low-buttons">Urgent ${urgentSvg}</button>
+            <button type="button" onclick="chooseTaskPrioType('Medium'); changeDataInFireBase(${task['id']},'priority', 'medium')" id="mediumButton" class="urgent-medium-low-buttons">Medium ${mediumSvg}</button>
+            <button type="button" onclick="chooseTaskPrioType('Low'); changeDataInFireBase(${task['id']},'priority', 'low')" id="lowButton" class="urgent-medium-low-buttons">Low ${lowSvg}</button>
           </div>
         </div>
         <div class="title-description-assigned">
           <label class="addTask-label">Assigned to</label>
-          <div>
+          <div style="position:relative;">
             <div class="inputAssignedToContainer">
               <input type="text" placeholder="Select contacts to assign" />
-              <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown('true')" />
+              <img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="renderContactsDropDown('true')" />
             </div>
-            <div class="d-flex gap1 pt1" id="assignedTo${task["id"]}_editTask"></div>
-            <div class="dropDownContainer" style="display:none"; id="dropDownMenu">
+            <div class="d-flex gap1 pt1" id="renderedInitialsContainer"></div>
+            <div class="dropDownContainerEdit d-none" id="dropDownMenu">
               <div class="dropDownContacts">
                 <div class="initialNameContainer">
                   <div class="initialsAssigned">CR</div>

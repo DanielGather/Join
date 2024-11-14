@@ -172,8 +172,9 @@ function resetButtonStyles() {
 }
 
 
-function toggleAssignedToDropDown(trueOrFalse) {
+async function toggleAssignedToDropDown(trueOrFalse) {
     renderAssignedToContacts(trueOrFalse);
+    
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
     let dropdownMenu = document.getElementById('dropDownMenu');
     dropdownMenu.classList.toggle('d-none');
@@ -364,7 +365,6 @@ function renderInitials(trueOrFalse) {
     renderAssignedToContacts(trueOrFalse);
 }
 
-
 function getCheckedContacts() {
     let checkedContacts = {};
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
@@ -427,3 +427,20 @@ function showAddTaskSuccessPopup() {
         window.location.href = 'board.html';
     }, 2000);
 }
+
+
+document.getElementById('subtasks-input').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        console.log('Enter-Taste von addsubmit wurde gedrückt');
+        addSubTask();
+    }
+});
+
+
+document.getElementById('addTaskTitle').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        console.log('enter taste test test test');
+    }
+});
