@@ -51,6 +51,7 @@
 
 .circle {
   display: flex;
+  color: white;
   cursor: pointer;
   align-items: center;
   justify-content: center;

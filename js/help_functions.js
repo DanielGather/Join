@@ -141,7 +141,9 @@ function uncheckCheckboxen() {
   });
 }
 
-function setCheckboxesBasedOnFirebaseData(taskId) {
+async function setCheckboxesBasedOnFirebaseData(taskId) {
+  let toDos = await getData("toDos");
+    allToDos = Object.entries(toDos);
   let task = allToDos.filter((toDo) => toDo[1]["id"] === taskId);
   if(task[0][1]["assignedTo"] !== undefined){
     let assignedToEntries = Object.entries(task[0][1]["assignedTo"]);

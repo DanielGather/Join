@@ -76,7 +76,6 @@ async function renderContactsDropDown(taskId, trueOrFalse) {
 function updateCheckbox(taskId, trueOrFalse) {
   uncheckCheckboxen();
   setCheckboxesBasedOnFirebaseData(taskId);
-  renderInitials(trueOrFalse);
 }
 
 function renderAssignedToBigTask(element) {
@@ -344,6 +343,7 @@ function showAddTask() {
   } else {
     window.location.href = "./add_task.html";
   }
+  setButtonColorForPrio(statusPriority);
 }
 
 /**
@@ -414,13 +414,7 @@ async function addAssignedToToFireBase(checkbox) {
   testArray = {};
   let getTaskId = await getIdFromDb("/toDos", "id", currentTaskId);
   let myVariablesObject = await returnMyVariables(checkbox, getTaskId);
-  console.log("object",myVariablesObject);
-  
-  // let getTaskId = await getIdFromDb("/toDos", "id", currentTaskId);
-  // let path = "/toDos/" + getTaskId + "/assignedTo/";
-  // let email = checkbox.id;
-  // let number = setCounter();
-  if(myVariablesObject.toDo !== undefined) {
+  if(myVariablesObject.toDo !== null) {
   let toDoEntries = Object.entries(myVariablesObject.toDo);
   toDoEntries.forEach(([key, value]) => {
     testArray[key] = value;

@@ -18,12 +18,12 @@ function returnAddTaskHtml() {
 
                             <div class="title-description-assigned">
                                 <label class="addTask-label">Assigned to</label>
-                                <div>
+                                <div style="position:relative">
                                     <div class="inputAssignedToContainer">
                                         <input type="text" placeholder="Select contacts to assign">
-                                        <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()"></div>
+                                        <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown('false')"></div>
                                     </div>
-                                    <div class="dropDownContainer" id="dropDownMenu" style="display: none">
+                                    <div class="dropDownContainer d-none" id="dropDownMenu">
                                         <!-- <div class="dropDownContacts" id="dropDownContacts">
                                             <div class="initialNameContainer" id="initialNameContainer">
                                                 <div class="initialsAssigned" id="initialsAssigned">CR</div>
@@ -49,13 +49,11 @@ function returnAddTaskHtml() {
                             <div class="prio-container">
                                 <label class="addTask-label">Prio</label>
                                 <div class="prio-buttons">
-                                    <button class="urgentButton" id="urgentButton" onclick="chooseTaskPrioType('urgent')">Urgent
-                                        <img id="urgentButtonImg"
+                                    <button type="button" class="urgentButton" id="urgentButton" onclick="chooseTaskPrioType('urgent')">Urgent <img id="urgentButtonImg"
                                             src="./assets/img/prio_urgent.svg"></button>
-                                    <button class="mediumButton" id="mediumButton" onclick="chooseTaskPrioType('medium')">Medium 
-                                        <img id="mediumButtonImg"
+                                    <button type="button" class="mediumButton" id="mediumButton" onclick="chooseTaskPrioType('medium')">Medium <img id="mediumButtonImg"
                                             src="./assets/img/prio_medium.svg"></button>
-                                    <button class="lowButton" id="lowButton" onclick="chooseTaskPrioType('low')">Low <img id="lowButtonImg"
+                                    <button type="button" class="lowButton" id="lowButton" onclick="chooseTaskPrioType('low')">Low <img id="lowButtonImg"
                                             src="./assets/img/prio_low.svg"></button>
                                 </div>
                             </div>
@@ -66,7 +64,7 @@ function returnAddTaskHtml() {
                                     <div id="category-header">Select task category</div>
                                     <div class="arrow-drop-down-img"><img  src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgCategoryDropdownToggle" onclick="toggleCategoryDropDown()"></div>
                                 </div>
-                                <div class="category-dropdown-container" id="categoryDropdownMenu" style="display:none;">
+                                <div class="category-dropdown-container d-none" id="categoryDropdownMenu">
                                     <div class="choose-category-container" onclick="setCategory('Technical Task')">Technical Task</div>
                                     <div class="choose-category-container" onclick="setCategory('User Story')">User Story</div>
                                 </div>
@@ -91,7 +89,7 @@ function returnAddTaskHtml() {
                     <div class="form-confirmation">
                         <div class="required"><span class="star">*</span>This field is required</div>
                         <div class="clear-create-button">
-                            <button class="clear-button d-none" type="submit" id="clear">Clear <img
+                            <button class="clear-button" type="submit" id="clear">Clear <img
                                     src="./assets/img/vector.svg"></button>
                             <button class="create-task-button" type="submit" id="createTask">Create Task <img
                                     src="./assets/img/checked.svg"></button>
