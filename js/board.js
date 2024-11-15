@@ -301,6 +301,15 @@ async function changeDataInFireBase(id, context = null, priority = null) {
   putData(path, title);
 }
 
+/**
+ * Adds a new subtask to Firebase.
+ * - Retrieves the task ID from the database based on the provided ID.
+ * - Trims unnecessary whitespace from the subtask value.
+ * - Creates a subtask object with an initial status of `false` and the provided description.
+ * - Saves the subtask object to Firebase under the task with the retrieved ID.
+ * @param {string} subTaskValue - The text of the new subtask.
+ * @param {string} id - The ID of the parent task to which the subtask is added.
+ */
 async function addSubTaskInFireBase(subTaskValue, id) {
   let getTaskId = await getIdFromDb("/toDos", "id", id);
   subTaskValue = subTaskValue.trim();
@@ -315,6 +324,17 @@ function setFocusOnDate(id) {
   document.getElementById(id + "_date").focus();
 }
 
+/**
+ * Displays the interface for adding a new task, depending on the window width.
+ * 
+ * - If the window width is greater than or equal to 1000 pixels:
+ *   - The element with the ID "addTaskBoard" is made visible and displayed as a flexbox.
+ *   - The element with the ID "boardAddTask" is given the CSS class "show".
+ *   - The content of the "boardAddTask" container is populated with HTML for adding a task.
+ * 
+ * - If the window width is less than 1000 pixels:
+ *   - The user is redirected to the page "./add_task.html".
+ */
 function showAddTask() {
   if (window.innerWidth >= 1000) {
     document.getElementById("addTaskBoard").style.display = "flex";
@@ -322,7 +342,6 @@ function showAddTask() {
     document.getElementById("boardAddTask").classList.add("show");
     addTaskContainer.innerHTML = returnAddTaskHtml();
   } else {
-    console.log("Fenster ist zu klein");
     window.location.href = "./add_task.html";
   }
 }
