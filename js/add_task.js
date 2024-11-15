@@ -368,6 +368,7 @@ function renderInitials(trueOrFalse) {
     renderAssignedToContacts(trueOrFalse);
 }
 
+
 function getCheckedContacts() {
     let checkedContacts = {};
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
@@ -417,6 +418,7 @@ function renderAssignedToContacts(trueOrFalse) {
     updateCheckboxStatus();
 }
 
+
 function updateCheckboxStatus() {
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
@@ -439,18 +441,25 @@ function showAddTaskSuccessPopup() {
 }
 
 
-document.getElementById('subtasks-input').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        console.log('Enter-Taste von addsubmit wurde gedrückt');
-        addSubTask();
+document.addEventListener('DOMContentLoaded', function() {
+    const subtasksInput = document.getElementById('subtasks-input');
+    if (subtasksInput) {
+        subtasksInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                console.log('Enter-Taste von addsubmit wurde gedrückt');
+                addSubTask();
+            }
+        });
     }
-});
 
-
-document.getElementById('addTaskTitle').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        console.log('enter taste test test test');
+    const addTaskTitle = document.getElementById('addTaskTitle');
+    if (addTaskTitle) {
+        addTaskTitle.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                console.log('enter taste test test test');
+            }
+        });
     }
 });
