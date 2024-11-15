@@ -5,7 +5,7 @@ function temp_generateHtmlAssignedToContacts(contact, trueOrFalse) {
             <div class="initialsAssigned" id="initialsAssigned" style="background-color: ${contact.color}">${contact.initials}</div>
             <p id="contactNameAddTask">${contact.name}</p>
         </div>
-        <div><input type="checkbox" id="${contact.email}" onclick="renderInitials(${trueOrFalse})"></div>
+        <div><input type="checkbox" id="${contact.email}" onclick="renderInitials(${trueOrFalse}), addAssignedToToFireBase(this)"></div>
     </div>
     `
 }

@@ -4,6 +4,8 @@ let bigTaskActive;
 let searchedTask = [];
 let editTaskOpen = false;
 let checkboxId = 1;
+let currentTaskId;
+let testArray = {};
 
 function boardJS() {
   renderBoard();
@@ -68,8 +70,6 @@ function renderAssignedTo(element) {
 
 async function renderContactsDropDown(taskId, trueOrFalse) {
   await toggleAssignedToDropDown(trueOrFalse);
-  console.log(trueOrFalse);
-  
   updateCheckbox(taskId, trueOrFalse);
 }
 
@@ -176,6 +176,7 @@ function addNewSubTask(task, context = null) {
 }
 
 async function editTask(task) {
+  currentTaskId = task;
   editTaskOpen = true;
   let rightTask = allToDos.filter((id) => id[1]["id"] == task);
   let firstLevelArray = rightTask[0];
@@ -365,4 +366,76 @@ function triggerButton() {
   } else {
     document.getElementById("createTask").click();
   }
+}
+
+// async function addAssignedToToFireBase(checkbox){
+//   let getTaskId = await getIdFromDb("/toDos", "id", currentTaskId);
+//   let path = "/toDos/" + getTaskId + "/assignedTo";
+//   let email = checkbox.id;
+//   let number = setCounter();
+//   let data = {[`userEmail${number}`]: email}
+//   if (checkbox.checked) {
+//   updateData(path,data)
+// } else {
+//   // deleteData();
+//   removeAssignedToFromFireBase(email, getTaskId)
+// }
+// }
+
+async function returnMyVariables(checkbox,getTaskId) {
+  const myVariables = {
+    path: "/toDos/" + getTaskId + "/assignedTo/",
+    email: checkbox.id,
+    number: setCounter(),
+    toDo: await getData("/toDos/" + getTaskId + "/assignedTo"),
+  };
+  return myVariables
+}
+async function addAssignedToToFireBase(checkbox) {
+  testArray = {};
+  let getTaskId = await getIdFromDb("/toDos", "id", currentTaskId);
+  let myVariablesObject = await returnMyVariables(checkbox, getTaskId);
+  console.log("object",myVariablesObject);
+  
+  // let getTaskId = await getIdFromDb("/toDos", "id", currentTaskId);
+  // let path = "/toDos/" + getTaskId + "/assignedTo/";
+  // let email = checkbox.id;
+  // let number = setCounter();
+  if(myVariablesObject.toDo !== undefined) {
+  let toDoEntries = Object.entries(myVariablesObject.toDo);
+  toDoEntries.forEach(([key, value]) => {
+    testArray[key] = value;
+  })};
+  if (checkbox.checked) {
+    testArray["userEmail" + myVariablesObject.number] = myVariablesObject.email;
+    putData(myVariablesObject.path, testArray);
+  } else {
+    removeAssignedToFromFireBase(myVariablesObject.email, getTaskId);
+  }
+}
+
+// function checkboxIsChecked() {}
+
+// async function updateData(path = "", data = {}) {
+//   let response = await fetch(BASE_URL + path + ".json", {
+//     method: "PATCH" /* or PATCH  || !!PATCH funktioniert nicht mit firebase */,
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(data),
+//   });
+//   let responseToJson = await response.json();
+//   return responseToJson;
+// }
+
+async function removeAssignedToFromFireBase(email, getTaskId) {
+  let toDo = await getData("/toDos/" + getTaskId + "/assignedTo");
+  let toDoEntries = Object.entries(toDo);
+  toDoEntries.forEach(([key, value]) => {
+    console.log("value", key, value);
+    if (value == email) {
+      path = `/toDos/${getTaskId}/assignedTo/${key}`;
+    } else {
+      return;
+    }
+  });
+  deleteData(path);
 }

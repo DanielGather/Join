@@ -143,9 +143,12 @@ function uncheckCheckboxen() {
 
 function setCheckboxesBasedOnFirebaseData(taskId) {
   let task = allToDos.filter((toDo) => toDo[1]["id"] === taskId);
-  let assignedToEntries = Object.entries(task[0][1]["assignedTo"]);
-  assignedToEntries.forEach(([, emailId]) => {
-    let checkbox = document.getElementById(emailId);
-    checkbox.checked = true;
-  });
+  if(task[0][1]["assignedTo"] !== undefined){
+    let assignedToEntries = Object.entries(task[0][1]["assignedTo"]);
+    assignedToEntries.forEach(([, emailId]) => {
+      let checkbox = document.getElementById(emailId);
+      checkbox.checked = true;
+    });
+
+  }
 }
