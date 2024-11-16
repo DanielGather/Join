@@ -20,7 +20,7 @@ img {
   padding: 8px;
 }
 
-.main-addTask-container h1{
+.main-addTask-container h1 {
   font-size: 3.75rem;
 }
 
@@ -74,7 +74,7 @@ img {
   width: 45%;
 }
 
-.edit-assigned-container{
+.edit-assigned-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -102,8 +102,8 @@ img {
 
 .inputAssignedToContainer img,
 .category-container img {
-    width: 10px;
-    height: 10px;
+  width: 10px;
+  height: 10px;
 }
 
 .dropDownContainerEdit {
@@ -144,8 +144,8 @@ img {
 .arrow-drop-down-img:hover,
 .subtask-close-icon:hover,
 .subtask-checked-icon:hover {
-    border-radius: 50%;
-    background-color: #D1D1D1;
+  border-radius: 50%;
+  background-color: #d1d1d1;
 }
 
 .dropDownContacts {
@@ -203,22 +203,22 @@ img {
 .urgentButton,
 .mediumButton,
 .lowButton {
-    border-radius: var(--button-radius);
-    border: 1px solid #D1D1D1;
-    background-color: white;
-    flex: 1;
+  border-radius: var(--button-radius);
+  border: 1px solid #d1d1d1;
+  background-color: white;
+  flex: 1;
 }
 
 .add-subtask,
 .arrow-drop-down-img,
 .subtask-close-icon,
 .subtask-checked-icon {
-    height: 18px;
-    width: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
+  height: 18px;
+  width: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
 }
 
 .prio-buttons button {
@@ -386,7 +386,8 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 46px;
+  height: 2.875rem;
+  width: 5rem;
   border-radius: var(--button-radius);
   border: 1px solid #2a3647;
   background-color: var(--button-background-color-dark);
@@ -394,6 +395,15 @@ textarea {
   font-size: var(--button-font-size);
   font-weight: var(--button-font-weight);
   cursor: pointer;
+}
+
+.create-task-button:hover {
+  color: white;
+  border-radius: var(--button-radius);
+  border: 2px solid var(--join-light-blue);
+  font-weight: var(--button-font-weight);
+  background-color: var(--join-light-blue);
+  box-shadow: 1px 6px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .required {
@@ -417,13 +427,11 @@ textarea {
   .inputAssignedToContainer {
     cursor: pointer;
   }
-
 }
 
-@media (max-width: 450px){
-    
-  .prio-buttons button{
-    gap: clamp(0.25rem, 3vw, 1rem)
+@media (max-width: 450px) {
+  .prio-buttons button {
+    gap: clamp(0.25rem, 3vw, 1rem);
   }
 }
 

@@ -178,8 +178,8 @@ function resetButtonStyles(idVariable) {
 }
 
 
-async function toggleAssignedToDropDown(trueOrFalse) {
-    renderAssignedToContacts(trueOrFalse);
+async function toggleAssignedToDropDown() {
+    renderAssignedToContacts();
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
     let dropdownMenu = document.getElementById('dropDownMenu');
     dropdownMenu.classList.toggle('d-none');
@@ -284,8 +284,8 @@ function deleteInputSubtaskValue() {
 }
 
 
-function renderInitials(trueOrFalse) {
-    console.log("Teste True or False ", trueOrFalse);
+function renderInitials() {
+    console.log("Teste True or False ", );
     checkedContactNames = [];
     checkedContactInitials = [];
     checkedContactColors = [];
@@ -311,7 +311,7 @@ function renderInitials(trueOrFalse) {
     console.log('die checkContactnames:', checkedContactNames);
     console.log('die checkContactinitials:', checkedContactInitials);
     console.log('die checkContactcolor:', checkedContactColors);
-    renderAssignedToContacts(trueOrFalse);
+    renderAssignedToContacts();
 }
 
 
@@ -333,18 +333,18 @@ function getCheckedContacts() {
 }
 
 
-function renderAssignedToContacts(trueOrFalse) {
+function renderAssignedToContacts() {
     let dropDownMenu = document.getElementById('dropDownMenu');
     dropDownMenu.innerHTML = '';
     checkedContactNames.forEach(name => {
         let contact = contactsOnly.find(contact => contact.name === name);
         if (contact) {
-            dropDownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact, trueOrFalse);
+            dropDownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact );
         }
     });
     contactsOnly.forEach(contact => {
         if (!checkedContactNames.includes(contact.name)) {
-            dropDownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact, trueOrFalse);
+            dropDownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact);
         }
     });
     updateCheckboxStatus();

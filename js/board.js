@@ -268,15 +268,8 @@ function showTask(task) {
 }
 
 function closeBigTask() {
-  if (editTaskOpen) {
-    // document.getElementById("svgUrgent").style.color = "#ff3d00";
-    // document.getElementById("svgMedium").style.color = "#ffa800";
-    // document.getElementById("svgLow").style.color = "#7ae229";
-    // document.getElementById("bigTask").style.display = "none";
-  } else {
-    document.getElementById("bigTask").style.display = "none";
-    document.getElementById("addTaskBoard").style.display = "none";
-  }
+  document.getElementById("bigTask").style.display = "none";
+  document.getElementById("addTaskBoard").style.display = "none";
   bigTaskActive = false;
   editTaskOpen = false;
   updateHTML();
@@ -326,12 +319,12 @@ function setFocusOnDate(id) {
 
 /**
  * Displays the interface for adding a new task, depending on the window width.
- * 
+ *
  * - If the window width is greater than or equal to 1000 pixels:
  *   - The element with the ID "addTaskBoard" is made visible and displayed as a flexbox.
  *   - The element with the ID "boardAddTask" is given the CSS class "show".
  *   - The content of the "boardAddTask" container is populated with HTML for adding a task.
- * 
+ *
  * - If the window width is less than 1000 pixels:
  *   - The user is redirected to the page "./add_task.html".
  */
@@ -344,7 +337,7 @@ function showAddTask() {
   } else {
     window.location.href = "./add_task.html";
   }
-  setButtonColorForPrio(statusPriority);
+  setButtonColorForPrio(statusPriority, "AddTask");
 }
 
 /**
@@ -384,7 +377,7 @@ function triggerButton() {
   if (editTaskOpen == false) {
     closeBigTask();
   } else {
-    document.getElementById('createTaskEdit').click();
+    document.getElementById("createTaskEdit").click();
     // document.querySelector("form").submit();
   }
 }
@@ -403,25 +396,27 @@ function triggerButton() {
 // }
 // }
 
-async function returnMyVariables(checkbox,getTaskId) {
+async function returnMyVariables(email, getTaskId) {
   const myVariables = {
     path: "/toDos/" + getTaskId + "/assignedTo/",
-    email: checkbox.id,
+    email: email,
     number: setCounter(),
     toDo: await getData("/toDos/" + getTaskId + "/assignedTo"),
   };
-  return myVariables
+  return myVariables;
 }
-async function addAssignedToToFireBase(checkbox) {
+async function addAssignedToToFireBase(email) {
   testArray = {};
   let getTaskId = await getIdFromDb("/toDos", "id", currentTaskId);
-  let myVariablesObject = await returnMyVariables(checkbox, getTaskId);
-  if(myVariablesObject.toDo !== null) {
-  let toDoEntries = Object.entries(myVariablesObject.toDo);
-  toDoEntries.forEach(([key, value]) => {
-    testArray[key] = value;
-  })};
-  if (checkbox.checked) {
+  let myVariablesObject = await returnMyVariables(email, getTaskId);
+  let checkBoxContainer = document.getElementById(email);
+  if (myVariablesObject.toDo !== null) {
+    let toDoEntries = Object.entries(myVariablesObject.toDo);
+    toDoEntries.forEach(([key, value]) => {
+      testArray[key] = value;
+    });
+  }
+  if (checkBoxContainer.checked) {
     testArray["userEmail" + myVariablesObject.number] = myVariablesObject.email;
     putData(myVariablesObject.path, testArray);
   } else {
