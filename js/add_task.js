@@ -107,6 +107,11 @@ function createNewId() {
 }
 
 
+/**
+ * the function gets the value from the input element with the ID 'addTaskTitle',
+ * trims any leading and trailing whitespace, and returns the cleaned title.
+ * @returns {string} The trimmed title from the input field.
+ */
 function getTitle() {
     let title = document.getElementById('addTaskTitle').value.trim();
     return title;
@@ -228,34 +233,14 @@ function renderSubtasks() {
     taskContainer.innerHTML = '';
     for (let i = 0; i < subtaskArray.length; i++) {
         let subtask = subtaskArray[i];
-        taskContainer.innerHTML += `
-        <div class="subtask-single-container" id="subtask-List-Container-${i}">
-            <ul class="subtaskList" >
-                <li id="subtaskText-${i}">${subtask}</li>
-                <div class="subtask-icon-container">
-                    <img src="./assets/img/subtask_pencil.svg" alt="pencil" onclick="editSubtask(${i})">
-                    <div class="subtask-separator"></div>
-                    <img src="./assets/img/delete.svg" alt="delete" onclick="deleteSubtask(${i})">
-                </div>
-            </ul>
-        </div>
-    `;
+        taskContainer.innerHTML += temp_generateHtmlRenderSubtasks(subtask, i);
     }
 }
 
 
 function editSubtask(index) {
     let subtaskElementContainer = document.getElementById(`subtask-List-Container-${index}`);
-    subtaskElementContainer.innerHTML = `
-        <div class="subtask-edit-container">
-            <input type="text" id="editInput-${index}" value="${subtaskArray[index]}">
-            <div class="editSubtask-icon-container">
-                <img src="./assets/img/delete.svg" alt="delete" onclick="cancelEditSubtask()">
-                <div class="subtask-separator"></div>
-                <img src="./assets/img/addtask_check.svg" alt="checkIcon" onclick="saveEditSubtask(${index})">
-            </div>  
-        </div>
-    `;
+    subtaskElementContainer.innerHTML = temp_generateHtmlEditSubtasks(index);
 }
 
 
@@ -326,7 +311,6 @@ function renderInitials(trueOrFalse) {
     console.log('die checkContactnames:', checkedContactNames);
     console.log('die checkContactinitials:', checkedContactInitials);
     console.log('die checkContactcolor:', checkedContactColors);
-    
     renderAssignedToContacts(trueOrFalse);
 }
 

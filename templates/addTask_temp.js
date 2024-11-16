@@ -16,3 +16,33 @@ function temp_generateHtmlAssignedToInitials (initial, color) {
     <div class="renderedInitial" style="background-color: ${color};">${initial}</div>
     `
 }
+
+
+function temp_generateHtmlRenderSubtasks(subtask, i) {
+    return /*html*/`
+    <div class="subtask-single-container" id="subtask-List-Container-${i}">
+            <ul class="subtaskList" >
+                <li id="subtaskText-${i}">${subtask}</li>
+                <div class="subtask-icon-container">
+                    <img src="./assets/img/subtask_pencil.svg" alt="pencil" onclick="editSubtask(${i})">
+                    <div class="subtask-separator"></div>
+                    <img src="./assets/img/delete.svg" alt="delete" onclick="deleteSubtask(${i})">
+                </div>
+            </ul>
+    </div>
+    `
+}
+
+
+function temp_generateHtmlEditSubtasks(index) {
+    return /*html*/`
+    <div class="subtask-edit-container">
+            <input type="text" id="editInput-${index}" value="${subtaskArray[index]}">
+            <div class="editSubtask-icon-container">
+                <img src="./assets/img/delete.svg" alt="delete" onclick="cancelEditSubtask()">
+                <div class="subtask-separator"></div>
+                <img src="./assets/img/addtask_check.svg" alt="checkIcon" onclick="saveEditSubtask(${index})">
+            </div>  
+    </div>
+    `
+}
