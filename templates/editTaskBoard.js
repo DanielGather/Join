@@ -20,11 +20,11 @@ async function editTaskBoard(task, date) {
         <div class="prio-container">
           <label class="addTask-label">Prio</label>
           <div class="prio-buttons">
-          <button type="button" class="urgentButton" id="urgentButton" onclick="chooseTaskPrioType('urgent'); changeDataInFireBase(${task['id']},'priority', 'urgent')">Urgent <img id="urgentButtonImg"
+          <button type="button" class="urgentButton" id="urgentButtonEdit" onclick="chooseTaskPrioType('urgent','Edit'); changeDataInFireBase(${task['id']},'priority', 'urgent')">Urgent <img id="urgentButtonImgEdit"
                                             src="./assets/img/prio_urgent.svg"></button>
-                                    <button type="button" class="mediumButton" id="mediumButton" onclick="chooseTaskPrioType('medium'); changeDataInFireBase(${task['id']},'priority', 'medium')">Medium <img id="mediumButtonImg"
+                                    <button type="button" class="mediumButton" id="mediumButtonEdit" onclick="chooseTaskPrioType('medium','Edit'); changeDataInFireBase(${task['id']},'priority', 'medium')">Medium <img id="mediumButtonImgEdit"
                                             src="./assets/img/prio_medium.svg"></button>
-                                    <button type="button" class="lowButton" id="lowButton" onclick="chooseTaskPrioType('low'); changeDataInFireBase(${task['id']},'priority', 'low')">Low <img id="lowButtonImg"
+                                    <button type="button" class="lowButton" id="lowButtonEdit" onclick="chooseTaskPrioType('low','Edit'); changeDataInFireBase(${task['id']},'priority', 'low')">Low <img id="lowButtonImgEdit"
                                             src="./assets/img/prio_low.svg"></button>
 
 

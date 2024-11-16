@@ -27,7 +27,7 @@ function clear() {
     document.getElementById('inputDate').value = '';
     document.getElementById('subtasks-input').value = '';
     priority = null;
-    setButtonColorForPrio(null);
+    setButtonColorForPrio(null,"AddTask");
     document.getElementById('category-header').innerText = 'Select task category';
     selectedCategory = null;
     document.getElementById('dropDownMenu').innerHTML = '';
@@ -131,50 +131,50 @@ function getDueDate() {
 }
 
 
-function chooseTaskPrioType(priorityType) {
+function chooseTaskPrioType(priorityType, idVariable) {
     if (statusPriority === priorityType) {
-        setButtonColorForPrio(null);
+        setButtonColorForPrio(null, idVariable);
         statusPriority = null;
         console.log('Prioauswahl deaktiviert:', statusPriority);
         return null;
     }
     statusPriority = priorityType;
-    setButtonColorForPrio(priorityType);
+    setButtonColorForPrio(priorityType, idVariable);
     console.log('Prioauswahl:', statusPriority);
 }
 
 
-function setButtonColorForPrio(priorityType) {
-    resetButtonStyles();
+function setButtonColorForPrio(priorityType, idVariable) {
+    resetButtonStyles(idVariable);
     if (priorityType === null) {
         priorityType = 'medium';
     }
     if (priorityType === "urgent") {
-        document.getElementById("urgentButton").style.backgroundColor = '#FF3D19';
-        document.getElementById("urgentButton").style.color = 'white';
-        document.getElementById("urgentButtonImg").src = './assets/img/prio-urgent-white.svg';
+        document.getElementById(`urgentButton${idVariable}`).style.backgroundColor = '#FF3D19';
+        document.getElementById(`urgentButton${idVariable}`).style.color = 'white';
+        document.getElementById(`urgentButtonImg${idVariable}`).src = './assets/img/prio-urgent-white.svg';
     } else if (priorityType === "medium") {
-        document.getElementById("mediumButton").style.backgroundColor = '#FFA827';
-        document.getElementById("mediumButton").style.color = 'white';
-        document.getElementById("mediumButtonImg").src = './assets/img/prio-medium-white.svg';
+        document.getElementById(`mediumButton${idVariable}`).style.backgroundColor = '#FFA827';
+        document.getElementById(`mediumButton${idVariable}`).style.color = 'white';
+        document.getElementById(`mediumButtonImg${idVariable}`).src = './assets/img/prio-medium-white.svg';
     } else if (priorityType === "low") {
-        document.getElementById("lowButton").style.backgroundColor = '#7AE22B';
-        document.getElementById("lowButton").style.color = 'white';
-        document.getElementById("lowButtonImg").src = './assets/img/prio-low-white.svg';
+        document.getElementById(`lowButton${idVariable}`).style.backgroundColor = '#7AE22B';
+        document.getElementById(`lowButton${idVariable}`).style.color = 'white';
+        document.getElementById(`lowButtonImg${idVariable}`).src = './assets/img/prio-low-white.svg';
     }
 }
 
 
-function resetButtonStyles() { 
-    document.getElementById("urgentButton").style.backgroundColor = '';
-    document.getElementById("urgentButton").style.color = '';
-    document.getElementById("urgentButtonImg").src = './assets/img/prio_urgent.svg';
-    document.getElementById("mediumButton").style.backgroundColor = '';
-    document.getElementById("mediumButton").style.color = '';
-    document.getElementById("mediumButtonImg").src = './assets/img/prio_medium.svg';
-    document.getElementById("lowButton").style.backgroundColor = '';
-    document.getElementById("lowButton").style.color = '';
-    document.getElementById("lowButtonImg").src = './assets/img/prio_low.svg';
+function resetButtonStyles(idVariable) { 
+    document.getElementById(`urgentButton${idVariable}`).style.backgroundColor = '';
+    document.getElementById(`urgentButton${idVariable}`).style.color = '';
+    document.getElementById(`urgentButtonImg${idVariable}`).src = './assets/img/prio_urgent.svg';
+    document.getElementById(`mediumButton${idVariable}`).style.backgroundColor = '';
+    document.getElementById(`mediumButton${idVariable}`).style.color = '';
+    document.getElementById(`mediumButtonImg${idVariable}`).src = './assets/img/prio_medium.svg';
+    document.getElementById(`lowButton${idVariable}`).style.backgroundColor = '';
+    document.getElementById(`lowButton${idVariable}`).style.color = '';
+    document.getElementById(`lowButtonImg${idVariable}`).src = './assets/img/prio_low.svg';
 }
 
 
