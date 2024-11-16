@@ -252,6 +252,12 @@ input {
     align-items: center;
 }
 
+.subtask-separator{
+  background-color: #D1D1D1;
+    width: 1px;
+    height: 24px;
+}
+
 
 
 .hover {
