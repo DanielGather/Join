@@ -1,5 +1,4 @@
 let subtaskArray = [];
-//let choosedContact = [];
 let statusPriority = 'medium';
 let selectedCategory = null;
 let assignedToContacts = null;
@@ -36,7 +35,6 @@ function clear() {
     document.getElementById('rendered-task-container').innerHTML = '';
     document.getElementById('rendered-task-container').style.opacity = '0';
     subtaskArray = [];
-    //choosedContact = [];
 }
 
 
@@ -77,7 +75,6 @@ function getInputValues(idNum) {
         'story': category,
         'description': description,
         'assignedTo': assignedTo,
-        //'subtasks': subTasks,
         'id': toDoId,
         'category': 'toDo',
     };
@@ -86,6 +83,11 @@ function getInputValues(idNum) {
 
 async function getAllToDos() {
     let data = await getData("toDos");
+    if(!data){
+        console.warn('data not avaiable or path doesnt exist ')
+        allCurrentIds = [1];
+        return;
+    }
     let allCurrentToDos = Object.values(data);
     console.log('alle Todos:', allCurrentToDos);
     for (let i = 0; i < allCurrentToDos.length; i++) {
@@ -134,14 +136,13 @@ function chooseTaskPrioType(priorityType) {
     statusPriority = priorityType;
     setButtonColorForPrio(priorityType);
     console.log('Prioauswahl:', statusPriority);
-    //return statusPriority;
 }
 
 
 function setButtonColorForPrio(priorityType) {
     resetButtonStyles();
     if (priorityType === null) {
-        priorityType = 'medium'; // Standard auf 'medium' setzen, wenn null
+        priorityType = 'medium';
     }
     if (priorityType === "urgent") {
         document.getElementById("urgentButton").style.backgroundColor = '#FF3D19';
@@ -174,7 +175,6 @@ function resetButtonStyles() {
 
 async function toggleAssignedToDropDown(trueOrFalse) {
     renderAssignedToContacts(trueOrFalse);
-    
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
     let dropdownMenu = document.getElementById('dropDownMenu');
     dropdownMenu.classList.toggle('d-none');
@@ -202,40 +202,14 @@ function setCategory(category) {
     let categoryDropdownMenu = document.getElementById('categoryDropdownMenu');
     let imgCategoryDropdownToggle = document.getElementById('imgCategoryDropdownToggle');
     document.getElementById('category-header').innerText = category;
-    //categoryDropdownMenu.style.display = 'none';
     categoryDropdownMenu.classList.add('d-none');
     imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
     selectedCategory = category;
     console.log('category ist:', selectedCategory);
-    //return selectedCategory;
 }
 
-/*
-function addSubTask() {
-    document.getElementById('rendered-task-container').style = 'opacity:1';
-    let subtaskInput = document.getElementById('subtasks-input').value.trim();
-    if (subtaskInput) {
-        subtaskArray.push({ task: subtaskInput });
-        let taskContainer = document.getElementById('rendered-task-container');
-        taskContainer.innerHTML = '';
-        for (let i = 0; i < subtaskArray.length; i++) {
-            let subtask = subtaskArray[i].task;
-            taskContainer.innerHTML += `
-        <ul class="subtaskList">
-            <li>${subtask}</li>
-        </ul>
-        `
-        }
-    }
-    document.getElementById('subtasks-input').value = '';
-    document.getElementById('actionIcons').style = 'display:none';
-    document.getElementById('plusIcon').style = 'display:block';
-    console.log('subtaskArray:', subtaskArray);
-}*/
-
 
 function addSubTask() {
-    //let newSubtask = {};
     document.getElementById('rendered-task-container').style = 'opacity:1';
     let subtaskInput = document.getElementById('subtasks-input').value.trim();
     if (subtaskInput) {
@@ -327,40 +301,28 @@ function deleteInputSubtaskValue() {
 
 function renderInitials(trueOrFalse) {
     console.log("Teste True or False ", trueOrFalse);
-
     checkedContactNames = [];
     checkedContactInitials = [];
     checkedContactColors = [];
-
-    //let checkedContacts = {};
     assignedToContacts = getCheckedContacts();
-    //let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
-    //renderedInitialsContainer.innerHTML = '';
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
             let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
-            //let key = checkedContact[0].name;
-            //let value = checkedContact[0].initials;
-            //checkedContacts[key] = value;
-            //assignedToContacts = checkedContacts;
             let name = checkedContact[0].name;
             let initial = checkedContact[0].initials;
             let color = checkedContact[0].color;
             checkedContactNames.push(name);
             checkedContactInitials.push(initial);
             checkedContactColors.push(color);
-            //renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(checkedContact);
         }
     })
-
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = ''; 
     checkedContactInitials.forEach((initial, index) => {
         let color = checkedContactColors[index]; 
         renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(initial, color);
     });
-    //console.log('assigned to:', checkedContacts);
     console.log('die checkContactnames:', checkedContactNames);
     console.log('die checkContactinitials:', checkedContactInitials);
     console.log('die checkContactcolor:', checkedContactColors);
@@ -376,11 +338,6 @@ function getCheckedContacts() {
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
             let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
-            //let key = checkedContact[0].name;
-            //let value = checkedContact[0].initials;
-            //let value = checkedContact[0].name;
-            //let value = checkedContact[0].name;
-            //let key = checkedContact[0].email;
             let key = 'userEmail' + counter;
             let value = checkedContact[0].email;
             checkedContacts[key] = value;
@@ -391,15 +348,6 @@ function getCheckedContacts() {
     return checkedContacts;
 }
 
-/*
-function renderAssignedToContacts(trueOrFalse) {
-    document.getElementById('dropDownMenu').innerHTML = '';
-    for (let i = 0; i < contactsOnly.length; i++) {
-        let contact = contactsOnly[i];
-        document.getElementById('dropDownMenu').innerHTML += temp_generateHtmlAssignedToContacts(contact, trueOrFalse);
-        //console.log('name und initials:', contact.name, contact.initial);
-    }
-}*/
 
 function renderAssignedToContacts(trueOrFalse) {
     let dropDownMenu = document.getElementById('dropDownMenu');
@@ -452,7 +400,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
     const addTaskTitle = document.getElementById('addTaskTitle');
     if (addTaskTitle) {
         addTaskTitle.addEventListener('keydown', function(event) {
