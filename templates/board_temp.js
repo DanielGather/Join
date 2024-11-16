@@ -70,7 +70,7 @@ function boardHtml() {
         </div>
       </div>
     </div>
-    <div id="addTaskBoard" onclick="closeAddTask()" class="addTaskContainer">
+    <div id="addTaskBoard" onclick="triggerButton()" class="addTaskContainer">
       <div onclick="eventStopPropagation(event)" class="addTaskBoard" id="boardAddTask"></div>
     </div>
     `;

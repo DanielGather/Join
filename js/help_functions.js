@@ -17,21 +17,23 @@ function changeTimeFormat(wrongFormat) {
   return rightFormat;
 }
 
-function svgColors(rightTask) {
-  let svgId = rightTask.priority == "urgent" ? "svgUrgent" : rightTask.priority == "medium" ? "svgMedium" : rightTask.priority == "low" ? "svgLow" : "";
-  let svgContainer = document.getElementById(`${svgId}`);
-  svgContainer.removeAttribute("class");
-}
+// function svgColors(rightTask) {
+//   let svgId = rightTask.priority == "urgent" ? "svgUrgent" : rightTask.priority == "medium" ? "svgMedium" : rightTask.priority == "low" ? "svgLow" : "";
+//   let svgContainer = document.getElementById(`${svgId}`);
+//   svgContainer.removeAttribute("class");
+// }
 
 function highlightRightPriority(rightTask) {
-  let urgentId = document.getElementById("urgentButton");
-  let mediumId = document.getElementById("mediumButton");
-  let lowId = document.getElementById("lowButton");
-  let backgroundColorPriority = rightTask.priority == "urgent" ? "#f33d00" : rightTask.priority == "medium" ? "#ffa800" : rightTask.priority == "low" ? "#7ae228" : "";
-  let priority = rightTask.priority == "urgent" ? urgentId : rightTask.priority == "medium" ? mediumId : rightTask.priority == "low" ? lowId : "";
-  priority.style.backgroundColor = backgroundColorPriority;
-  priority.style.color = "white";
-  svgColors(rightTask);
+  // let urgentId = document.getElementById("urgentButton");
+  // let mediumId = document.getElementById("mediumButton");
+  // let lowId = document.getElementById("lowButton");
+  let priority = rightTask.priority;
+  setButtonColorForPrio(priority);
+  // let backgroundColorPriority = rightTask.priority == "urgent" ? "#f33d00" : rightTask.priority == "medium" ? "#ffa800" : rightTask.priority == "low" ? "#7ae228" : "";
+  // let priority = rightTask.priority == "urgent" ? urgentId : rightTask.priority == "medium" ? mediumId : rightTask.priority == "low" ? lowId : "";
+  // priority.style.backgroundColor = backgroundColorPriority;
+  // priority.style.color = "white";
+  // svgColors(rightTask);
 }
 
 function eventStopPropagation(event) {
@@ -143,14 +145,13 @@ function uncheckCheckboxen() {
 
 async function setCheckboxesBasedOnFirebaseData(taskId) {
   let toDos = await getData("toDos");
-    allToDos = Object.entries(toDos);
+  allToDos = Object.entries(toDos);
   let task = allToDos.filter((toDo) => toDo[1]["id"] === taskId);
-  if(task[0][1]["assignedTo"] !== undefined){
+  if (task[0][1]["assignedTo"] !== undefined) {
     let assignedToEntries = Object.entries(task[0][1]["assignedTo"]);
     assignedToEntries.forEach(([, emailId]) => {
       let checkbox = document.getElementById(emailId);
       checkbox.checked = true;
     });
-
   }
 }

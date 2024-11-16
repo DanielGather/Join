@@ -269,12 +269,13 @@ function showTask(task) {
 
 function closeBigTask() {
   if (editTaskOpen) {
-    document.getElementById("svgUrgent").style.color = "#ff3d00";
-    document.getElementById("svgMedium").style.color = "#ffa800";
-    document.getElementById("svgLow").style.color = "#7ae229";
-    document.getElementById("bigTask").style.display = "none";
+    // document.getElementById("svgUrgent").style.color = "#ff3d00";
+    // document.getElementById("svgMedium").style.color = "#ffa800";
+    // document.getElementById("svgLow").style.color = "#7ae229";
+    // document.getElementById("bigTask").style.display = "none";
   } else {
     document.getElementById("bigTask").style.display = "none";
+    document.getElementById("addTaskBoard").style.display = "none";
   }
   bigTaskActive = false;
   editTaskOpen = false;
@@ -383,7 +384,8 @@ function triggerButton() {
   if (editTaskOpen == false) {
     closeBigTask();
   } else {
-    document.getElementById("createTask").click();
+    document.getElementById('createTaskEdit').click();
+    // document.querySelector("form").submit();
   }
 }
 

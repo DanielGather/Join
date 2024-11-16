@@ -6,7 +6,7 @@ async function editTaskBoard(task, date) {
       <div class="edit-assigned-container">
         <div class="title-description-assigned">
           <label class="addTask-label"><span class="star">*</span></label>
-          <input id="${task["id"]}_headline" onblur="changeDataInFireBase(${task['id']}, 'headline')" required class="title-input" value="${task.headline}" placeholder="Enter a title"/>
+          <input id="${task["id"]}_headline" name="headline" onblur="changeDataInFireBase(${task['id']}, 'headline')" required class="title-input" value="${task.headline}" placeholder="Enter a title"/>
         </div>
 
         <div class="title-description-assigned">
@@ -20,9 +20,17 @@ async function editTaskBoard(task, date) {
         <div class="prio-container">
           <label class="addTask-label">Prio</label>
           <div class="prio-buttons">
-            <button type="button" onclick="chooseTaskPrioType('Urgent'); changeDataInFireBase(${task['id']},'priority', 'urgent')" id="urgentButton" class="urgent-medium-low-buttons">Urgent ${urgentSvg}</button>
+          <button type="button" class="urgentButton" id="urgentButton" onclick="chooseTaskPrioType('urgent'); changeDataInFireBase(${task['id']},'priority', 'urgent')">Urgent <img id="urgentButtonImg"
+                                            src="./assets/img/prio_urgent.svg"></button>
+                                    <button type="button" class="mediumButton" id="mediumButton" onclick="chooseTaskPrioType('medium'); changeDataInFireBase(${task['id']},'priority', 'medium')">Medium <img id="mediumButtonImg"
+                                            src="./assets/img/prio_medium.svg"></button>
+                                    <button type="button" class="lowButton" id="lowButton" onclick="chooseTaskPrioType('low'); changeDataInFireBase(${task['id']},'priority', 'low')">Low <img id="lowButtonImg"
+                                            src="./assets/img/prio_low.svg"></button>
+
+
+            <!-- <button type="button" onclick="chooseTaskPrioType('Urgent'); changeDataInFireBase(${task['id']},'priority', 'urgent')" id="urgentButton" class="urgent-medium-low-buttons">Urgent ${urgentSvg}</button>
             <button type="button" onclick="chooseTaskPrioType('Medium'); changeDataInFireBase(${task['id']},'priority', 'medium')" id="mediumButton" class="urgent-medium-low-buttons">Medium ${mediumSvg}</button>
-            <button type="button" onclick="chooseTaskPrioType('Low'); changeDataInFireBase(${task['id']},'priority', 'low')" id="lowButton" class="urgent-medium-low-buttons">Low ${lowSvg}</button>
+            <button type="button" onclick="chooseTaskPrioType('Low'); changeDataInFireBase(${task['id']},'priority', 'low')" id="lowButton" class="urgent-medium-low-buttons">Low ${lowSvg}</button> -->
           </div>
         </div>
         <div class="title-description-assigned">
@@ -102,7 +110,7 @@ async function editTaskBoard(task, date) {
     <div class="form-confirmation">
       <div class="required"><span class="star">*</span>This field is required</div>
       <div class="clear-create-button">
-        <button class="create-task-button" type="submit" id="createTask">Ok<img src="./assets/img/checked.svg" /></button>
+        <button class="create-task-button" type="submit" id="createTaskEdit">Ok<img src="./assets/img/checked.svg" /></button>
       </div>
     </div>
   </form>

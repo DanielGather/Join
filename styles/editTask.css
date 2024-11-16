@@ -28,7 +28,6 @@ img {
   display: flex;
   height: 100%;
   flex-direction: column;
-  gap: 82px;
 }
 
 .subTaskList {
