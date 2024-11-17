@@ -436,6 +436,7 @@ textarea {
     align-items: center;
     gap: 12px;
     padding: 16px;
+    font-size: 20px;
 }
 
 .create-task-button {
@@ -445,6 +446,7 @@ textarea {
     gap: 12px;
     padding: 16px;
     cursor: not-allowed;
+    font-size: 21px;
 }
 
 .create-task-button:enabled {
