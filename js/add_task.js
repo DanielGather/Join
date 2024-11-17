@@ -449,3 +449,16 @@ function initializeEventListenerKeydownTitleInput() {
         });
     }
 }
+
+
+function handleClickAnywhere(event) {
+    let dropdownMenu = document.getElementById('dropDownMenu');
+    let dropdownContainer = document.querySelector('.input-dropDownMenu-container');
+    let imgDropdownToggle = document.getElementById('imgDropdownToggle');
+    if (!dropdownContainer.contains(event.target)) {
+        dropdownMenu.classList.add('d-none');
+        imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+    }
+}
+
+document.addEventListener('click', handleClickAnywhere);

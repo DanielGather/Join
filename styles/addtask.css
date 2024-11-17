@@ -407,6 +407,7 @@ textarea {
     padding: 8px;
     background-color: white;
     cursor: pointer;
+    margin-top: 4px;
 }
 
 .choose-category-container:hover,
