@@ -154,6 +154,7 @@ async function setCheckboxesBasedOnFirebaseData(taskId) {
       checkbox.checked = true;
     });
   }
+  renderInitials();
 }
 
 function setCounter() {

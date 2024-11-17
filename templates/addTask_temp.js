@@ -10,8 +10,8 @@ function temp_generateHtmlAssignedToContacts(contact) {
     `
 }
 
-async function renderContactInitials(email){
-    await renderInitials()
+function renderContactInitials(email){
+    renderInitials()
     if(editTaskOpen){
         addAssignedToToFireBase(email)
     }

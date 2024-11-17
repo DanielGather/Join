@@ -66,8 +66,7 @@ function renderAssignedTo(element) {
 
 async function renderContactsDropDown(taskId) {
   await toggleAssignedToDropDown();
-  await updateCheckbox(taskId);
-  renderContactInitials();
+  updateCheckbox(taskId);
 }
 
 async function updateCheckbox(taskId) {
