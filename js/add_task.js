@@ -224,6 +224,22 @@ function setCategory(category) {
     imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
     selectedCategory = category;
     console.log('category ist:', selectedCategory);
+    checkIfCreateTaskButtonCanBeEnabled();
+}
+
+
+function checkIfCreateTaskButtonCanBeEnabled() {
+    const titleInput = document.getElementById("addTaskTitle");
+    const dateInput = document.getElementById("inputDate");
+    const isTitleFilled = titleInput && titleInput.value.trim() !== "";
+    const isDateFilled = dateInput && dateInput.value.trim() !== "";
+    const isCategorySelected = selectedCategory !== null;
+    const createTaskButton = document.getElementById("createTask");
+    if (isTitleFilled && isDateFilled && isCategorySelected) {
+        createTaskButton.disabled = false;
+    } else {
+        createTaskButton.disabled = true;
+    }
 }
 
 
@@ -392,7 +408,6 @@ document.addEventListener('DOMContentLoaded', function() {
         subtasksInput.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
-                console.log('Enter-Taste von addsubmit wurde gedrückt');
                 addSubTask();
             }
         });
@@ -402,8 +417,25 @@ document.addEventListener('DOMContentLoaded', function() {
         addTaskTitle.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
-                console.log('enter taste test test test');
             }
         });
     }
+    initializeEventListenerInputTitle();
+    initializeEventListenerChangeDate();
 });
+
+
+function initializeEventListenerInputTitle() {
+    const addTaskTitle = document.getElementById('addTaskTitle');
+    if (addTaskTitle) {
+        addTaskTitle.addEventListener('input', checkIfCreateTaskButtonCanBeEnabled);
+    }
+}
+
+
+function initializeEventListenerChangeDate() {
+    const inputDate = document.getElementById('inputDate');
+    if (inputDate) {
+        inputDate.addEventListener('change', checkIfCreateTaskButtonCanBeEnabled);
+    }
+}
