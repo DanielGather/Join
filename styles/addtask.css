@@ -435,13 +435,7 @@ textarea {
     justify-content: center;
     align-items: center;
     gap: 12px;
-    height: 46px;
-    width: 72px;
-    border-radius: 10px;
-    border: 1px solid #2a3647;
-    background-color: var(--button-background-color-bright);
-    font-size: var(--button-font-size);
-    cursor: pointer;
+    padding: 16px;
 }
 
 .create-task-button {
@@ -449,15 +443,7 @@ textarea {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    height: 46px;
-    width: 134px;
-    border-radius: var(--button-radius);
-    border: 1px solid #2a3647;
-    background-color: var(--button-background-color-dark);
-    color: white;
-    font-size: var(--button-font-size);
-    font-weight: var(--button-font-weight);
-    /* cursor: pointer; */
+    padding: 16px;
     cursor: not-allowed;
 }
 
