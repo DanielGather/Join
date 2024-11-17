@@ -80,10 +80,11 @@ function guestLogIn() {
 function userLogIn(event) {
     event.preventDefault();
 
-    if (checkPasswordAndUser()) {
+    if (checkPasswordAndUser()) {        
         const user = getUserFromLogIn();
+        
         let remember = document.getElementById('rememberCheckbox').checked;
-        setUser(user.id, remember);
+        setUser(user[0], remember);
         window.location.href = "./summary.html";
     } else {
         colorWrongInp('inpMail');
@@ -110,9 +111,11 @@ function checkPasswordAndUser() {
 }
 
 /**
- * Retrieves the user object matching the email input.
- * @returns {Object} The user object containing properties like name, email, password, and others.
+ * Retrieves the user array matching the email input.
+ * @returns {Array} The user array containing the id and an object whit user properties like name, email, password, and others.
  * @example
+ * [
+ * "-asfhssdfa783493",
  * {
  *   color: "#00A1E9",
  *   email: "example@mail.com",
@@ -121,10 +124,11 @@ function checkPasswordAndUser() {
  *   name: "John Doe",
  *   password: "SecurePass123"
  * }
+ * ]
  */
 function getUserFromLogIn() {
     const inpEmail = document.getElementById('inpMail').value.trim();
-    return contactsLS.find(contact => contact[1].email === inpEmail)[1];
+    return contactsLS.find(contact => contact[1].email === inpEmail);
 }
 
 /**
@@ -134,8 +138,8 @@ function fillRememberUser() {
     let id = localStorage.getItem('user');
     let user = getUserFromContacts(id);
 
-    document.getElementById('inpMail').value = user.email;
-    document.getElementById('inpPass').value = user.password;
+    document.getElementById('inpMail').value = user[1].email;
+    document.getElementById('inpPass').value = user[1].password;
     document.getElementById('rememberCheckbox').checked = true;
 }
 

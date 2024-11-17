@@ -155,3 +155,10 @@ async function setCheckboxesBasedOnFirebaseData(taskId) {
     });
   }
 }
+
+function setCounter() {
+  let counter = parseInt(localStorage.getItem("counter") || "0", 10);
+  counter += 1;
+  localStorage.setItem("counter", counter);
+  return counter;
+}

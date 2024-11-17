@@ -1,14 +1,17 @@
 window.addEventListener('resize', closeMobileModal);
 
 let editId;
+let allToDosArr;
 
 async function contactsJS() {
     renderContactsLetter();
+    await getAllToDos();
 }
 
 async function updatePage() {
     await updateLS();
     renderContactsLetter();
+    await getAllToDos();
 }
 
 function renderContactsLetter() {
@@ -144,7 +147,8 @@ async function saveEdit(event) {
     editContact.letter = editContact.name.charAt(0).toUpperCase();
     editContact.color = contact.color;
     if (contact.password) {editContact.password = contact.password};
-
+    
+    await findAssignedEmail(contact.email, editContact.email);
     await putData(`contacts/${editId}`, editContact);
     closeModal('editContactDialog');
     await openNewContact(editId);
@@ -161,6 +165,7 @@ function deleteButtonModal(id) {
 
 async function deleteContact(id) {
     if (id !== undefined) {
+        await findAssignedEmail(idToContact(id).email);
         await deleteData(`contacts/${id}`);
         if (id == userId) {
             deleteUser();
@@ -245,9 +250,41 @@ function showAlert() {
     }, 3000);
 }
 
+async function getAllToDos() {
+    allToDosArr = await getWhoelParthArr('toDos');
+}
+
+async function findAssignedEmail(searchMail, newMail = false) {
+    for (let index = 0; index < allToDosArr.length; index++) {
+        const assignesObj = allToDosArr[index][1].assignedTo;
+        for (const key in assignesObj) {
+            if (assignesObj[key] == searchMail) {
+                const toDoId = allToDosArr[index][0];
+                if (newMail) {
+                    editAssignedMail(toDoId, key, newMail);
+                } else {
+                    deleteAssigned(toDoId, key);
+                }
+            }
+        }
+    }
+}
+
+async function editAssignedMail(id, key, newMail){
+    await putData(`toDos/${id}/assignedTo/${key}`, newMail);
+}
+
+async function deleteAssigned(id, key){
+    await deleteData(`toDos/${id}/assignedTo/${key}`);
+}
 
 
 
+
+
+
+
+//########################################################################
 
 // backup
 
@@ -389,7 +426,6 @@ let demo = [
         "color": "#6E52FF"
     }
 ]
-    
 
 function adAllContacts(list) {
     list.forEach(element => postData('contacts', element))

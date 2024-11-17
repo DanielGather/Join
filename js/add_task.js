@@ -35,6 +35,19 @@ function clear() {
     document.getElementById('rendered-task-container').innerHTML = '';
     document.getElementById('rendered-task-container').style.opacity = '0';
     subtaskArray = [];
+    resetCheckboxes();
+}
+
+
+function resetCheckboxes() {
+    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    checkedContactNames = [];
+    checkedContactInitials = [];
+    checkedContactColors = [];
+    assignedToContacts = null;
 }
 
 
@@ -211,6 +224,22 @@ function setCategory(category) {
     imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
     selectedCategory = category;
     console.log('category ist:', selectedCategory);
+    checkIfCreateTaskButtonCanBeEnabled();
+}
+
+
+function checkIfCreateTaskButtonCanBeEnabled() {
+    const titleInput = document.getElementById("addTaskTitle");
+    const dateInput = document.getElementById("inputDate");
+    const isTitleFilled = titleInput && titleInput.value.trim() !== "";
+    const isDateFilled = dateInput && dateInput.value.trim() !== "";
+    const isCategorySelected = selectedCategory !== null;
+    const createTaskButton = document.getElementById("createTask");
+    if (isTitleFilled && isDateFilled && isCategorySelected) {
+        createTaskButton.disabled = false;
+    } else {
+        createTaskButton.disabled = true;
+    }
 }
 
 
@@ -374,23 +403,62 @@ function showAddTaskSuccessPopup() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+    initializeEventListenerKeydownSubtaskInput();
+    initializeEventListenerKeydownTitleInput();
+    initializeEventListenerInputTitle();
+    initializeEventListenerChangeDate();
+});
+
+
+function initializeEventListenerInputTitle() {
+    const addTaskTitle = document.getElementById('addTaskTitle');
+    if (addTaskTitle) {
+        addTaskTitle.addEventListener('input', checkIfCreateTaskButtonCanBeEnabled);
+    }
+}
+
+
+function initializeEventListenerChangeDate() {
+    const inputDate = document.getElementById('inputDate');
+    if (inputDate) {
+        inputDate.addEventListener('change', checkIfCreateTaskButtonCanBeEnabled);
+    }
+}
+
+
+function initializeEventListenerKeydownSubtaskInput() {
     const subtasksInput = document.getElementById('subtasks-input');
     if (subtasksInput) {
         subtasksInput.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
-                console.log('Enter-Taste von addsubmit wurde gedrückt');
                 addSubTask();
             }
         });
     }
+}
+
+
+function initializeEventListenerKeydownTitleInput() {
     const addTaskTitle = document.getElementById('addTaskTitle');
     if (addTaskTitle) {
         addTaskTitle.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
-                console.log('enter taste test test test');
             }
         });
     }
-});
+}
+
+
+function handleClickAnywhere(event) {
+    let dropdownMenu = document.getElementById('dropDownMenu');
+    let dropdownContainer = document.querySelector('.input-dropDownMenu-container');
+    let imgDropdownToggle = document.getElementById('imgDropdownToggle');
+    if (!dropdownContainer.contains(event.target)) {
+        dropdownMenu.classList.add('d-none');
+        imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+    }
+}
+
+document.addEventListener('click', handleClickAnywhere);

@@ -407,6 +407,7 @@ textarea {
     padding: 8px;
     background-color: white;
     cursor: pointer;
+    margin-top: 4px;
 }
 
 .choose-category-container:hover,
@@ -456,6 +457,11 @@ textarea {
     color: white;
     font-size: var(--button-font-size);
     font-weight: var(--button-font-weight);
+    /* cursor: pointer; */
+    cursor: not-allowed;
+}
+
+.create-task-button:enabled {
     cursor: pointer;
 }
 
