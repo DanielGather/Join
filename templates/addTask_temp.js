@@ -10,8 +10,8 @@ function temp_generateHtmlAssignedToContacts(contact) {
     `
 }
 
-function renderContactInitials(email){
-    renderInitials()
+async function renderContactInitials(email){
+    await renderInitials()
     if(editTaskOpen){
         addAssignedToToFireBase(email)
     }
@@ -32,7 +32,7 @@ function temp_generateHtmlRenderSubtasks(subtask, i) {
                 <li id="subtaskText-${i}">${subtask}</li>
                 <div class="subtask-icon-container">
                     <img src="./assets/img/subtask_pencil.svg" alt="pencil" onclick="editSubtask(${i})">
-                    <div class="subtask-separator"></div>
+                    <div class="subtask-separator"></div>   
                     <img src="./assets/img/delete.svg" alt="delete" onclick="deleteSubtask(${i})">
                 </div>
             </ul>

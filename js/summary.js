@@ -147,7 +147,7 @@ function greetRight(){
 function showRightUser(){
   let user = document.getElementById("currentUserLogin");
   console.log("user", userInfo);                             
-  if(userInfo == "quest"){                                    
+  if(userInfo == "guest"){                                    
     user.innerHTML == "Guest";
   } else {
     user.innerHTML = userInfo.name;                               

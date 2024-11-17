@@ -91,7 +91,7 @@ function returnAddTaskHtml() {
                         <div class="clear-create-button">
                             <button class="clear-button" type="submit" id="clear">Clear <img
                                     src="./assets/img/vector.svg"></button>
-                            <button class="create-task-button" type="submit" id="createTask">Create Task <img
+                            <button class="create-task-button" type="submit" disabled id="createTask">Create Task <img
                                     src="./assets/img/checked.svg"></button>
                         </div>
                     </div>

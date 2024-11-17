@@ -64,12 +64,13 @@ function renderAssignedTo(element) {
   }
 }
 
-async function renderContactsDropDown(taskId, trueOrFalse) {
-  await toggleAssignedToDropDown(trueOrFalse);
-  updateCheckbox(taskId, trueOrFalse);
+async function renderContactsDropDown(taskId) {
+  await toggleAssignedToDropDown();
+  await updateCheckbox(taskId);
+  renderContactInitials();
 }
 
-function updateCheckbox(taskId, trueOrFalse) {
+async function updateCheckbox(taskId) {
   uncheckCheckboxen();
   setCheckboxesBasedOnFirebaseData(taskId);
 }
