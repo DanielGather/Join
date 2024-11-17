@@ -403,23 +403,8 @@ function showAddTaskSuccessPopup() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    const subtasksInput = document.getElementById('subtasks-input');
-    if (subtasksInput) {
-        subtasksInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                addSubTask();
-            }
-        });
-    }
-    const addTaskTitle = document.getElementById('addTaskTitle');
-    if (addTaskTitle) {
-        addTaskTitle.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-            }
-        });
-    }
+    initializeEventListenerKeydownSubtaskInput();
+    initializeEventListenerKeydownTitleInput();
     initializeEventListenerInputTitle();
     initializeEventListenerChangeDate();
 });
@@ -437,5 +422,30 @@ function initializeEventListenerChangeDate() {
     const inputDate = document.getElementById('inputDate');
     if (inputDate) {
         inputDate.addEventListener('change', checkIfCreateTaskButtonCanBeEnabled);
+    }
+}
+
+
+function initializeEventListenerKeydownSubtaskInput() {
+    const subtasksInput = document.getElementById('subtasks-input');
+    if (subtasksInput) {
+        subtasksInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                addSubTask();
+            }
+        });
+    }
+}
+
+
+function initializeEventListenerKeydownTitleInput() {
+    const addTaskTitle = document.getElementById('addTaskTitle');
+    if (addTaskTitle) {
+        addTaskTitle.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+            }
+        });
     }
 }
