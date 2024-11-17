@@ -147,8 +147,6 @@ async function saveEdit(event) {
     editContact.letter = editContact.name.charAt(0).toUpperCase();
     editContact.color = contact.color;
     if (contact.password) {editContact.password = contact.password};
-
-    console.log(contact.email, editContact.email);
     
     await findAssignedEmail(contact.email, editContact.email);
     await putData(`contacts/${editId}`, editContact);
@@ -262,7 +260,6 @@ async function findAssignedEmail(searchMail, newMail = false) {
         for (const key in assignesObj) {
             if (assignesObj[key] == searchMail) {
                 const toDoId = allToDosArr[index][0];
-                console.log(toDoId, key);
                 if (newMail) {
                     editAssignedMail(toDoId, key, newMail);
                 } else {
