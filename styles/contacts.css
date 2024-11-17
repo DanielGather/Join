@@ -1,6 +1,7 @@
 main {
   display: flex;
   overflow: unset;
+  background-color: unset;
 }
 
 .sec-contacts {

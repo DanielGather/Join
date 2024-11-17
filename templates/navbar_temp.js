@@ -1,3 +1,9 @@
+/**
+ * Generates the HTML structure for the navigation bar.
+ * 
+ * @function
+ * @returns {string} - A string containing the HTML structure of the navigation bar.
+ */
 function navbarTemplate() {
     return /*html*/`
         <section class="nav-logo d-none-nav">
