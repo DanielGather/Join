@@ -35,6 +35,19 @@ function clear() {
     document.getElementById('rendered-task-container').innerHTML = '';
     document.getElementById('rendered-task-container').style.opacity = '0';
     subtaskArray = [];
+    resetCheckboxes();
+}
+
+
+function resetCheckboxes() {
+    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    checkedContactNames = [];
+    checkedContactInitials = [];
+    checkedContactColors = [];
+    assignedToContacts = null;
 }
 
 
