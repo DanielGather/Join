@@ -1,5 +1,9 @@
 h1 {
     font-size: var(--h1-font-size);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #F6F7F8;
 }
 
 .main-addTask-container {
@@ -16,7 +20,7 @@ h1 {
 .form-container {
     display: flex;
     flex-direction: column;
-    gap: 52px;
+    gap: 62px;
 }
 
 .addTask-content-form-container {
@@ -56,10 +60,8 @@ h1 {
 }
 
 .dropDownContainer {
-    /* border: 1px solid #D1D1D1; */
     border-radius: var(--button-radius);
     background-color: white;
-    /* margin-top: -42px; */
     padding-top: 8px;
     display: flex;
     flex-direction: column;
@@ -70,6 +72,7 @@ h1 {
     position: absolute;
     max-width: 530px;
     width: 100%;
+    z-index: 11;
 }
 
 .inputAssignedToContainer:focus-within,
@@ -191,7 +194,6 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    /* display: none; */
     display: flex;
     position: relative;
 }
@@ -200,7 +202,6 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    /* display: none; */
     display: flex;
 }
 
@@ -258,7 +259,6 @@ h1 {
 }
 
 .subtask-single-container {
-    /* background-color: #E7E7E7; */
     border-radius: var(--input-select-textarea-radius);
     display: flex;
     justify-content: center;
@@ -288,15 +288,12 @@ h1 {
 }
 
 .subtaskList {
-    /* padding-bottom: 8px; */
-    /* padding: 6px 0; */
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
 .subtask-icon-container {
-    /* display: flex; */
     justify-content: space-between;
     align-items: center;
     gap: 12px;
@@ -418,9 +415,14 @@ textarea {
 
 .form-confirmation {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 20px;
+    padding-bottom: 6px;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    background-color: #F6F7F8;
 }
 
 .clear-create-button {
@@ -435,8 +437,13 @@ textarea {
     justify-content: center;
     align-items: center;
     gap: 12px;
-    padding: 16px;
-    font-size: 20px;
+    padding: 6px;
+    font-size: 18px;
+    height: 42px;
+}
+
+.clear-button:hover svg path {
+    stroke: #29ABE2;
 }
 
 .create-task-button {
@@ -444,9 +451,11 @@ textarea {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    padding: 16px;
+    padding: 6px;
     cursor: not-allowed;
-    font-size: 21px;
+    font-size: 18px;
+    width: 160px;
+    height: 42px;
 }
 
 .create-task-button:enabled {
@@ -482,6 +491,10 @@ textarea {
     font-size: 10px;
 }
 
+.required-mobile-view {
+    font-size: 10px;
+}
+
 .d-none {
     display: none;
 }
@@ -493,10 +506,6 @@ textarea {
 
 
 @media(min-width: 450px) {
-    /* .clear-button {
-        display: flex;
-    } */
-
     .subtasks-container,
     .category-header-container,
     .urgent-medium-low-buttons,
@@ -517,18 +526,22 @@ textarea {
     .title-description-assigned-container,
     .dueDate-prio-category-subtasks-container {
         flex: 1;
-        /* Sorgt dafür, dass beide Container den verfügbaren Platz gleichmäßig nutzen */
     }
-
-    /* .category-container {
-        display: flex;
-    } */
-
-    /* .subtasks-container {
-        display: flex;
-    } */
 
     .addTask-seperator-container {
         display: block;
+    }
+
+    .required {
+        display: flex;
+    }
+
+    .required-mobile-view {
+        display: none;
+    }
+
+    .form-confirmation {
+        display: flex;
+        justify-content: space-between;
     }
 }
