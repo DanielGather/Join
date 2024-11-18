@@ -14,7 +14,7 @@ function boardJS() {
 }
 
 function renderBoard() {
-  let htmlContent = document.getElementById("main");
+  let htmlContent = document.getElementById("main-board");
   htmlContent.innerHTML = boardHtml();
 }
 
@@ -234,6 +234,18 @@ function openTask(id) {
   showTask(task[0]);
 }
 
+
+
+/**
+ * Displays the details of a task in the "Big Task" view and updates its UI elements.
+ * 
+ * @param {Object} task - The task object containing details to display.
+ * @description
+ * This function displays the task details in the "Big Task" view by setting the display style of the "bigTask" element to "flex",
+ * populating it with the content returned by `technicalTaskBig(task)`, and showing the "bigTaskCard" element. 
+ * Additionally, it updates the task-related UI components, such as rendering subtasks, assigning the task to a user, 
+ * displaying the correct priority, and setting up the task's color based on the assigned user.
+ **/
 function showTask(task) {
   document.getElementById("bigTask").style.display = "flex";
   document.getElementById("bigTask").innerHTML = technicalTaskBig(task);
@@ -245,6 +257,14 @@ function showTask(task) {
   getRightPriority(task);
 }
 
+
+/**
+ * Closes the "Big Task" view and the "Add Task" board, and resets relevant flags.
+ * 
+ * @description
+ * This function hides the elements with the IDs "bigTask" and "addTaskBoard" by setting their CSS display property to "none". 
+ * It also resets the flags `bigTaskActive` and `editTaskOpen` to `false`, and then calls `updateHTML` to refresh the page.
+ **/
 function closeBigTask() {
   document.getElementById("bigTask").style.display = "none";
   document.getElementById("addTaskBoard").style.display = "none";
@@ -253,9 +273,24 @@ function closeBigTask() {
   updateHTML();
 }
 
+/**
+ * Closes the "Add Task" board by setting its display style to "none".
+ **/
 function closeAddTask() {
   document.getElementById("addTaskBoard").style.display = "none";
 }
+
+/**
+ * Updates data in Firebase based on the given ID, context, and priority.
+
+ * @param {string} id - The unique ID of the item to update.
+ * @param {string|null} [context=null] - The context indicating which property of the item to update (e.g., "title", "date").
+ * @param {string|null} [priority=null] - An optional value that takes precedence over the default value retrieved from the DOM.
+ * @description
+ * This function determines the new value for a field based on the provided context and priority. 
+ * If the context is "date", the `changeTimeFormat` function is used to adjust the title's format. 
+ * Finally, the `putData` function is called to send the updated data to the specified path in the Firebase database.
+ **/
 
 async function changeDataInFireBase(id, context = null, priority = null) {
   let title;

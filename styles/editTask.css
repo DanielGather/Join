@@ -229,6 +229,13 @@ img {
   gap: 1rem;
 }
 
+.prio-buttons button:hover{
+  border-radius: var(--button-radius);
+  font-weight: 400;
+  background-color: white;
+  box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.15);
+}
+
 .prio-buttons img {
   width: 20px;
   height: 14px;
@@ -387,7 +394,6 @@ textarea {
   align-items: center;
   justify-content: center;
   height: 2.875rem;
-  width: 5rem;
   border-radius: var(--button-radius);
   border: 1px solid #2a3647;
   background-color: var(--button-background-color-dark);

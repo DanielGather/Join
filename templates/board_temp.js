@@ -4,7 +4,7 @@ function boardHtml() {
       <div class="boardMobile">
       <div class="d-flex jc-sb">
         <h1 style="font-size: 61px">Board</h1>
-        <img class="responsiveButton" src="./assets/img/plus.svg" alt="" />
+        <img onclick="showAddTask()" class="responsiveButton" src="./assets/img/plus.svg" alt="" />
       </div>
       <div class="input-container">
         <input id="mobile" onkeyup="searchTask('mobile')" type="text" placeholder="Dein Text" />
