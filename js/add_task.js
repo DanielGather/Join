@@ -27,13 +27,14 @@ function clear() {
     document.getElementById('inputDate').value = '';
     document.getElementById('subtasks-input').value = '';
     priority = null;
-    setButtonColorForPrio(null,"AddTask");
+    setButtonColorForPrio(null, "AddTask");
     document.getElementById('category-header').innerText = 'Select task category';
     selectedCategory = null;
     document.getElementById('dropDownMenu').innerHTML = '';
     document.getElementById('renderedInitialsContainer').innerHTML = '';
     document.getElementById('rendered-task-container').innerHTML = '';
-    document.getElementById('rendered-task-container').style.opacity = '0';
+    // document.getElementById('rendered-task-container').style.opacity = '0';
+    document.getElementById('rendered-task-container').classList.add('d-none');
     subtaskArray = [];
     resetCheckboxes();
 }
@@ -96,7 +97,7 @@ function getInputValues(idNum) {
 
 async function getAllToDos() {
     let data = await getData("toDos");
-    if(!data){
+    if (!data) {
         console.warn('data not avaiable or path doesnt exist ')
         allCurrentIds = [1];
         return;
@@ -112,7 +113,7 @@ async function getAllToDos() {
 
 
 function createNewId() {
-    if(allCurrentIds.length === 0){
+    if (allCurrentIds.length === 0) {
         return 1;
     }
     let maxId = Math.max(...allCurrentIds);
@@ -178,7 +179,7 @@ function setButtonColorForPrio(priorityType, idVariable) {
 }
 
 
-function resetButtonStyles(idVariable) { 
+function resetButtonStyles(idVariable) {
     document.getElementById(`urgentButton${idVariable}`).style.backgroundColor = '';
     document.getElementById(`urgentButton${idVariable}`).style.color = '';
     document.getElementById(`urgentButtonImg${idVariable}`).src = './assets/img/prio_urgent.svg';
@@ -244,7 +245,8 @@ function checkIfCreateTaskButtonCanBeEnabled() {
 
 
 function addSubTask() {
-    document.getElementById('rendered-task-container').style = 'opacity:1';
+    // document.getElementById('rendered-task-container').style = 'opacity:1';
+    document.getElementById('rendered-task-container').classList.remove('d-none');
     let subtaskInput = document.getElementById('subtasks-input').value.trim();
     if (subtaskInput) {
         subtaskArray.push(subtaskInput);
@@ -314,7 +316,7 @@ function deleteInputSubtaskValue() {
 
 
 function renderInitials() {
-    console.log("Teste True or False ", );
+    console.log("Teste True or False ",);
     checkedContactNames = [];
     checkedContactInitials = [];
     checkedContactColors = [];
@@ -332,9 +334,9 @@ function renderInitials() {
         }
     })
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
-    renderedInitialsContainer.innerHTML = ''; 
+    renderedInitialsContainer.innerHTML = '';
     checkedContactInitials.forEach((initial, index) => {
-        let color = checkedContactColors[index]; 
+        let color = checkedContactColors[index];
         renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(initial, color);
     });
     console.log('die checkContactnames:', checkedContactNames);
@@ -368,7 +370,7 @@ function renderAssignedToContacts() {
     checkedContactNames.forEach(name => {
         let contact = contactsOnly.find(contact => contact.name === name);
         if (contact) {
-            dropDownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact );
+            dropDownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact);
         }
     });
     contactsOnly.forEach(contact => {
@@ -402,7 +404,7 @@ function showAddTaskSuccessPopup() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeEventListenerKeydownSubtaskInput();
     initializeEventListenerKeydownTitleInput();
     initializeEventListenerInputTitle();
@@ -429,7 +431,7 @@ function initializeEventListenerChangeDate() {
 function initializeEventListenerKeydownSubtaskInput() {
     const subtasksInput = document.getElementById('subtasks-input');
     if (subtasksInput) {
-        subtasksInput.addEventListener('keydown', function(event) {
+        subtasksInput.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
                 addSubTask();
@@ -442,7 +444,7 @@ function initializeEventListenerKeydownSubtaskInput() {
 function initializeEventListenerKeydownTitleInput() {
     const addTaskTitle = document.getElementById('addTaskTitle');
     if (addTaskTitle) {
-        addTaskTitle.addEventListener('keydown', function(event) {
+        addTaskTitle.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
             }
@@ -451,14 +453,14 @@ function initializeEventListenerKeydownTitleInput() {
 }
 
 
-// function handleClickAnywhere(event) {
-//     let dropdownMenu = document.getElementById('dropDownMenu');
-//     let dropdownContainer = document.querySelector('.input-dropDownMenu-container');
-//     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
-//     if (!dropdownContainer.contains(event.target)) {
-//         dropdownMenu.classList.add('d-none');
-//         imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
-//     }
-// }
+function handleClickAnywhere(event) {
+    let dropdownMenu = document.getElementById('dropDownMenu');
+    let dropdownContainer = document.querySelector('.input-dropDownMenu-container');
+    let imgDropdownToggle = document.getElementById('imgDropdownToggle');
+    if (!dropdownContainer.contains(event.target)) {
+        dropdownMenu.classList.add('d-none');
+        imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+    }
+}
 
-// document.addEventListener('click', handleClickAnywhere);
+document.addEventListener('click', handleClickAnywhere);

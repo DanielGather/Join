@@ -29,7 +29,7 @@
     <!-- <link rel="stylesheet" href="./styles/root.css">
     <link rel="stylesheet" href="./fonts.css"> -->
 
-    
+
 
 
 </head>
@@ -51,7 +51,8 @@
                         <div class="title-description-assigned-container">
                             <div class="title-description-assigned">
                                 <label class="addTask-label">Title<span class="star">*</span></label>
-                                <input required class="title-input" id="addTaskTitle" placeholder="Enter a title" autocomplete="off">
+                                <input required class="title-input" id="addTaskTitle" placeholder="Enter a title"
+                                    autocomplete="off">
                             </div>
 
                             <div class="title-description-assigned">
@@ -64,10 +65,12 @@
                                 <div class="input-dropDownMenu-container">
                                     <div class="inputAssignedToContainer">
                                         <input type="text" placeholder="Select contacts to assign">
-                                        <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown('false')"></div>
+                                        <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg"
+                                                alt="arrow_drop_down" id="imgDropdownToggle"
+                                                onclick="toggleAssignedToDropDown('false')"></div>
                                     </div>
                                     <div class="dropDownContainer d-none" id="dropDownMenu">
-                                        
+
                                     </div>
                                     <div class="renderedInitialsContainer" id="renderedInitialsContainer"></div>
                                 </div>
@@ -85,11 +88,14 @@
                             <div class="prio-container">
                                 <label class="addTask-label">Prio</label>
                                 <div class="prio-buttons">
-                                    <button type="button" class="urgentButton" id="urgentButtonAddTask" onclick="chooseTaskPrioType('urgent','AddTask')">Urgent <img id="urgentButtonImgAddTask"
-                                            src="./assets/img/prio_urgent.svg"></button>
-                                    <button type="button" class="mediumButton" id="mediumButtonAddTask" onclick="chooseTaskPrioType('medium','AddTask')">Medium <img id="mediumButtonImgAddTask"
-                                            src="./assets/img/prio_medium.svg"></button>
-                                    <button type="button" class="lowButton" id="lowButtonAddTask" onclick="chooseTaskPrioType('low','AddTask')">Low <img id="lowButtonImgAddTask"
+                                    <button type="button" class="urgentButton" id="urgentButtonAddTask"
+                                        onclick="chooseTaskPrioType('urgent','AddTask')">Urgent <img
+                                            id="urgentButtonImgAddTask" src="./assets/img/prio_urgent.svg"></button>
+                                    <button type="button" class="mediumButton" id="mediumButtonAddTask"
+                                        onclick="chooseTaskPrioType('medium','AddTask')">Medium <img
+                                            id="mediumButtonImgAddTask" src="./assets/img/prio_medium.svg"></button>
+                                    <button type="button" class="lowButton" id="lowButtonAddTask"
+                                        onclick="chooseTaskPrioType('low','AddTask')">Low <img id="lowButtonImgAddTask"
                                             src="./assets/img/prio_low.svg"></button>
                                 </div>
                             </div>
@@ -98,37 +104,47 @@
                                 <label class="addTask-label">Category <span class="star">*</span></label>
                                 <div class="category-header-container">
                                     <div id="category-header">Select task category</div>
-                                    <div class="arrow-drop-down-img"><img  src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgCategoryDropdownToggle" onclick="toggleCategoryDropDown()"></div>
+                                    <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg"
+                                            alt="arrow_drop_down" id="imgCategoryDropdownToggle"
+                                            onclick="toggleCategoryDropDown()"></div>
                                 </div>
                                 <div class="category-dropdown-container d-none" id="categoryDropdownMenu">
-                                    <div class="choose-category-container" onclick="setCategory('Technical Task')">Technical Task</div>
-                                    <div class="choose-category-container" onclick="setCategory('User Story')">User Story</div>
+                                    <div class="choose-category-container" onclick="setCategory('Technical Task')">
+                                        Technical Task</div>
+                                    <div class="choose-category-container" onclick="setCategory('User Story')">User
+                                        Story</div>
                                 </div>
                             </div>
 
                             <div class="subtasks-container">
                                 <label class="addTask-label">Subtasks</label>
                                 <div class="subtasks-input-add-container">
-                                    <input class="subtasks-input" id="subtasks-input" type="text" placeholder="Add new subtask" autocomplete="off">
-                                    <div class="add-subtask"><img src="./assets/img/add_dark.svg" alt="Plus-Icon" id="plusIcon" onclick="toggleSubtaskIcons()" ></div> 
+                                    <input class="subtasks-input" id="subtasks-input" type="text"
+                                        placeholder="Add new subtask" autocomplete="off">
+                                    <div class="add-subtask"><img src="./assets/img/add_dark.svg" alt="Plus-Icon"
+                                            id="plusIcon" onclick="toggleSubtaskIcons()"></div>
                                     <div class="close-separator-checked-container d-none" id="actionIcons">
-                                        <div class="subtask-close-icon"><img src="./assets/img/close.svg" alt="Close-Icon" onclick="deleteInputSubtaskValue()"></div>
+                                        <div class="subtask-close-icon"><img src="./assets/img/close.svg"
+                                                alt="Close-Icon" onclick="deleteInputSubtaskValue()"></div>
                                         <div class="subtask-separator"></div>
-                                        <div class="subtask-checked-icon"><img src="./assets/img/checked_subtask.svg" alt="Checked-Icon" onclick="addSubTask()"></div>
+                                        <div class="subtask-checked-icon"><img src="./assets/img/checked_subtask.svg"
+                                                alt="Checked-Icon" onclick="addSubTask()"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="rendered-task-container opacity-0" id="rendered-task-container"></div>
+                            <div class="rendered-task-container d-none" id="rendered-task-container"></div>
+                            <div class="required-mobile-view"><span class="star">*</span>This field is required</div>
                         </div>
                     </div>
 
                     <div class="form-confirmation">
-                        <div class="required"><span class="star">*</span>This field is required</div>
+                        <div class="required d-none"><span class="star">*</span>This field is required</div>
                         <div class="clear-create-button">
-                            <button class="clear-button" type="submit" id="clear">Clear <img
-                                    src="./assets/img/vector.svg"></button>
-                            <button class="create-task-button button-dark" type="submit" id="createTask" disabled>Create Task <img
-                                    src="./assets/img/checked.svg"></button>
+                            <button class="clear-button" type="submit" id="clear">Clear <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.24959 6.99984L11.4926 12.2428M1.00659 12.2428L6.24959 6.99984L1.00659 12.2428ZM11.4926 1.75684L6.24859 6.99984L11.4926 1.75684ZM6.24859 6.99984L1.00659 1.75684L6.24859 6.99984Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg></button>
+                            <button class="create-task-button button-dark" type="submit" id="createTask" disabled>Create
+                                Task <img src="./assets/img/checked.svg"></button>
                         </div>
                     </div>
                 </form>
