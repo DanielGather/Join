@@ -124,7 +124,7 @@ async function checkCheckbox(checkboxId, toDoId, value) {
 
 function returnEditableSubTask(task, context, value, index) {
   let idWithNoSpace = value.task.replace(/\s+/g, "");
-  document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += returnEditableSubTaskHTML(idWithNoSpace, task, value, index)
+  document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += returnEditableSubTaskHTML(idWithNoSpace, task, value, index);
 }
 
 function renderSubTask(task, context = "default") {
@@ -178,6 +178,14 @@ function editSubTask(id, context = "default", index, taskId, valueTask) {
   }
 }
 
+/**
+ * Generates HTML for editing a subtask, including an input field and action buttons.
+ * @param {string} id - The base ID used to identify the subtask element.
+ * @param {number} index - A unique identifier for the subtask to ensure proper element targeting.
+ * @param {string} taskId - The ID of the parent task containing the subtask.
+ * @param {string} valueTask - The current value of the subtask to be edited.
+ * @returns {string} - A string of HTML containing an input field and action buttons for the subtask.
+ */
 function changeToInputField(id, index, taskId, valueTask) {
   return `
     <input class="inputFieldEdit" id="${id}_input" type="text" value="${valueTask}">
@@ -186,12 +194,25 @@ function changeToInputField(id, index, taskId, valueTask) {
     `;
 }
 
+/**
+ * Toggles specific CSS classes on a subtask list element to update its appearance.
+ * @param {string} id - The base ID used to identify the list element.
+ * @param {number} index - A unique identifier to distinguish the subtask from others.
+ */
 function changeClassesOnList(id, index) {
   document.getElementById(`${id}_${index}`).classList.toggle("subTaskList");
   document.getElementById(`${id}_${index}`).classList.toggle("subTaskHover");
   document.getElementById(`${id}_${index}`).classList.toggle("inputFieldDesign");
 }
 
+/**
+ * Updates a task's display by changing an input field back to a list view,
+ * applying necessary class changes and updating the subtask in the database.
+ * @param {string} id - The base ID used for identifying the input and list elements.
+ * @param {number} index - The index of the task in the list.
+ * @param {string} taskId - The ID of the parent task containing the subtask.
+ * @param {string} valueTask - The current value of the subtask to be updated.
+ */
 function changeBackToList(id, index, taskId, valueTask) {
   let changeField = document.getElementById(`${id}_${index}`);
   let newValue = document.getElementById(`${id}_input`).value;
@@ -200,6 +221,13 @@ function changeBackToList(id, index, taskId, valueTask) {
   updateSubTask(valueTask, newValue, taskId);
 }
 
+/**
+ * Updates a subtask in the database with a new value.
+ *
+ * @param {string} valueTask - The current value of the subtask to be updated.
+ * @param {string} newValue - The new value to set for the subtask.
+ * @param {string} taskId - The ID of the parent task that contains the subtask.
+ */
 async function updateSubTask(valueTask, newValue, taskId) {
   let getTaskId = await getIdFromDb("/toDos", "id", taskId);
   let subTaskId = await getIdFromDb("/toDos/" + getTaskId + "/subtasks", "task", valueTask);
@@ -209,7 +237,7 @@ async function updateSubTask(valueTask, newValue, taskId) {
 
 /**
  * Deletes a subtask from both the DOM and the database.
- * The function removes the subtask element from the UI, retrieves the task and subtask IDs from the database, 
+ * The function removes the subtask element from the UI, retrieves the task and subtask IDs from the database,
  * and deletes the subtask data from the database.
  * @param {string} idWithNoSpace - The ID of the subtask element in the DOM (without spaces).
  * @param {number} index - The index of the subtask within the task's subtasks.
@@ -230,9 +258,6 @@ async function deleteSubTask(idWithNoSpace, index, taskId, valueTask) {
  * Removes the progress bar if no subtasks are defined.
  *
  * @param {Object} element - The task element containing subtasks.
- * @param {Object} element[1] - The details of the task.
- * @param {number} element[1].id - The unique ID of the task.
- * @param {Object|undefined} [element[1].subtasks] - The subtasks object, where each key is a subtask ID and its value is an object with subtask details.
  **/
 function calculateSubtaskProgress(element) {
   let id = element[1]["id"];
@@ -260,12 +285,11 @@ function openTask(id) {
 
 /**
  * Displays the details of a task in the "Big Task" view and updates its UI elements.
- * 
+ *
  * @param {Object} task - The task object containing details to display.
- * @description
  * This function displays the task details in the "Big Task" view by setting the display style of the "bigTask" element to "flex",
- * populating it with the content returned by `technicalTaskBig(task)`, and showing the "bigTaskCard" element. 
- * Additionally, it updates the task-related UI components, such as rendering subtasks, assigning the task to a user, 
+ * populating it with the content returned by `technicalTaskBig(task)`, and showing the "bigTaskCard" element.
+ * Additionally, it updates the task-related UI components, such as rendering subtasks, assigning the task to a user,
  * displaying the correct priority, and setting up the task's color based on the assigned user.
  **/
 function showTask(task) {
@@ -279,12 +303,10 @@ function showTask(task) {
   getRightPriority(task);
 }
 
-
 /**
  * Closes the "Big Task" view and the "Add Task" board, and resets relevant flags.
- * 
- * @description
- * This function hides the elements with the IDs "bigTask" and "addTaskBoard" by setting their CSS display property to "none". 
+ *
+ * This function hides the elements with the IDs "bigTask" and "addTaskBoard" by setting their CSS display property to "none".
  * It also resets the flags `bigTaskActive` and `editTaskOpen` to `false`, and then calls `updateHTML` to refresh the page.
  **/
 function closeBigTask() {
@@ -308,7 +330,6 @@ function closeAddTask() {
  * @param {string} id - The unique ID of the item to update.
  * @param {string|null} [context=null] - The context indicating which property of the item to update (e.g., "title", "date").
  * @param {string|null} [priority=null] - An optional value that takes precedence over the default value retrieved from the DOM.
- * @description
  * This function determines the new value for a field based on the provided context and priority. 
  * If the context is "date", the `changeTimeFormat` function is used to adjust the title's format. 
  * Finally, the `putData` function is called to send the updated data to the specified path in the Firebase database.
@@ -359,7 +380,6 @@ function setFocusOnDate(id) {
  *   - The element with the ID "addTaskBoard" is made visible and displayed as a flexbox.
  *   - The element with the ID "boardAddTask" is given the CSS class "show".
  *   - The content of the "boardAddTask" container is populated with HTML for adding a task.
- *
  * - If the window width is less than 1000 pixels:
  *   - The user is redirected to the page "./add_task.html".
  */
@@ -404,9 +424,7 @@ function triggerForm(event, id) {
 
 /**
  * The function is there to ensure that the form button is still triggered when you click next to the open task.
- *
  * @param {boolean} editTaskOpen - editTaskOpen is a global variable that checks whether the task is currently only open or whether it is currently in edit mode.
- *
  */
 function triggerButton() {
   if (editTaskOpen == false) {
@@ -418,11 +436,11 @@ function triggerButton() {
 }
 
 /**
- * Adds or removes a user from the `assignedTo` list of a task in Firebase, 
+ * Adds or removes a user from the `assignedTo` list of a task in Firebase,
  * based on the state of a checkbox.
- * This function retrieves the task ID and variables needed to update the 
- * `assignedTo` list in Firebase. If the checkbox associated with the user is 
- * checked, it adds the user's email to the `assignedTo` list. If unchecked, it 
+ * This function retrieves the task ID and variables needed to update the
+ * `assignedTo` list in Firebase. If the checkbox associated with the user is
+ * checked, it adds the user's email to the `assignedTo` list. If unchecked, it
  * removes the user from the list using `removeAssignedToFromFireBase`.
  * @param {string} email - The email address of the user to be added or removed.
  */
@@ -447,8 +465,8 @@ async function addAssignedToToFireBase(email) {
 
 /**
  * Removes a user from the `assignedTo` list of a task in Firebase.
- * This function retrieves the `assignedTo` entries of a task from Firebase and 
- * checks if the specified email address is present in the entries. If a matching 
+ * This function retrieves the `assignedTo` entries of a task from Firebase and
+ * checks if the specified email address is present in the entries. If a matching
  * entry is found, it deletes the corresponding entry in Firebase using its key.
  * @param {string} email - The email address of the user to be removed.
  * @param {string} getTaskId - The ID of the task from which the user will be removed.
