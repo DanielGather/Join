@@ -127,6 +127,7 @@ h3 {
 .add-contact-desk button {
   width: 100%;
   padding: 12px;
+  font-size: 21px;
 }
 
 .contact-s-card .contacts-name {
@@ -290,6 +291,7 @@ dialog:-internal-dialog-in-top-layer::backdrop {
 }
 
 .add-contact-form button {
+  font-size: 21px;
   padding: 10px 12px;
   margin-top: 16px;
   gap: 12px;
