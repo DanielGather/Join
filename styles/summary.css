@@ -60,7 +60,7 @@ h1 {
     ;
 }
 
-.main{
+.main {
     background-color: var(--main-background-color);
 }
 
@@ -114,7 +114,9 @@ h1 {
     background-color: white;
     border-radius: 12px;
     border: 1px solid var(--border-color);
-    transition: transform .1s;
+    /* transition: transform .1s; */
+
+    transition: transform 0.1s, background-color 0.3s, color 0.3s;
 }
 
 .urgent-box {
@@ -160,7 +162,8 @@ h1 {
     text-align: center;
     display: flex;
     flex-direction: column;
-    transition: transform .1s;
+    /* transition: transform .1s; */
+    transition: transform 0.1s, background-color 0.3s, color 0.3s;
 }
 
 .num-text {
@@ -193,11 +196,13 @@ h1 {
 }
 
 
-@media (max-width:440px){
-    .summary-main-content-box{
+
+@media (max-width:440px) {
+    .summary-main-content-box {
         padding: unset;
     }
 }
+
 @media(min-width: 440px) {
     .content-header-grid-container {
         display: grid;
@@ -216,24 +221,18 @@ h1 {
         width: 2px;
         grid-area: seperator;
     }
+}
 
+@media(min-width: 760px) {
     .greeting-container {
         display: flex;
         flex-direction: column;
         text-align: left;
     }
-
-    .done-box:hover,
-    .to-do-box:hover,
-    .urgent-deadline-box:hover,
-    .single-box-board-progress-feedback:hover {
-        transform: scale(1.2);
-        cursor: pointer;
-    }
 }
 
 
-@media(min-width: 1000px) {
+@media(min-width: 1024px) {
     .To-Do-Done-box {
         width: 560px;
         height: 168px;
@@ -308,10 +307,48 @@ h1 {
         font-size: 48px;
         font-weight: bold;
     }
-    
+
     .greeting-name {
         font-size: 64px;
         font-weight: bold;
         color: #29ABE2;
+    }
+
+    /* .done-box:hover,
+    .to-do-box:hover,
+    .urgent-deadline-box:hover,
+    .single-box-board-progress-feedback:hover {
+        transform: scale(1.2);
+        cursor: pointer;
+    } */
+
+
+
+    .urgent-deadline-box:hover {
+        background-color: #2A3647;
+        transform: scale(1.06);
+        cursor: pointer;
+    }
+
+    .urgent-deadline-box:hover .num-text,
+    .urgent-deadline-box:hover .summary-date,
+    .urgent-deadline-box:hover div {
+        color: white;
+    }
+
+    .urgent-deadline-box:hover .content-seperator-box {
+        background-color: white;
+    }
+
+
+    .single-box-board-progress-feedback:hover {
+        background-color: #2A3647;
+        transform: scale(1.06);
+        cursor: pointer;
+    }
+
+    .single-box-board-progress-feedback:hover .font-type2,
+    .single-box-board-progress-feedback:hover div {
+        color: white;
     }
 }
