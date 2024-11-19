@@ -207,6 +207,15 @@ async function updateSubTask(valueTask, newValue, taskId) {
   putData(path, newValue);
 }
 
+/**
+ * Deletes a subtask from both the DOM and the database.
+ * The function removes the subtask element from the UI, retrieves the task and subtask IDs from the database, 
+ * and deletes the subtask data from the database.
+ * @param {string} idWithNoSpace - The ID of the subtask element in the DOM (without spaces).
+ * @param {number} index - The index of the subtask within the task's subtasks.
+ * @param {number} taskId - The unique identifier of the task containing the subtask.
+ * @param {string} valueTask - The value or name associated with the subtask.
+ **/
 async function deleteSubTask(idWithNoSpace, index, taskId, valueTask) {
   let element = document.getElementById(idWithNoSpace + "_" + index);
   element.remove();
@@ -215,6 +224,16 @@ async function deleteSubTask(idWithNoSpace, index, taskId, valueTask) {
   deleteData("/toDos/" + getTaskId + "/subtasks/" + subTaskId);
 }
 
+/**
+ * Calculates and updates the progress of subtasks for a given task element.
+ * Displays the number of completed subtasks and updates the progress bar accordingly.
+ * Removes the progress bar if no subtasks are defined.
+ *
+ * @param {Object} element - The task element containing subtasks.
+ * @param {Object} element[1] - The details of the task.
+ * @param {number} element[1].id - The unique ID of the task.
+ * @param {Object|undefined} [element[1].subtasks] - The subtasks object, where each key is a subtask ID and its value is an object with subtask details.
+ **/
 function calculateSubtaskProgress(element) {
   let id = element[1]["id"];
   if (element[1]["subtasks"] !== undefined) {
@@ -229,12 +248,15 @@ function calculateSubtaskProgress(element) {
   }
 }
 
+/**
+ * Opens a specific task based on the provided ID.
+ * Searches for the task in the list of all to-dos (`allToDos`) and displays it.
+ * @param {number|string} id - The unique ID of the task to be opened.
+ **/
 function openTask(id) {
   let task = allToDos.filter((task) => task[1]["id"] == id);
   showTask(task[0]);
 }
-
-
 
 /**
  * Displays the details of a task in the "Big Task" view and updates its UI elements.
