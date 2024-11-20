@@ -72,7 +72,6 @@ h1 {
 
 .To-Do-Done-box {
     display: flex;
-    /* justify-content: space-between; */
     gap: 30px;
 }
 
@@ -87,7 +86,7 @@ h1 {
     align-items: center;
     flex: 1;
     border-radius: 12px;
-    transition: transform .1s;
+    transition: transform 0.1s, background-color 0.3s, color 0.3s;
 }
 
 .font-type2 {
@@ -99,6 +98,9 @@ h1 {
 .icon-summary {
     width: 40px;
     height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .content-header-seperator-box {
@@ -114,8 +116,6 @@ h1 {
     background-color: white;
     border-radius: 12px;
     border: 1px solid var(--border-color);
-    /* transition: transform .1s; */
-
     transition: transform 0.1s, background-color 0.3s, color 0.3s;
 }
 
@@ -136,7 +136,6 @@ h1 {
 
 .date-deadline-box {
     gap: 4px;
-    /* text-align: left; */
     font-size: 14px;
     padding: 10px;
     display: flex;
@@ -162,7 +161,6 @@ h1 {
     text-align: center;
     display: flex;
     flex-direction: column;
-    /* transition: transform .1s; */
     transition: transform 0.1s, background-color 0.3s, color 0.3s;
 }
 
@@ -195,11 +193,10 @@ h1 {
     display: none;
 }
 
-
-
 @media (max-width:440px) {
     .summary-main-content-box {
         padding: unset;
+        margin-top: 20px;
     }
 }
 
@@ -223,6 +220,12 @@ h1 {
     }
 }
 
+@media(min-width: 580px){
+    .summary-main-content-box {
+        padding: 4rem 2rem 1rem 4rem;
+    }
+}
+
 @media(min-width: 760px) {
     .greeting-container {
         display: flex;
@@ -230,7 +233,6 @@ h1 {
         text-align: left;
     }
 }
-
 
 @media(min-width: 1024px) {
     .To-Do-Done-box {
@@ -314,16 +316,6 @@ h1 {
         color: #29ABE2;
     }
 
-    /* .done-box:hover,
-    .to-do-box:hover,
-    .urgent-deadline-box:hover,
-    .single-box-board-progress-feedback:hover {
-        transform: scale(1.2);
-        cursor: pointer;
-    } */
-
-
-
     .urgent-deadline-box:hover {
         background-color: #2A3647;
         transform: scale(1.06);
@@ -349,6 +341,37 @@ h1 {
 
     .single-box-board-progress-feedback:hover .font-type2,
     .single-box-board-progress-feedback:hover div {
+        color: white;
+    }
+
+    .to-do-box:hover,
+    .done-box:hover {
+        transform: scale(1.06);
+        background-color: #2A3647;
+        color: white;
+        cursor: pointer;
+    }
+    
+    .to-do-box:hover .num-text,
+    .done-box:hover .num-text {
+        color: white;
+    }
+    
+    .to-do-box:hover svg circle,
+    .done-box:hover svg circle {
+        fill: white;
+    }
+    
+    .to-do-box:hover svg path {
+        fill: #2A3647;
+    }
+
+    .done-box:hover svg path {
+        stroke: #2A3647;
+    }
+
+    .to-do-box:hover .font-type2,
+    .done-box:hover .font-type2 {
         color: white;
     }
 }
