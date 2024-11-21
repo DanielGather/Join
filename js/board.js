@@ -7,17 +7,30 @@ let checkboxId = 1;
 let currentTaskId;
 let testArray = {};
 
+/**
+ * Initializes the board by rendering the board, updating the navbar, and refreshing the HTML content.
+ * The function calls `renderBoard()` to display the board, `navbarTemplate()` to update the navbar, 
+ * and `updateHTML()` to refresh the displayed content for the tasks.
+ */
 function boardJS() {
   renderBoard();
   navbarTemplate();
   updateHTML();
 }
 
+/**
+ * Renders the main board by updating the HTML content of the `main-board` container with the generated board HTML.
+ * The function calls `boardHtml()` to generate the HTML structure for the board and then updates the `main-board` container's inner HTML.
+ */
 function renderBoard() {
   let htmlContent = document.getElementById("main-board");
   htmlContent.innerHTML = boardHtml();
 }
 
+/**
+ * Asynchronously updates the HTML content by fetching the latest to-do data and rendering it into the appropriate categories.
+ * The function retrieves the to-do data, categorizes it, and updates the HTML containers for each category (e.g., "toDo", "inProgress", etc.).
+ */
 async function updateHTML() {
   let toDos = await getData("toDos");
   allToDos = Object.entries(toDos);
@@ -30,6 +43,16 @@ async function updateHTML() {
   categories.forEach((category) => updateCategoryHTML(category.name, category.containerId, allToDos));
 }
 
+/**
+ * Updates the HTML content for a given category by filtering the To-Do items based on the category 
+ * and rendering them within the specified container.
+ * The function retrieves the relevant To-Do items, filters them based on the category, and appends
+ * the corresponding HTML representations to the specified container. It also calls additional functions
+ * for rendering assigned contacts, calculating progress, and applying category-specific styles.
+ * @param {string} category - The category to filter To-Do items by.
+ * @param {string} containerId - The ID of the container where the filtered To-Do items will be rendered.
+ * @param {Array} allToDos - An array containing all To-Do items.
+ */
 function updateCategoryHTML(category, containerId, allToDos) {
   let toDoArray = getRightArray(allToDos);
   let filteredToDos = toDoArray.filter((t) => t[1]["category"] === category);
@@ -44,6 +67,13 @@ function updateCategoryHTML(category, containerId, allToDos) {
   checkChildElement();
 }
 
+/**
+ * Searches for a task based on the user input and updates the displayed results accordingly.
+ * If the input has at least 3 characters, it triggers a search for the relevant task. If no input is provided, 
+ * it clears the search results.
+ * The function hides the "no results" message, processes the input, and then either searches for the task or clears the results.
+ * @param {string} id - The unique identifier for the search input field and the associated "no results" message.
+ */
 function searchTask(id) {
   document.getElementById(`${id}NoResultsMessage`).style.display = "none";
   let input = checkInput(id);
@@ -56,6 +86,11 @@ function searchTask(id) {
   }
 }
 
+/**
+ * Renders the assigned contacts for a task based on the task type (big or small).
+ * If the task is a big task, it calls `renderAssignedToBigTask`, otherwise it calls `renderAssignedToSmallTask` with a specific ID.
+ * @param {Object} element - The task element containing the assigned contacts to be rendered.
+ */
 function renderAssignedTo(element) {
   if (bigTaskActive) {
     renderAssignedToBigTask(element);
@@ -64,16 +99,36 @@ function renderAssignedTo(element) {
   }
 }
 
+/**
+ * Asynchronously renders the contacts dropdown for a given task by first toggling the dropdown visibility
+ * and then updating the checkboxes based on the task ID.
+ * This function relies on the helper functions `toggleAssignedToDropDown` and `updateCheckbox`.
+ * @param {string} taskId - The unique identifier of the task for which the contacts dropdown is being rendered.
+ */
 async function renderContactsDropDown(taskId) {
   await toggleAssignedToDropDown();
   updateCheckbox(taskId);
 }
 
+/**
+ * Asynchronously updates the checkboxes for a given task by first unchecking all checkboxes
+ * and then setting the checkboxes based on data from Firebase.
+ * This function relies on the helper functions `uncheckCheckboxen` and `setCheckboxesBasedOnFirebaseData`.
+ * @param {string} taskId - The unique identifier of the task for which the checkboxes are being updated.
+ */
 async function updateCheckbox(taskId) {
   uncheckCheckboxen();
   setCheckboxesBasedOnFirebaseData(taskId);
 }
 
+/**
+ * This function renders the assigned contacts when a task is opened. 
+ * For each contact, their initials are displayed in a colored circle, along with their full name.
+ * The contact information is extracted from the `assignedTo` property of the provided task object.
+ * @param {Object} element - The task element containing the assigned contacts.
+ * @param {Array} element[1]["assignedTo"] - An object containing the contacts assigned to the task. 
+ * Each key is a contact ID, and the value contains the corresponding contact details.
+ */
 function renderAssignedToBigTask(element) {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   document.getElementById("renderedInitialsContainer").innerHTML = "";
@@ -136,9 +191,6 @@ function returnSubTask(task, context, value) {
 
 /**
  * Updates the status of a subtask based on the state of a checkbox.
- * 
- * @async
- * @function checkCheckbox
  * @param {string} checkboxId - The ID of the checkbox in the DOM.
  * @param {string} toDoId - The ID of the main task (to-do).
  * @param {string} value - A JSON string containing the subtask data.
@@ -159,7 +211,6 @@ async function checkCheckbox(checkboxId, toDoId, value) {
 
 /**
  * Appends an editable subtask to the appropriate container.
- * @function returnEditableSubTask
  * @param {Object} task - The parent task object containing the subtasks.
  * @param {string} context - The context in which the subtask should be displayed (e.g., "editTask").
  * @param {Object} value - The data of the specific subtask (e.g., name and properties).
@@ -514,51 +565,6 @@ function triggerButton() {
   }
 }
 
-/**
- * Adds or removes a user from the `assignedTo` list of a task in Firebase,
- * based on the state of a checkbox.
- * This function retrieves the task ID and variables needed to update the
- * `assignedTo` list in Firebase. If the checkbox associated with the user is
- * checked, it adds the user's email to the `assignedTo` list. If unchecked, it
- * removes the user from the list using `removeAssignedToFromFireBase`.
- * @param {string} email - The email address of the user to be added or removed.
- */
-async function addAssignedToToFireBase(email) {
-  objectArray = {};
-  let getTaskId = await getIdFromDb("/toDos", "id", currentTaskId);
-  let myVariablesObject = await returnMyVariables(email, getTaskId);
-  let checkBoxContainer = document.getElementById(email);
-  if (myVariablesObject.toDo !== null) {
-    let toDoEntries = Object.entries(myVariablesObject.toDo);
-    toDoEntries.forEach(([key, value]) => {
-      objectArray[key] = value;
-    });
-  }
-  if (checkBoxContainer.checked) {
-    objectArray["userEmail" + myVariablesObject.number] = myVariablesObject.email;
-    putData(myVariablesObject.path, objectArray);
-  } else {
-    removeAssignedToFromFireBase(myVariablesObject.email, getTaskId);
-  }
-}
 
-/**
- * Removes a user from the `assignedTo` list of a task in Firebase.
- * This function retrieves the `assignedTo` entries of a task from Firebase and
- * checks if the specified email address is present in the entries. If a matching
- * entry is found, it deletes the corresponding entry in Firebase using its key.
- * @param {string} email - The email address of the user to be removed.
- * @param {string} getTaskId - The ID of the task from which the user will be removed.
- **/
-async function removeAssignedToFromFireBase(email, getTaskId) {
-  let toDo = await getData("/toDos/" + getTaskId + "/assignedTo");
-  let toDoEntries = Object.entries(toDo);
-  toDoEntries.forEach(([key, value]) => {
-    if (value == email) {
-      path = `/toDos/${getTaskId}/assignedTo/${key}`;
-    } else {
-      return;
-    }
-  });
-  deleteData(path);
-}
+
+
