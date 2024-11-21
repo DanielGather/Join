@@ -88,6 +88,17 @@ function renderAssignedToBigTask(element) {
   });
 }
 
+/**
+ * Renders the "Assigned To" contacts as small circles (avatars) for a task.
+ * 
+ * @param {Object} element - The task object containing the "Assigned To" data.
+ * @param {string} [context="default"] - The context in which the contacts should be rendered (e.g., "editTask").
+ * This function creates visual representations of the assigned contacts ("Assigned To") for a task.
+ * Each contact is displayed as a small circle (avatar) with individual initials and a color.
+ * - The function checks if the list of contacts (`assignedTo`) exists in the task object. If not, an empty list is used.
+ * - Tasks with more than 8 contacts are styled with additional margins (`newMargin`) for better layout.
+ * - The background color and initials of the contacts are determined using the `getContact` function.
+ */
 function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   let AddNewMargin = assignedToEntries.length >= 8;
@@ -103,13 +114,37 @@ function renderAssignedToSmallTask(element, context = "default") {
   });
 }
 
+/**
+ * Dynamically adds a subtask as an HTML element to the DOM.
+ * 
+ * @param {Object} task - The task object containing the subtask data.
+ * @param {string} context - The context in which the subtask is being rendered (e.g., "editTask" or "bigTask").
+ * @param {Object} value - The subtask object with details like `task` (name) and `status` (completed/open).
+ * This function creates a new `div` element for a subtask and appends it to a specific container element in the DOM.
+ * - Each subtask includes a checkbox and a label.
+ * - The checkbox's status (`checked`) is set based on `value.status`.
+ * - Subtask data is stored in the `data-value` attribute.
+ * - Clicking the checkbox triggers the `checkCheckbox` function.
+ * The variable `checkboxId` is used to generate a unique ID for each checkbox and is incremented by 1 with each function call.
+ */
 function returnSubTask(task, context, value) {
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
+  <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]['id']}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
   `;
   checkboxId += +1;
 }
 
+/**
+ * Updates the status of a subtask based on the state of a checkbox.
+ * 
+ * @async
+ * @function checkCheckbox
+ * @param {string} checkboxId - The ID of the checkbox in the DOM.
+ * @param {string} toDoId - The ID of the main task (to-do).
+ * @param {string} value - A JSON string containing the subtask data.
+ * This function checks whether a checkbox is checked or unchecked and updates the status of 
+ * the associated subtask in the database accordingly. 
+ */
 async function checkCheckbox(checkboxId, toDoId, value) {
   let newValue = JSON.parse(value);
   let checkbox = document.getElementById(`checkbox${checkboxId}`);
@@ -122,11 +157,30 @@ async function checkCheckbox(checkboxId, toDoId, value) {
   }
 }
 
+/**
+ * Appends an editable subtask to the appropriate container.
+ * @function returnEditableSubTask
+ * @param {Object} task - The parent task object containing the subtasks.
+ * @param {string} context - The context in which the subtask should be displayed (e.g., "editTask").
+ * @param {Object} value - The data of the specific subtask (e.g., name and properties).
+ * @param {number} index - The index of the subtask in the list.
+ * This function generates the HTML for an editable subtask based on the provided data and appends it 
+ * to the appropriate container. The container is identified by the ID `subTask{taskId}_{context}`. 
+ * To avoid ID conflicts, spaces are removed from the subtask value.
+ */
 function returnEditableSubTask(task, context, value, index) {
   let idWithNoSpace = value.task.replace(/\s+/g, "");
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += returnEditableSubTaskHTML(idWithNoSpace, task, value, index);
 }
 
+/**
+ * Renders the subtasks of a task based on the specified context.
+ * @param {Object} task - The parent task object containing the subtasks.
+ * @param {string} [context="default"] - The context in which the subtasks should be rendered (default: "default").
+ * This function checks if the provided task object contains subtasks. If subtasks are present, it iterates over them 
+ * and calls either `returnSubTask` (for the "bigTask" context) or `returnEditableSubTask` (for other contexts), 
+ * depending on the context specified.
+ */
 function renderSubTask(task, context = "default") {
   if (task[1]["subtasks"]) {
     let subTaskToEntries = Object.entries(task[1]["subtasks"]);
@@ -140,6 +194,13 @@ function renderSubTask(task, context = "default") {
   }
 }
 
+/**
+ * Adds a new subtask to an existing task and updates the display.
+ * @param {string} task - The ID of the task to which the subtask will be added.
+ * @param {string|null} [context=null] - The context of the subtask (default: null).
+ * This function creates a new subtask based on the input value in the `subtasks-input` field.
+ * If a valid value is provided, the subtask is appended to the corresponding container and saved in Firebase.
+ */
 function addNewSubTask(task, context = null) {
   let counter = setCounter();
   let subTask = document.getElementById("subtasks-input");
@@ -153,6 +214,13 @@ function addNewSubTask(task, context = null) {
   subTask.value = "";
 }
 
+/**
+ * Edits an existing task and updates the UI accordingly.
+ * @param {string} task - The ID of the task to be edited.
+ * This function sets the editing mode for a specific task, retrieves the associated data,
+ * and renders the updated task in the main container. Additionally, it highlights the
+ * assigned users, subtasks, and task priority.
+ */
 async function editTask(task) {
   currentTaskId = task;
   editTaskOpen = true;
@@ -169,12 +237,15 @@ async function editTask(task) {
 }
 
 /**
- * Enables editing for a subtask by switching the subtask element to an input field.
- * @param {string} id - The base ID used to identify the subtask element.
- * @param {string} [context="default"] - The context identifier, defaulting to "default", used to locate the task element.
- * @param {number} index - A unique identifier for the subtask to ensure proper element targeting.
- * @param {string} taskId - The ID of the parent task containing the subtask.
- * @param {string} valueTask - The current value of the subtask to populate the input field.
+ * Edits a subtask by transforming it into an input field and updating related classes.
+ * @param {string} id - The ID of the subtask to be edited.
+ * @param {string} [context="default"] - The context of the task (default: "default").
+ * @param {number} index - The index of the subtask in the list.
+ * @param {string} taskId - The ID of the parent task.
+ * @param {string} valueTask - The current value of the subtask.
+ * This function checks whether the `contentEditable` attribute of the task element is set to `"false"`.
+ * If so, it converts the subtask's field into an input field, updates certain classes,
+ * and focuses the input field.
  */
 function editSubTask(id, context = "default", index, taskId, valueTask) {
   let changeField = document.getElementById(`${id}_${index}`);

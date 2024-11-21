@@ -394,6 +394,23 @@ function updateCheckboxStatus() {
 }
 
 
+function searchExistingContact() {
+    renderAssignedToContacts();
+    document.getElementById('dropDownMenu').classList.remove('d-none');
+    let search = document.getElementById('searchContact').value;
+    search = search.toLowerCase();
+    let contactsDropdownMenu = document.getElementById('dropDownMenu');
+    contactsDropdownMenu.innerHTML = '';
+    for (let i = 0; i < contactsOnly.length; i++){
+        let contact = contactsOnly[i];
+        let contactName = contact['name'];
+        if(contactName.toLowerCase().includes(search)){
+            contactsDropdownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact);
+        }
+    }
+}
+
+
 function showAddTaskSuccessPopup() {
     let animatedContainer = document.getElementById('popup-addTask-container');
     animatedContainer.classList.add('visible');
