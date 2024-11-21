@@ -168,6 +168,14 @@ async function editTask(task) {
   highlightRightPriority(rightTask);
 }
 
+/**
+ * Enables editing for a subtask by switching the subtask element to an input field.
+ * @param {string} id - The base ID used to identify the subtask element.
+ * @param {string} [context="default"] - The context identifier, defaulting to "default", used to locate the task element.
+ * @param {number} index - A unique identifier for the subtask to ensure proper element targeting.
+ * @param {string} taskId - The ID of the parent task containing the subtask.
+ * @param {string} valueTask - The current value of the subtask to populate the input field.
+ */
 function editSubTask(id, context = "default", index, taskId, valueTask) {
   let changeField = document.getElementById(`${id}_${index}`);
   let task = document.getElementById(`${id}_${context}`);
