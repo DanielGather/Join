@@ -1,6 +1,6 @@
 async function editTaskBoard(task, date) {
   return /*HTML*/ `
-  <form  onsubmit="triggerForm(event, ${task['id']}); return false" class="form-container">
+  <form  onsubmit="triggerForm(event, ${task['id']}, 'headline'); return false" class="form-container">
     <div class="main-addTask-container">
     <div class="addTask-content-form-container">
       <div class="edit-assigned-container">
@@ -92,12 +92,12 @@ async function editTaskBoard(task, date) {
         <div class="subtasks-container">
                                 <label class="addTask-label">Subtasks</label>
                                 <div class="subtasks-input-add-container">
-                                    <input class="subtasks-input" id="subtasks-input" type="text" placeholder="Add new subtask" autocomplete="off">
+                                    <input class="subtasks-input" id="subtasks-input" type="text" placeholder="Add new subtask" autocomplete="off" onkeydown="handlePressedKey(event,${task['id']},'editTask')">
                                     <div class="add-subtask"><img src="./assets/img/add_dark.svg" alt="Plus-Icon" id="plusIcon" onclick="toggleSubtaskIcons()" ></div> 
-                                    <div class="close-separator-checked-container d-none" id="actionIcons">
+                                    <div class="iconContainer d-none" id="actionIcons">
                                         <div class="subtask-close-icon"><img src="./assets/img/close.svg" alt="Close-Icon" onclick="deleteInputSubtaskValue()"></div>
                                         <div class="subtask-separator"></div>
-                                        <div class="subtask-checked-icon"><img src="./assets/img/checked_subtask.svg" alt="Checked-Icon" onclick="addNewSubTask(${task["id"]},'editTask')"></div>
+                                        <div class="subtask-checked-icon"><img src="./assets/img/checked_subtask.svg" alt="Checked-Icon" onclick="addNewSubTask(${task['id']},'editTask')"></div>
                                     </div>
                                 </div>
                             </div>

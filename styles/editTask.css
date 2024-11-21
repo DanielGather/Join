@@ -53,6 +53,11 @@ img {
   width: 3.75rem;
   justify-content: space-between;
   align-items: center;
+  opacity: 0;
+}
+
+.subTaskHover:hover .subTaskIcons{
+  opacity: 1;
 }
 
 .seperator {
@@ -306,6 +311,11 @@ img {
 .title-input:focus,
 textarea:focus {
   border-color: var(--join-light-blue);
+}
+
+.iconContainer{
+  width: 3.125rem;
+  justify-content: space-between;
 }
 
 .star {

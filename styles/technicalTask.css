@@ -58,7 +58,7 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 100%;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .smallCircle {
@@ -96,7 +96,18 @@
   font-size: clamp(2.5rem, 5vw, 4rem);
 }
 
+.limitContentHeadline {
+  height: 7.5rem;
+  overflow-y: auto;
+}
+
+.limitContentDescription{
+  max-height: 3.75rem;
+  display: flex;
+  overflow-y: auto;
+}
+
 .assignedToContainer{
-  max-height: 250px;
+  max-height: 10rem;
   overflow: auto;
 }

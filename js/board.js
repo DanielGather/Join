@@ -247,7 +247,7 @@ function showTask(task) {
  * This function hides the elements with the IDs "bigTask" and "addTaskBoard" by setting their CSS display property to "none".
  * It also resets the flags `bigTaskActive` and `editTaskOpen` to `false`, and then calls `updateHTML` to refresh the page.
  **/
-function closeBigTask() {
+async function closeBigTask() {
   document.getElementById("bigTask").style.display = "none";
   document.getElementById("addTaskBoard").style.display = "none";
   bigTaskActive = false;

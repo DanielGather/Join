@@ -6,10 +6,10 @@ function technicalTaskBig(task) {
     <div><img class="hover" onclick="closeBigTask()" src="./assets/img/close.svg" alt="" /></div>
   </div>
   <div>
-    <h1 class="clamp" id="title">${task[1]['headline']}</h1>
+    <h1 class="clamp limitContentHeadline" id="title">${task[1]['headline']}</h1>
   </div>
   <div>
-    <span id="description">${task[1]['description']}</span>
+    <span class="limitContentDescription id="description">${task[1]['description']}</span>
   </div>
   <div class="d-flex gap1">
     <span>Due date:</span>

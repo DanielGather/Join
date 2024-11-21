@@ -76,19 +76,19 @@ function boardHtml() {
     `;
 }
 
-function htmlChangeToList(id, newValue, taskId, valueTask, index){
+function htmlChangeToList(newIdWithOutSpace, newValue, taskId, index) {
   return /*HTML*/ `
-  <li id="${id}_edit" contenteditable="false">${newValue}</li>
+  <li id="${newIdWithOutSpace}_edit" contenteditable="false">${newValue}</li>
       <div class="subTaskIcons">
-      <img onclick="editSubTask('${id}','edit', ${index})" src="./assets/img/edit.svg" alt="">
+      <img onclick="editSubTask('${newIdWithOutSpace}','edit', ${index},${taskId},'${newValue}' )" src="./assets/img/edit.svg" alt="">
       <div class="seperator"></div>
-      <img onclick="deleteSubTask('${id}', ${index}, ${taskId}, '${newValue}')" src="./assets/img/delete.svg" alt="">
+      <img onclick="deleteSubTask('${newIdWithOutSpace}', ${index}, ${taskId}, '${newValue}')" src="./assets/img/delete.svg" alt="">
       </div>
 `;
 }
 
-function returnEditableSubTaskHTML(idWithNoSpace, task, value, index){
-return /*HTML*/ `
+function returnEditableSubTaskHTML(idWithNoSpace, task, value, index) {
+  return /*HTML*/ `
     <ul id="${idWithNoSpace}_${index}" class="subTaskList subTaskHover">
       <li id="${idWithNoSpace}_edit" contenteditable="false">${value.task}</li>
       <div class="subTaskIcons">

@@ -114,9 +114,11 @@ function changeClassesOnList(id, index) {
 function changeBackToList(id, index, taskId, valueTask) {
   let changeField = document.getElementById(`${id}_${index}`);
   let newValue = document.getElementById(`${id}_input`).value;
-  changeField.innerHTML = htmlChangeToList(id, newValue, taskId, valueTask, index);
+  let newIdWithOutSpace = newValue.replace(/\s+/g, "");
+  changeField.innerHTML = htmlChangeToList(newIdWithOutSpace, newValue, taskId, index);
   changeClassesOnList(id, index);
   updateSubTask(valueTask, newValue, taskId);
+  changeField.id = newIdWithOutSpace + "_" + index;
 }
 
 /**
@@ -173,7 +175,7 @@ async function changeDataInFireBase(id, context = null, priority = null) {
   if (context == "date") {
     title = changeTimeFormat(title);
   }
-  putData(path, title);
+  await putData(path, title);
 }
 
 /**
@@ -217,8 +219,9 @@ async function deleteTask(taskId) {
  * @param {event} event - Triggers the Event.
  * @param {integer} id - Delivers the number of the corresponding elements.
  */
-function triggerForm(event, id) {
+async function triggerForm(event, id, context = null) {
   event.preventDefault();
+  await changeDataInFireBase(id, context)
   let headlineInputValue = document.getElementById(`${id}_headline`).value;
   let dateInputValue = document.getElementById(`${id}_date`).value;
   if (headlineInputValue !== "" && dateInputValue !== "") {
@@ -326,4 +329,18 @@ function returnSubTask(task, context, value) {
     <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
     `;
   checkboxId += +1;
+}
+
+/**
+ * Handles the key press event, specifically for the "Enter" key, and prevents the default behavior (e.g., form submission).
+ * If the "Enter" key is pressed, it calls the `addNewSubTask` function to add a new subtask for the specified task.
+ * @param {KeyboardEvent} event - The keyboard event triggered by pressing a key.
+ * @param {Object} task - The task object for which the subtask is being added.
+ * @param {Object|null} [context=null] - Optional context for additional data or settings related to the task (default is null).
+ */
+function handlePressedKey(event, task, context = null) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addNewSubTask(task, context);
+  }
 }
