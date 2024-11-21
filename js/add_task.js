@@ -458,7 +458,6 @@ function initializeEventListenerKeydownSubtaskInput() {
     }
 }
 
-
 function initializeEventListenerKeydownTitleInput() {
     const addTaskTitle = document.getElementById('addTaskTitle');
     if (addTaskTitle) {
@@ -469,7 +468,6 @@ function initializeEventListenerKeydownTitleInput() {
         });
     }
 }
-
 
 function handleClickAnywhere(event) {
     let dropdownMenu = document.getElementById('dropDownMenu');

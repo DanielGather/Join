@@ -424,6 +424,31 @@ textarea {
   box-shadow: 1px 6px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+.popupContainer {
+  background-color: #2a3647;
+  width: 312px;
+  height: 74px;
+  color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  position: fixed;
+  gap: 22px;
+  bottom: -80px;
+  left: 50%;
+
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: bottom 0.3s ease, opactiy 0.3s ease;
+}
+
+.popupContainer.visible {
+  bottom: 50%;
+  opacity: 1;
+}
+
 .required {
   font-size: 12px;
 }

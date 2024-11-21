@@ -20,7 +20,7 @@ function returnAddTaskHtml(type) {
                                 <label class="addTask-label">Assigned to</label>
                                 <div style="position:relative">
                                     <div class="inputAssignedToContainer">
-                                        <input type="text" placeholder="Select contacts to assign">
+                                        <input type="text" id="searchContact" onkeyup="searchExistingContact()" placeholder="Select contacts to assign">
                                         <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown('false')"></div>
                                     </div>
                                     <div class="dropDownContainer d-none" id="dropDownMenu">

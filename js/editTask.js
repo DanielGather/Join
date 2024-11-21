@@ -344,3 +344,12 @@ function handlePressedKey(event, task, context = null) {
     addNewSubTask(task, context);
   }
 }
+
+function showAddTaskSuccessPopup() {
+  let animatedContainer = document.getElementById('popupContainer');
+  animatedContainer.classList.add('visible');
+  setTimeout(() => {
+      animatedContainer.classList.remove('visible');
+  }, 2000);
+  updateHTML();
+}

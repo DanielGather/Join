@@ -275,4 +275,49 @@ function showAddTask(type) {
     window.location.href = "./add_task.html";
   }
   setButtonColorForPrio(statusPriority, "AddTask");
+  generateAddEventListener();
+}
+
+function generateAddEventListener(){
+    EventListenerKeydownSubtaskInput();
+    EventListenerKeydownTitleInput();
+    EventListenerInputTitle();
+    EventListenerChangeDate();
+}
+
+function EventListenerInputTitle() {
+  const addTaskTitle = document.getElementById('addTaskTitle');
+  if (addTaskTitle) {
+      addTaskTitle.addEventListener('input', checkIfCreateTaskButtonCanBeEnabled);
+  }
+}
+
+function EventListenerChangeDate() {
+  const inputDate = document.getElementById('inputDate');
+  if (inputDate) {
+      inputDate.addEventListener('change', checkIfCreateTaskButtonCanBeEnabled);
+  }
+}
+
+function EventListenerKeydownSubtaskInput() {
+  const subtasksInput = document.getElementById('subtasks-input');
+  if (subtasksInput) {
+      subtasksInput.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter') {
+              event.preventDefault();
+              addSubTask();
+          }
+      });
+  }
+}
+
+function EventListenerKeydownTitleInput() {
+  const addTaskTitle = document.getElementById('addTaskTitle');
+  if (addTaskTitle) {
+      addTaskTitle.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter') {
+              event.preventDefault();
+          }
+      });
+  }
 }
