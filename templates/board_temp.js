@@ -26,14 +26,14 @@ function boardHtml() {
               <img class="icon" src="./assets/img/search.svg" alt="" />
             </div>
           </div>
-          <button onclick="showAddTask()" class="createTaskButton alic button-dark fs16">Add task<img src="./assets/img/add.svg"></button>
+          <button onclick="showAddTask('toDo')" class="createTaskButton alic button-dark fs16">Add task<img src="./assets/img/add.svg"></button>
         </div>
       </div>
       <div id="taskArea" class="taskArea d-flex gap1">
         <div class="d-flex dflex-col gap1 toDos">
           <div class="d-flex jc-sb alic">
             <span style="font-family:Inter; font-weight:700; color: #42526E">To Do</span>
-            <img onclick="showAddTask()" class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
+            <img onclick="showAddTask('toDo')" class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
           <div ondrop="moveToCategory('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')" id="toDo" class="toDoArea allCategories">
             <div  class="noTask d-flex alic jc-c colorGrey fs16">No tasks To do</div>
@@ -43,7 +43,7 @@ function boardHtml() {
         <div class="d-flex dflex-col gap1 toDos">
           <div class="d-flex jc-sb alic">
             <span style="font-family:Inter; font-weight:700; color: #42526E">In progress</span>
-            <img onclick="showAddTask()" class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
+            <img onclick="showAddTask('inProgress')" class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
           <div ondrop="moveToCategory('inProgress')" ondragleave="removeHighlight('inProgress')" ondragover="allowDrop(event); highlight('inProgress')" id="inProgress" class="progressArea allCategories">
             <div class="noTask d-flex alic jc-c colorGrey fs16">No tasks in progress</div>
@@ -53,7 +53,7 @@ function boardHtml() {
         <div class="d-flex dflex-col gap1 toDos">
           <div class="d-flex jc-sb alic">
             <span style="font-family:Inter; font-weight:700; color: #42526E">Await feedback</span>
-            <img onclick="showAddTask()" class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
+            <img onclick="showAddTask('awaitFeedback')" class="responsiveButton" src="./assets/img/plusWhite.svg" alt="" />
           </div>
           <div ondrop="moveToCategory('awaitFeedback')" ondragleave="removeHighlight('awaitFeedback')" ondragover="allowDrop(event); highlight('awaitFeedback')" id="awaitFeedback" class="feedbackArea allCategories">
           <div class="noTask d-flex alic jc-c colorGrey fs16">No feedback</div>

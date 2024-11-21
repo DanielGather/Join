@@ -2,8 +2,8 @@ function htmlTechnicalTaskSmall(element) {
   return /*HTML*/ `
       <div draggable="true" ondragstart="startDraggin(${element[1]["id"]})" onclick="openTask(${element[1]["id"]})" class="d-flex dflex-col smallTask">
       <div id="story${element[1]["id"]}" class="d-flex alic jc-c userStoryBackground br1 userStory"><span>${element[1]["story"]}</span></div>
-      <h1>${element[1]["headline"]}</h1>
-      <span style="max-height: 100px; overflow: hidden;">${element[1]["description"]}</span>
+      <h1 style="max-height: 2.5rem; overflow:hidden;">${element[1]["headline"]}</h1>
+      <span style="max-height: 5rem; overflow: hidden;">${element[1]["description"]}</span>
       <div id="progressbarContainer${element[1]['id']}" class="d-flex jc-sb alic">
         <div class="d-flex colorGreyBg progress alic" style="width: 100%;">
           <div id="progressbar${element[1]["id"]}" class="d-flex colorBlueBg progress alic"></div>

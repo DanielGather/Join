@@ -265,12 +265,12 @@ async function closeBigTask() {
  * - If the window width is less than 1000 pixels:
  *   - The user is redirected to the page "./add_task.html".
  */
-function showAddTask() {
+function showAddTask(type) {
   if (window.innerWidth >= 1000) {
     document.getElementById("addTaskBoard").style.display = "flex";
     let addTaskContainer = document.getElementById("boardAddTask");
     document.getElementById("boardAddTask").classList.add("show");
-    addTaskContainer.innerHTML = returnAddTaskHtml();
+    addTaskContainer.innerHTML = returnAddTaskHtml(type);
   } else {
     window.location.href = "./add_task.html";
   }

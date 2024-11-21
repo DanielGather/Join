@@ -6,15 +6,16 @@ let allCurrentIds = [];
 let checkedContactNames = [];
 let checkedContactInitials = [];
 let checkedContactColors = [];
+let type = 'toDo'
 
 
-function handleSubmit(event) {   // prüfen welcher button geklickt wurde
+function handleSubmit(event, type) {   // prüfen welcher button geklickt wurde
     event.preventDefault();
     const submitButton = event.submitter;
     if (submitButton.id === "clear") {
         clear();
     } else if (submitButton.id === "createTask") {
-        createTask();
+        createTask(type);
     }
     return false;
 }
@@ -52,11 +53,11 @@ function resetCheckboxes() {
 }
 
 
-async function createTask() {
+async function createTask(type) {
     await getAllToDos();
     console.log("createTask test test");
     let idNum = createNewId();
-    let newTask = getInputValues(idNum);
+    let newTask = getInputValues(idNum, type);
     const taskId = (await postData('toDos', newTask)).name;
     console.log('taskId lautet:', taskId);
     if (subtaskArray.length > 0) {
@@ -74,7 +75,7 @@ async function createTask() {
 }
 
 
-function getInputValues(idNum) {
+function getInputValues(idNum, type) {
     let title = getTitle();
     let description = getDescription();
     let dueDate = getDueDate();
@@ -90,7 +91,7 @@ function getInputValues(idNum) {
         'description': description,
         'assignedTo': assignedTo,
         'id': toDoId,
-        'category': 'toDo',
+        'category': type,
     };
 }
 

@@ -326,7 +326,7 @@ async function checkCheckbox(checkboxId, toDoId, value) {
  */
 function returnSubTask(task, context, value) {
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-    <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
+    <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]['id']}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
     `;
   checkboxId += +1;
 }

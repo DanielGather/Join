@@ -54,6 +54,7 @@ img {
   justify-content: space-between;
   align-items: center;
   opacity: 0;
+  min-width: 60px;
 }
 
 .subTaskHover:hover .subTaskIcons{
@@ -289,6 +290,7 @@ img {
 .subtasks-input {
   border: none;
   outline: none;
+  flex-grow: 1;
 }
 
 .add-subtask img {
