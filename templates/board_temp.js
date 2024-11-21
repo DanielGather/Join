@@ -92,9 +92,9 @@ return /*HTML*/ `
     <ul id="${idWithNoSpace}_${index}" class="subTaskList subTaskHover">
       <li id="${idWithNoSpace}_edit" contenteditable="false">${value.task}</li>
       <div class="subTaskIcons">
-      <img onclick="editSubTask('${idWithNoSpace}','edit', ${index}, ${task[1]["id"]}, '${value.task}')" src="./assets/img/edit.svg" alt="">
+      <img onclick="editSubTask('${idWithNoSpace}','edit', ${index}, ${task[1]['id']}, '${value.task}')" src="./assets/img/edit.svg" alt="">
       <div class="seperator"></div>
-      <img onclick="deleteSubTask('${idWithNoSpace}', ${index}, ${task[1]["id"]}, '${value.task}') " src="./assets/img/delete.svg" alt="">
+      <img onclick="deleteSubTask('${idWithNoSpace}', ${index}, ${task[1]['id']}, '${value.task}') " src="./assets/img/delete.svg" alt="">
       </div>
 </ul>
     `;
