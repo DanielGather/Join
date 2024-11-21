@@ -378,7 +378,6 @@ textarea {
     justify-content: space-between;
     background-color: white;
     align-items: center;
-
     position: relative;
     z-index: 2;
 }
@@ -388,11 +387,9 @@ textarea {
     background-color: white;
     display: flex;
     flex-direction: column;
-    /* position: relative; */
     position: absolute;
     max-width: 530px;
     width: 100%;
-
     margin-top: 24px;
     padding-top: 36px;
 }
@@ -439,10 +436,6 @@ textarea {
     padding: 6px;
     font-size: 18px;
     height: 42px;
-}
-
-.clear-button:hover svg path {
-    stroke: #29ABE2;
 }
 
 .create-task-button {
@@ -542,5 +535,21 @@ textarea {
     .form-confirmation {
         display: flex;
         justify-content: space-between;
+    }
+}
+
+@media(max-width: 1024px) {
+    .clear-button,
+    .urgentButton,
+    .mediumButton,
+    .lowButton {
+        cursor: default;
+    }
+}
+
+
+@media(min-width: 1024px) {
+    .clear-button:hover svg path {
+        stroke: #29ABE2;
     }
 }
