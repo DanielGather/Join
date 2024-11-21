@@ -217,6 +217,8 @@ input {
 }
 .drag-area-highlight {
   background-color: rgba(231, 231, 231, 0.7);
+  border: dotted 1.5px black;
+  border-radius: 1rem;
 }
 
 .bigTaskContainer {
