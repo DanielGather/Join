@@ -1,10 +1,6 @@
 function startDraggin(id, event) {
   currentDraggedElement = id;
-  // let ghostImage = new Image(); // Leeres Ghost Image erstellen
-  // event.dataTransfer.setDragImage(ghostImage, 0, 0);
-  // document.getElementById(id).style.opacity = "1";
-  // document.getElementById(id).style.backgroundColor = "Blue";
-  document.getElementById(id).style.transform = "rotate(15deg)";
+    event.target.style.transform = 'rotate(15deg)';
 }
 
 function allowDrop(ev) {
