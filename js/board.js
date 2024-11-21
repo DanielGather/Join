@@ -256,14 +256,9 @@ async function closeBigTask() {
 }
 
 /**
- * Displays the interface for adding a new task, depending on the window width.
- *
- * - If the window width is greater than or equal to 1000 pixels:
- *   - The element with the ID "addTaskBoard" is made visible and displayed as a flexbox.
- *   - The element with the ID "boardAddTask" is given the CSS class "show".
- *   - The content of the "boardAddTask" container is populated with HTML for adding a task.
- * - If the window width is less than 1000 pixels:
- *   - The user is redirected to the page "./add_task.html".
+ * Displays the "Add Task" form on the current page or redirects to another page for smaller screens.
+ * The task type is used to dynamically generate content for the task form.
+ * @param {string} type - The type of the task, which influences the content displayed in the form.
  */
 function showAddTask(type) {
   if (window.innerWidth >= 1000) {

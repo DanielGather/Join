@@ -208,7 +208,7 @@ function setFocusOnDate(id) {
  */
 async function deleteTask(taskId) {
   let getTaskId = await getIdFromDb("/toDos", "id", taskId);
-  deleteData("/toDos/" + getTaskId);
+  await deleteData("/toDos/" + getTaskId);
   closeBigTask();
   updateHTML();
 }
