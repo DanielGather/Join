@@ -88,6 +88,17 @@ function renderAssignedToBigTask(element) {
   });
 }
 
+/**
+ * Renders the "Assigned To" contacts as small circles (avatars) for a task.
+ * 
+ * @param {Object} element - The task object containing the "Assigned To" data.
+ * @param {string} [context="default"] - The context in which the contacts should be rendered (e.g., "editTask").
+ * This function creates visual representations of the assigned contacts ("Assigned To") for a task.
+ * Each contact is displayed as a small circle (avatar) with individual initials and a color.
+ * - The function checks if the list of contacts (`assignedTo`) exists in the task object. If not, an empty list is used.
+ * - Tasks with more than 8 contacts are styled with additional margins (`newMargin`) for better layout.
+ * - The background color and initials of the contacts are determined using the `getContact` function.
+ */
 function renderAssignedToSmallTask(element, context = "default") {
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
   let AddNewMargin = assignedToEntries.length >= 8;
@@ -103,6 +114,19 @@ function renderAssignedToSmallTask(element, context = "default") {
   });
 }
 
+/**
+ * Dynamically adds a subtask as an HTML element to the DOM.
+ * 
+ * @param {Object} task - The task object containing the subtask data.
+ * @param {string} context - The context in which the subtask is being rendered (e.g., "editTask" or "bigTask").
+ * @param {Object} value - The subtask object with details like `task` (name) and `status` (completed/open).
+ * This function creates a new `div` element for a subtask and appends it to a specific container element in the DOM.
+ * - Each subtask includes a checkbox and a label.
+ * - The checkbox's status (`checked`) is set based on `value.status`.
+ * - Subtask data is stored in the `data-value` attribute.
+ * - Clicking the checkbox triggers the `checkCheckbox` function.
+ * The variable `checkboxId` is used to generate a unique ID for each checkbox and is incremented by 1 with each function call.
+ */
 function returnSubTask(task, context, value) {
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
   <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]['id']}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
