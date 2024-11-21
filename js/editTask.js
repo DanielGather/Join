@@ -226,6 +226,7 @@ async function triggerForm(event, id, context = null) {
   let dateInputValue = document.getElementById(`${id}_date`).value;
   if (headlineInputValue !== "" && dateInputValue !== "") {
     closeBigTask();
+    SuccessPopup('Sucessfully Edited');
   }
 }
 
@@ -345,9 +346,11 @@ function handlePressedKey(event, task, context = null) {
   }
 }
 
-function showAddTaskSuccessPopup() {
+function SuccessPopup(text) {
   let animatedContainer = document.getElementById('popupContainer');
+  let newText = document.getElementById("successText");
   animatedContainer.classList.add('visible');
+  newText.innerHTML = text;
   setTimeout(() => {
       animatedContainer.classList.remove('visible');
   }, 2000);

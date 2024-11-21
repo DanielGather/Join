@@ -74,7 +74,7 @@ function boardHtml() {
       <div onclick="eventStopPropagation(event)" class="addTaskBoard" id="boardAddTask"></div>
     </div>
     <div class="popupContainer" id="popupContainer">
-                <p>Task added to board</p>
+                <p id="successText"></p>
                 <img src="./assets/img/board-icon.svg" alt="board-icon">
             </div>
     `;
