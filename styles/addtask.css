@@ -552,4 +552,8 @@ textarea {
     .clear-button:hover svg path {
         stroke: #29ABE2;
     }
+
+    .main-addTask-container {
+        margin-top: 60px;
+    }
 }
