@@ -6,16 +6,15 @@ let allCurrentIds = [];
 let checkedContactNames = [];
 let checkedContactInitials = [];
 let checkedContactColors = [];
-let type = 'toDo'
 
 
-function handleSubmit(event, type) {   // prüfen welcher button geklickt wurde
+function handleSubmit(event) {   // prüfen welcher button geklickt wurde
     event.preventDefault();
     const submitButton = event.submitter;
     if (submitButton.id === "clear") {
         clear();
     } else if (submitButton.id === "createTask") {
-        createTask(type);
+        createTask();
     }
     return false;
 }
@@ -53,11 +52,11 @@ function resetCheckboxes() {
 }
 
 
-async function createTask(type) {
+async function createTask() {
     await getAllToDos();
     console.log("createTask test test");
     let idNum = createNewId();
-    let newTask = getInputValues(idNum, type);
+    let newTask = getInputValues(idNum);
     const taskId = (await postData('toDos', newTask)).name;
     console.log('taskId lautet:', taskId);
     if (subtaskArray.length > 0) {
@@ -75,7 +74,7 @@ async function createTask(type) {
 }
 
 
-function getInputValues(idNum, type) {
+function getInputValues(idNum) {
     let title = getTitle();
     let description = getDescription();
     let dueDate = getDueDate();
@@ -91,7 +90,7 @@ function getInputValues(idNum, type) {
         'description': description,
         'assignedTo': assignedTo,
         'id': toDoId,
-        'category': type,
+        'category': 'toDo',
     };
 }
 
@@ -458,6 +457,7 @@ function initializeEventListenerKeydownSubtaskInput() {
     }
 }
 
+
 function initializeEventListenerKeydownTitleInput() {
     const addTaskTitle = document.getElementById('addTaskTitle');
     if (addTaskTitle) {
@@ -468,6 +468,7 @@ function initializeEventListenerKeydownTitleInput() {
         });
     }
 }
+
 
 function handleClickAnywhere(event) {
     let dropdownMenu = document.getElementById('dropDownMenu');
