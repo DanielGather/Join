@@ -39,7 +39,7 @@ function navbarTemplate() {
       </section>
 
       <section id="navLinks" class="nav-links">
-        <a id="summaryLink" class="nav-active" href="../summary.html">
+        <a id="summaryLink" class="nav-active" href="./summary.html">
           <svg
             class="nav-icon"
             width="24"
@@ -54,7 +54,7 @@ function navbarTemplate() {
           <span class="nav-links-text">Summary</span>
         </a>
 
-        <a id="boardLink" href="../board.html">
+        <a id="boardLink" href="./board.html">
           <svg
             class="nav-icon"
             width="25"
@@ -72,7 +72,7 @@ function navbarTemplate() {
           <span class="nav-links-text">Board</span>
         </a>
 
-        <a id="addTaskLink" href="../add_task.html">
+        <a id="addTaskLink" href="./add_task.html">
           <svg
             class="nav-icon"
             width="25"
@@ -106,7 +106,7 @@ function navbarTemplate() {
           <span class="nav-links-text">Add Tasks</span>
         </a>
 
-        <a id="contactsLink" href="../contacts.html">
+        <a id="contactsLink" href="./contacts.html">
           <svg
             class="nav-icon"
             width="24"
