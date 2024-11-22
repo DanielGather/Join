@@ -154,7 +154,6 @@ async function deleteSubTask(idWithNoSpace, index, taskId, valueTask) {
 
 /**
  * Updates data in Firebase based on the given ID, context, and priority.
-
  * @param {string} id - The unique ID of the item to update.
  * @param {string|null} [context=null] - The context indicating which property of the item to update (e.g., "title", "date").
  * @param {string|null} [priority=null] - An optional value that takes precedence over the default value retrieved from the DOM.
@@ -346,6 +345,13 @@ function handlePressedKey(event, task, context = null) {
   }
 }
 
+/**
+ * Displays a popup with a success message and hides it automatically after a delay.
+ * @param {string} text - The success message to display.
+ * This function makes a specific HTML container element (with the ID `popupContainer`) visible by adding 
+ * a CSS class. It updates the text inside the container and automatically removes the visibility 
+ * after 2 seconds. Finally, it calls the `updateHTML` function to refresh the UI.
+ */
 function successPopup(text) {
   let animatedContainer = document.getElementById('popupContainer');
   let newText = document.getElementById("successText");
