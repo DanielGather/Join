@@ -1,19 +1,37 @@
-window.addEventListener('resize', closeMobileModal);
-
+/**
+ * The ID of the contact being edited.
+ * @type {string | undefined}
+ */
 let editId;
+
+/**
+ * Array containing all To-Dos.
+ * @type {Array}
+ */
 let allToDosArr;
 
+/**
+ * Initializes the contacts page by rendering contacts and fetching To-Dos.
+ * @returns {Promise<void>}
+ */
 async function contactsJS() {
     renderContactsLetter();
     await getAllToDos();
 }
 
+/**
+ * Updates the page by syncing local storage, rendering contacts, and fetching To-Dos.
+ * @returns {Promise<void>}
+ */
 async function updatePage() {
     await updateLS();
     renderContactsLetter();
     await getAllToDos();
 }
 
+/**
+ * Renders contacts grouped by their initial letter into the container.
+ */
 function renderContactsLetter() {
     document.getElementById('renderContainer_contacts').innerHTML = '';
    
@@ -32,20 +50,30 @@ function renderContactsLetter() {
     }
 }
 
+/**
+ * Renders individual contact cards under their respective letter grouping.
+ * @param {string} id - The ID of the contact.
+ * @param {Object} contact - The contact object.
+ */
 function renderContactCards(id, contact) {
     contact.phone = contact.phone || '-/-';
     document.getElementById(`contactsOf_${contact.letter}`).innerHTML += temp_contactCard(id, contact);
-    coloringProfImg(id, contact);
+    setProfileImageColor(`color${id}`, contact);
 }
 
-function coloringProfImg(id, contact) {
-    document.getElementById(`color${id}`).style.backgroundColor = contact.color;
+/**
+ * Sets the background color of a contact's profile image.
+ * @param {string} elementId - The ID of the profile image element.
+ * @param {Object} contact - The contact object.
+ */
+function setProfileImageColor(elementId, contact) {
+    document.getElementById(elementId).style.backgroundColor = contact.color;
 }
 
-function coloringInfoProfImg(id, contact) {
-    document.getElementById(`colorInfo${id}`).style.backgroundColor = contact.color;
-}
-
+/**
+ * Displays detailed information about a contact.
+ * @param {string} id - The ID of the contact.
+ */
 function viewContact(id) {
     removeActiveLink('.contact-s-card', 'active-contact');
     document.getElementById(`cardContact${id}`).classList.add('active-contact');
@@ -56,19 +84,34 @@ function viewContact(id) {
     document.getElementById('mobileMenuDialog').innerHTML = temp_mobileMenu(id);
 }
 
+/**
+ * Renders detailed information of a contact.
+ * @param {string} id - The ID of the contact.
+ */
 function renderContactInfos(id) {
     let contact = idToContact(id);
 
     document.getElementById('sec_contactInfo').innerHTML = temp_contactInfo(id, contact);
-    coloringInfoProfImg(id, contact);
+    setProfileImageColor(`colorInfo${id}`, contact);
 }
 
+/**
+ * Finds a contact by its ID.
+ * @param {string} id - The ID of the contact.
+ * @returns {Object | null} - The contact object or null if not found.
+ */
 function idToContact(id) {
-    let contactArr = contactsLS.filter(contact => contact[0] == id);
-    let contact = contactArr[0][1];
-    return contact;
+    const contactEntry = contactsLS.find(contact => contact[0] == id);
+    return contactEntry ? contactEntry[1] : null;
 }
 
+/**
+ * Retrieves input values from given fields and formats them.
+ * @param {string} nameId - The ID of the name input field.
+ * @param {string} mailId - The ID of the email input field.
+ * @param {string} phoneId - The ID of the phone input field.
+ * @returns {Object} - An object containing name, email, and phone.
+ */
 function getInpValues(nameId, mailId, phoneId) {
     let mail = document.getElementById(mailId).value.trim();
     let phone = document.getElementById(phoneId).value.trim();
@@ -81,33 +124,62 @@ function getInpValues(nameId, mailId, phoneId) {
     return {'name': name, 'email': mail, 'phone': phone};
 }
 
+/**
+ * Clears all input fields on the page.
+ */
 function clearInputs() {
     document.querySelectorAll('input').forEach(input => input.value = '');
 }
 
+/**
+ * Opens a modal dialog for adding a new contact and renders the contact's details.
+ * @param {string} id - The ID of the new contact.
+ * @returns {Promise<void>}
+ */
 async function openNewContact(id) {
     await updatePage();
     viewContact(id);
     renderContactInfos(id);
 }
 
+/**
+ * Handles the addition of a new contact.
+ * @async
+ * @param {Event} event - The form submission event.
+ * @returns {Promise<void>}
+ */
 async function addContact(event) {
     event.preventDefault();
 
-    let newContact = getInpValues('inpName', 'inpMail', 'inpPhone');
-    newContact.initials = createInitials(newContact.name);
-    newContact.letter = newContact.name.charAt(0).toUpperCase();
-    newContact.color = getRandomColor();
-    
+    let newContact = initializeContact('inpName', 'inpMail', 'inpPhone');
     let response = await postData('contacts', newContact);
-    
-    let id = response.name;
     
     closeModal('addContactDialog');
     showAlert();
-    await openNewContact(id);
+    await openNewContact(response.name);
 }
 
+/**
+ * Initializes a contact object with formatted details.
+ * @param {string} nameId - The ID of the name input field.
+ * @param {string} mailId - The ID of the email input field.
+ * @param {string} phoneId - The ID of the phone input field.
+ * @returns {Object} - The initialized contact object.
+ */
+function initializeContact(nameId, mailId, phoneId) {
+    const contact = getInpValues(nameId, mailId, phoneId);
+    return {
+        ...contact,
+        initials: createInitials(contact.name),
+        letter: contact.name.charAt(0).toUpperCase(),
+        color: getRandomColor()
+    };
+}
+
+/**
+ * Fills input fields with the contact's details for editing.
+ * @param {string} id - The ID of the contact to edit.
+ */
 function fillInputs(id) {
     let contact = idToContact(id);
     document.getElementById('editName').value = contact.name;
@@ -118,18 +190,29 @@ function fillInputs(id) {
     document.getElementById('editPhone').value = contact.phone;
 }
 
+/**
+ * Shows the contact's profile image in the edit dialog.
+ * @param {string} id - The ID of the contact.
+ */
 function showEditImg(id) {
     let contact = idToContact(id);
     document.getElementById('editContactImg').innerHTML = contact.initials;
     document.getElementById('editContactImg').style.backgroundColor = contact.color;
 }
 
+/**
+ * Updates the initials in real-time as the user types a name in the edit dialog.
+ */
 function realTimeInitial() {
     let input = document.getElementById('editName').value.trim();
     let initials = createInitials(input);
     document.getElementById('editContactImg').innerHTML = initials;
 }
 
+/**
+ * Opens the edit dialog for a contact.
+ * @param {string} id - The ID of the contact to edit.
+ */
 function openEditContact(id) {
     editId = id;
     openModal('editContactDialog');
@@ -138,13 +221,16 @@ function openEditContact(id) {
     showEditImg(id);
 }
 
+/**
+ * Updates the contact details after editing and saves them to the database.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function saveEdit(event) {
     event.preventDefault();
     let contact = idToContact(editId);
 
-    let editContact = getInpValues('editName', 'editEmail', 'editPhone');
-    editContact.initials = createInitials(editContact.name);
-    editContact.letter = editContact.name.charAt(0).toUpperCase();
+    let editContact = initializeContact('editName', 'editEmail', 'editPhone');
     editContact.color = contact.color;
     if (contact.password) {editContact.password = contact.password};
     
@@ -156,6 +242,10 @@ async function saveEdit(event) {
     renderHeader('contacts');
 }
 
+/**
+ * Toggles the delete button's visibility in the modal.
+ * @param {string} id - The ID of the contact.
+ */
 function deleteButtonModal(id) {
     document.getElementById('modalDeleteButton').onclick = function() {
         closeModal('editContactDialog');
@@ -163,6 +253,12 @@ function deleteButtonModal(id) {
     };
 }
 
+/**
+ * Deletes a contact from the database and updates the UI.
+ * @async
+ * @param {string} id - The ID of the contact to delete.
+ * @returns {Promise<void>}
+ */
 async function deleteContact(id) {
     if (id !== undefined) {
         await findAssignedEmail(idToContact(id).email);
@@ -179,12 +275,18 @@ async function deleteContact(id) {
     }
 }
 
+/**
+ * Logs out the user and redirects to the homepage.
+ */
 function deleteUser() {
     localStorage.setItem("remember", "false");
     logOut();
     window.location.href = "./index.html";
 }
 
+/**
+ * Returns to the contact list view and resets the detailed contact view.
+ */
 function returnToContacts() {
     document.getElementById('sec_contactInfo').innerHTML = '';    
     document.getElementById('secContacts').classList.remove('hide-mobile');
@@ -192,44 +294,70 @@ function returnToContacts() {
     removeActiveLink('.contact-s-card', 'active-contact');
 }
 
+/**
+ * Opens a modal dialog.
+ * @param {string} id - The ID of the modal dialog to open.
+ */
 function openModal(id) {
     const modal = document.getElementById(id);
-    let classToOpen;
-    if (id == 'mobileMenuDialog') {
-        classToOpen = 'menu-dialog-slide-right';
-    } else {classToOpen = 'open'}
+    const classToOpen = id === 'mobileMenuDialog' ? 'menu-dialog-slide-right' : 'open';
+
     modal.showModal();
-    setTimeout(() => {
-        modal.classList.add(classToOpen);
-    }, 10);
-}
-  
-function closeModal(id) {
-    const modal = document.getElementById(id);
-    let classToOpen;
-    if (id == 'mobileMenuDialog') {
-        classToOpen = 'menu-dialog-slide-right';
-    } else {classToOpen = 'open'}
-    modal.classList.remove(classToOpen);
-    setTimeout(() => {
-        modal.close();
-    }, 400);
+    setTimeout(() => modal.classList.add(classToOpen), 10);
+    if (id === 'mobileMenuDialog') toggleResizeListener(true);
 }
 
+/**
+ * Closes a modal dialog.
+ * @param {string} id - The ID of the modal dialog to close.
+ */
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    const classToClose = id === 'mobileMenuDialog' ? 'menu-dialog-slide-right' : 'open';
+    
+    modal.classList.remove(classToClose);
+    setTimeout(() => modal.close(), 400);
+    if (id === 'mobileMenuDialog') toggleResizeListener(false);
+}
+
+/**
+ * Closes a modal dialog if the user clicks outside of it.
+ * @param {Event} event - The click event.
+ * @param {string} id - The ID of the modal dialog to close.
+ */
+function closeOnClickOutside(event, id) {
+    const modal = document.getElementById(id);
+    if (event.target === modal) {
+      closeModal(id);
+    }
+}
+
+/**
+ * Toggles the resize event listener to close the mobile modal on window resize.
+ * @param {boolean} open - Whether to add or remove the resize listener.
+ */
+function toggleResizeListener(open) {
+    if (open) {
+        window.addEventListener('resize', closeMobileModal);
+    } else {
+        window.removeEventListener('resize', closeMobileModal);
+    }
+}
+
+/**
+ * Closes a the mobile modal dialog if the vw >= 1024px.
+ * @param {string} id - The ID of the modal dialog to close.
+ */
 function closeMobileModal() {
     if (window.innerWidth >= 1024) {
         closeModal('mobileMenuDialog')
     }
 }
 
-function closeOnClickOutside(event, id) {
-    const modal = document.getElementById(id);
-    // Prüfe, ob das angeklickte Element das Modal selbst ist (außerhalb des Inhalts)
-    if (event.target === modal) {
-      closeModal(id);
-    }
-}
-
+/**
+ * Displays a temporary alert notification.
+ * @param {string} [message='Contact successfully created'] - The alert message.
+ */
 function showAlert() {
     const alert = document.getElementById("alertCreatedContact");
     alert.style.display = 'unset';
@@ -243,190 +371,58 @@ function showAlert() {
       alert.classList.add("hide-allert");
     }, 2000);
   
-    // Reset the alert for future use
     setTimeout(() => {
       alert.classList.remove("hide-allert");
       alert.style.display = 'none';
     }, 3000);
 }
 
+/**
+ * Fetches all to-do items from the database and stores them in the global array `allToDosArr`.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function getAllToDos() {
     allToDosArr = await getWhoelParthArr('toDos');
 }
 
-async function findAssignedEmail(searchMail, newMail = false) {
-    for (let index = 0; index < allToDosArr.length; index++) {
-        const assignesObj = allToDosArr[index][1].assignedTo;
-        for (const key in assignesObj) {
-            if (assignesObj[key] == searchMail) {
-                const toDoId = allToDosArr[index][0];
-                if (newMail) {
-                    editAssignedMail(toDoId, key, newMail);
-                } else {
-                    deleteAssigned(toDoId, key);
-                }
+/**
+ * Finds a to-do item assigned to a specific email and updates or deletes the assignment.
+ * @async
+ * @param {string} searchMail - The email to search for in the assignments.
+ * @param {string|null} [newMail=null] - The new email to replace the assignment, or null to delete it.
+ * @returns {Promise<void>}
+ */
+async function findAssignedEmail(searchMail, newMail = null) {
+    for (const [toDoId, { assignedTo }] of allToDosArr) {
+        Object.entries(assignedTo).forEach(([key, value]) => {
+            if (value === searchMail) {
+                newMail ? editAssignedMail(toDoId, key, newMail) : deleteAssigned(toDoId, key);
             }
-        }
+        });
     }
 }
 
+
+/**
+ * Updates the email assigned to a specific to-do item.
+ * @async
+ * @param {string} id - The ID of the to-do item.
+ * @param {string} key - The key of the assigned email.
+ * @param {string} newMail - The new email to assign.
+ * @returns {Promise<void>}
+ */
 async function editAssignedMail(id, key, newMail){
     await putData(`toDos/${id}/assignedTo/${key}`, newMail);
 }
 
+/**
+ * Deletes an email assignment from a specific to-do item.
+ * @async
+ * @param {string} id - The ID of the to-do item.
+ * @param {string} key - The key of the assigned email.
+ * @returns {Promise<void>}
+ */
 async function deleteAssigned(id, key){
     await deleteData(`toDos/${id}/assignedTo/${key}`);
-}
-
-
-
-
-
-
-
-//########################################################################
-
-// backup
-
-let demo = [
-    {
-        "letter": "A",
-        "name": "Adam Green",
-        "initials": "AG",
-        "email": "adam.green@example.com",
-        "phone": "+49 234 567 8901",
-        "color": "#FF5EB3"
-    },
-    {
-        "letter": "A",
-        "name": "Alice Turner",
-        "initials": "AT",
-        "email": "alice.turner@example.com",
-        "phone": "+49 123 456 7890",
-        "color": "#6E52FF"
-    },
-    {
-        "letter": "B",
-        "name": "Barbara Evans",
-        "initials": "BE",
-        "email": "christina16@chandler.info",
-        "phone": "+49 078 644 7883",
-        "color": "#FFBB2B"
-    },
-    {
-        "letter": "B",
-        "name": "Brenda Santana",
-        "initials": "BS",
-        "email": "trodriguez@gmail.com",
-        "phone": "+49 273 910 2805",
-        "color": "#0038FF"
-    },
-    {
-        "letter": "C",
-        "name": "Christina Adams",
-        "initials": "CA",
-        "email": "jconner@gmail.com",
-        "phone": "+49 907 707 0200",
-        "color": "#C3FF2B"
-    },
-    {
-        "letter": "C",
-        "name": "Christina Livingston",
-        "initials": "CL",
-        "email": "tyrone24@rodriguez-flores.com",
-        "phone": "+49 328 227 5215",
-        "color": "#FC71FF"
-    },
-    {
-        "letter": "D",
-        "name": "David Ball",
-        "initials": "DB",
-        "email": "harrisjacqueline@gonzalez.net",
-        "phone": "+49 484 641 1670",
-        "color": "#FFBB2B"
-    },
-    {
-        "letter": "G",
-        "name": "Glen Smith",
-        "initials": "GS",
-        "email": "michael56@hotmail.com",
-        "phone": "+49 135 876 0422",
-        "color": "#FFBB2B"
-    },
-    {
-        "letter": "J",
-        "name": "Jamie Lane",
-        "initials": "JL",
-        "email": "petersalexander@walters.net",
-        "phone": "+49 790 631 7169",
-        "color": "#FF745E"
-    },
-    {
-        "letter": "K",
-        "name": "Kevin Smith",
-        "initials": "KS",
-        "email": "brooksmichael@hotmail.com",
-        "phone": "+49 769 196 7735",
-        "color": "#462F8A"
-    },
-    {
-        "letter": "K",
-        "name": "Kevin Taylor",
-        "initials": "KT",
-        "email": "michaelrose@gmail.com",
-        "phone": "+49 512 891 7581",
-        "color": "#9327FF"
-    },
-    {
-        "letter": "M",
-        "name": "Michelle Howard",
-        "initials": "MH",
-        "email": "woodskatherine@yahoo.com",
-        "phone": "+49 589 838 4401",
-        "color": "#9327FF"
-    },
-    {
-        "letter": "R",
-        "name": "Randy Morgan",
-        "initials": "RM",
-        "email": "aescobar@kelley.com",
-        "phone": "+49 533 793 8174",
-        "color": "#FFBB2B"
-    },
-    {
-        "letter": "S",
-        "name": "Samantha Berg",
-        "initials": "SB",
-        "email": "kharris@yahoo.com",
-        "phone": "+49 229 785 1555",
-        "color": "#FC71FF"
-    },
-    {
-        "letter": "S",
-        "name": "Shawn Spears",
-        "initials": "SS",
-        "email": "padillalori@perez.org",
-        "phone": "+49 517 529 6426",
-        "color": "#C3FF2B"
-    },
-    {
-        "letter": "S",
-        "name": "Stephanie Davis",
-        "initials": "SD",
-        "email": "jamesramsey@levine-jones.com",
-        "phone": "+49 183 513 6865",
-        "color": "#FFE62B"
-    },
-    {
-        "letter": "W",
-        "name": "William Blackwell",
-        "initials": "WB",
-        "email": "alison96@gmail.com",
-        "phone": "+49 704 051 2075",
-        "color": "#6E52FF"
-    }
-]
-
-function adAllContacts(list) {
-    list.forEach(element => postData('contacts', element))
 }
