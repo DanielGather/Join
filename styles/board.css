@@ -365,9 +365,10 @@ input {
 }
 
 @media (max-width: 700px) {
-  /* .toDoArea{
-    flex-direction: column;
-  } */
+  .toDos{
+    width: 100%;
+    max-width: 40rem;
+  }
   .boardMobile {
     display: flex;
     flex-direction: column;
@@ -376,11 +377,11 @@ input {
 }
 
 @media (max-width: 600px) {
+  
   .taskArea {
     align-items: center;
   }
   .toDoArea {
-    flex-direction: column;
     justify-content: unset;
   }
   .feedbackArea {
