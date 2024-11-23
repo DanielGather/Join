@@ -2,7 +2,7 @@ function returnHeaderHtml(initials){
   return /*HTML*/`
       <div class="header">
       <div class="joinLogo">
-        <img src="../assets/img/joinLogo.svg" alt="" />
+        <img src="./assets/img/joinLogo.svg" alt="" />
       </div>
       <div class="headline">
         <span>Kanban Project Management Tool</span>
