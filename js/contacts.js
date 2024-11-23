@@ -394,15 +394,18 @@ async function getAllToDos() {
  * @returns {Promise<void>}
  */
 async function findAssignedEmail(searchMail, newMail = null) {
+    console.log(searchMail);
+    
     for (const [toDoId, { assignedTo }] of allToDosArr) {
-        Object.entries(assignedTo).forEach(([key, value]) => {
-            if (value === searchMail) {
-                newMail ? editAssignedMail(toDoId, key, newMail) : deleteAssigned(toDoId, key);
-            }
-        });
+        if (assignedTo && typeof assignedTo === 'object') {
+            Object.entries(assignedTo).forEach(([key, value]) => {
+                if (value === searchMail) {
+                    newMail ? editAssignedMail(toDoId, key, newMail) : deleteAssigned(toDoId, key);
+                }
+            });
+        }
     }
 }
-
 
 /**
  * Updates the email assigned to a specific to-do item.
