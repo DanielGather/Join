@@ -1,3 +1,34 @@
+/* TABLE OF CONTENT 
+
+1. global styles
+2. typography
+3. components
+4. layouts
+5. Animations
+6. media queries
+
+*/
+
+/* =============
+1. global styles   
+================ */
+
+/* =============
+2. typography  
+================ */
+
+.clamp {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* =============
+3. components   
+================ */
+
+/* =============
+4. layouts   
+================ */
+
 .task {
   overflow: auto;
   position: relative;
@@ -10,20 +41,6 @@
   gap: 1rem;
   border-radius: 2rem;
   box-shadow: -2px 0px 6px 0px rgb(0, 0, 0, 0.2);
-}
-
-.show {
-  animation: slideIn 0.5s forwards;
-  visibility: visible;
-}
-
-@keyframes slideIn {
-  from {
-    left: 100vw;
-  }
-  to {
-    left: 0;
-  }
 }
 
 .priority {
@@ -92,22 +109,40 @@
   border-radius: 0.5rem;
 }
 
-.clamp {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-}
-
 .limitContentHeadline {
   height: 7.5rem;
   overflow-y: auto;
 }
 
-.limitContentDescription{
+.limitContentDescription {
   max-height: 3.75rem;
   display: flex;
   overflow-y: auto;
 }
 
-.assignedToContainer{
+.assignedToContainer {
   max-height: 10rem;
   overflow: auto;
 }
+
+/* =============
+5. Animations
+================ */
+
+.show {
+  animation: slideIn 0.5s forwards;
+  visibility: visible;
+}
+
+@keyframes slideIn {
+  from {
+    left: 100vw;
+  }
+  to {
+    left: 0;
+  }
+}
+
+/* =============
+6. media queries
+================ */

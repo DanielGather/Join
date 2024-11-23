@@ -14,385 +14,369 @@
 ================ */
 
 h1 {
-    font-size: var(--h1-font-size);
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    grid-area: header;
+  font-size: var(--h1-font-size);
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  grid-area: header;
 }
-  
-  /* =============
+
+/* =============
   2. typography  
   ================ */
 
-  .greeting-daytime {
-    font-size: 24px;
-    font-weight: bold;
+.greeting-daytime {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .summary-date {
-    font-weight: 700;
-    font-size: 16px;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .font-type2 {
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-    font-size: 34px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  font-size: 34px;
 }
 
 .num-text {
-    text-align: center;
+  text-align: center;
 }
 
 .greeting-name {
-    font-size: 30px;
-    font-weight: bold;
-    color: #29ABE2;
+  font-size: 30px;
+  font-weight: bold;
+  color: #29abe2;
 }
 
-  /* =============
+/* =============
   3. components   
   ================ */
-  /* =============
+/* =============
   4. layouts   
   ================ */
 
-  .summary-main-content-box {
-    background-color: var(--main-background-color);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 1120px;
-    max-height: 900px;
-    padding: 1rem 2rem 1rem 2rem;
+.summary-main-content-box {
+  background-color: var(--main-background-color);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1120px;
+  max-height: 900px;
+  padding: 1rem 2rem 1rem 2rem;
 }
 
 .header-seperator-box {
-    background-color: #29ABE2;
-    height: 2px;
-    width: 70px;
-    grid-area: seperator;
+  background-color: #29abe2;
+  height: 2px;
+  width: 70px;
+  grid-area: seperator;
 }
 
-
-
 .header-text {
-    grid-area: text;
+  grid-area: text;
 }
 
 .content-header-grid-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 10px;
-    grid-template-areas:
-        "header"
-        "text"
-        "seperator"
-    ;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 10px;
+  grid-template-areas:
+    "header"
+    "text"
+    "seperator";
 }
 
 .main {
-    background-color: var(--main-background-color);
+  background-color: var(--main-background-color);
 }
 
 .content-summary-box {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .To-Do-Done-box {
-    display: flex;
-    gap: 30px;
+  display: flex;
+  gap: 30px;
 }
 
 .to-do-box,
 .done-box {
-    display: flex;
-    justify-content: space-evenly;
-    border: 1px solid var(--border-color);
-    background-color: white;
-    width: 144px;
-    padding: 10px;
-    align-items: center;
-    flex: 1;
-    border-radius: 12px;
-    transition: transform 0.1s, background-color 0.3s, color 0.3s;
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid var(--border-color);
+  background-color: white;
+  width: 144px;
+  padding: 10px;
+  align-items: center;
+  flex: 1;
+  border-radius: 12px;
+  transition: transform 0.1s, background-color 0.3s, color 0.3s;
 }
 
-
-
 .icon-summary {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .content-header-seperator-box {
-    width: 80px;
-    height: 2px;
-    background-color: #29ABE2;
-    margin: 10px 0;
+  width: 80px;
+  height: 2px;
+  background-color: #29abe2;
+  margin: 10px 0;
 }
 
 .urgent-deadline-box {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    transition: transform 0.1s, background-color 0.3s, color 0.3s;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.1s, background-color 0.3s, color 0.3s;
 }
 
 .urgent-box {
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  align-items: center;
 }
 
 .content-seperator-box {
-    background-color: rgb(209, 209, 209);
-    width: 2px;
-    height: 60px;
-    margin-right: 10px;
-    margin-top: 8px;
+  background-color: rgb(209, 209, 209);
+  width: 2px;
+  height: 60px;
+  margin-right: 10px;
+  margin-top: 8px;
 }
 
 .date-deadline-box {
-    gap: 4px;
-    font-size: 14px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  gap: 4px;
+  font-size: 14px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-
-
 .board-progress-feedback-box {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .single-box-board-progress-feedback {
-    border: 1px solid var(--border-color);
-    background-color: white;
-    border-radius: 12px;
-    padding: 10px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.1s, background-color 0.3s, color 0.3s;
+  border: 1px solid var(--border-color);
+  background-color: white;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.1s, background-color 0.3s, color 0.3s;
 }
 
-
 .summary-content-greeting-container {
-    display: flex;
-    align-items: center;
-    gap: 50px;
+  display: flex;
+  align-items: center;
+  gap: 50px;
 }
 
 .greeting-container {
-    display: none;
+  display: none;
 }
 
 .d-none {
-    display: none;
+  display: none;
 }
 
-  /* =============
+/* =============
   5. Animations
   ================ */
-  /* =============
+/* =============
   6. media queries
   ================ */
 
-
-
-
-@media (max-width:440px) {
-    .summary-main-content-box {
-        padding: unset;
-        margin-top: 20px;
-    }
+@media (max-width: 440px) {
+  .summary-main-content-box {
+    padding: unset;
+    margin-top: 20px;
+  }
 }
 
-@media(min-width: 440px) {
-    .content-header-grid-container {
-        display: grid;
-        grid-template-columns: 180px 3px 1fr;
-        grid-template-rows: auto;
-        gap: 10px;
-        grid-template-areas:
-            "header seperator text"
-        ;
-        align-items: center;
-    }
+@media (min-width: 440px) {
+  .content-header-grid-container {
+    display: grid;
+    grid-template-columns: 180px 3px 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    grid-template-areas: "header seperator text";
+    align-items: center;
+  }
 
-    .header-seperator-box {
-        background-color: #29ABE2;
-        height: 40px;
-        width: 2px;
-        grid-area: seperator;
-    }
+  .header-seperator-box {
+    background-color: #29abe2;
+    height: 40px;
+    width: 2px;
+    grid-area: seperator;
+  }
 }
 
-@media(min-width: 580px){
-    .summary-main-content-box {
-        padding: 4rem 2rem 1rem 4rem;
-    }
+@media (min-width: 580px) {
+  .summary-main-content-box {
+    padding: 4rem 2rem 1rem 4rem;
+  }
 }
 
-@media(min-width: 760px) {
-    .greeting-container {
-        display: flex;
-        flex-direction: column;
-        text-align: left;
-    }
+@media (min-width: 760px) {
+  .greeting-container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
 }
 
-@media(min-width: 1024px) {
-    .To-Do-Done-box {
-        width: 560px;
-        height: 168px;
-    }
+@media (min-width: 1024px) {
+  .To-Do-Done-box {
+    width: 560px;
+    height: 168px;
+  }
 
-    .urgent-deadline-box {
-        width: 560px;
-        height: 168px;
-        display: flex;
-        justify-content: space-evenly;
-    }
+  .urgent-deadline-box {
+    width: 560px;
+    height: 168px;
+    display: flex;
+    justify-content: space-evenly;
+  }
 
-    .board-progress-feedback-box {
-        width: 560px;
-        height: 170px;
-    }
+  .board-progress-feedback-box {
+    width: 560px;
+    height: 170px;
+  }
 
-    .single-box-board-progress-feedback {
-        width: 168px;
-        height: 168px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+  .single-box-board-progress-feedback {
+    width: 168px;
+    height: 168px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .urgent-box {
-        display: flex;
-        gap: 40px;
-    }
+  .urgent-box {
+    display: flex;
+    gap: 40px;
+  }
 
-    .content-header-grid-container {
-        display: grid;
-        grid-template-columns: 250px 3px 1fr;
-        grid-template-rows: auto;
-        gap: 10px;
-        grid-template-areas:
-            "header seperator text"
-        ;
-        align-items: center;
-    }
+  .content-header-grid-container {
+    display: grid;
+    grid-template-columns: 250px 3px 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    grid-template-areas: "header seperator text";
+    align-items: center;
+  }
 
-    h1 {
-        font-size: 60px;
-    }
+  h1 {
+    font-size: 60px;
+  }
 
-    .content-seperator-box {
-        background-color: rgb(209, 209, 209);
-        width: 2px;
-        height: 110px;
-        margin-right: 10px;
-        margin-top: 24px;
-    }
+  .content-seperator-box {
+    background-color: rgb(209, 209, 209);
+    width: 2px;
+    height: 110px;
+    margin-right: 10px;
+    margin-top: 24px;
+  }
 
-    .summary-content-greeting-container {
-        display: flex;
-        align-items: center;
-        gap: 100px;
-    }
+  .summary-content-greeting-container {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+  }
 
-    .font-type2 {
-        font-weight: bold;
-        color: rgb(0, 0, 0);
-        font-size: 64px;
-    }
+  .font-type2 {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    font-size: 64px;
+  }
 
-    .icon-summary {
-        width: 70px;
-        height: 70px;
-    }
+  .icon-summary {
+    width: 70px;
+    height: 70px;
+  }
 
-    .greeting-daytime {
-        font-size: 48px;
-        font-weight: bold;
-    }
+  .greeting-daytime {
+    font-size: 48px;
+    font-weight: bold;
+  }
 
-    .greeting-name {
-        font-size: 64px;
-        font-weight: bold;
-        color: #29ABE2;
-    }
+  .greeting-name {
+    font-size: 64px;
+    font-weight: bold;
+    color: #29abe2;
+  }
 
-    .urgent-deadline-box:hover {
-        background-color: #2A3647;
-        transform: scale(1.06);
-        cursor: pointer;
-    }
+  .urgent-deadline-box:hover {
+    background-color: #2a3647;
+    transform: scale(1.06);
+    cursor: pointer;
+  }
 
-    .urgent-deadline-box:hover .num-text,
-    .urgent-deadline-box:hover .summary-date,
-    .urgent-deadline-box:hover div {
-        color: white;
-    }
+  .urgent-deadline-box:hover .num-text,
+  .urgent-deadline-box:hover .summary-date,
+  .urgent-deadline-box:hover div {
+    color: white;
+  }
 
-    .urgent-deadline-box:hover .content-seperator-box {
-        background-color: white;
-    }
+  .urgent-deadline-box:hover .content-seperator-box {
+    background-color: white;
+  }
 
+  .single-box-board-progress-feedback:hover {
+    background-color: #2a3647;
+    transform: scale(1.06);
+    cursor: pointer;
+  }
 
-    .single-box-board-progress-feedback:hover {
-        background-color: #2A3647;
-        transform: scale(1.06);
-        cursor: pointer;
-    }
+  .single-box-board-progress-feedback:hover .font-type2,
+  .single-box-board-progress-feedback:hover div {
+    color: white;
+  }
 
-    .single-box-board-progress-feedback:hover .font-type2,
-    .single-box-board-progress-feedback:hover div {
-        color: white;
-    }
+  .to-do-box:hover,
+  .done-box:hover {
+    transform: scale(1.06);
+    background-color: #2a3647;
+    color: white;
+    cursor: pointer;
+  }
 
-    .to-do-box:hover,
-    .done-box:hover {
-        transform: scale(1.06);
-        background-color: #2A3647;
-        color: white;
-        cursor: pointer;
-    }
-    
-    .to-do-box:hover .num-text,
-    .done-box:hover .num-text {
-        color: white;
-    }
-    
-    .to-do-box:hover svg circle,
-    .done-box:hover svg circle {
-        fill: white;
-    }
-    
-    .to-do-box:hover svg path {
-        fill: #2A3647;
-    }
+  .to-do-box:hover .num-text,
+  .done-box:hover .num-text {
+    color: white;
+  }
 
-    .done-box:hover svg path {
-        stroke: #2A3647;
-    }
+  .to-do-box:hover svg circle,
+  .done-box:hover svg circle {
+    fill: white;
+  }
 
-    .to-do-box:hover .font-type2,
-    .done-box:hover .font-type2 {
-        color: white;
-    }
+  .to-do-box:hover svg path {
+    fill: #2a3647;
+  }
+
+  .done-box:hover svg path {
+    stroke: #2a3647;
+  }
+
+  .to-do-box:hover .font-type2,
+  .done-box:hover .font-type2 {
+    color: white;
+  }
 }

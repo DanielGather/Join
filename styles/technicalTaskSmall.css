@@ -1,6 +1,46 @@
+/* TABLE OF CONTENT 
+
+1. global styles
+2. typography
+3. components
+4. layouts
+5. Animations
+6. media queries
+
+*/
+
+/* =============
+1. global styles   
+================ */
+
 h1 {
   font-size: 1rem;
 }
+
+.pl035 {
+  padding-left: 0.35rem;
+}
+
+.newMargin {
+  margin-left: -1rem;
+}
+
+/* =============
+2. typography  
+================ */
+
+.subTaskFont {
+  font-size: 0.75rem;
+}
+
+/* =============
+3. components   
+================ */
+
+/* =============
+4. layouts   
+================ */
+
 .smallTask {
   padding: 0.5rem 0.5rem;
   flex-grow: 1;
@@ -11,10 +51,6 @@ h1 {
   border-radius: 1rem;
   font-size: 1rem;
   transition: transform 0.2s ease;
-}
-
-.dragging{
-  cursor: grabbing;
 }
 
 .userStory {
@@ -37,20 +73,16 @@ h1 {
   font-size: 12px;
 }
 
-.subTaskFont {
-  font-size: 0.75rem;
-}
-
 .progress {
   width: 100%;
   height: 0.75rem;
   border-radius: 0.5rem;
 }
 
-.pl035 {
-  padding-left: 0.35rem;
-}
+/* =============
+5. Animations
+================ */
 
-.newMargin{
-  margin-left: -1rem;
-}
+/* =============
+6. media queries
+================ */
