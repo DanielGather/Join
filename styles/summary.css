@@ -1,26 +1,63 @@
-/* @font-face {
-    font-family: Inter;
-    src: url("../font/Inter-VariableFont_opsz\,wght.ttf");
-} */
+/* TABLE OF CONTENT 
 
-/* :root {
-    --main-background-color: #F6F7F8;
-    --h1-font-size: 42px;
-    --border-radius: 12px;  
-    --border-color: #edeeef;
-    
-    --summary-font-bold-num-color: rgb(0,0,0);
-    --summary-font-weight-bold: bold;
-    --font-size-num: 34px;
-} */
+1. global styles
+2. typography
+3. components
+4. layouts
+5. Animations
+6. media queries
 
-/* * {
-    box-sizing: border-box;
-    margin: 0px;
-  } */
+*/
 
+/* =============
+1. global styles   
+================ */
 
-.summary-main-content-box {
+h1 {
+    font-size: var(--h1-font-size);
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    grid-area: header;
+}
+  
+  /* =============
+  2. typography  
+  ================ */
+
+  .greeting-daytime {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.summary-date {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.font-type2 {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    font-size: 34px;
+}
+
+.num-text {
+    text-align: center;
+}
+
+.greeting-name {
+    font-size: 30px;
+    font-weight: bold;
+    color: #29ABE2;
+}
+
+  /* =============
+  3. components   
+  ================ */
+  /* =============
+  4. layouts   
+  ================ */
+
+  .summary-main-content-box {
     background-color: var(--main-background-color);
     display: flex;
     flex-direction: column;
@@ -37,12 +74,7 @@
     grid-area: seperator;
 }
 
-h1 {
-    font-size: var(--h1-font-size);
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    grid-area: header;
-}
+
 
 .header-text {
     grid-area: text;
@@ -89,11 +121,7 @@ h1 {
     transition: transform 0.1s, background-color 0.3s, color 0.3s;
 }
 
-.font-type2 {
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-    font-size: 34px;
-}
+
 
 .icon-summary {
     width: 40px;
@@ -143,10 +171,7 @@ h1 {
     justify-content: center;
 }
 
-.summary-date {
-    font-weight: 700;
-    font-size: 16px;
-}
+
 
 .board-progress-feedback-box {
     display: flex;
@@ -164,9 +189,6 @@ h1 {
     transition: transform 0.1s, background-color 0.3s, color 0.3s;
 }
 
-.num-text {
-    text-align: center;
-}
 
 .summary-content-greeting-container {
     display: flex;
@@ -178,20 +200,19 @@ h1 {
     display: none;
 }
 
-.greeting-daytime {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.greeting-name {
-    font-size: 30px;
-    font-weight: bold;
-    color: #29ABE2;
-}
-
 .d-none {
     display: none;
 }
+
+  /* =============
+  5. Animations
+  ================ */
+  /* =============
+  6. media queries
+  ================ */
+
+
+
 
 @media (max-width:440px) {
     .summary-main-content-box {
