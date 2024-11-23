@@ -6,7 +6,6 @@ let editTaskOpen = false;
 let checkboxId = 1;
 let currentTaskId;
 let testArray = {};
-
 /**
  * Initializes the board by rendering the board, updating the navbar, and refreshing the HTML content.
  * The function calls `renderBoard()` to display the board, `navbarTemplate()` to update the navbar,
@@ -273,46 +272,61 @@ function showAddTask(type) {
   generateAddEventListener();
 }
 
-function generateAddEventListener(){
-    EventListenerKeydownSubtaskInput();
-    EventListenerKeydownTitleInput();
-    EventListenerInputTitle();
-    EventListenerChangeDate();
+function generateAddEventListener() {
+  EventListenerKeydownSubtaskInput();
+  EventListenerKeydownTitleInput();
+  EventListenerInputTitle();
+  EventListenerChangeDate();
 }
 
 function EventListenerInputTitle() {
-  const addTaskTitle = document.getElementById('addTaskTitle');
+  const addTaskTitle = document.getElementById("addTaskTitle");
   if (addTaskTitle) {
-      addTaskTitle.addEventListener('input', checkIfCreateTaskButtonCanBeEnabled);
+    addTaskTitle.addEventListener("input", checkIfCreateTaskButtonCanBeEnabled);
   }
 }
 
 function EventListenerChangeDate() {
-  const inputDate = document.getElementById('inputDate');
+  const inputDate = document.getElementById("inputDate");
   if (inputDate) {
-      inputDate.addEventListener('change', checkIfCreateTaskButtonCanBeEnabled);
+    inputDate.addEventListener("change", checkIfCreateTaskButtonCanBeEnabled);
   }
 }
 
 function EventListenerKeydownSubtaskInput() {
-  const subtasksInput = document.getElementById('subtasks-input');
+  const subtasksInput = document.getElementById("subtasks-input");
   if (subtasksInput) {
-      subtasksInput.addEventListener('keydown', function (event) {
-          if (event.key === 'Enter') {
-              event.preventDefault();
-              addSubTask();
-          }
-      });
+    subtasksInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        addSubTask();
+      }
+    });
   }
 }
 
 function EventListenerKeydownTitleInput() {
-  const addTaskTitle = document.getElementById('addTaskTitle');
+  const addTaskTitle = document.getElementById("addTaskTitle");
   if (addTaskTitle) {
-      addTaskTitle.addEventListener('keydown', function (event) {
-          if (event.key === 'Enter') {
-              event.preventDefault();
-          }
-      });
+    addTaskTitle.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+      }
+    });
   }
+}
+
+function openMenu(event, id) {
+  event.stopPropagation();
+  document.getElementById(`menuContainer${id}`).classList.toggle("showMenu");
+  setTimeout(() => {
+    document.getElementById(`menuContainer${id}`).classList.remove("showMenu");
+  }, "3000");
+}
+
+async function moveCategoryInFirebase(event, category, id) {
+  event.stopPropagation();
+  let taskId = await getIdFromDb("/toDos", "id", id);
+  await putData("/toDos/" + taskId + "/category", category);
+  await updateHTML();
 }

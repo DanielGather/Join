@@ -1,6 +1,7 @@
 function startDraggin(id, event) {
   currentDraggedElement = id;
     event.target.style.transform = 'rotate(15deg)';
+    event.target.style.cursor = "move";
 }
 
 function allowDrop(ev) {
