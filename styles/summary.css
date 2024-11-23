@@ -240,6 +240,45 @@ h1 {
     flex-direction: column;
     text-align: left;
   }
+
+  .To-Do-Done-box {
+    width: 460px;
+    height: 138px;
+  }
+
+  .urgent-deadline-box {
+    width: 460px;
+    height: 138px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .board-progress-feedback-box {
+    width: 460px;
+    height: 170px;
+    gap: 15px;
+  }
+
+  .content-seperator-box {
+    background-color: rgb(209, 209, 209);
+    width: 2px;
+    height: 64px;
+    margin-right: 10px;
+    margin-top: 38px;
+  }
+
+  .single-box-board-progress-feedback {
+    width: 168px;
+    height: 158px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .urgent-box {
+    display: flex;
+    gap: 40px;
+  }
 }
 
 @media (min-width: 1024px) {
