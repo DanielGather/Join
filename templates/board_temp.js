@@ -7,7 +7,7 @@ function boardHtml() {
         <img onclick="showAddTask()" class="responsiveButton" src="./assets/img/plus.svg" alt="" />
       </div>
       <div class="input-container">
-        <input id="mobile" onkeyup="searchTask('mobile')" type="text" placeholder="Dein Text" />
+        <input id="mobile" onkeyup="searchTask('mobile')" type="text" style="width: 100%" placeholder="Dein Text" />
         <p id="mobileNoResultsMessage" style="display: none; color: red; position:absolute; top: -25px;">Keine Ergebnisse gefunden</p>
         <div class="icon-container">
           <div class="divider"></div>

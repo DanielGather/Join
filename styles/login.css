@@ -1,3 +1,17 @@
+body {
+    height: 100%;
+    align-items: unset;
+    flex-direction: unset;
+}
+
+.overlay {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--main-background-color);
+}
+
 h1 {
     margin-block-start: 0;
     margin-block-end: 0;
@@ -18,20 +32,6 @@ a {
     width: 200px;
 }
 
-body {
-    height: 100%;
-    align-items: unset;
-    flex-direction: unset;
-}
-
-.overlay {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 100vh;
-    background-color: var(--main-background-color);
-}
-
 header {
     margin: 67px;
     margin-bottom: 40px;
@@ -44,31 +44,12 @@ header {
     justify-content: end;
     align-items: center;
 }
-@media (max-width: 1023px) {
-    .header-desktop {
-        display: none;
-    }
-}
 
 .header-desktop button {
     font-size: 16px;
     padding: 15px 16px;
 }
 
-footer {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    padding-bottom: 40px;
-}
-
-footer a {
-    color: #BBBBBC;
-    width: 120px;
-    text-align: center;
-}
-
-/* test */
 main {
     flex: 1;
     display: flex;
@@ -111,6 +92,20 @@ main {
     gap: 16px;
     margin-bottom: 32px;
 }
+
+footer {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding-bottom: 40px;
+}
+
+footer a {
+    color: #BBBBBC;
+    width: 120px;
+    text-align: center;
+}
+
 
 /* look */
 .return-container {
@@ -239,20 +234,47 @@ main {
     font-weight: 700;
 }
 
-
-
-
-
 /* ################# */
 
+.custom-checkbox {
+    width: 18px;
+    height: 18px;
+    appearance: none;
+    border: 2px solid #2A3647;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 3px;
+    position: relative;
+    padding: 0;
+}
 
+.custom-checkbox:checked {
+    border-color: #2A3647;
+}
 
+.custom-checkbox:checked::before {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background-color: white;
+    top: -3px;
+    left: 12px;
+    z-index: 1;
+}
 
-
-
-
-
-
+.custom-checkbox:checked::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    border: solid #2A3647;
+    border-width: 0 2px 2px 0;
+    transform: rotate(39deg);
+    top: -3px;
+    left: 5px;
+    z-index: 2;
+}
 
 .checkbox-link {
     font-weight: 300;
@@ -326,51 +348,15 @@ main {
     }
 }
 
-.custom-checkbox {
-    width: 18px;
-    height: 18px;
-    appearance: none;
-    border: 2px solid #2A3647;
-    background-color: white;
-    cursor: pointer;
-    border-radius: 3px;
-    position: relative;
-    padding: 0;
-}
-
-.custom-checkbox:checked {
-    border-color: #2A3647;
-}
-
-.custom-checkbox:checked::before {
-    content: "";
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    background-color: white;
-    top: -3px;
-    left: 12px;
-    z-index: 1;
-}
-
-.custom-checkbox:checked::after {
-    content: "";
-    position: absolute;
-    width: 6px;
-    height: 12px;
-    border: solid #2A3647;
-    border-width: 0 2px 2px 0;
-    transform: rotate(39deg);
-    top: -3px;
-    left: 5px;
-    z-index: 2;
+@media (max-width: 1023px) {
+    .header-desktop {
+        display: none;
+    }
 }
 
 
 
-
-
-
+/* Form input */
 
 form {
     display: flex;
@@ -447,6 +433,8 @@ outline: #FF001F !important;
 .input-icon input:not(:placeholder-shown) ~ .eyeIcons {
     display: unset;
 }
+/* ##################### */
+
 
 .hidden {
     display: none !important;
@@ -502,29 +490,6 @@ outline: #FF001F !important;
     }
 }
 
-
-
-
-
-button:disabled {
-    border: 2px solid #2a3647;
-    background-color: var(--join-dark-blue);
-    cursor: default;
-    box-shadow: unset;
-}
-button:disabled:hover {
-    border: 2px solid #2a3647;
-    background-color: var(--join-dark-blue);
-    cursor: default;
-    box-shadow: unset;
-}
-button:disabled:active {
-    border: 2px solid #2a3647;
-    background-color: var(--join-dark-blue);
-    cursor: default;
-    box-shadow: unset;
-}
-
 .show-message {
     display: block;
 }
@@ -547,9 +512,9 @@ button:disabled:active {
     transform: translateX(-50%);
     opacity: 0;
     transition: bottom 0.3s ease, opactiy 0.3s ease;
-  }
+}
   
-  .popup-container.visible {
+.popup-container.visible {
     bottom: 50%;
     opacity: 1;
-  }
+}

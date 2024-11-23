@@ -483,3 +483,10 @@ document.addEventListener('click', function(event) {
         }
     }
 });
+    if (!dropdownContainer.contains(event.target)) {
+        dropdownMenu.classList.add('d-none');
+        imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+    }
+}
+
+// document.addEventListener('click', handleClickAnywhere);
