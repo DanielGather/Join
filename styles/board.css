@@ -4,7 +4,8 @@
 2. typography
 3. components
 4. layouts
-5. media queries
+5. Animations
+6. media queries
 
 */
 
@@ -21,8 +22,56 @@ input {
   padding: 10px;
 }
 
+/* =============
+2. typography   
+================ */
+
+.icon {
+  font-size: 18px;
+}
+
 .fs16 {
   font-size: 16px;
+}
+
+/* =============
+3. components
+================ */
+
+.createTaskButton {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.createTaskButton:hover {
+  width: unset;
+  height: unset;
+  fill: unset;
+}
+
+.responsiveButton {
+  cursor: pointer;
+}
+
+/* =============
+4. layouts 
+================ */
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.board {
+  min-width: 20rem;
+  max-width: 70rem;
+  padding: 4.5rem 2rem;
+  width: 100%;
+}
+
+.boardDesktop {
+  display: none;
 }
 
 .addTaskBoard {
@@ -47,20 +96,6 @@ input {
   justify-content: center;
   align-items: center;
   z-index: 1;
-}
-
-.show {
-  animation: slideIn 0.5s forwards;
-  visibility: visible;
-}
-
-@keyframes slideIn {
-  from {
-    left: 100vw;
-  }
-  to {
-    left: 0;
-  }
 }
 
 .addTaskBoard-content-form-container {
@@ -109,7 +144,6 @@ input {
   gap: 22px;
   bottom: -80px;
   left: 50%;
-
   transform: translateX(-50%);
   opacity: 0;
   transition: bottom 0.3s ease, opactiy 0.3s ease;
@@ -150,10 +184,6 @@ input {
   width: 1px;
   background-color: #ccc;
   margin-right: 10px;
-}
-
-.icon {
-  font-size: 18px;
 }
 
 .noTask {
@@ -247,20 +277,18 @@ input {
   width: 100%;
 }
 
-.subtask-icon-container{
+.subtask-icon-container {
   display: flex;
-    width: 3.75rem;
-    justify-content: space-between;
-    align-items: center;
+  width: 3.75rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.subtask-separator{
-  background-color: #D1D1D1;
-    width: 1px;
-    height: 24px;
+.subtask-separator {
+  background-color: #d1d1d1;
+  width: 1px;
+  height: 24px;
 }
-
-
 
 .hover {
   cursor: pointer;
@@ -279,51 +307,25 @@ input {
 }
 
 /* =============
-2. typography   
+5. Animations   
 ================ */
 
-/* =============
-3. components
-================ */
-
-.createTaskButton {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem 0.75rem;
+.show {
+  animation: slideIn 0.5s forwards;
+  visibility: visible;
 }
 
-.createTaskButton:hover {
-  width: unset;
-  height: unset;
-  fill: unset;
-}
-
-.responsiveButton {
-  cursor: pointer;
+@keyframes slideIn {
+  from {
+    left: 100vw;
+  }
+  to {
+    left: 0;
+  }
 }
 
 /* =============
-4. layouts 
-================ */
-.main {
-  display: flex;
-  justify-content: center;
-}
-
-.board {
-  min-width: 20rem;
-  max-width: 70rem;
-  padding: 4.5rem 2rem;
-  width: 100%;
-}
-
-.boardDesktop {
-  display: none;
-}
-
-/* =============
-5. media queries   
+6. media queries   
 ================ */
 
 @media (min-width: 700px) {
@@ -365,7 +367,7 @@ input {
 }
 
 @media (max-width: 700px) {
-  .toDos{
+  .toDos {
     width: 100%;
     max-width: 40rem;
   }
@@ -377,7 +379,6 @@ input {
 }
 
 @media (max-width: 600px) {
-  
   .taskArea {
     align-items: center;
   }
