@@ -470,14 +470,16 @@ function initializeEventListenerKeydownTitleInput() {
 }
 
 
-function handleClickAnywhere(event) {
+document.addEventListener('click', function(event) {
     let dropdownMenu = document.getElementById('dropDownMenu');
-    let dropdownContainer = document.querySelector('.input-dropDownMenu-container');
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
-    if (!dropdownContainer.contains(event.target)) {
-        dropdownMenu.classList.add('d-none');
-        imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+    let mainContainer = document.getElementById('main')
+    if (!dropdownMenu.classList.contains('d-none')) {
+        if (mainContainer.contains(event.target) && 
+            !dropdownMenu.contains(event.target) && 
+            !imgDropdownToggle.contains(event.target)) {           
+            dropdownMenu.classList.add('d-none');
+            imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+        }
     }
-}
-
-document.addEventListener('click', handleClickAnywhere);
+});
