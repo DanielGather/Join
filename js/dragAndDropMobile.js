@@ -9,6 +9,7 @@ const observer = new MutationObserver((mutationsList) => {
       const inProgress = document.querySelector(".progressArea");
       const awaitFeedback = document.querySelector(".feedbackArea");
       const done = document.querySelector(".doneArea");
+console.log("Done", done);
 
       if (toDo && inProgress && awaitFeedback && done) {
         console.log("Alle Elemente sind verfügbar");
@@ -70,7 +71,7 @@ function addStart(elem) {
       
       elem.target.style.left = nextX - startX + "px";
       elem.target.style.top = nextY - startY + "px";
-      // console.log(elem.target.style.top, elem.target.style.left);
+      console.log(elem.target.style.top, elem.target.style.left);
       // console.log("Move Top Position",elem.target.getBoundingClientRect().top);
       
       

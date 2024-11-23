@@ -73,6 +73,7 @@ function boardHtml() {
     <div id="addTaskBoard" onclick="triggerButton()" class="addTaskContainer">
       <div onclick="eventStopPropagation(event)" class="addTaskBoard" id="boardAddTask"></div>
     </div>
+    <div class="landscape-warning">Bitte drehen Sie Ihr Gerät ins Hochformat.</div>
     <div class="popupContainer" id="popupContainer">
                 <p id="successText"></p>
                 <img src="./assets/img/board-icon.svg" alt="board-icon">

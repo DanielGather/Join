@@ -64,7 +64,7 @@ input {
 }
 
 .board {
-  min-width: 20rem;
+  min-width: 18rem;
   max-width: 70rem;
   padding: 4.5rem 2rem;
   width: 100%;
@@ -306,6 +306,21 @@ input {
   color: #7ae229;
 }
 
+.landscape-warning {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  line-height: 100vh;
+  z-index: 1000;
+}
+
 /* =============
 5. Animations   
 ================ */
@@ -383,6 +398,7 @@ input {
     align-items: center;
   }
   .toDoArea {
+    flex-direction: column;
     justify-content: unset;
   }
   .feedbackArea {
@@ -396,5 +412,11 @@ input {
   .doneArea {
     flex-direction: column;
     justify-content: unset;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+  .landscape-warning {
+    display: block;
   }
 }
