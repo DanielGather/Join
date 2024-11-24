@@ -57,7 +57,7 @@ img {
   min-width: 60px;
 }
 
-.subTaskHover:hover .subTaskIcons{
+.subTaskHover:hover .subTaskIcons {
   opacity: 1;
 }
 
@@ -154,11 +154,82 @@ img {
   background-color: #d1d1d1;
 }
 
+.subtask-single-container {
+  border-radius: var(--input-select-textarea-radius);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.subtask-single-container:hover {
+  background-color: #e7e7e7;
+}
+
+.subtask-single-container:hover .subtask-icon-container {
+  display: flex;
+}
+
+.subtask-icon-container {
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-right: 12px;
+  display: none;
+}
+
+.subtask-icon-container img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
 .dropDownContacts {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+}
+
+.subtask-edit-container {
+  display: flex;
+  max-width: 530px;
+  width: 100%;
+  justify-content: space-between;
+  border: none;
+  border-bottom: 1px solid var(--join-light-blue);
+  background-color: white;
+}
+
+.subtask-edit-container {
+  & input {
+    padding-left: 16px;
+    border: none;
+  }
+  & input:focus {
+    outline: none;
+    border: none;
+  }
+  & img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+}
+
+.editSubtask-icon-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-right: 12px;
+}
+
+.close-separator-checked-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
 
 .initialNameContainer {
@@ -235,7 +306,7 @@ img {
   gap: 1rem;
 }
 
-.prio-buttons button:hover{
+.prio-buttons button:hover {
   border-radius: var(--button-radius);
   font-weight: 400;
   background-color: white;
@@ -315,7 +386,7 @@ textarea:focus {
   border-color: var(--join-light-blue);
 }
 
-.iconContainer{
+.iconContainer {
   width: 3.125rem;
   justify-content: space-between;
 }
@@ -461,7 +532,6 @@ textarea {
   .clear-button {
     display: flex;
   }
-
   .subtasks-container,
   .category-header-container,
   .urgent-medium-low-buttons,
