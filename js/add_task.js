@@ -197,12 +197,19 @@ async function toggleAssignedToDropDown() {
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
     let dropdownMenu = document.getElementById('dropDownMenu');
     dropdownMenu.classList.toggle('d-none');
+
+    //let overlay = document.getElementById('onclickOverlayBackground');
+    
     if (dropdownMenu.classList.contains('d-none')) {
         imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+
+      //  overlay.classList.add('d-none'); // Overlay ausblenden
     } else {
         imgDropdownToggle.src = './assets/img/arrow_drop_up.svg';
+
+       // overlay.classList.remove('d-none'); // Overlay einblenden
     }
-    addEventListener();
+    //addEventListener();
 }
 
 
@@ -470,17 +477,21 @@ function initializeEventListenerKeydownTitleInput() {
     }
 }
 
-function addEventListener() {
+
+document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(event) {
         let dropdownMenu = document.getElementById('dropDownMenu');
         let imgDropdownToggle = document.getElementById('imgDropdownToggle');
-        // let mainContainer = document.getElementById('main');
-        // let formContainer = document.querySelector('.form-container');
-        if (!dropdownMenu.contains(event.target)) {
-                    
-                dropdownMenu.classList.add('d-none');
-                imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
-            
+        let mainContainer = document.getElementById('main');
+        if (dropdownMenu && imgDropdownToggle && mainContainer) {
+            if (!dropdownMenu.classList.contains('d-none')) {
+                if (mainContainer.contains(event.target) && 
+                    !dropdownMenu.contains(event.target) && 
+                    !imgDropdownToggle.contains(event.target)) {                    
+                    dropdownMenu.classList.add('d-none');
+                    imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+                }
+            }
         }
     });
-}
+});
