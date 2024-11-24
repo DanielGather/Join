@@ -19,9 +19,14 @@ function handleSubmit(event) {   // prüfen welcher button geklickt wurde
     return false;
 }
 
-
+/**
+ * Resets the task form and associated UI elements to their initial states.
+ * Clears input fields, resets selection elements, removes rendered content, 
+ * and restores default settings for the task creation form.
+ * 
+ * @returns {void} This function does not return a value.
+ */
 function clear() {
-    console.log("clear test test");
     document.getElementById('addTaskTitle').value = '';
     document.getElementById('textForDescription').value = '';
     document.getElementById('inputDate').value = '';
@@ -33,13 +38,20 @@ function clear() {
     document.getElementById('dropDownMenu').innerHTML = '';
     document.getElementById('renderedInitialsContainer').innerHTML = '';
     document.getElementById('rendered-task-container').innerHTML = '';
-    // document.getElementById('rendered-task-container').style.opacity = '0';
     document.getElementById('rendered-task-container').classList.add('d-none');
     subtaskArray = [];
     resetCheckboxes();
 }
 
-
+/**
+ * Resets all checkboxes in the "dropDownContacts" section and clears associated data.
+ * 
+ * This function unchecks all checkboxes within the "dropDownContacts" dropdown menu.
+ * Additionally, it clears the arrays and variables that store contact names, initials,
+ * colors, and assignments, restoring them to their initial states.
+ * 
+ * @returns {void} This function does not return a value.
+ */
 function resetCheckboxes() {
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
