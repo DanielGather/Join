@@ -196,20 +196,12 @@ async function toggleAssignedToDropDown() {
     renderAssignedToContacts();
     let imgDropdownToggle = document.getElementById('imgDropdownToggle');
     let dropdownMenu = document.getElementById('dropDownMenu');
-    dropdownMenu.classList.toggle('d-none');
-
-    //let overlay = document.getElementById('onclickOverlayBackground');
-    
+    dropdownMenu.classList.toggle('d-none');  
     if (dropdownMenu.classList.contains('d-none')) {
         imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
-
-      //  overlay.classList.add('d-none'); // Overlay ausblenden
     } else {
         imgDropdownToggle.src = './assets/img/arrow_drop_up.svg';
-
-       // overlay.classList.remove('d-none'); // Overlay einblenden
     }
-    //addEventListener();
 }
 
 
@@ -494,4 +486,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-});
+}); 
