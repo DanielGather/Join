@@ -215,6 +215,9 @@ img {
     height: 20px;
     cursor: pointer;
   }
+  &:hover{
+    background-color: green;
+  }
 }
 
 .editSubtask-icon-container {
