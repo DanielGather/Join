@@ -24,16 +24,8 @@ function changeTimeFormat(wrongFormat) {
 // }
 
 function highlightRightPriority(rightTask) {
-  // let urgentId = document.getElementById("urgentButton");
-  // let mediumId = document.getElementById("mediumButton");
-  // let lowId = document.getElementById("lowButton");
   let priority = rightTask.priority;
   setButtonColorForPrio(priority, "Edit");
-  // let backgroundColorPriority = rightTask.priority == "urgent" ? "#f33d00" : rightTask.priority == "medium" ? "#ffa800" : rightTask.priority == "low" ? "#7ae228" : "";
-  // let priority = rightTask.priority == "urgent" ? urgentId : rightTask.priority == "medium" ? mediumId : rightTask.priority == "low" ? lowId : "";
-  // priority.style.backgroundColor = backgroundColorPriority;
-  // priority.style.color = "white";
-  // svgColors(rightTask);
 }
 
 function eventStopPropagation(event) {

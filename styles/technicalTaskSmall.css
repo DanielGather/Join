@@ -100,7 +100,7 @@ h1 {
 
 .menuContainer{
   position: absolute;
-  display: flex;
+  display: none;
   opacity: 0;
   top: -7rem;
   left: 9.375rem;
@@ -112,6 +112,7 @@ h1 {
   padding: 0.5rem 0rem 0.5rem 0rem;
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
+  box-shadow: -2px 0px 6px 0px rgb(0,0,0, 0.2);
 }
 
 .menuButton{
@@ -126,11 +127,12 @@ h1 {
 }
 
 .showMenu {
-  animation: test 0.5s forwards;
+  display: flex;
+  animation: slider 0.5s forwards;
 
 }
 
-@keyframes test {
+@keyframes slider {
   from {
     top: -4.875rem;
     opacity: 0;

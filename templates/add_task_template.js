@@ -21,7 +21,7 @@ function returnAddTaskHtml(type) {
                                 <div style="position:relative">
                                     <div class="inputAssignedToContainer">
                                         <input type="text" id="searchContact" onkeyup="searchExistingContact()" placeholder="Select contacts to assign">
-                                        <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown('false')"></div>
+                                        <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()"></div>
                                     </div>
                                     <div class="dropDownContainer d-none" id="dropDownMenu">
                                         <!-- <div class="dropDownContacts" id="dropDownContacts">

@@ -224,9 +224,12 @@ async function triggerForm(event, id, context = null) {
   let headlineInputValue = document.getElementById(`${id}_headline`).value;
   let dateInputValue = document.getElementById(`${id}_date`).value;
   if (headlineInputValue !== "" && dateInputValue !== "") {
-    closeBigTask();
+    await closeBigTask();
     successPopup('Sucessfully Edited');
   }
+  setTimeout(()=>{
+    window.location.reload();
+  },1000)
 }
 
 /**
@@ -360,5 +363,4 @@ function successPopup(text) {
   setTimeout(() => {
       animatedContainer.classList.remove('visible');
   }, 2000);
-  updateHTML();
 }

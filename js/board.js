@@ -251,7 +251,7 @@ async function closeBigTask() {
   document.getElementById("addTaskBoard").style.display = "none";
   bigTaskActive = false;
   editTaskOpen = false;
-  updateHTML();
+  await updateHTML();
 }
 
 /**
@@ -330,4 +330,3 @@ async function moveCategoryInFirebase(event, category, id) {
   await putData("/toDos/" + taskId + "/category", category);
   await updateHTML();
 }
-
