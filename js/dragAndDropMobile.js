@@ -29,7 +29,6 @@ console.log("Done", done);
 
 observer.observe(document.body, { childList: true, subtree: true });
 
-
 function addStart(elem) {
   console.log("Wird getriggert");
   console.log("Füge touchmove Listener hinzu:", elem.target);

@@ -330,3 +330,4 @@ async function moveCategoryInFirebase(event, category, id) {
   await putData("/toDos/" + taskId + "/category", category);
   await updateHTML();
 }
+
