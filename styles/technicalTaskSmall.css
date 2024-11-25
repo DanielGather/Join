@@ -22,7 +22,7 @@ h1 {
 }
 
 .newMargin {
-  margin-left: -1rem;
+  margin-left: -1rem !important;
 }
 
 /* =============
