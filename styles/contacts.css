@@ -383,7 +383,6 @@ a:-webkit-any-link:focus-visible {
   dialog {
     height: 594px;
     width: 1280px;
-    min-width: 1094px;
     top: 50%;
     left: 150%;
   }
@@ -410,7 +409,6 @@ a:-webkit-any-link:focus-visible {
     display: unset;
   }
 
-  /* TODO: globalisieren */
   .mb-52 {
     margin-bottom: 52px;
   }
@@ -430,6 +428,7 @@ a:-webkit-any-link:focus-visible {
 
   .add-contact-form {
     width: 65%;
+    min-width: 346px;
     padding: 0;
     gap: 32px;
   }
@@ -464,3 +463,15 @@ a:-webkit-any-link:focus-visible {
     display: flex !important;
   }
 }
+
+@media (max-width: 1090px) {
+  .modal-form-side {
+    padding: 24px;
+  }
+}
+@media (max-width: 1120px) {
+  .add-contact-img {
+    margin-left: 24px;
+  }
+}
+
