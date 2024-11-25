@@ -29,7 +29,7 @@ h1 {
 2. typography  
 ================ */
 
-.subTaskFont {
+.subtask-font {
   font-size: 0.75rem;
 }
 
@@ -41,7 +41,7 @@ h1 {
 4. layouts   
 ================ */
 
-.smallTask {
+.small-task {
   position: relative;
   padding: 0.5rem 0.5rem;
   flex-grow: 1;
@@ -98,7 +98,7 @@ h1 {
   height: 2px;
 }
 
-.menuContainer{
+.menu-container{
   position: absolute;
   display: none;
   opacity: 0;
@@ -115,13 +115,13 @@ h1 {
   box-shadow: -2px 0px 6px 0px rgb(0,0,0, 0.2);
 }
 
-.menuButton{
+.menu-button{
   background-color: #e7e7e7;
   padding-left: 0.5rem;
   border-radius: 1rem;
 }
 
-.menuButton:hover{
+.menu-button:hover{
   text-decoration: underline;
   cursor: pointer;
 }
