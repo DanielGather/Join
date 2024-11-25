@@ -19,41 +19,6 @@ function handleSubmit(event, type) {   // prüfen welcher button geklickt wurde
     return false;
 }
 
-/**
- * Resets the task form and associated UI elements to their initial states.
- * Clears input fields, resets selection elements, removes rendered content, 
- * and restores default settings for the task creation form.
- * 
- * @returns {void} This function does not return a value.
- */
-function clear() {
-    document.getElementById('addTaskTitle').value = '';
-    document.getElementById('textForDescription').value = '';
-    document.getElementById('inputDate').value = '';
-    document.getElementById('subtasks-input').value = '';
-    priority = null;
-    setButtonColorForPrio(null, "AddTask");
-    document.getElementById('category-header').innerText = 'Select task category';
-    selectedCategory = null;
-    document.getElementById('dropDownMenu').innerHTML = '';
-    document.getElementById('renderedInitialsContainer').innerHTML = '';
-    document.getElementById('rendered-task-container').innerHTML = '';
-    document.getElementById('rendered-task-container').classList.add('d-none');
-    subtaskArray = [];
-    resetCheckboxes();
-}
-
-function resetCheckboxes() {
-    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-    checkedContactNames = [];
-    checkedContactInitials = [];
-    checkedContactColors = [];
-    assignedToContacts = null;
-}
-
 
 async function createTask(type) {
     await getAllToDos();
@@ -81,6 +46,11 @@ function getInputValues(idNum, type) {
     let category = selectedCategory;
     let assignedTo = assignedToContacts;
     let toDoId = idNum;
+    return createInputObject(title, description, dueDate, priority, category, assignedTo, toDoId, type);
+}
+
+
+function createInputObject(title, description, dueDate, priority, category, assignedTo, toDoId, type) {
     return {
         'headline': title,
         'date': dueDate,
@@ -238,75 +208,6 @@ function checkIfCreateTaskButtonCanBeEnabled() {
 }
 
 
-function addSubTask() {
-    document.getElementById('rendered-task-container').classList.remove('d-none');
-    let subtaskInput = document.getElementById('subtasks-input').value.trim();
-    if (subtaskInput) {
-        subtaskArray.push(subtaskInput);
-        renderSubtasks();
-    }
-    document.getElementById('subtasks-input').value = '';
-    document.getElementById('actionIcons').style = 'display:none';
-    document.getElementById('plusIcon').style = 'display:block';
-}
-
-
-function renderSubtasks() {
-    let taskContainer = document.getElementById('rendered-task-container');
-    taskContainer.innerHTML = '';
-    for (let i = 0; i < subtaskArray.length; i++) {
-        let subtask = subtaskArray[i];
-        taskContainer.innerHTML += temp_generateHtmlRenderSubtasks(subtask, i);
-    }
-}
-
-
-function editSubtask(index) {
-    let subtaskElementContainer = document.getElementById(`subtask-List-Container-${index}`);
-    subtaskElementContainer.innerHTML = temp_generateHtmlEditSubtasks(index);
-}
-
-
-function saveEditSubtask(index) {
-    let editedSubtaskValue = document.getElementById(`editInput-${index}`).value.trim();
-    if (editedSubtaskValue) {
-        subtaskArray[index] = editedSubtaskValue;
-        renderSubtasks();
-    }
-}
-
-
-function cancelEditSubtask() {
-    renderSubtasks();
-}
-
-
-function deleteSubtask(index) {
-    subtaskArray.splice(index, 1);
-    renderSubtasks();
-}
-
-
-function toggleSubtaskIcons() {
-    let plusIcon = document.getElementById('plusIcon');
-    let actionIcons = document.getElementById('actionIcons');
-    if (plusIcon.style.display === 'none') {
-        plusIcon.style.display = 'block';
-        actionIcons.style.display = 'none';
-    } else {
-        plusIcon.style.display = 'none';
-        actionIcons.style.display = 'flex';
-    }
-}
-
-
-function deleteInputSubtaskValue() {
-    document.getElementById('subtasks-input').value = '';
-    document.getElementById('actionIcons').style = 'display:none';
-    document.getElementById('plusIcon').style = 'display:block';
-}
-
-
 function renderInitials() {
     checkedContactNames = [];
     checkedContactInitials = [];
@@ -315,22 +216,32 @@ function renderInitials() {
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
-            let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
-            let name = checkedContact[0].name;
-            let initial = checkedContact[0].initials;
-            let color = checkedContact[0].color;
-            checkedContactNames.push(name);
-            checkedContactInitials.push(initial);
-            checkedContactColors.push(color);
+            processCheckedContact(checkbox);
         }
     })
+    updateRenderedInitials(checkedContactInitials, checkedContactColors);
+    renderAssignedToContacts();
+}
+
+
+function processCheckedContact(checkbox) {
+    let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
+    let name = checkedContact[0].name;
+    let initial = checkedContact[0].initials;
+    let color = checkedContact[0].color;
+    checkedContactNames.push(name);
+    checkedContactInitials.push(initial);
+    checkedContactColors.push(color);
+}
+
+
+function updateRenderedInitials(checkedContactInitials, checkedContactColors) {
     let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
     renderedInitialsContainer.innerHTML = '';
     checkedContactInitials.forEach((initial, index) => {
         let color = checkedContactColors[index];
         renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(initial, color);
     });
-    renderAssignedToContacts();
 }
 
 
