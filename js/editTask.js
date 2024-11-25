@@ -239,6 +239,7 @@ async function triggerForm(event, id, context = null) {
 function triggerButton() {
   if (editTaskOpen == false) {
     closeBigTask();
+    window.location.reload();
   } else {
     document.getElementById("createTaskEdit").click();
     // document.querySelector("form").submit();

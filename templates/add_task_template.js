@@ -10,12 +10,10 @@ function returnAddTaskHtml(type) {
                                 <label class="addTask-label">Title<span class="star">*</span></label>
                                 <input required class="title-input" id="addTaskTitle" placeholder="Enter a title" autocomplete="off">
                             </div>
-
                             <div class="title-description-assigned">
                                 <label class="addTask-label">Description</label>
                                 <textarea rows="4" placeholder="Enter a Description" id="textForDescription"></textarea>
                             </div>
-
                             <div class="title-description-assigned">
                                 <label class="addTask-label">Assigned to</label>
                                 <div style="position:relative">
@@ -24,28 +22,17 @@ function returnAddTaskHtml(type) {
                                         <div class="arrow-drop-down-img"><img src="./assets/img/arrow_drop_down.svg" alt="arrow_drop_down" id="imgDropdownToggle" onclick="toggleAssignedToDropDown()"></div>
                                     </div>
                                     <div class="dropDownContainer d-none" id="dropDownMenu">
-                                        <!-- <div class="dropDownContacts" id="dropDownContacts">
-                                            <div class="initialNameContainer" id="initialNameContainer">
-                                                <div class="initialsAssigned" id="initialsAssigned">CR</div>
-                                                <p id="contactNameAddTask">Christiano Ronaldo</p>
-                                            </div>
-                                            <input type="checkbox" id="contactCheckbox" onclick="renderInitials()">
-                                        </div> -->
-                                        
                                     </div>
                                     <div class="renderedInitialsContainer" id="renderedInitialsContainer"></div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="addTask-seperator"></div>
-
                         <div class="dueDate-prio-category-subtasks-container">
                             <div class="dueDate-container">
                                 <label class="addTask-label">Due date<span class="star">*</span></label>
                                 <input required class="title-input" type="date" id="inputDate">
                             </div>
-
                             <div class="prio-container">
                                 <label class="addTask-label">Prio</label>
                                 <div class="prio-buttons">
@@ -57,7 +44,6 @@ function returnAddTaskHtml(type) {
                                             src="./assets/img/prio_low.svg"></button>
                                 </div>
                             </div>
-
                             <div class="category-container">
                                 <label class="addTask-label">Category <span class="star">*</span></label>
                                 <div class="category-header-container">
@@ -69,7 +55,6 @@ function returnAddTaskHtml(type) {
                                     <div class="choose-category-container" onclick="setCategory('User Story')">User Story</div>
                                 </div>
                             </div>
-
                             <div class="subtasks-container">
                                 <label class="addTask-label">Subtasks</label>
                                 <div class="subtasks-input-add-container">
@@ -85,7 +70,6 @@ function returnAddTaskHtml(type) {
                             <div class="rendered-task-container opacity-0" id="rendered-task-container"></div>
                         </div>
                     </div>
-
                     <div class="form-confirmation">
                         <div class="required"><span class="star">*</span>This field is required</div>
                         <div class="clear-create-button">
