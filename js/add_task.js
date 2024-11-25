@@ -57,11 +57,9 @@ function resetCheckboxes() {
 
 async function createTask(type) {
     await getAllToDos();
-    console.log("createTask test test");
     let idNum = createNewId();
     let newTask = getInputValues(idNum, type);
     const taskId = (await postData('toDos', newTask)).name;
-    console.log('taskId lautet:', taskId);
     if (subtaskArray.length > 0) {
         for (let i = 0; i < subtaskArray.length; i++) {
             let subtask = {
@@ -69,10 +67,8 @@ async function createTask(type) {
                 task: subtaskArray[i],
             };
             const subtaskId = await postData(`toDos/${taskId}/subtasks`, subtask);
-            console.log('Subtask-ID lautet:', subtaskId.name);
         }
     };
-    console.log('neue Task:', newTask);
     showAddTaskSuccessPopup();
 }
 
@@ -106,12 +102,10 @@ async function getAllToDos() {
         return;
     }
     let allCurrentToDos = Object.values(data);
-    console.log('alle Todos:', allCurrentToDos);
     for (let i = 0; i < allCurrentToDos.length; i++) {
         let singleId = allCurrentToDos[i].id;
         allCurrentIds.push(singleId);
     }
-    console.log('alle Ids:', allCurrentIds);
 }
 
 
@@ -152,12 +146,10 @@ function chooseTaskPrioType(priorityType, idVariable) {
     if (statusPriority === priorityType) {
         setButtonColorForPrio(null, idVariable);
         statusPriority = null;
-        console.log('Prioauswahl deaktiviert:', statusPriority);
         return null;
     }
     statusPriority = priorityType;
     setButtonColorForPrio(priorityType, idVariable);
-    console.log('Prioauswahl:', statusPriority);
 }
 
 
@@ -227,7 +219,6 @@ function setCategory(category) {
     categoryDropdownMenu.classList.add('d-none');
     imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
     selectedCategory = category;
-    console.log('category ist:', selectedCategory);
     checkIfCreateTaskButtonCanBeEnabled();
 }
 
@@ -248,7 +239,6 @@ function checkIfCreateTaskButtonCanBeEnabled() {
 
 
 function addSubTask() {
-    // document.getElementById('rendered-task-container').style = 'opacity:1';
     document.getElementById('rendered-task-container').classList.remove('d-none');
     let subtaskInput = document.getElementById('subtasks-input').value.trim();
     if (subtaskInput) {
@@ -258,7 +248,6 @@ function addSubTask() {
     document.getElementById('subtasks-input').value = '';
     document.getElementById('actionIcons').style = 'display:none';
     document.getElementById('plusIcon').style = 'display:block';
-    console.log('subtaskArray:', subtaskArray);
 }
 
 
@@ -319,7 +308,6 @@ function deleteInputSubtaskValue() {
 
 
 function renderInitials() {
-    console.log("Teste True or False ",);
     checkedContactNames = [];
     checkedContactInitials = [];
     checkedContactColors = [];
@@ -342,9 +330,6 @@ function renderInitials() {
         let color = checkedContactColors[index];
         renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(initial, color);
     });
-    console.log('die checkContactnames:', checkedContactNames);
-    console.log('die checkContactinitials:', checkedContactInitials);
-    console.log('die checkContactcolor:', checkedContactColors);
     renderAssignedToContacts();
 }
 
@@ -362,7 +347,6 @@ function getCheckedContacts() {
             counter++;
         }
     });
-    console.log('assigned to:', checkedContacts);
     return checkedContacts;
 }
 
