@@ -5,6 +5,8 @@ let summaryToDos;
  *
  */
 async function summaryJS() {
+  summaryHTML();
+  greetingMobile();
   await getAllToDos();
   getSummary("toDo", "summaryToDo");
   getSummary("done", "doneToDo");
@@ -16,6 +18,59 @@ async function summaryJS() {
   greetRight();
   showRightUser();
 }
+
+/**
+ * This function sets the HTML content of the element with the ID "main" to 
+ * the return value of the `returnSummaryHTML()` function. It is used to update 
+ * the main content of the page.
+ */
+function summaryHTML(){
+  document.getElementById("main").innerHTML = returnSummaryHTML();
+}
+
+/**
+ * This function checks if the user has already been greeted, and if not, 
+ * displays the greeting element. If the element is displayed, it will 
+ * be hidden after a certain period. The function ensures that the greeting 
+ * element is correctly displayed depending on the window size.
+ * 
+ * When the screen width is smaller than 1024px, the greeting element 
+ * will be animated and hidden after 3 seconds. If the screen width is 
+ * greater than 1024px, the element remains visible.
+ */
+function greetingMobile() {
+  const wasGreeted = sessionStorage.getItem("wasGreeted");
+  if (!wasGreeted) {
+    greetContainer.classList.remove("d-none", "vanish"); // Entferne beide Klassen
+    if (innerWidth < 1024) {
+      greetContainer.classList.add("vanish");
+      setTimeout(() => {
+        greetContainer.classList.add("d-none");
+      }, 3001);
+      sessionStorage.setItem("wasGreeted", true);
+    }
+  } else if (innerWidth > 1024) {
+    greetContainer.classList.remove("d-none");
+  }
+}
+
+/**
+ * This function is called when the window is resized and adjusts the visibility 
+ * of the greeting element based on the window width.
+ * If the window width is greater than 1024px, the greeting element is made visible 
+ * by removing the "d-none" and "vanish" classes.
+ * If the window width is less than or equal to 1024px, the element is hidden 
+ * by adding the "d-none" class.
+ */
+function handleResize() {
+  if (innerWidth > 1024) {
+    greetContainer.classList.remove("d-none", "vanish");
+  } else {
+    greetContainer.classList.add("d-none");
+  }
+}
+
+window.addEventListener("resize", handleResize);
 
 /**
  * with getAllToDos I get the current ToDos from the database (Firebase)
@@ -69,11 +124,11 @@ function taskInBoard() {
 
 /**
  * Finds and displays the closest upcoming deadline date in a container element.
- * This function iterates through a list of task dates (`summaryToDos`), finds the date closest to the 
- * current date (but not in the past), formats it, and updates the HTML of an element with the ID 
+ * This function iterates through a list of task dates (`summaryToDos`), finds the date closest to the
+ * current date (but not in the past), formats it, and updates the HTML of an element with the ID
  * `upcomingDeadline` to display the closest deadline date.
  * @global
- * Uses global variables `summaryToDos` (array of task data) and `parseDateEuropeDateFormat`, 
+ * Uses global variables `summaryToDos` (array of task data) and `parseDateEuropeDateFormat`,
  * `formatDate` (helper functions for date parsing and formatting).
  */
 function printDeadlineDate() {
@@ -84,7 +139,7 @@ function printDeadlineDate() {
   summaryToDos.forEach((taskDate) => {
     let date = parseDateEuropeDateFormat(taskDate[1].date);
     if (date >= currentDate) {
-      closestDate = findClosestFutureDate(date, currentDate, smallestDiffernce)
+      closestDate = findClosestFutureDate(date, currentDate, smallestDiffernce);
     }
   });
   deadlineContainer.innerHTML = closestDate;
@@ -97,11 +152,11 @@ function printDeadlineDate() {
  * @param {number} smallestDiffernce - The smallest difference found so far (in milliseconds).
  * @returns {string} The formatted closest future date.
  * This function calculates the absolute difference between a given date and the current date.
- * If the difference is smaller than the smallest difference provided, it updates the smallest 
- * difference and sets the closest date to the given date. The closest date is then formatted 
+ * If the difference is smaller than the smallest difference provided, it updates the smallest
+ * difference and sets the closest date to the given date. The closest date is then formatted
  * using the `formatDate` helper function and returned.
  */
-function findClosestFutureDate(date, currentDate, smallestDiffernce){
+function findClosestFutureDate(date, currentDate, smallestDiffernce) {
   let difference = Math.abs(date - currentDate);
   if (difference < smallestDiffernce) {
     smallestDiffernce = difference;
@@ -154,7 +209,7 @@ function greetRight() {
   let morningTime = "07:00:00";
   let afternoonTime = "12:00:00";
   let eveningTime = "18:00:00";
-  let greeting = currentTime > morningTime && currentTime < afternoonTime ? "Good Morning" : currentTime > afternoonTime && currentTime < eveningTime ? "Good Evening" : "Good Afternoon";
+  let greeting = currentTime > morningTime && currentTime < afternoonTime ? "Good Morning " : currentTime > afternoonTime && currentTime < eveningTime ? "Good Evening " : "Good Afternoon ";
   container.innerHTML = greeting;
   console.log("Uhrzeit", greeting);
 }

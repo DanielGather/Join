@@ -2,7 +2,6 @@ function returnAddTaskHtml(type) {
   return /*HTML*/ ` 
             <div class="main-addTask-container">
                 <h1>Add Task</h1>
-
                 <form class="form-container" onsubmit="return handleSubmit(event, this.dataset.type)" data-type="${type}">
                     <div class="addTaskBoard-content-form-container">
                         <div class="title-description-assigned-container">
