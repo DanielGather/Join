@@ -22,7 +22,17 @@ function clear() {
     resetCheckboxes();
 }
 
-
+/**
+ * Resets all checkboxes in the contacts dropdown and clears associated data.
+ * 
+ * This function unchecks all checkboxes within the contacts dropdown, clears the arrays 
+ * that store the names, initials, and colors of the selected contacts, and sets the 
+ * `assignedToContacts` variable to `null`. This is typically used when clearing the task's 
+ * assigned contacts or resetting the state of the contact selection.
+ * 
+ * @returns {void} This function does not return a value. It modifies the DOM elements and 
+ * resets internal data variables.
+ */
 function resetCheckboxes() {
     let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
     checkboxes.forEach(checkbox => {
