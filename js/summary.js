@@ -43,7 +43,7 @@ function greetingMobile() {
   if (!wasGreeted) {
     greetContainer.classList.remove("d-none", "vanish"); // Entferne beide Klassen
     if (innerWidth < 1024) {
-      greetContainer.classList.add("vanish");
+      greetContainer.classList.add("vanish"); 
       setTimeout(() => {
         greetContainer.classList.add("d-none");
       }, 3001);
@@ -211,7 +211,6 @@ function greetRight() {
   let eveningTime = "18:00:00";
   let greeting = currentTime > morningTime && currentTime < afternoonTime ? "Good Morning " : currentTime > afternoonTime && currentTime < eveningTime ? "Good Evening " : "Good Afternoon ";
   container.innerHTML = greeting;
-  console.log("Uhrzeit", greeting);
 }
 
 /**
@@ -222,7 +221,6 @@ function greetRight() {
  */
 function showRightUser() {
   let user = document.getElementById("currentUserLogin");
-  console.log("user", userInfo);
   if (userInfo == "guest") {
     user.innerHTML == "Guest";
   } else {

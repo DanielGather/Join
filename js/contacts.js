@@ -394,8 +394,6 @@ async function getAllToDos() {
  * @returns {Promise<void>}
  */
 async function findAssignedEmail(searchMail, newMail = null) {
-    console.log(searchMail);
-    
     for (const [toDoId, { assignedTo }] of allToDosArr) {
         if (assignedTo && typeof assignedTo === 'object') {
             Object.entries(assignedTo).forEach(([key, value]) => {
