@@ -233,9 +233,27 @@ h1 {
   .summary-main-content-box {
     padding: 4rem 2rem 1rem 4rem;
   }
+
+  .content-header-grid-container {
+    display: grid;
+    grid-template-columns: 181px 3px 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    grid-template-areas: "header seperator text";
+    align-items: center;
+  }
 }
 
 @media (min-width: 760px) {
+  .content-header-grid-container {
+    display: grid;
+    grid-template-columns: 181px 3px 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    grid-template-areas: "header seperator text";
+    align-items: center;
+  }
+
   .greeting-container {
     display: flex;
     flex-direction: column;
