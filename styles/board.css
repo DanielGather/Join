@@ -358,7 +358,7 @@ input {
   }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1440px) {
   .taskArea {
     flex-wrap: wrap;
   }
@@ -366,18 +366,22 @@ input {
   .toDoArea {
     flex-direction: unset;
     justify-content: unset;
+    flex-wrap: wrap;
   }
   .feedbackArea {
     flex-direction: unset;
     justify-content: unset;
+    flex-wrap: wrap;
   }
   .progressArea {
     flex-direction: unset;
     justify-content: unset;
+    flex-wrap: wrap;
   }
   .doneArea {
     flex-direction: unset;
     justify-content: unset;
+    flex-wrap: wrap;
   }
 }
 
@@ -415,7 +419,7 @@ input {
   }
 }
 
-@media screen and (orientation: landscape) and (max-width: 1024px) {
+@media (orientation: landscape) and (max-width: 1024px) and (max-height: 430px) {
   .landscape-warning {
     display: block;
   }
