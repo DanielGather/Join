@@ -123,11 +123,14 @@ document.addEventListener('DOMContentLoaded', function() {
         let dropdownMenu = document.getElementById('dropDownMenu');
         let imgDropdownToggle = document.getElementById('imgDropdownToggle');
         let mainContainer = document.getElementById('main');
-        if (dropdownMenu && imgDropdownToggle && mainContainer) {
+        let searchContactInput = document.getElementById('searchContact');
+        if (dropdownMenu && imgDropdownToggle && mainContainer && searchContactInput) {
             if (!dropdownMenu.classList.contains('d-none')) {
                 if (mainContainer.contains(event.target) && 
                     !dropdownMenu.contains(event.target) && 
-                    !imgDropdownToggle.contains(event.target)) {                    
+                    !imgDropdownToggle.contains(event.target) &&
+                    !searchContactInput.contains(event.target)
+                ) {                    
                     dropdownMenu.classList.add('d-none');
                     imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
                 }

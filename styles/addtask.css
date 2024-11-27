@@ -83,6 +83,7 @@ h1 {
     border: none;
     outline: none;
     height: 32px;
+    width: 100%;
 }
 
 .inputAssignedToContainer img,
