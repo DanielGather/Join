@@ -138,3 +138,68 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 }); 
+
+/**
+ * This script listens for the `DOMContentLoaded` event and sets up event listeners to manage the visibility of
+ * a category dropdown menu. It checks if specific elements (main container, category dropdown, category header,
+ * and dropdown toggle image) exist on the page, and if so, attaches an event listener to the main container.
+ * When a click event occurs outside the category dropdown or the category header, the dropdown is hidden and
+ * the dropdown toggle image is updated to an arrow pointing down.
+ *
+ * @event DOMContentLoaded - This event is triggered when the initial HTML document has been completely loaded
+ *                            and parsed, without waiting for stylesheets, images, and subframes to finish loading.
+ *
+ * The event listener added to the main container checks if the user clicked outside the category dropdown or
+ * category header, and if so, hides the dropdown and updates the toggle image.
+ *
+ * @returns {void} - This function does not return anything. It sets up event listeners for DOM elements.
+ *
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    const mainContainer = document.getElementById('main');
+    const categoryDropdownMenu = document.getElementById('categoryDropdownMenu');
+    const categoryHeaderContainer = document.querySelector('.category-header-container');
+    const imgCategoryDropdownToggle = document.getElementById('imgCategoryDropdownToggle');
+    if (mainContainer && categoryDropdownMenu && categoryHeaderContainer && imgCategoryDropdownToggle) {
+        mainContainer.addEventListener('click', function (event) {
+            if (
+                !categoryHeaderContainer.contains(event.target) &&
+                !categoryDropdownMenu.contains(event.target)
+            ) {
+                if (!categoryDropdownMenu.classList.contains('d-none')) {
+                    categoryDropdownMenu.classList.add('d-none');
+                    imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+                }
+            }
+        });
+    }
+});
+
+/**
+ * This script listens for the `DOMContentLoaded` event, and once triggered, it sets the minimum selectable date
+ * in an input field of type "date". The minimum date is set to the current date, ensuring that users cannot 
+ * select dates in the past. The script checks if the element with the ID `inputDate` exists before updating it.
+ *
+ * @event DOMContentLoaded - This event is fired when the HTML document has been completely loaded and parsed,
+ *                            without waiting for stylesheets, images, or subframes to finish loading.
+ *
+ * The script retrieves the current date, formats it in the `YYYY-MM-DD` format, and sets it as the `min` 
+ * attribute of the input field with the ID `inputDate`. This ensures that the user can only select the current 
+ * date or any future date in the date input.
+ *
+ * @returns {void} - This function does not return anything. It performs DOM manipulation by setting the `min` 
+ *                   attribute on the input field.
+ *
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const minDate = `${yyyy}-${mm}-${dd}`;
+
+    const dateInput = document.getElementById('inputDate');
+    if (dateInput) { // checks, if element exists
+        dateInput.setAttribute('min', minDate);
+    }
+});

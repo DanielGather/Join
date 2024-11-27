@@ -86,25 +86,20 @@ function resetButtonStyles(idVariable) {
 }
 
 /**
- * Sets the selected category for a task and updates the UI accordingly.
- * 
- * This function is called when a category is chosen from the category dropdown menu. 
- * It updates the category header text, hides the category dropdown menu, 
- * and restores the dropdown toggle icon to the default state. 
- * The selected category is saved and used to check if the task creation button can be enabled.
- * 
- * @param {string} category - The name of the category that has been selected. 
- * It is used to update the displayed category and save it for later use in the task creation process.
- * 
- * @returns {void} This function does not return a value. It modifies the DOM elements 
- * and updates the `selectedCategory` variable.
+ * The `setCategory` function sets the selected category and updates the category display in the HTML.
+ * It updates the text of the element with the ID `category-header` and stores the selected category
+ * in the global variable `selectedCategory`. Afterward, it checks whether the "Create Task" button
+ * can be enabled based on the selected category.
+ *
+ * @param {string} category - The name or label of the selected category that will be displayed in the UI
+ *                             and stored. This value should be a string that describes the desired category
+ *                             (e.g., "Work", "Shopping", "Personal").
+ *
+ * @returns {void} - This function does not return anything. It performs DOM manipulation and calls
+ *                   another function (`checkIfCreateTaskButtonCanBeEnabled`) to check the state of the task button.
  */
 function setCategory(category) {
-    let categoryDropdownMenu = document.getElementById('categoryDropdownMenu');
-    let imgCategoryDropdownToggle = document.getElementById('imgCategoryDropdownToggle');
     document.getElementById('category-header').innerText = category;
-    categoryDropdownMenu.classList.add('d-none');
-    imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
     selectedCategory = category;
     checkIfCreateTaskButtonCanBeEnabled();
 }

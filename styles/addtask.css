@@ -383,6 +383,10 @@ textarea {
     z-index: 2;
 }
 
+#category-header {
+    width: 100%;
+}
+
 .category-dropdown-container {
     border-radius: var(--input-select-textarea-radius);
     background-color: white;
