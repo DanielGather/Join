@@ -1,6 +1,6 @@
 function startDraggin(id, event) {
   currentDraggedElement = id;
-    event.target.style.transform = 'rotate(15deg)';
+    event.target.style.transform = 'rotate(5deg)';
     event.target.style.cursor = "move";
 }
 
@@ -10,7 +10,6 @@ function allowDrop(ev) {
 
 async function moveToCategory(category) {
   let id = await getIdFromDb("/toDos", "id", currentDraggedElement);
-  console.log("test", id);
   await putData("/toDos/" + id + "/category", category);
   renderBoard();
   await updateHTML();

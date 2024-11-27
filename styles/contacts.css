@@ -375,6 +375,36 @@ a:-webkit-any-link:focus-visible {
   bottom: -80px;
 }
 
+
+#renderContainer_contacts {
+  --sb-track-color: #f7f7f7;
+  --sb-thumb-color: #2a3647;
+  --sb-size: 9px;
+}
+
+#renderContainer_contacts::-webkit-scrollbar {
+  width: var(--sb-size) !important;
+  height: var(--sb-size) !important;
+}
+
+#renderContainer_contacts::-webkit-scrollbar-track {
+  background: var(--sb-track-color) !important;
+  border-radius: 3px !important;
+}
+
+#renderContainer_contacts::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color) !important;
+  border-radius: 3px !important;
+  
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  #renderContainer_contacts {
+    scrollbar-color: var(--sb-thumb-color),
+                     var(--sb-track-color) !important;
+  }
+}
+
 @media (min-width: 1024px) {
   .mobile-menu-dialog {
     display: none;

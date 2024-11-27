@@ -104,3 +104,20 @@ function returnEditableSubTaskHTML(idWithNoSpace, task, value, index) {
 </ul>
     `;
 }
+
+function returnContactCircleHTML(contact){
+  return /*HTML*/ `
+  <div class="d-flex alic gap1">
+    <div class="circle" style="background-color: ${contact.color}">${contact.initials}</div>
+    ${!editTaskOpen ? `<div>${contact.name}</div>` : ""}
+  </div>
+`;
+}
+
+function theNumberOfExcessAssignedContacts(assignedToEntries, contact, newClass){
+  return /*HTML*/ `
+        <div class="d-flex alic gap1">
+          <div class="${newClass}" style="background-color: ${contact.color}">${"+" + (assignedToEntries.length - 5)}</div>
+        </div>
+      `;
+}

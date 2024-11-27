@@ -1,6 +1,6 @@
 function htmlTechnicalTaskSmall(element) {
   return /*HTML*/ `
-      <div id="${element[1]["id"]}" draggable="true" ondragstart="startDraggin(${element[1]['id']}, event)" onclick="openTask(${element[1]['id']})" ontouchstart="addStart(event)" class="d-flex dflex-col small-task">
+      <div id="${element[1]["id"]}" draggable="true" ondragstart="startDraggin(${element[1]['id']}, event)" onclick="openTask(${element[1]['id']})" class="d-flex dflex-col small-task">
         <div style="display:flex; justify-content:space-between;"><div id="story${element[1]["id"]}" class="d-flex alic jc-c userStoryBackground br1 userStory"><span>${element[1]["story"]}</span></div>
           <div onclick="openMenu(event, ${element[1]['id']})" class="bars">
             <div class="bar"></div>

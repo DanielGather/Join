@@ -32,14 +32,16 @@ function renderBoard() {
  */
 async function updateHTML() {
   let toDos = await getData("toDos");
-  allToDos = Object.entries(toDos);
-  const categories = [
-    { name: "toDo", containerId: "toDo" },
-    { name: "inProgress", containerId: "inProgress" },
-    { name: "awaitFeedback", containerId: "awaitFeedback" },
-    { name: "done", containerId: "done" },
-  ];
-  categories.forEach((category) => updateCategoryHTML(category.name, category.containerId, allToDos));
+  if (toDos) {
+    allToDos = Object.entries(toDos);
+    const categories = [
+      { name: "toDo", containerId: "toDo" },
+      { name: "inProgress", containerId: "inProgress" },
+      { name: "awaitFeedback", containerId: "awaitFeedback" },
+      { name: "done", containerId: "done" },
+    ];
+    categories.forEach((category) => updateCategoryHTML(category.name, category.containerId, allToDos));
+  }
 }
 
 /**
@@ -129,17 +131,28 @@ async function updateCheckbox(taskId) {
  * Each key is a contact ID, and the value contains the corresponding contact details.
  */
 function renderAssignedToBigTask(element) {
+  let newClass = "circle"
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
-  document.getElementById("renderedInitialsContainer").innerHTML = "";
-  assignedToEntries.forEach(([, value]) => {
+  let container = document.getElementById("renderedInitialsContainer")
+  container.innerHTML = "";
+  renderRightAssignedTo(assignedToEntries, container, newClass);
+}
+
+function renderRightAssignedTo(assignedToEntries, container, newClass){
+  for (let index = 0; index < assignedToEntries.length; index++) {
+    let value = assignedToEntries[index][1];
     let contact = getContact(value);
-    document.getElementById("renderedInitialsContainer").innerHTML += /*HTML*/ `
-        <div class="d-flex alic gap1">
-        <div class="circle" style = "background-color: ${contact.color}">${contact.initials}</div>
-        ${!editTaskOpen ? `<div>${contact.name}</div>` : ""}
-        </div>
-      `;
-  });
+    if (editTaskOpen) {
+      if (index < 5) {
+        container.innerHTML += returnContactCircleHTML(contact);
+      } else {
+        container.innerHTML += theNumberOfExcessAssignedContacts(assignedToEntries, contact, newClass);
+        break;
+      }
+    } else {
+      container.innerHTML += returnContactCircleHTML(contact);
+    }
+  }
 }
 
 /**
@@ -154,18 +167,23 @@ function renderAssignedToBigTask(element) {
  * - The background color and initials of the contacts are determined using the `getContact` function.
  */
 function renderAssignedToSmallTask(element, context = "default") {
+  let newClass = "smallCircleUserStory"
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
-  let AddNewMargin = assignedToEntries.length >= 8;
-  assignedToEntries.forEach(([, value], index) => {
+  let container = document.getElementById(`assignedTo${element[1]["id"]}_${context}`)
+  for (let index = 0; index < assignedToEntries.length; index++) {
+    let value = assignedToEntries[index][1];
     let contact = getContact(value);
-    // document.getElementById(contact.email).checked = true;
-    let newClass = AddNewMargin && index !== 0 ? "newMargin" : "";
-    document.getElementById(`assignedTo${element[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-          <div class="${newClass} smallCircleUserStory" style = "background-color: ${contact.color}">
-            ${contact.initials}
-          </div>
-        `;
-  });
+      if (index < 5) {
+        container.innerHTML += /*HTML*/ `
+        <div class="smallCircleUserStory" style = "background-color: ${contact.color}">
+          ${contact.initials}
+        </div>
+      `;
+      } else {
+        container.innerHTML += theNumberOfExcessAssignedContacts(assignedToEntries, contact, newClass);
+        break;
+      }
+  }
 }
 
 /**
@@ -272,28 +290,44 @@ function showAddTask(type) {
   generateAddEventListener();
 }
 
+/**
+ * Initializes multiple event listeners responsible for input and change events
+ * on various elements.
+ */
 function generateAddEventListener() {
-  EventListenerKeydownSubtaskInput();
-  EventListenerKeydownTitleInput();
-  EventListenerInputTitle();
-  EventListenerChangeDate();
+  eventListenerKeydownSubtaskInput();
+  eventListenerKeydownTitleInput();
+  eventListenerInputTitle();
+  eventListenerChangeDate();
 }
 
-function EventListenerInputTitle() {
+/**
+ * Adds an `input` event listener to a title input field to check
+ * if the "Create Task" button can be enabled.
+ */
+function eventListenerInputTitle() {
   const addTaskTitle = document.getElementById("addTaskTitle");
   if (addTaskTitle) {
     addTaskTitle.addEventListener("input", checkIfCreateTaskButtonCanBeEnabled);
   }
 }
 
-function EventListenerChangeDate() {
+/**
+ * Adds a `change` event listener to a date input field to check
+ * if the "Create Task" button can be enabled.
+ */
+function eventListenerChangeDate() {
   const inputDate = document.getElementById("inputDate");
   if (inputDate) {
     inputDate.addEventListener("change", checkIfCreateTaskButtonCanBeEnabled);
   }
 }
 
-function EventListenerKeydownSubtaskInput() {
+/**
+ * Adds a `keydown` event listener to a subtask input field to prevent the default action
+ * and add a new subtask when the Enter key is pressed.
+ */
+function eventListenerKeydownSubtaskInput() {
   const subtasksInput = document.getElementById("subtasks-input");
   if (subtasksInput) {
     subtasksInput.addEventListener("keydown", function (event) {
@@ -305,7 +339,11 @@ function EventListenerKeydownSubtaskInput() {
   }
 }
 
-function EventListenerKeydownTitleInput() {
+/**
+ * Adds a `keydown` event listener to a title input field to prevent the default action
+ * when the Enter key is pressed.
+ */
+function eventListenerKeydownTitleInput() {
   const addTaskTitle = document.getElementById("addTaskTitle");
   if (addTaskTitle) {
     addTaskTitle.addEventListener("keydown", function (event) {
@@ -316,6 +354,11 @@ function EventListenerKeydownTitleInput() {
   }
 }
 
+/**
+ * Opens a menu, displays it for a limited time, and then automatically closes it.
+ * @param {Event} event - The triggering event that prevents the default action.
+ * @param {string|number} id - The ID of the menu container to be opened.
+ */
 function openMenu(event, id) {
   event.stopPropagation();
   document.getElementById(`menuContainer${id}`).classList.toggle("showMenu");
@@ -324,6 +367,12 @@ function openMenu(event, id) {
   }, "3000");
 }
 
+/**
+ * Moves a category in Firebase and updates the HTML view.
+ * @param {Event} event - The triggering event that prevents the default action.
+ * @param {string} category - The new category to assign to the task.
+ * @param {string} id - The ID of the task to be updated.
+ */
 async function moveCategoryInFirebase(event, category, id) {
   event.stopPropagation();
   let taskId = await getIdFromDb("/toDos", "id", id);

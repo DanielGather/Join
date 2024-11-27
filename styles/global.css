@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   margin: 0px;
@@ -199,27 +200,5 @@ button svg {
   }
 }
 
-body {
-  --sb-track-color: #232E33;
-  --sb-thumb-color: #c7c61e;
-  --sb-size: 14px;
-}
 
-button:disabled {
-  border: 2px solid #2a3647;
-  background-color: var(--join-dark-blue);
-  cursor: default;
-  box-shadow: unset;
-}
-button:disabled:hover {
-  border: 2px solid #2a3647;
-  background-color: var(--join-dark-blue);
-  cursor: default;
-  box-shadow: unset;
-}
-button:disabled:active {
-  border: 2px solid #2a3647;
-  background-color: var(--join-dark-blue);
-  cursor: default;
-  box-shadow: unset;
-}
+
