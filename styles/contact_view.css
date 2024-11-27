@@ -367,7 +367,7 @@ h5 {
 @media (min-width: 1440px) {
   .sec-contact-view {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
   }
 }
 
