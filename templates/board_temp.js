@@ -2,8 +2,8 @@ function boardHtml() {
   return /*HTML*/ `
     <div class="d-flex dflex-col board gap1">
       <div class="boardMobile">
-      <div class="d-flex jc-sb">
-        <h1 style="font-size: 61px">Board</h1>
+      <div class="d-flex jc-sb" style="align-items:center;">
+        <h1 style="font-size: 48px">Board</h1>
         <img onclick="showAddTask()" class="responsiveButton" src="./assets/img/plus.svg" alt="" />
       </div>
       <div class="input-container">

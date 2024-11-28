@@ -101,17 +101,6 @@ function renderAssignedTo(element) {
 }
 
 /**
- * Asynchronously renders the contacts dropdown for a given task by first toggling the dropdown visibility
- * and then updating the checkboxes based on the task ID.
- * This function relies on the helper functions `toggleAssignedToDropDown` and `updateCheckbox`.
- * @param {string} taskId - The unique identifier of the task for which the contacts dropdown is being rendered.
- */
-async function renderContactsDropDown(taskId) {
-  await toggleAssignedToDropDown();
-  updateCheckbox(taskId);
-}
-
-/**
  * Asynchronously updates the checkboxes for a given task by first unchecking all checkboxes
  * and then setting the checkboxes based on data from Firebase.
  * This function relies on the helper functions `uncheckCheckboxen` and `setCheckboxesBasedOnFirebaseData`.
@@ -131,14 +120,14 @@ async function updateCheckbox(taskId) {
  * Each key is a contact ID, and the value contains the corresponding contact details.
  */
 function renderAssignedToBigTask(element) {
-  let newClass = "circle"
+  let newClass = "circle";
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
-  let container = document.getElementById("renderedInitialsContainer")
+  let container = document.getElementById("renderedInitialsContainer");
   container.innerHTML = "";
   renderRightAssignedTo(assignedToEntries, container, newClass);
 }
 
-function renderRightAssignedTo(assignedToEntries, container, newClass){
+function renderRightAssignedTo(assignedToEntries, container, newClass) {
   for (let index = 0; index < assignedToEntries.length; index++) {
     let value = assignedToEntries[index][1];
     let contact = getContact(value);
@@ -167,22 +156,22 @@ function renderRightAssignedTo(assignedToEntries, container, newClass){
  * - The background color and initials of the contacts are determined using the `getContact` function.
  */
 function renderAssignedToSmallTask(element, context = "default") {
-  let newClass = "smallCircleUserStory"
+  let newClass = "smallCircleUserStory";
   let assignedToEntries = Object.entries(element[1]["assignedTo"] || {});
-  let container = document.getElementById(`assignedTo${element[1]["id"]}_${context}`)
+  let container = document.getElementById(`assignedTo${element[1]["id"]}_${context}`);
   for (let index = 0; index < assignedToEntries.length; index++) {
     let value = assignedToEntries[index][1];
     let contact = getContact(value);
-      if (index < 5) {
-        container.innerHTML += /*HTML*/ `
+    if (index < 5) {
+      container.innerHTML += /*HTML*/ `
         <div class="smallCircleUserStory" style = "background-color: ${contact.color}">
           ${contact.initials}
         </div>
       `;
-      } else {
-        container.innerHTML += theNumberOfExcessAssignedContacts(assignedToEntries, contact, newClass);
-        break;
-      }
+    } else {
+      container.innerHTML += theNumberOfExcessAssignedContacts(assignedToEntries, contact, newClass);
+      break;
+    }
   }
 }
 
