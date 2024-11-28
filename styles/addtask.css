@@ -47,12 +47,12 @@ h1 {
     justify-content: space-between;
     height: 42px;
     border-radius: var(--button-radius);
-    padding: 8px;
+    padding: 1px;
     background-color: white;
     align-items: center;
-
     position: relative;
     z-index: 2;
+    padding-right: 8px;
 }
 
 .input-dropDownMenu-container {
@@ -84,6 +84,8 @@ h1 {
     outline: none;
     height: 32px;
     width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
 }
 
 .inputAssignedToContainer img,
@@ -97,6 +99,7 @@ h1 {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    min-height: 56px;
 }
 
 .initialNameContainer {
@@ -107,6 +110,7 @@ h1 {
 }
 
 .initialsAssigned {
+    color: white;
     width: 42px;
     height: 42px;
     font-size: 14px;
@@ -123,18 +127,19 @@ h1 {
     gap: 12px;
     margin-top: 8px;
     overflow: auto;
+    width: 100%;
 }
 
 .renderedInitial {
-    border: 1px solid green;
+    font-size: 12px;
+    color: white;
+    border: 1px solid white;
     border-radius: 50px;
     height: 32px;
-    width: 32px;
-    padding: 4px;
+    min-width: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
 }
 
 .addTask-seperator-container {
@@ -207,19 +212,23 @@ h1 {
 
 .subtasks-input-add-container {
     border-radius: var(--input-select-textarea-radius);
-    height: 42px;
-    padding: 8px;
+    height: 48px;
+    padding: 1px;
     border: 1px solid #D1D1D1;
     background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-right: 8px;
 }
 
 .subtasks-input {
     border: none;
     outline: none;
     width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 15px;
 }
 
 .add-subtask,
@@ -344,9 +353,11 @@ h1 {
 .title-input {
     border-radius: var(--input-select-textarea-radius);
     height: 40px;
-    padding: 8px;
     border: 1px solid #D1D1D1;
     outline: none;
+    padding: 10px 21px;
+    font-size: 16px;
+    font-family: 'Inter';
 }
 
 .title-input:focus,
@@ -363,17 +374,27 @@ textarea:focus {
 }
 
 textarea {
+    font-family: 'Inter';
     border-radius: var(--input-select-textarea-radius);
-    padding: 8px;
+    padding: 18px 21px;
     border: 1px solid #D1D1D1;
     resize: none;
     outline: none;
+    font-size: 16px;
+}
+
+textarea:-moz-placeholder, /* Firefox 18- */
+textarea::-moz-placeholder, /* Firefox 19+ */
+textarea:-ms-input-placeholder, /* IE 10+ */
+textarea::-webkit-input-placeholder, /* Webkit based */
+textarea::placeholder { /* Modern browsers */
+  color: #D1D1D1;  
 }
 
 .category-header-container {
     border-radius: var(--input-select-textarea-radius);
-    height: 42px;
-    padding: 8px;
+    height: 48px;
+    padding: 1px;
     border: 1px solid #D1D1D1;
     display: flex;
     justify-content: space-between;
@@ -381,10 +402,12 @@ textarea {
     align-items: center;
     position: relative;
     z-index: 2;
+    padding-right: 8px;
 }
 
 #category-header {
     width: 100%;
+    padding: 12px 16px;
 }
 
 .category-dropdown-container {
@@ -395,17 +418,17 @@ textarea {
     position: absolute;
     max-width: 530px;
     width: 100%;
-    margin-top: 24px;
+    margin-top: 34px;
     padding-top: 36px;
 }
 
 .choose-category-container {
     border-radius: var(--input-select-textarea-radius);
-    height: 34px;
-    padding: 8px;
+    height: 43px;
     background-color: white;
     cursor: pointer;
     margin-top: 4px;
+    padding: 12px 16px;
 }
 
 .choose-category-container:hover,
@@ -522,7 +545,7 @@ textarea {
 
     .title-description-assigned-container,
     .dueDate-prio-category-subtasks-container {
-        flex: 1;
+        width: 48%;
     }
 
     .addTask-seperator-container {
@@ -560,5 +583,13 @@ textarea {
 
     .main-addTask-container {
         margin-top: 60px;
+    }
+
+    .initialNameContainer {
+        font-size: 20px;
+    }
+
+    .required {
+        font-size: 18px;
     }
 }
