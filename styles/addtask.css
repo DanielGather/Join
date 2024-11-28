@@ -13,7 +13,7 @@ h1 {
     gap: 20px;
     max-width: 1120px;
     margin: 14px auto;
-    max-height: 600px;
+    /* max-height: 600px; */
     padding: 8px;
 }
 
@@ -167,8 +167,11 @@ h1 {
     gap: 12px;
 }
 
-.prio-buttons button {
+.prio-buttons div {
     font-size: 14px;
+}
+.prio-buttons div:hover {
+    box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.15);
 }
 
 .prio-buttons img {
@@ -461,9 +464,8 @@ textarea::placeholder { /* Modern browsers */
     justify-content: center;
     align-items: center;
     gap: 12px;
-    padding: 6px;
-    font-size: 18px;
-    height: 42px;
+    padding: 16px;
+    font-size: 20px;
 }
 
 .create-task-button {
@@ -471,11 +473,9 @@ textarea::placeholder { /* Modern browsers */
     align-items: center;
     justify-content: center;
     gap: 12px;
-    padding: 6px;
+    padding: 16px;
     cursor: not-allowed;
-    font-size: 18px;
-    width: 160px;
-    height: 42px;
+    font-size: 21px;
 }
 
 .create-task-button:enabled {
@@ -577,6 +577,10 @@ textarea::placeholder { /* Modern browsers */
 
 
 @media(min-width: 1024px) {
+    h1 {
+        font-size: 61px;
+    }
+
     .clear-button:hover svg path {
         stroke: #29ABE2;
     }
@@ -591,5 +595,69 @@ textarea::placeholder { /* Modern browsers */
 
     .required {
         font-size: 18px;
+    }
+
+    .subtasks-container,
+    .category-header-container,
+    .urgent-medium-low-buttons,
+    .title-input,
+    .inputAssignedToContainer {
+        cursor: pointer;
+        height: 48px;
+        font-size: 20px;
+    }
+
+    textarea {
+        font-size: 20px;
+    }
+
+    .inputAssignedToContainer input {
+        font-size: 20px;
+    }
+
+    .prio-buttons {
+        height: 56px;
+        gap: 16px;
+    }
+    
+    .prio-buttons button {
+        font-size: 20px;
+    }
+
+    .addTask-seperator-container {
+        height: 430px;
+    }
+
+    .clear-create-button {
+        gap: 25px;
+    }
+
+    .subtasks-input {
+        font-size: 20px;
+    }
+
+    .prio-buttons div {
+        font-size: 20px;
+        font-weight: 400;
+        cursor: pointer;
+    }
+
+    .addTask-label {
+        font-size: 20px;
+    }
+
+    .title-description-assigned {
+        gap: 8px;
+    }
+
+    .dueDate-prio-category-subtasks-container,
+    .title-description-assigned-container {
+        gap: 34px;
+    }
+}
+
+@media (min-width: 1544px) {
+    .main-addTask-container {
+        margin-left: 96px;
     }
 }
