@@ -55,9 +55,11 @@ async function createTask(type) {
     const taskId = (await postData('toDos', newTask)).name;
     if (subtaskArray.length > 0) {
         for (let i = 0; i < subtaskArray.length; i++) {
+            let number = setCounter();
+            subTaskValue = subtaskArray[i] + number;
             let subtask = {
                 status: false,
-                task: subtaskArray[i],
+                task: subTaskValue,
             };
             const subtaskId = await postData(`toDos/${taskId}/subtasks`, subtask);
         }

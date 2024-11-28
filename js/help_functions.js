@@ -248,9 +248,11 @@ function setCounter() {
  * @returns {string} The input string with the last 3 digits removed.
  */
 function removeLastThreeDigits(text) {
-  let digit = 3;
+  let digit = 2;
   let number = setCounter();
-  if (number > 1000) {
+  if (number > 100) {
+    digit = 3;
+  } else if (number > 1000){
     digit = 4;
   } else if (number > 10000){
     digit = 5;
