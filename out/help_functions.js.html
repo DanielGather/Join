@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: help_functions.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: help_functions.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Converts a date string from the format `DD.MM.YYYY` to `YYYY-MM-DD`.
+ * This function is useful for transforming date formats, such as those retrieved
+ * from a Firebase database, into a standardized ISO 8601 format.
+ * @param {string} fireBaseDate - The date string in `DD.MM.YYYY` format to be converted.
+ * @returns {string} The formatted date string in `YYYY-MM-DD` format.
+ */
+function getRightTimeValue(fireBaseDate) {
+  const switchDate = fireBaseDate;
+  const [fireBaseDay, fireBaseMonth, fireBaseYear] = switchDate.split(".");
+  const newDate = `${fireBaseYear}.${fireBaseMonth}.${fireBaseDay}`;
+  const rawDate = new Date(newDate); // Datum aus der Datenbank holen
+  const year = rawDate.getFullYear();
+  const month = String(rawDate.getMonth() + 1).padStart(2, "0"); // Monat +1, weil Monate bei 0 beginnen
+  const day = String(rawDate.getDate()).padStart(2, "0"); // Tag formatieren
+  const formattedDate = `${year}-${month}-${day}`;
+  return formattedDate;
+}
+
+/**
+ * Converts a date string or object to the German date format `DD.MM.YYYY`.
+ * The function accepts a date string or a `Date` object and formats it
+ * to a human-readable German format using the `toLocaleDateString` method.
+ * @param {string|Date} wrongFormat - The input date in any format parsable by JavaScript's `Date` object.
+ * @returns {string} The formatted date string in `DD.MM.YYYY` format.
+ */
+function changeTimeFormat(wrongFormat) {
+  let dateInput = wrongFormat;
+  let date = new Date(dateInput);
+  let rightFormat = date.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+  return rightFormat;
+}
+
+/**
+ * Highlights the correct priority for a given task.
+ * Based on the task's priority, it sets the appropriate button color in the "Edit" mode.
+ * @param {Object} rightTask - The task object containing the priority information.
+ * @param {string} rightTask.priority - The priority level of the task (e.g., "low", "medium", "high").
+ */
+function highlightRightPriority(rightTask) {
+  let priority = rightTask.priority;
+  setButtonColorForPrio(priority, "Edit");
+}
+
+/**
+ * Stops the propagation of an event.
+ * This prevents the event from bubbling up or capturing down the DOM tree,
+ * ensuring that only the current target handles it.
+ * @param {Event} event - The event object whose propagation is to be stopped.
+ */
+function eventStopPropagation(event) {
+  event.stopPropagation();
+}
+
+/**
+ * Assigns the appropriate priority image to the task container based on its priority level.
+ * Dynamically determines the container ID and sets the correct priority image
+ * (low, medium, or urgent) as its content.
+ * @param {Object[]} element - The task element, an array where the second item is an object containing task data.
+ * @param {string} element[1].id - The unique identifier for the task.
+ * @param {string} element[1].priority - The priority level of the task (e.g., "low", "medium", "urgent").
+ */
+function getRightPriority(element) {
+  let containerId = element[1]["id"];
+  let taskPriority = element[1]["priority"];
+  let lowPriority = "./assets/img/prio_low.svg";
+  let mediumPriority = "./assets/img/prio_medium.svg";
+  let urgentPriority = "./assets/img/prio_urgent.svg";
+  let priorityImg = taskPriority === "low" ? lowPriority : taskPriority === "medium" ? mediumPriority : urgentPriority;
+  if (bigTaskActive) {
+    containerId = `bigPriority${element[1]["id"]}`;
+  } else {
+    containerId = `priority${element[1]["id"]}`;
+  }
+  document.getElementById(containerId).innerHTML = `&lt;img src="${priorityImg}"/>`;
+}
+
+/**
+ * Focuses and selects the content of an input field based on its ID.
+ * This function finds the input field by appending "_input" to the provided ID,
+ * then focuses and selects the text within the input field.
+ * @param {string} id - The ID of the input field (without the "_input" suffix).
+ */
+function focusInputField(id) {
+  let inputField = document.getElementById(`${id}_input`);
+  inputField.focus();
+  inputField.select();
+}
+
+/**
+ * Checks if the provided list of tasks is empty, and displays a "no results" message if true.
+ * If the `filteredTasks` array has no elements, it will show a message by changing the `display` style
+ * of the corresponding element with the given `id`.
+ * @param {Object[]} filteredTasks - The array of filtered tasks to be checked.
+ * @param {string} id - The ID of the element that will display the "no results" message.
+ */
+function checkInputValueExist(filteredTasks, id) {
+  if (filteredTasks.length == 0) {
+    document.getElementById(`${id}NoResultsMessage`).style.display = "block";
+  }
+}
+
+/**
+ * Searches for tasks that match the input string in either the headline or description.
+ * Filters the tasks based on whether the `headline` or `description` contains the input string,
+ * and adds the matching tasks to the `searchedTask` array. If no tasks are found,
+ * it triggers the display of a "no results" message.
+ * @param {string} input - The search string used to filter tasks by their headline or description.
+ * @param {string} id - The ID of the element where the "no results" message will be shown if no tasks match.
+ */
+function searchRightTask(input, id) {
+  searchedTask = [];
+  let filteredTasks = allToDos.filter((task) => task[1]["headline"].toLowerCase().includes(input) || task[1]["description"].toLowerCase().includes(input));
+  checkInputValueExist(filteredTasks, id);
+  filteredTasks.forEach((element) => searchedTask.push(element));
+}
+
+/**
+ * Retrieves and sanitizes the value of an input field by trimming whitespace and converting the text to lowercase.
+ * This function returns the cleaned input value from the specified input field.
+ * @function checkInput
+ * @param {string} id - The ID of the input field whose value is to be retrieved.
+ * @returns {string} The sanitized, lowercase value of the input field.
+ */
+function checkInput(id) {
+  let inputField = document.getElementById(id);
+  let inputValue = inputField.value.trim();
+  inputValue = inputValue.toLowerCase();
+  return inputValue;
+}
+
+/**
+ * Checks if elements with the class `.allCategories` contain child nodes.
+ * If any of these elements do not have child nodes, a new `div` is created with a message
+ * ("No tasks To do") and appended to the element.
+ */
+function checkChildElement() {
+  let elements = document.querySelectorAll(".allCategories");
+  elements.forEach((element) => {
+    if (!element.hasChildNodes()) {
+      let createDiv = document.createElement("div");
+      createDiv.className = "noTask d-flex alic jc-c colorGrey fs16";
+      createDiv.textContent = "No tasks To do";
+      element.appendChild(createDiv);
+    }
+  });
+}
+
+/**
+ * Sets the background color of a task element based on its story type.
+ * If the story type is "Technical Task", the background color is set to a specific color.
+ * Otherwise, the background color is set to another color. The color is applied to a container
+ * element with an ID based on the task's ID and whether the task is a "big" task.
+ * @param {Array} element - The task element containing the task data.
+ * @param {string} element[1]["story"] - The story type of the task, which determines the background color.
+ */
+function getRightUserColor(element) {
+  let colorStory = element[1]["story"];
+  let containerId;
+  if (bigTaskActive) {
+    containerId = `bigStory${element[1]["id"]}`;
+  } else {
+    containerId = `story${element[1]["id"]}`;
+  }
+  if (colorStory === "Technical Task") {
+    document.getElementById(containerId).style.backgroundColor = "#1fd7c1";
+  } else {
+    document.getElementById(containerId).style.backgroundColor = "#0038ff";
+  }
+}
+
+/**
+ * Returns an array of tasks based on the search results or all tasks.
+ * If there are any tasks in the `searchedTask` array, it returns that array.
+ * Otherwise, it returns the `allToDos` array, which contains all tasks.
+ * @param {Array} allToDos - The array containing all tasks.
+ * @returns {Array} An array of tasks, either from `searchedTask` or from `allToDos`.
+ */
+function getRightArray(allToDos) {
+  if (searchedTask.length > 0) {
+    let toDoArray = searchedTask;
+    return toDoArray;
+  } else {
+    let toDoArray = allToDos;
+    return toDoArray;
+  }
+}
+
+/**
+ * Retrieves a contact object from the `contactsLS` array based on the provided email value.
+ * The function searches for a contact whose email matches the provided value, ignoring case differences.
+ * Once found, it returns the contact details (the second element of the contact array).
+ * @param {string} value - The email address used to search for a contact.
+ * @returns {Object} The contact object that matches the provided email address, or `undefined` if no match is found.
+ */
+function getContact(value) {
+  let contact = contactsLS.filter((contact) => contact[1].email.toUpperCase() === value.toUpperCase());
+  return contact[0][1];
+}
+
+/**
+ * Unchecks all checkboxes inside elements with the class `.dropDownContacts`.
+ * This function loops through all checkboxes within `.dropDownContacts` and sets each checkbox's `checked` property to `false`.
+ */
+function uncheckCheckboxen() {
+  let checkboxen = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+  checkboxen.forEach((checkbox) => {
+    checkbox.checked = false;
+  });
+}
+
+/**
+ * Sets the checkboxes based on the "assignedTo" data of a specific task fetched from Firebase.
+ * This function retrieves task data from Firebase, finds the task with the given ID,
+ * and checks the checkboxes corresponding to the users assigned to the task.
+ * @param {string} taskId - The ID of the task for which the checkboxes should be set.
+ */
+async function setCheckboxesBasedOnFirebaseData(taskId) {
+  let toDos = await getData("toDos");
+  allToDos = Object.entries(toDos);
+  let task = allToDos.filter((toDo) => toDo[1]["id"] === taskId);
+  if (task[0][1]["assignedTo"] !== undefined) {
+    let assignedToEntries = Object.entries(task[0][1]["assignedTo"]);
+    assignedToEntries.forEach(([, emailId]) => {
+      let checkbox = document.getElementById(emailId);
+      checkbox.checked = true;
+    });
+  }
+  renderInitials();
+}
+
+/**
+ * Increments a counter stored in `localStorage` by 1 and returns the updated value.
+ * If no counter is found in `localStorage`, it initializes it to 0 before incrementing.
+ * @returns {number} The updated counter value after incrementing.
+ */
+function setCounter() {
+  let counter = parseInt(localStorage.getItem("counter") || "0", 10);
+  counter += 1;
+  localStorage.setItem("counter", counter);
+  return counter;
+}
+
+/**
+ * Removes the last 3 digits from the provided text string.
+ * If the string has fewer than 3 digits, it removes as many as possible.
+ * @param {string} text - The input string from which the last 3 digits will be removed.
+ * @returns {string} The input string with the last 3 digits removed.
+ */
+function removeLastThreeDigits(text) {
+  let digit = 3;
+  let number = setCounter();
+  if (number > 1000) {
+    digit = 4;
+  } else if (number > 10000){
+    digit = 5;
+  }
+  const regex = new RegExp(`\\d{${digit}}$`);  // Dynamischer regulärer Ausdruck
+  return text.replace(regex, "");
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:DOMContentLoaded-ThiseventisfiredwhentheHTMLdocumenthasbeencompletelyloadedandparsed,withoutwaitingforstylesheets,images,orsubframestofinishloading.Thescriptretrievesthecurrentdate,formatsitinthe%2560YYYY-MM-DD%2560format,andsetsitasthe%2560min%2560attributeoftheinputfieldwiththeID%2560inputDate%2560.Thisensuresthattheusercanonlyselectthecurrentdateoranyfuturedateinthedateinput.">DOMContentLoaded - This event is fired when the HTML document has been completely loaded and parsed,                           without waiting for stylesheets, images, or subframes to finish loading.The script retrieves the current date, formats it in the `YYYY-MM-DD` format, and sets it as the `min` attribute of the input field with the ID `inputDate`. This ensures that the user can only select the current date or any future date in the date input.</a></li><li><a href="global.html#event:DOMContentLoaded-ThiseventistriggeredwhentheinitialHTMLdocumenthasbeencompletelyloadedandparsed,withoutwaitingforstylesheets,images,andsubframestofinishloading.Theeventlisteneraddedtothemaincontainerchecksiftheuserclickedoutsidethecategorydropdownorcategoryheader,andifso,hidesthedropdownandupdatesthetoggleimage.">DOMContentLoaded - This event is triggered when the initial HTML document has been completely loaded                           and parsed, without waiting for stylesheets, images, and subframes to finish loading.The event listener added to the main container checks if the user clicked outside the category dropdown orcategory header, and if so, hides the dropdown and updates the toggle image.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAssignedToToFireBase">addAssignedToToFireBase</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNewSubTask">addNewSubTask</a></li><li><a href="global.html#addSubTask">addSubTask</a></li><li><a href="global.html#addSubTaskInFireBase">addSubTaskInFireBase</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#allToDosArr">allToDosArr</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#boardJS">boardJS</a></li><li><a href="global.html#calculateSubtaskProgress">calculateSubtaskProgress</a></li><li><a href="global.html#cancelEditSubtask">cancelEditSubtask</a></li><li><a href="global.html#changeBackToList">changeBackToList</a></li><li><a href="global.html#changeClassesOnList">changeClassesOnList</a></li><li><a href="global.html#changeDataInFireBase">changeDataInFireBase</a></li><li><a href="global.html#changeTimeFormat">changeTimeFormat</a></li><li><a href="global.html#changeToInputField">changeToInputField</a></li><li><a href="global.html#changeType">changeType</a></li><li><a href="global.html#checkCheckbox">checkCheckbox</a></li><li><a href="global.html#checkChildElement">checkChildElement</a></li><li><a href="global.html#checkIfCreateTaskButtonCanBeEnabled">checkIfCreateTaskButtonCanBeEnabled</a></li><li><a href="global.html#checkInput">checkInput</a></li><li><a href="global.html#checkInputValueExist">checkInputValueExist</a></li><li><a href="global.html#checkPasswordAndUser">checkPasswordAndUser</a></li><li><a href="global.html#chooseTaskPrioType">chooseTaskPrioType</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#clearInputs">clearInputs</a></li><li><a href="global.html#closeBigTask">closeBigTask</a></li><li><a href="global.html#closeMobileModal">closeMobileModal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeOnClickOutside">closeOnClickOutside</a></li><li><a href="global.html#colorWrongInp">colorWrongInp</a></li><li><a href="global.html#contactsJS">contactsJS</a></li><li><a href="global.html#createInputObject">createInputObject</a></li><li><a href="global.html#createNewId">createNewId</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#deleteAssigned">deleteAssigned</a></li><li><a href="global.html#deleteButtonModal">deleteButtonModal</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteInputSubtaskValue">deleteInputSubtaskValue</a></li><li><a href="global.html#deleteSubTask">deleteSubTask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#deleteUser">deleteUser</a></li><li><a href="global.html#editAssignedMail">editAssignedMail</a></li><li><a href="global.html#editId">editId</a></li><li><a href="global.html#editSubTask">editSubTask</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editTask">editTask</a></li><li><a href="global.html#errInput">errInput</a></li><li><a href="global.html#errPassword">errPassword</a></li><li><a href="global.html#eventListenerChangeDate">eventListenerChangeDate</a></li><li><a href="global.html#eventListenerInputTitle">eventListenerInputTitle</a></li><li><a href="global.html#eventListenerKeydownSubtaskInput">eventListenerKeydownSubtaskInput</a></li><li><a href="global.html#eventListenerKeydownTitleInput">eventListenerKeydownTitleInput</a></li><li><a href="global.html#eventStopPropagation">eventStopPropagation</a></li><li><a href="global.html#fillInputs">fillInputs</a></li><li><a href="global.html#fillRememberUser">fillRememberUser</a></li><li><a href="global.html#findAssignedEmail">findAssignedEmail</a></li><li><a href="global.html#findClosestFutureDate">findClosestFutureDate</a></li><li><a href="global.html#focusInputField">focusInputField</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generateAddEventListener">generateAddEventListener</a></li><li><a href="global.html#getAllToDos">getAllToDos</a></li><li><a href="global.html#getCheckedContacts">getCheckedContacts</a></li><li><a href="global.html#getContact">getContact</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getDueDate">getDueDate</a></li><li><a href="global.html#getInpValues">getInpValues</a></li><li><a href="global.html#getInputValues">getInputValues</a></li><li><a href="global.html#getRightArray">getRightArray</a></li><li><a href="global.html#getRightPriority">getRightPriority</a></li><li><a href="global.html#getRightTimeValue">getRightTimeValue</a></li><li><a href="global.html#getRightUserColor">getRightUserColor</a></li><li><a href="global.html#getSummary">getSummary</a></li><li><a href="global.html#getTitle">getTitle</a></li><li><a href="global.html#getUserFromLogIn">getUserFromLogIn</a></li><li><a href="global.html#greetRight">greetRight</a></li><li><a href="global.html#greetingMobile">greetingMobile</a></li><li><a href="global.html#guestLogIn">guestLogIn</a></li><li><a href="global.html#handleDropDownFalse">handleDropDownFalse</a></li><li><a href="global.html#handleDropDownTrue">handleDropDownTrue</a></li><li><a href="global.html#handlePressedKey">handlePressedKey</a></li><li><a href="global.html#handleResize">handleResize</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightRightPriority">highlightRightPriority</a></li><li><a href="global.html#howManyUrgentTasks">howManyUrgentTasks</a></li><li><a href="global.html#idToContact">idToContact</a></li><li><a href="global.html#indexInit">indexInit</a></li><li><a href="global.html#initializeContact">initializeContact</a></li><li><a href="global.html#initializeEventListenerChangeDate">initializeEventListenerChangeDate</a></li><li><a href="global.html#initializeEventListenerInputTitle">initializeEventListenerInputTitle</a></li><li><a href="global.html#initializeEventListenerKeydownSubtaskInput">initializeEventListenerKeydownSubtaskInput</a></li><li><a href="global.html#initializeEventListenerKeydownTitleInput">initializeEventListenerKeydownTitleInput</a></li><li><a href="global.html#moveCategoryInFirebase">moveCategoryInFirebase</a></li><li><a href="global.html#moveToCategory">moveToCategory</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openMenu">openMenu</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openNewContact">openNewContact</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#parseDateEuropeDateFormat">parseDateEuropeDateFormat</a></li><li><a href="global.html#printDeadlineDate">printDeadlineDate</a></li><li><a href="global.html#processCheckedContact">processCheckedContact</a></li><li><a href="global.html#realTimeInitial">realTimeInitial</a></li><li><a href="global.html#removeAssignedToFromFireBase">removeAssignedToFromFireBase</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#removeLastThreeDigits">removeLastThreeDigits</a></li><li><a href="global.html#renderAssignedTo">renderAssignedTo</a></li><li><a href="global.html#renderAssignedToBigTask">renderAssignedToBigTask</a></li><li><a href="global.html#renderAssignedToContacts">renderAssignedToContacts</a></li><li><a href="global.html#renderAssignedToSmallTask">renderAssignedToSmallTask</a></li><li><a href="global.html#renderBoard">renderBoard</a></li><li><a href="global.html#renderContactCards">renderContactCards</a></li><li><a href="global.html#renderContactInfos">renderContactInfos</a></li><li><a href="global.html#renderContactsDropDown">renderContactsDropDown</a></li><li><a href="global.html#renderContactsLetter">renderContactsLetter</a></li><li><a href="global.html#renderInitials">renderInitials</a></li><li><a href="global.html#renderLogIn">renderLogIn</a></li><li><a href="global.html#renderSignUp">renderSignUp</a></li><li><a href="global.html#renderSubTask">renderSubTask</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#resetButtonStyles">resetButtonStyles</a></li><li><a href="global.html#resetCheckboxes">resetCheckboxes</a></li><li><a href="global.html#resetWrongMessages">resetWrongMessages</a></li><li><a href="global.html#returnButton">returnButton</a></li><li><a href="global.html#returnEditableSubTask">returnEditableSubTask</a></li><li><a href="global.html#returnSubTask">returnSubTask</a></li><li><a href="global.html#returnToContacts">returnToContacts</a></li><li><a href="global.html#saveEdit">saveEdit</a></li><li><a href="global.html#saveEditSubtask">saveEditSubtask</a></li><li><a href="global.html#saveNewUser">saveNewUser</a></li><li><a href="global.html#searchExistingContact">searchExistingContact</a></li><li><a href="global.html#searchRightTask">searchRightTask</a></li><li><a href="global.html#searchTask">searchTask</a></li><li><a href="global.html#setButtonColorForPrio">setButtonColorForPrio</a></li><li><a href="global.html#setCategory">setCategory</a></li><li><a href="global.html#setCheckboxesBasedOnFirebaseData">setCheckboxesBasedOnFirebaseData</a></li><li><a href="global.html#setCounter">setCounter</a></li><li><a href="global.html#setProfileImageColor">setProfileImageColor</a></li><li><a href="global.html#setUser">setUser</a></li><li><a href="global.html#showAddTask">showAddTask</a></li><li><a href="global.html#showAddTaskSuccessPopup">showAddTaskSuccessPopup</a></li><li><a href="global.html#showAlert">showAlert</a></li><li><a href="global.html#showEditImg">showEditImg</a></li><li><a href="global.html#showPopUp">showPopUp</a></li><li><a href="global.html#showRightUser">showRightUser</a></li><li><a href="global.html#showSuccessPopup">showSuccessPopup</a></li><li><a href="global.html#showTask">showTask</a></li><li><a href="global.html#showWrongMessage">showWrongMessage</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startDraggin">startDraggin</a></li><li><a href="global.html#stopRotation">stopRotation</a></li><li><a href="global.html#successPopup">successPopup</a></li><li><a href="global.html#summaryHTML">summaryHTML</a></li><li><a href="global.html#summaryJS">summaryJS</a></li><li><a href="global.html#taskInBoard">taskInBoard</a></li><li><a href="global.html#toggleAssignedToDropDown">toggleAssignedToDropDown</a></li><li><a href="global.html#toggleCategoryDropDown">toggleCategoryDropDown</a></li><li><a href="global.html#toggleResizeListener">toggleResizeListener</a></li><li><a href="global.html#toggleSubmitButton">toggleSubmitButton</a></li><li><a href="global.html#toggleSubtaskIcons">toggleSubtaskIcons</a></li><li><a href="global.html#triggerButton">triggerButton</a></li><li><a href="global.html#triggerForm">triggerForm</a></li><li><a href="global.html#uncheckCheckboxen">uncheckCheckboxen</a></li><li><a href="global.html#updateCategoryHTML">updateCategoryHTML</a></li><li><a href="global.html#updateCheckbox">updateCheckbox</a></li><li><a href="global.html#updateCheckboxStatus">updateCheckboxStatus</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updatePage">updatePage</a></li><li><a href="global.html#updateRenderedInitials">updateRenderedInitials</a></li><li><a href="global.html#updateSubTask">updateSubTask</a></li><li><a href="global.html#userLogIn">userLogIn</a></li><li><a href="global.html#viewContact">viewContact</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri Nov 29 2024 00:26:12 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

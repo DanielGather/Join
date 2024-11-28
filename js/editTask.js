@@ -11,8 +11,9 @@ let editId;
  * To avoid ID conflicts, spaces are removed from the subtask value.
  */
 function returnEditableSubTask(task, context, value, index) {
+  let newValue = removeLastThreeDigits(value.task);
   let idWithNoSpace = value.task.replace(/\s+/g, "");
-  document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += returnEditableSubTaskHTML(idWithNoSpace, task, value, index);
+  document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += returnEditableSubTaskHTML(idWithNoSpace, task, value, index, newValue);
 }
 
 /**
@@ -193,6 +194,8 @@ async function changeDataInFireBase(id, context = null, priority = null) {
 async function addSubTaskInFireBase(subTaskValue, id) {
   let getTaskId = await getIdFromDb("/toDos", "id", id);
   subTaskValue = subTaskValue.trim();
+  let number = setCounter();
+  subTaskValue = subTaskValue + number;
   let subtask = {
     status: false,
     task: subTaskValue,
@@ -333,8 +336,9 @@ async function checkCheckbox(checkboxId, toDoId, value) {
  * The variable `checkboxId` is used to generate a unique ID for each checkbox and is incremented by 1 with each function call.
  */
 function returnSubTask(task, context, value) {
+  let newValue = removeLastThreeDigits(value.task);
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-    <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
+    <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${newValue}</span></div>
     `;
   checkboxId += +1;
 }

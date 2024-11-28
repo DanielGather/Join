@@ -92,10 +92,10 @@ function htmlChangeToList(newIdWithOutSpace, newValue, taskId, index) {
 `;
 }
 
-function returnEditableSubTaskHTML(idWithNoSpace, task, value, index) {
+function returnEditableSubTaskHTML(idWithNoSpace, task, value, index, newValue) {
   return /*HTML*/ `
     <ul id="${idWithNoSpace}_${index}" class="subTaskList subTaskHover">
-      <li id="${idWithNoSpace}_edit" contenteditable="false">${value.task}</li>
+      <li id="${idWithNoSpace}_edit" contenteditable="false">${newValue}</li>
       <div class="subTaskIcons">
       <img onclick="editSubTask('${idWithNoSpace}','edit', ${index}, ${task[1]['id']}, '${value.task}')" src="./assets/img/edit.svg" alt="">
       <div class="seperator"></div>
@@ -120,4 +120,17 @@ function theNumberOfExcessAssignedContacts(assignedToEntries, contact, newClass)
           <div class="${newClass}" style="background-color: ${contact.color}">${"+" + (assignedToEntries.length - 5)}</div>
         </div>
       `;
+}
+
+function returnNewSubTaskHtml(subTaskValue, idSubTaskValue, index, taskId) {
+  return /*HTML*/ `
+  <ul id="${idSubTaskValue}_${index}" class="subTaskList subTaskHover">
+  <li id="${idSubTaskValue}_edit" contenteditable="false">${subTaskValue}</li>
+        <div class="subTaskIcons">
+        <img onclick="editSubTask('${idSubTaskValue}','edit',${index}, ${taskId}, '${subTaskValue}')" src="./assets/img/edit.svg" alt="">
+        <div class="seperator"></div>
+        <img onclick="deleteSubTask('${idSubTaskValue}', ${index}, ${taskId}, '${subTaskValue}')" src="./assets/img/delete.svg" alt="">
+        </div>
+</ul>
+  `;
 }

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: addtaskEventListeners.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: addtaskEventListeners.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Initializes event listeners for various user interactions once the DOM is fully loaded.
+ * 
+ * This function adds event listeners to specific input elements and form fields. These listeners are triggered
+ * based on user actions such as key presses and input changes. The event listeners are initialized after the page content
+ * has been completely loaded (i.e., when the `DOMContentLoaded` event is fired).
+ * 
+ * The following event listeners are initialized:
+ * - Keydown event for subtask input field (`initializeEventListenerKeydownSubtaskInput`)
+ * - Keydown event for title input field (`initializeEventListenerKeydownTitleInput`)
+ * - Input event for title input field (`initializeEventListenerInputTitle`)
+ * - Change event for date input field (`initializeEventListenerChangeDate`)
+ * 
+ * @returns {void} This function does not return any value but ensures that the relevant event listeners are set up.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    initializeEventListenerKeydownSubtaskInput();
+    initializeEventListenerKeydownTitleInput();
+    initializeEventListenerInputTitle();
+    initializeEventListenerChangeDate();
+});
+
+/**
+ * Initializes an event listener for the input field of the task title.
+ * 
+ * This function adds an event listener to the input field for the task title (`#addTaskTitle`). 
+ * The event listener triggers the `checkIfCreateTaskButtonCanBeEnabled` function whenever the user 
+ * types into the title input field, allowing the application to check if the "Create Task" button 
+ * can be enabled or not based on the input.
+ * 
+ * The event listener listens for the 'input' event, which is fired every time the user changes the value 
+ * of the input field.
+ * 
+ * @returns {void} This function does not return a value but ensures that the input event listener is set up.
+ */
+function initializeEventListenerInputTitle() {
+    const addTaskTitle = document.getElementById('addTaskTitle');
+    if (addTaskTitle) {
+        addTaskTitle.addEventListener('input', checkIfCreateTaskButtonCanBeEnabled);
+    }
+}
+
+/**
+ * Initializes an event listener for the task due date input field.
+ * 
+ * This function adds an event listener to the input field for the task due date (`#inputDate`). 
+ * The event listener triggers the `checkIfCreateTaskButtonCanBeEnabled` function whenever the user 
+ * changes the value of the due date input field, allowing the application to check if the "Create Task" button 
+ * can be enabled or not based on the selected due date.
+ * 
+ * The event listener listens for the 'change' event, which is fired when the user selects or modifies the value 
+ * of the due date input field.
+ * 
+ * @returns {void} This function does not return a value but ensures that the change event listener is set up.
+ */
+function initializeEventListenerChangeDate() {
+    const inputDate = document.getElementById('inputDate');
+    if (inputDate) {
+        inputDate.addEventListener('change', checkIfCreateTaskButtonCanBeEnabled);
+    }
+}
+
+/**
+ * Initializes an event listener for the 'keydown' event on the subtask input field.
+ * 
+ * This function adds an event listener to the subtask input field (`#subtasks-input`). 
+ * The event listener listens for the 'keydown' event, and when the "Enter" key is pressed, 
+ * it prevents the default behavior and triggers the `addSubTask` function to add the subtask.
+ * 
+ * The function ensures that pressing the "Enter" key inside the subtask input field submits 
+ * the subtask without triggering a form submission or page refresh.
+ * 
+ * @returns {void} This function does not return a value but ensures that the keydown event listener is set up.
+ */
+function initializeEventListenerKeydownSubtaskInput() {
+    const subtasksInput = document.getElementById('subtasks-input');
+    if (subtasksInput) {
+        subtasksInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                addSubTask();
+            }
+        });
+    }
+}
+
+/**
+ * Initializes an event listener for the 'keydown' event on the task title input field.
+ * 
+ * This function adds an event listener to the task title input field (`#addTaskTitle`). 
+ * The event listener listens for the 'keydown' event, and when the "Enter" key is pressed, 
+ * it prevents the default behavior. This prevents the form from being submitted or the page 
+ * from being refreshed when the user presses "Enter" while typing the task title.
+ * 
+ * @returns {void} This function does not return a value but ensures that the keydown event listener is set up.
+ */
+function initializeEventListenerKeydownTitleInput() {
+    const addTaskTitle = document.getElementById('addTaskTitle');
+    if (addTaskTitle) {
+        addTaskTitle.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+            }
+        });
+    }
+}
+
+/**
+ * Adds an event listener for the 'click' event to handle closing the dropdown menu
+ * when clicking outside of it.
+ * 
+ * Once the DOM content is fully loaded, this function attaches a 'click' event listener to
+ * the document. The listener checks if a click occurs outside of the dropdown menu and its toggle 
+ * button, and if so, it hides the dropdown menu and resets the toggle button image to its default state.
+ * 
+ * This behavior ensures that the dropdown menu closes when the user clicks anywhere outside of it,
+ * providing a more intuitive and user-friendly interface.
+ * 
+ * @returns {void} This function does not return a value.
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(event) {
+        let dropdownMenu = document.getElementById('dropDownMenu');
+        let imgDropdownToggle = document.getElementById('imgDropdownToggle');
+        let mainContainer = document.getElementById('main');
+        let searchContactInput = document.getElementById('searchContact');
+        if (dropdownMenu &amp;&amp; imgDropdownToggle &amp;&amp; mainContainer &amp;&amp; searchContactInput) {
+            if (!dropdownMenu.classList.contains('d-none')) {
+                if (mainContainer.contains(event.target) &amp;&amp; 
+                    !dropdownMenu.contains(event.target) &amp;&amp; 
+                    !imgDropdownToggle.contains(event.target) &amp;&amp;
+                    !searchContactInput.contains(event.target)
+                ) {                    
+                    dropdownMenu.classList.add('d-none');
+                    imgDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+                }
+            }
+        }
+    });
+}); 
+
+/**
+ * This script listens for the `DOMContentLoaded` event and sets up event listeners to manage the visibility of
+ * a category dropdown menu. It checks if specific elements (main container, category dropdown, category header,
+ * and dropdown toggle image) exist on the page, and if so, attaches an event listener to the main container.
+ * When a click event occurs outside the category dropdown or the category header, the dropdown is hidden and
+ * the dropdown toggle image is updated to an arrow pointing down.
+ *
+ * @event DOMContentLoaded - This event is triggered when the initial HTML document has been completely loaded
+ *                            and parsed, without waiting for stylesheets, images, and subframes to finish loading.
+ *
+ * The event listener added to the main container checks if the user clicked outside the category dropdown or
+ * category header, and if so, hides the dropdown and updates the toggle image.
+ *
+ * @returns {void} - This function does not return anything. It sets up event listeners for DOM elements.
+ *
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    const mainContainer = document.getElementById('main');
+    const categoryDropdownMenu = document.getElementById('categoryDropdownMenu');
+    const categoryHeaderContainer = document.querySelector('.category-header-container');
+    const imgCategoryDropdownToggle = document.getElementById('imgCategoryDropdownToggle');
+    if (mainContainer &amp;&amp; categoryDropdownMenu &amp;&amp; categoryHeaderContainer &amp;&amp; imgCategoryDropdownToggle) {
+        mainContainer.addEventListener('click', function (event) {
+            if (
+                !categoryHeaderContainer.contains(event.target) &amp;&amp;
+                !categoryDropdownMenu.contains(event.target)
+            ) {
+                if (!categoryDropdownMenu.classList.contains('d-none')) {
+                    categoryDropdownMenu.classList.add('d-none');
+                    imgCategoryDropdownToggle.src = './assets/img/arrow_drop_down.svg';
+                }
+            }
+        });
+    }
+});
+
+/**
+ * This script listens for the `DOMContentLoaded` event, and once triggered, it sets the minimum selectable date
+ * in an input field of type "date". The minimum date is set to the current date, ensuring that users cannot 
+ * select dates in the past. The script checks if the element with the ID `inputDate` exists before updating it.
+ *
+ * @event DOMContentLoaded - This event is fired when the HTML document has been completely loaded and parsed,
+ *                            without waiting for stylesheets, images, or subframes to finish loading.
+ *
+ * The script retrieves the current date, formats it in the `YYYY-MM-DD` format, and sets it as the `min` 
+ * attribute of the input field with the ID `inputDate`. This ensures that the user can only select the current 
+ * date or any future date in the date input.
+ *
+ * @returns {void} - This function does not return anything. It performs DOM manipulation by setting the `min` 
+ *                   attribute on the input field.
+ *
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const minDate = `${yyyy}-${mm}-${dd}`;
+
+    const dateInput = document.getElementById('inputDate');
+    if (dateInput) { // checks, if element exists
+        dateInput.setAttribute('min', minDate);
+    }
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:DOMContentLoaded-ThiseventisfiredwhentheHTMLdocumenthasbeencompletelyloadedandparsed,withoutwaitingforstylesheets,images,orsubframestofinishloading.Thescriptretrievesthecurrentdate,formatsitinthe%2560YYYY-MM-DD%2560format,andsetsitasthe%2560min%2560attributeoftheinputfieldwiththeID%2560inputDate%2560.Thisensuresthattheusercanonlyselectthecurrentdateoranyfuturedateinthedateinput.">DOMContentLoaded - This event is fired when the HTML document has been completely loaded and parsed,                           without waiting for stylesheets, images, or subframes to finish loading.The script retrieves the current date, formats it in the `YYYY-MM-DD` format, and sets it as the `min` attribute of the input field with the ID `inputDate`. This ensures that the user can only select the current date or any future date in the date input.</a></li><li><a href="global.html#event:DOMContentLoaded-ThiseventistriggeredwhentheinitialHTMLdocumenthasbeencompletelyloadedandparsed,withoutwaitingforstylesheets,images,andsubframestofinishloading.Theeventlisteneraddedtothemaincontainerchecksiftheuserclickedoutsidethecategorydropdownorcategoryheader,andifso,hidesthedropdownandupdatesthetoggleimage.">DOMContentLoaded - This event is triggered when the initial HTML document has been completely loaded                           and parsed, without waiting for stylesheets, images, and subframes to finish loading.The event listener added to the main container checks if the user clicked outside the category dropdown orcategory header, and if so, hides the dropdown and updates the toggle image.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAssignedToToFireBase">addAssignedToToFireBase</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNewSubTask">addNewSubTask</a></li><li><a href="global.html#addSubTask">addSubTask</a></li><li><a href="global.html#addSubTaskInFireBase">addSubTaskInFireBase</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#allToDosArr">allToDosArr</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#boardJS">boardJS</a></li><li><a href="global.html#calculateSubtaskProgress">calculateSubtaskProgress</a></li><li><a href="global.html#cancelEditSubtask">cancelEditSubtask</a></li><li><a href="global.html#changeBackToList">changeBackToList</a></li><li><a href="global.html#changeClassesOnList">changeClassesOnList</a></li><li><a href="global.html#changeDataInFireBase">changeDataInFireBase</a></li><li><a href="global.html#changeTimeFormat">changeTimeFormat</a></li><li><a href="global.html#changeToInputField">changeToInputField</a></li><li><a href="global.html#changeType">changeType</a></li><li><a href="global.html#checkCheckbox">checkCheckbox</a></li><li><a href="global.html#checkChildElement">checkChildElement</a></li><li><a href="global.html#checkIfCreateTaskButtonCanBeEnabled">checkIfCreateTaskButtonCanBeEnabled</a></li><li><a href="global.html#checkInput">checkInput</a></li><li><a href="global.html#checkInputValueExist">checkInputValueExist</a></li><li><a href="global.html#checkPasswordAndUser">checkPasswordAndUser</a></li><li><a href="global.html#chooseTaskPrioType">chooseTaskPrioType</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#clearInputs">clearInputs</a></li><li><a href="global.html#closeBigTask">closeBigTask</a></li><li><a href="global.html#closeMobileModal">closeMobileModal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeOnClickOutside">closeOnClickOutside</a></li><li><a href="global.html#colorWrongInp">colorWrongInp</a></li><li><a href="global.html#contactsJS">contactsJS</a></li><li><a href="global.html#createInputObject">createInputObject</a></li><li><a href="global.html#createNewId">createNewId</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#deleteAssigned">deleteAssigned</a></li><li><a href="global.html#deleteButtonModal">deleteButtonModal</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteInputSubtaskValue">deleteInputSubtaskValue</a></li><li><a href="global.html#deleteSubTask">deleteSubTask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#deleteUser">deleteUser</a></li><li><a href="global.html#editAssignedMail">editAssignedMail</a></li><li><a href="global.html#editId">editId</a></li><li><a href="global.html#editSubTask">editSubTask</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editTask">editTask</a></li><li><a href="global.html#errInput">errInput</a></li><li><a href="global.html#errPassword">errPassword</a></li><li><a href="global.html#eventListenerChangeDate">eventListenerChangeDate</a></li><li><a href="global.html#eventListenerInputTitle">eventListenerInputTitle</a></li><li><a href="global.html#eventListenerKeydownSubtaskInput">eventListenerKeydownSubtaskInput</a></li><li><a href="global.html#eventListenerKeydownTitleInput">eventListenerKeydownTitleInput</a></li><li><a href="global.html#eventStopPropagation">eventStopPropagation</a></li><li><a href="global.html#fillInputs">fillInputs</a></li><li><a href="global.html#fillRememberUser">fillRememberUser</a></li><li><a href="global.html#findAssignedEmail">findAssignedEmail</a></li><li><a href="global.html#findClosestFutureDate">findClosestFutureDate</a></li><li><a href="global.html#focusInputField">focusInputField</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generateAddEventListener">generateAddEventListener</a></li><li><a href="global.html#getAllToDos">getAllToDos</a></li><li><a href="global.html#getCheckedContacts">getCheckedContacts</a></li><li><a href="global.html#getContact">getContact</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getDueDate">getDueDate</a></li><li><a href="global.html#getInpValues">getInpValues</a></li><li><a href="global.html#getInputValues">getInputValues</a></li><li><a href="global.html#getRightArray">getRightArray</a></li><li><a href="global.html#getRightPriority">getRightPriority</a></li><li><a href="global.html#getRightTimeValue">getRightTimeValue</a></li><li><a href="global.html#getRightUserColor">getRightUserColor</a></li><li><a href="global.html#getSummary">getSummary</a></li><li><a href="global.html#getTitle">getTitle</a></li><li><a href="global.html#getUserFromLogIn">getUserFromLogIn</a></li><li><a href="global.html#greetRight">greetRight</a></li><li><a href="global.html#greetingMobile">greetingMobile</a></li><li><a href="global.html#guestLogIn">guestLogIn</a></li><li><a href="global.html#handleDropDownFalse">handleDropDownFalse</a></li><li><a href="global.html#handleDropDownTrue">handleDropDownTrue</a></li><li><a href="global.html#handlePressedKey">handlePressedKey</a></li><li><a href="global.html#handleResize">handleResize</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightRightPriority">highlightRightPriority</a></li><li><a href="global.html#howManyUrgentTasks">howManyUrgentTasks</a></li><li><a href="global.html#idToContact">idToContact</a></li><li><a href="global.html#indexInit">indexInit</a></li><li><a href="global.html#initializeContact">initializeContact</a></li><li><a href="global.html#initializeEventListenerChangeDate">initializeEventListenerChangeDate</a></li><li><a href="global.html#initializeEventListenerInputTitle">initializeEventListenerInputTitle</a></li><li><a href="global.html#initializeEventListenerKeydownSubtaskInput">initializeEventListenerKeydownSubtaskInput</a></li><li><a href="global.html#initializeEventListenerKeydownTitleInput">initializeEventListenerKeydownTitleInput</a></li><li><a href="global.html#moveCategoryInFirebase">moveCategoryInFirebase</a></li><li><a href="global.html#moveToCategory">moveToCategory</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openMenu">openMenu</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openNewContact">openNewContact</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#parseDateEuropeDateFormat">parseDateEuropeDateFormat</a></li><li><a href="global.html#printDeadlineDate">printDeadlineDate</a></li><li><a href="global.html#processCheckedContact">processCheckedContact</a></li><li><a href="global.html#realTimeInitial">realTimeInitial</a></li><li><a href="global.html#removeAssignedToFromFireBase">removeAssignedToFromFireBase</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#removeLastThreeDigits">removeLastThreeDigits</a></li><li><a href="global.html#renderAssignedTo">renderAssignedTo</a></li><li><a href="global.html#renderAssignedToBigTask">renderAssignedToBigTask</a></li><li><a href="global.html#renderAssignedToContacts">renderAssignedToContacts</a></li><li><a href="global.html#renderAssignedToSmallTask">renderAssignedToSmallTask</a></li><li><a href="global.html#renderBoard">renderBoard</a></li><li><a href="global.html#renderContactCards">renderContactCards</a></li><li><a href="global.html#renderContactInfos">renderContactInfos</a></li><li><a href="global.html#renderContactsDropDown">renderContactsDropDown</a></li><li><a href="global.html#renderContactsLetter">renderContactsLetter</a></li><li><a href="global.html#renderInitials">renderInitials</a></li><li><a href="global.html#renderLogIn">renderLogIn</a></li><li><a href="global.html#renderSignUp">renderSignUp</a></li><li><a href="global.html#renderSubTask">renderSubTask</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#resetButtonStyles">resetButtonStyles</a></li><li><a href="global.html#resetCheckboxes">resetCheckboxes</a></li><li><a href="global.html#resetWrongMessages">resetWrongMessages</a></li><li><a href="global.html#returnButton">returnButton</a></li><li><a href="global.html#returnEditableSubTask">returnEditableSubTask</a></li><li><a href="global.html#returnSubTask">returnSubTask</a></li><li><a href="global.html#returnToContacts">returnToContacts</a></li><li><a href="global.html#saveEdit">saveEdit</a></li><li><a href="global.html#saveEditSubtask">saveEditSubtask</a></li><li><a href="global.html#saveNewUser">saveNewUser</a></li><li><a href="global.html#searchExistingContact">searchExistingContact</a></li><li><a href="global.html#searchRightTask">searchRightTask</a></li><li><a href="global.html#searchTask">searchTask</a></li><li><a href="global.html#setButtonColorForPrio">setButtonColorForPrio</a></li><li><a href="global.html#setCategory">setCategory</a></li><li><a href="global.html#setCheckboxesBasedOnFirebaseData">setCheckboxesBasedOnFirebaseData</a></li><li><a href="global.html#setCounter">setCounter</a></li><li><a href="global.html#setProfileImageColor">setProfileImageColor</a></li><li><a href="global.html#setUser">setUser</a></li><li><a href="global.html#showAddTask">showAddTask</a></li><li><a href="global.html#showAddTaskSuccessPopup">showAddTaskSuccessPopup</a></li><li><a href="global.html#showAlert">showAlert</a></li><li><a href="global.html#showEditImg">showEditImg</a></li><li><a href="global.html#showPopUp">showPopUp</a></li><li><a href="global.html#showRightUser">showRightUser</a></li><li><a href="global.html#showSuccessPopup">showSuccessPopup</a></li><li><a href="global.html#showTask">showTask</a></li><li><a href="global.html#showWrongMessage">showWrongMessage</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startDraggin">startDraggin</a></li><li><a href="global.html#stopRotation">stopRotation</a></li><li><a href="global.html#successPopup">successPopup</a></li><li><a href="global.html#summaryHTML">summaryHTML</a></li><li><a href="global.html#summaryJS">summaryJS</a></li><li><a href="global.html#taskInBoard">taskInBoard</a></li><li><a href="global.html#toggleAssignedToDropDown">toggleAssignedToDropDown</a></li><li><a href="global.html#toggleCategoryDropDown">toggleCategoryDropDown</a></li><li><a href="global.html#toggleResizeListener">toggleResizeListener</a></li><li><a href="global.html#toggleSubmitButton">toggleSubmitButton</a></li><li><a href="global.html#toggleSubtaskIcons">toggleSubtaskIcons</a></li><li><a href="global.html#triggerButton">triggerButton</a></li><li><a href="global.html#triggerForm">triggerForm</a></li><li><a href="global.html#uncheckCheckboxen">uncheckCheckboxen</a></li><li><a href="global.html#updateCategoryHTML">updateCategoryHTML</a></li><li><a href="global.html#updateCheckbox">updateCheckbox</a></li><li><a href="global.html#updateCheckboxStatus">updateCheckboxStatus</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updatePage">updatePage</a></li><li><a href="global.html#updateRenderedInitials">updateRenderedInitials</a></li><li><a href="global.html#updateSubTask">updateSubTask</a></li><li><a href="global.html#userLogIn">userLogIn</a></li><li><a href="global.html#viewContact">viewContact</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri Nov 29 2024 00:26:12 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: subTask.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: subTask.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Adds a new subtask to the list and updates the rendered view.
+ * 
+ * This function captures the input value from the "subtasks" input field, trims any leading 
+ * or trailing whitespace, and adds the subtask to an array if the input is non-empty. 
+ * After adding the subtask, the list of subtasks is re-rendered, and the input field 
+ * is cleared. The action icons are then updated to show the "plus" icon while hiding 
+ * other action icons. This function is typically used to add new subtasks to a task.
+ * 
+ * @returns {void} This function does not return a value. It modifies the DOM and 
+ * updates internal data variables (the subtask array).
+ */
+function addSubTask() {
+    document.getElementById('rendered-task-container').classList.remove('d-none');
+    let subtaskInput = document.getElementById('subtasks-input').value.trim();
+    if (subtaskInput) {
+        subtaskArray.push(subtaskInput);
+        renderSubtasks();
+    }
+    document.getElementById('subtasks-input').value = '';
+    document.getElementById('actionIcons').style = 'display:none';
+    document.getElementById('plusIcon').style = 'display:block';
+}
+
+/**
+ * Renders and updates the displayed list of subtasks within the task container.
+ * 
+ * This function clears the current content of the task container (`rendered-task-container`) 
+ * and then loops through the `subtaskArray`, rendering each subtask by appending 
+ * generated HTML to the container. The HTML for each subtask is generated using 
+ * the `temp_generateHtmlRenderSubtasks` function. Each subtask is displayed in the 
+ * order it appears in the `subtaskArray`.
+ * 
+ * @returns {void} This function does not return a value. It modifies the DOM 
+ * to display the updated list of subtasks.
+ */
+function renderSubtasks() {
+    let taskContainer = document.getElementById('rendered-task-container');
+    taskContainer.innerHTML = '';
+    for (let i = 0; i &lt; subtaskArray.length; i++) {
+        let subtask = subtaskArray[i];
+        taskContainer.innerHTML += temp_generateHtmlRenderSubtasks(subtask, i);
+    }
+}
+
+/**
+ * Edits an existing subtask by rendering the editing HTML for the specified subtask.
+ * 
+ * This function takes the index of a subtask in the `subtaskArray`, locates the corresponding 
+ * subtask element container in the DOM (identified by `subtask-List-Container-{index}`), 
+ * and replaces its inner HTML with the HTML required to edit that particular subtask. 
+ * The HTML for editing the subtask is generated using the `temp_generateHtmlEditSubtasks` function.
+ *
+ * @param {number} index - The index of the subtask to be edited within the `subtaskArray`.
+ * 
+ * @returns {void} This function does not return a value. It modifies the DOM by updating
+ * the inner HTML of the specified subtask container to enable editing.
+ */
+function editSubtask(index) {
+    let subtaskElementContainer = document.getElementById(`subtask-List-Container-${index}`);
+    subtaskElementContainer.innerHTML = temp_generateHtmlEditSubtasks(index);
+}
+
+/**
+ * Saves the edited value of a subtask and updates the subtask list.
+ * 
+ * This function retrieves the edited value of a subtask from the input field, 
+ * validates that the input is not empty, and if valid, updates the corresponding 
+ * subtask in the `subtaskArray`. After updating, the subtasks are re-rendered 
+ * to reflect the changes.
+ * 
+ * @param {number} index - The index of the subtask being edited in the `subtaskArray`.
+ * 
+ * @returns {void} This function does not return a value. It modifies the `subtaskArray` 
+ * and re-renders the subtasks in the DOM to reflect the edited content.
+ */
+function saveEditSubtask(index) {
+    let editedSubtaskValue = document.getElementById(`editInput-${index}`).value.trim();
+    if (editedSubtaskValue) {
+        subtaskArray[index] = editedSubtaskValue;
+        renderSubtasks();
+    }
+}
+
+/**
+ * Cancels the subtask editing process and re-renders the list of subtasks.
+ * 
+ * This function is used to cancel the ongoing subtask editing operation. 
+ * When called, it will simply re-render the current list of subtasks without 
+ * saving any changes, thus restoring the previous state of the subtasks.
+ * 
+ * @returns {void} This function does not return a value. It triggers the re-rendering 
+ * of the subtasks by calling the `renderSubtasks` function.
+ */
+function cancelEditSubtask() {
+    renderSubtasks();
+}
+
+/**
+ * Deletes a subtask from the list based on its index and re-renders the subtasks.
+ * 
+ * This function removes a subtask from the `subtaskArray` at the specified index 
+ * and then re-renders the updated list of subtasks. It is typically used when a user 
+ * wishes to remove a specific subtask from the list.
+ * 
+ * @param {number} index - The index of the subtask to be deleted from the `subtaskArray`.
+ * @returns {void} This function does not return a value. It modifies the `subtaskArray` 
+ * and calls `renderSubtasks` to update the displayed list of subtasks.
+ */
+function deleteSubtask(index) {
+    subtaskArray.splice(index, 1);
+    renderSubtasks();
+}
+
+/**
+ * Toggles the visibility of the plus icon and the action icons for subtasks.
+ * 
+ * This function switches between showing the "plus" icon for adding a subtask 
+ * and the "action" icons (such as edit or delete) for managing the subtasks. 
+ * It is typically used to toggle the UI when interacting with the subtask input area.
+ * 
+ * @returns {void} This function does not return a value. It modifies the 
+ * display styles of the `plusIcon` and `actionIcons` elements in the DOM.
+ */
+function toggleSubtaskIcons() {
+    let plusIcon = document.getElementById('plusIcon');
+    let actionIcons = document.getElementById('actionIcons');
+    if (plusIcon.style.display === 'none') {
+        plusIcon.style.display = 'block';
+        actionIcons.style.display = 'none';
+    } else {
+        plusIcon.style.display = 'none';
+        actionIcons.style.display = 'flex';
+    }
+}
+
+/**
+ * Clears the subtask input field and resets the subtask action icons.
+ * 
+ * This function resets the value of the subtask input field (`subtasks-input`) to an empty string.
+ * It also hides the action icons and shows the "plus" icon, providing a clean state for the user 
+ * to add a new subtask. This is typically used when a subtask has been cleared or canceled.
+ * 
+ * @returns {void} This function does not return any value. It modifies the DOM by clearing
+ * the input field and changing the visibility of the action icons.
+ */
+function deleteInputSubtaskValue() {
+    document.getElementById('subtasks-input').value = '';
+    document.getElementById('actionIcons').style = 'display:none';
+    document.getElementById('plusIcon').style = 'display:block';
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:DOMContentLoaded-ThiseventisfiredwhentheHTMLdocumenthasbeencompletelyloadedandparsed,withoutwaitingforstylesheets,images,orsubframestofinishloading.Thescriptretrievesthecurrentdate,formatsitinthe%2560YYYY-MM-DD%2560format,andsetsitasthe%2560min%2560attributeoftheinputfieldwiththeID%2560inputDate%2560.Thisensuresthattheusercanonlyselectthecurrentdateoranyfuturedateinthedateinput.">DOMContentLoaded - This event is fired when the HTML document has been completely loaded and parsed,                           without waiting for stylesheets, images, or subframes to finish loading.The script retrieves the current date, formats it in the `YYYY-MM-DD` format, and sets it as the `min` attribute of the input field with the ID `inputDate`. This ensures that the user can only select the current date or any future date in the date input.</a></li><li><a href="global.html#event:DOMContentLoaded-ThiseventistriggeredwhentheinitialHTMLdocumenthasbeencompletelyloadedandparsed,withoutwaitingforstylesheets,images,andsubframestofinishloading.Theeventlisteneraddedtothemaincontainerchecksiftheuserclickedoutsidethecategorydropdownorcategoryheader,andifso,hidesthedropdownandupdatesthetoggleimage.">DOMContentLoaded - This event is triggered when the initial HTML document has been completely loaded                           and parsed, without waiting for stylesheets, images, and subframes to finish loading.The event listener added to the main container checks if the user clicked outside the category dropdown orcategory header, and if so, hides the dropdown and updates the toggle image.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAssignedToToFireBase">addAssignedToToFireBase</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNewSubTask">addNewSubTask</a></li><li><a href="global.html#addSubTask">addSubTask</a></li><li><a href="global.html#addSubTaskInFireBase">addSubTaskInFireBase</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#allToDosArr">allToDosArr</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#boardJS">boardJS</a></li><li><a href="global.html#calculateSubtaskProgress">calculateSubtaskProgress</a></li><li><a href="global.html#cancelEditSubtask">cancelEditSubtask</a></li><li><a href="global.html#changeBackToList">changeBackToList</a></li><li><a href="global.html#changeClassesOnList">changeClassesOnList</a></li><li><a href="global.html#changeDataInFireBase">changeDataInFireBase</a></li><li><a href="global.html#changeTimeFormat">changeTimeFormat</a></li><li><a href="global.html#changeToInputField">changeToInputField</a></li><li><a href="global.html#changeType">changeType</a></li><li><a href="global.html#checkCheckbox">checkCheckbox</a></li><li><a href="global.html#checkChildElement">checkChildElement</a></li><li><a href="global.html#checkIfCreateTaskButtonCanBeEnabled">checkIfCreateTaskButtonCanBeEnabled</a></li><li><a href="global.html#checkInput">checkInput</a></li><li><a href="global.html#checkInputValueExist">checkInputValueExist</a></li><li><a href="global.html#checkPasswordAndUser">checkPasswordAndUser</a></li><li><a href="global.html#chooseTaskPrioType">chooseTaskPrioType</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#clearInputs">clearInputs</a></li><li><a href="global.html#closeBigTask">closeBigTask</a></li><li><a href="global.html#closeMobileModal">closeMobileModal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeOnClickOutside">closeOnClickOutside</a></li><li><a href="global.html#colorWrongInp">colorWrongInp</a></li><li><a href="global.html#contactsJS">contactsJS</a></li><li><a href="global.html#createInputObject">createInputObject</a></li><li><a href="global.html#createNewId">createNewId</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#deleteAssigned">deleteAssigned</a></li><li><a href="global.html#deleteButtonModal">deleteButtonModal</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteInputSubtaskValue">deleteInputSubtaskValue</a></li><li><a href="global.html#deleteSubTask">deleteSubTask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#deleteUser">deleteUser</a></li><li><a href="global.html#editAssignedMail">editAssignedMail</a></li><li><a href="global.html#editId">editId</a></li><li><a href="global.html#editSubTask">editSubTask</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editTask">editTask</a></li><li><a href="global.html#errInput">errInput</a></li><li><a href="global.html#errPassword">errPassword</a></li><li><a href="global.html#eventListenerChangeDate">eventListenerChangeDate</a></li><li><a href="global.html#eventListenerInputTitle">eventListenerInputTitle</a></li><li><a href="global.html#eventListenerKeydownSubtaskInput">eventListenerKeydownSubtaskInput</a></li><li><a href="global.html#eventListenerKeydownTitleInput">eventListenerKeydownTitleInput</a></li><li><a href="global.html#eventStopPropagation">eventStopPropagation</a></li><li><a href="global.html#fillInputs">fillInputs</a></li><li><a href="global.html#fillRememberUser">fillRememberUser</a></li><li><a href="global.html#findAssignedEmail">findAssignedEmail</a></li><li><a href="global.html#findClosestFutureDate">findClosestFutureDate</a></li><li><a href="global.html#focusInputField">focusInputField</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generateAddEventListener">generateAddEventListener</a></li><li><a href="global.html#getAllToDos">getAllToDos</a></li><li><a href="global.html#getCheckedContacts">getCheckedContacts</a></li><li><a href="global.html#getContact">getContact</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getDueDate">getDueDate</a></li><li><a href="global.html#getInpValues">getInpValues</a></li><li><a href="global.html#getInputValues">getInputValues</a></li><li><a href="global.html#getRightArray">getRightArray</a></li><li><a href="global.html#getRightPriority">getRightPriority</a></li><li><a href="global.html#getRightTimeValue">getRightTimeValue</a></li><li><a href="global.html#getRightUserColor">getRightUserColor</a></li><li><a href="global.html#getSummary">getSummary</a></li><li><a href="global.html#getTitle">getTitle</a></li><li><a href="global.html#getUserFromLogIn">getUserFromLogIn</a></li><li><a href="global.html#greetRight">greetRight</a></li><li><a href="global.html#greetingMobile">greetingMobile</a></li><li><a href="global.html#guestLogIn">guestLogIn</a></li><li><a href="global.html#handleDropDownFalse">handleDropDownFalse</a></li><li><a href="global.html#handleDropDownTrue">handleDropDownTrue</a></li><li><a href="global.html#handlePressedKey">handlePressedKey</a></li><li><a href="global.html#handleResize">handleResize</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightRightPriority">highlightRightPriority</a></li><li><a href="global.html#howManyUrgentTasks">howManyUrgentTasks</a></li><li><a href="global.html#idToContact">idToContact</a></li><li><a href="global.html#indexInit">indexInit</a></li><li><a href="global.html#initializeContact">initializeContact</a></li><li><a href="global.html#initializeEventListenerChangeDate">initializeEventListenerChangeDate</a></li><li><a href="global.html#initializeEventListenerInputTitle">initializeEventListenerInputTitle</a></li><li><a href="global.html#initializeEventListenerKeydownSubtaskInput">initializeEventListenerKeydownSubtaskInput</a></li><li><a href="global.html#initializeEventListenerKeydownTitleInput">initializeEventListenerKeydownTitleInput</a></li><li><a href="global.html#moveCategoryInFirebase">moveCategoryInFirebase</a></li><li><a href="global.html#moveToCategory">moveToCategory</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openMenu">openMenu</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openNewContact">openNewContact</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#parseDateEuropeDateFormat">parseDateEuropeDateFormat</a></li><li><a href="global.html#printDeadlineDate">printDeadlineDate</a></li><li><a href="global.html#processCheckedContact">processCheckedContact</a></li><li><a href="global.html#realTimeInitial">realTimeInitial</a></li><li><a href="global.html#removeAssignedToFromFireBase">removeAssignedToFromFireBase</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#removeLastThreeDigits">removeLastThreeDigits</a></li><li><a href="global.html#renderAssignedTo">renderAssignedTo</a></li><li><a href="global.html#renderAssignedToBigTask">renderAssignedToBigTask</a></li><li><a href="global.html#renderAssignedToContacts">renderAssignedToContacts</a></li><li><a href="global.html#renderAssignedToSmallTask">renderAssignedToSmallTask</a></li><li><a href="global.html#renderBoard">renderBoard</a></li><li><a href="global.html#renderContactCards">renderContactCards</a></li><li><a href="global.html#renderContactInfos">renderContactInfos</a></li><li><a href="global.html#renderContactsDropDown">renderContactsDropDown</a></li><li><a href="global.html#renderContactsLetter">renderContactsLetter</a></li><li><a href="global.html#renderInitials">renderInitials</a></li><li><a href="global.html#renderLogIn">renderLogIn</a></li><li><a href="global.html#renderSignUp">renderSignUp</a></li><li><a href="global.html#renderSubTask">renderSubTask</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#resetButtonStyles">resetButtonStyles</a></li><li><a href="global.html#resetCheckboxes">resetCheckboxes</a></li><li><a href="global.html#resetWrongMessages">resetWrongMessages</a></li><li><a href="global.html#returnButton">returnButton</a></li><li><a href="global.html#returnEditableSubTask">returnEditableSubTask</a></li><li><a href="global.html#returnSubTask">returnSubTask</a></li><li><a href="global.html#returnToContacts">returnToContacts</a></li><li><a href="global.html#saveEdit">saveEdit</a></li><li><a href="global.html#saveEditSubtask">saveEditSubtask</a></li><li><a href="global.html#saveNewUser">saveNewUser</a></li><li><a href="global.html#searchExistingContact">searchExistingContact</a></li><li><a href="global.html#searchRightTask">searchRightTask</a></li><li><a href="global.html#searchTask">searchTask</a></li><li><a href="global.html#setButtonColorForPrio">setButtonColorForPrio</a></li><li><a href="global.html#setCategory">setCategory</a></li><li><a href="global.html#setCheckboxesBasedOnFirebaseData">setCheckboxesBasedOnFirebaseData</a></li><li><a href="global.html#setCounter">setCounter</a></li><li><a href="global.html#setProfileImageColor">setProfileImageColor</a></li><li><a href="global.html#setUser">setUser</a></li><li><a href="global.html#showAddTask">showAddTask</a></li><li><a href="global.html#showAddTaskSuccessPopup">showAddTaskSuccessPopup</a></li><li><a href="global.html#showAlert">showAlert</a></li><li><a href="global.html#showEditImg">showEditImg</a></li><li><a href="global.html#showPopUp">showPopUp</a></li><li><a href="global.html#showRightUser">showRightUser</a></li><li><a href="global.html#showSuccessPopup">showSuccessPopup</a></li><li><a href="global.html#showTask">showTask</a></li><li><a href="global.html#showWrongMessage">showWrongMessage</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startDraggin">startDraggin</a></li><li><a href="global.html#stopRotation">stopRotation</a></li><li><a href="global.html#successPopup">successPopup</a></li><li><a href="global.html#summaryHTML">summaryHTML</a></li><li><a href="global.html#summaryJS">summaryJS</a></li><li><a href="global.html#taskInBoard">taskInBoard</a></li><li><a href="global.html#toggleAssignedToDropDown">toggleAssignedToDropDown</a></li><li><a href="global.html#toggleCategoryDropDown">toggleCategoryDropDown</a></li><li><a href="global.html#toggleResizeListener">toggleResizeListener</a></li><li><a href="global.html#toggleSubmitButton">toggleSubmitButton</a></li><li><a href="global.html#toggleSubtaskIcons">toggleSubtaskIcons</a></li><li><a href="global.html#triggerButton">triggerButton</a></li><li><a href="global.html#triggerForm">triggerForm</a></li><li><a href="global.html#uncheckCheckboxen">uncheckCheckboxen</a></li><li><a href="global.html#updateCategoryHTML">updateCategoryHTML</a></li><li><a href="global.html#updateCheckbox">updateCheckbox</a></li><li><a href="global.html#updateCheckboxStatus">updateCheckboxStatus</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updatePage">updatePage</a></li><li><a href="global.html#updateRenderedInitials">updateRenderedInitials</a></li><li><a href="global.html#updateSubTask">updateSubTask</a></li><li><a href="global.html#userLogIn">userLogIn</a></li><li><a href="global.html#viewContact">viewContact</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri Nov 29 2024 00:26:12 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
