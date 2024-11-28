@@ -661,3 +661,22 @@ textarea::placeholder { /* Modern browsers */
         margin-left: 96px;
     }
 }
+
+button:disabled {
+    border: 2px solid #2a3647;
+    background-color: var(--join-dark-blue);
+    cursor: default;
+    box-shadow: unset;
+  }
+  button:disabled:hover {
+    border: 2px solid #2a3647;
+    background-color: var(--join-dark-blue);
+    cursor: default;
+    box-shadow: unset;
+  }
+  button:disabled:active {
+    border: 2px solid #2a3647;
+    background-color: var(--join-dark-blue);
+    cursor: default;
+    box-shadow: unset;
+  }
