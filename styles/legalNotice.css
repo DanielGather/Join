@@ -137,7 +137,7 @@ ol li::before {
 @media (min-width: 1440px) {
     main {
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
     }
 
     section.legalNotice {
