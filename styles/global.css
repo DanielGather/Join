@@ -4,6 +4,14 @@
   margin: 0px;
 }
 
+textarea{
+  font-family: Inter;
+}
+
+input{
+  font-family: Inter;
+}
+
 
 
 @font-face {

@@ -1,3 +1,5 @@
+let editId;
+
 /**
  * Appends an editable subtask to the appropriate container.
  * @param {Object} task - The parent task object containing the subtasks.
@@ -9,8 +11,9 @@
  * To avoid ID conflicts, spaces are removed from the subtask value.
  */
 function returnEditableSubTask(task, context, value, index) {
+  let newValue = removeLastThreeDigits(value.task);
   let idWithNoSpace = value.task.replace(/\s+/g, "");
-  document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += returnEditableSubTaskHTML(idWithNoSpace, task, value, index);
+  document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += returnEditableSubTaskHTML(idWithNoSpace, task, value, index, newValue);
 }
 
 /**
@@ -41,10 +44,12 @@ function addNewSubTask(task, context = null) {
  * assigned users, subtasks, and task priority.
  */
 async function editTask(task) {
+  editId = task;
   currentTaskId = task;
   editTaskOpen = true;
   let rightTask = allToDos.filter((id) => id[1]["id"] == task);
   let firstLevelArray = rightTask[0];
+  renderAssignedCounter = firstLevelArray;
   rightTask = rightTask[0][1];
   let fireBaseDate = rightTask.date;
   let date = getRightTimeValue(fireBaseDate);
@@ -157,8 +162,8 @@ async function deleteSubTask(idWithNoSpace, index, taskId, valueTask) {
  * @param {string} id - The unique ID of the item to update.
  * @param {string|null} [context=null] - The context indicating which property of the item to update (e.g., "title", "date").
  * @param {string|null} [priority=null] - An optional value that takes precedence over the default value retrieved from the DOM.
- * This function determines the new value for a field based on the provided context and priority. 
- * If the context is "date", the `changeTimeFormat` function is used to adjust the title's format. 
+ * This function determines the new value for a field based on the provided context and priority.
+ * If the context is "date", the `changeTimeFormat` function is used to adjust the title's format.
  * Finally, the `putData` function is called to send the updated data to the specified path in the Firebase database.
  **/
 
@@ -189,6 +194,8 @@ async function changeDataInFireBase(id, context = null, priority = null) {
 async function addSubTaskInFireBase(subTaskValue, id) {
   let getTaskId = await getIdFromDb("/toDos", "id", id);
   subTaskValue = subTaskValue.trim();
+  let number = setCounter();
+  subTaskValue = subTaskValue + number;
   let subtask = {
     status: false,
     task: subTaskValue,
@@ -220,16 +227,16 @@ async function deleteTask(taskId) {
  */
 async function triggerForm(event, id, context = null) {
   event.preventDefault();
-  await changeDataInFireBase(id, context)
+  await changeDataInFireBase(id, context);
   let headlineInputValue = document.getElementById(`${id}_headline`).value;
   let dateInputValue = document.getElementById(`${id}_date`).value;
   if (headlineInputValue !== "" && dateInputValue !== "") {
     await closeBigTask();
-    successPopup('Sucessfully Edited');
+    successPopup("Sucessfully Edited");
   }
-  setTimeout(()=>{
+  setTimeout(() => {
     window.location.reload();
-  },1000)
+  }, 1000);
 }
 
 /**
@@ -242,8 +249,8 @@ function triggerButton() {
     window.location.reload();
   } else {
     document.getElementById("createTaskEdit").click();
-    // document.querySelector("form").submit();
   }
+  sessionStorage.setItem("dropDownIsOpen", true);
 }
 
 /**
@@ -268,9 +275,9 @@ async function addAssignedToToFireBase(email) {
   }
   if (checkBoxContainer.checked) {
     objectArray["userEmail" + myVariablesObject.number] = myVariablesObject.email;
-    putData(myVariablesObject.path, objectArray);
+    await putData(myVariablesObject.path, objectArray);
   } else {
-    removeAssignedToFromFireBase(myVariablesObject.email, getTaskId);
+    await removeAssignedToFromFireBase(myVariablesObject.email, getTaskId);
   }
 }
 
@@ -292,7 +299,7 @@ async function removeAssignedToFromFireBase(email, getTaskId) {
       return;
     }
   });
-  deleteData(path);
+  await deleteData(path);
 }
 
 /**
@@ -329,8 +336,9 @@ async function checkCheckbox(checkboxId, toDoId, value) {
  * The variable `checkboxId` is used to generate a unique ID for each checkbox and is incremented by 1 with each function call.
  */
 function returnSubTask(task, context, value) {
+  let newValue = removeLastThreeDigits(value.task);
   document.getElementById(`subTask${task[1]["id"]}_${context}`).innerHTML += /*HTML*/ `
-    <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]['id']}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${value.task}</span></div>
+    <div class="singleSubTask"><input id="checkbox${checkboxId}" onclick="checkCheckbox(${checkboxId}, ${task[1]["id"]}, this.dataset.value)" type="checkbox" ${value.status ? "checked" : ""} data-value='${JSON.stringify(value)}'  /><span>${newValue}</span></div>
     `;
   checkboxId += +1;
 }
@@ -352,16 +360,65 @@ function handlePressedKey(event, task, context = null) {
 /**
  * Displays a popup with a success message and hides it automatically after a delay.
  * @param {string} text - The success message to display.
- * This function makes a specific HTML container element (with the ID `popupContainer`) visible by adding 
- * a CSS class. It updates the text inside the container and automatically removes the visibility 
+ * This function makes a specific HTML container element (with the ID `popupContainer`) visible by adding
+ * a CSS class. It updates the text inside the container and automatically removes the visibility
  * after 2 seconds. Finally, it calls the `updateHTML` function to refresh the UI.
  */
 function successPopup(text) {
-  let animatedContainer = document.getElementById('popupContainer');
+  let animatedContainer = document.getElementById("popupContainer");
   let newText = document.getElementById("successText");
-  animatedContainer.classList.add('visible');
+  animatedContainer.classList.add("visible");
   newText.innerHTML = text;
   setTimeout(() => {
-      animatedContainer.classList.remove('visible');
+    animatedContainer.classList.remove("visible");
   }, 2000);
+}
+
+/**
+ * Renders the contacts dropdown for a specific task based on its current state.
+ * Depending on whether the dropdown is open or closed, the appropriate handler is executed.
+ * @param {string} taskId - The unique identifier of the task for which the dropdown is rendered.
+ */
+async function renderContactsDropDown(taskId) {
+  let task = allToDos.filter((toDo) => toDo[1]["id"] === taskId);
+  task = task[0];
+  const dropDownIsOpen = sessionStorage.getItem("dropDownIsOpen");
+  if (dropDownIsOpen == "true" || dropDownIsOpen === null) {
+    handleDropDownTrue(taskId,task);
+  } else {
+    handleDropDownFalse(task);
+  }
+}
+
+/**
+ * Handles the logic when the dropdown is open (true).
+ * Toggles the dropdown state, updates the associated checkbox,
+ * renders the "Assigned To" list, and sets the dropdown state in session storage.
+ * @param {string} taskId - The unique identifier of the task whose dropdown is being handled.
+ * @param {Object} task - The task object containing relevant data for rendering.
+ */
+async function handleDropDownTrue(taskId,task){
+  toggleAssignedToDropDown();
+    await updateCheckbox(taskId);
+    renderAssignedTo(task);
+    sessionStorage.setItem("dropDownIsOpen", false);
+}
+
+/**
+ * Handles the logic when the dropdown is closed (false).
+ * Toggles the visibility of the dropdown menu, updates the dropdown toggle icon,
+ * and sets the dropdown state in session storage. Finally, renders the "Assigned To" list for the task.
+ * @param {Object} task - The task object containing relevant data for rendering.
+ */
+async function handleDropDownFalse(task){
+  let imgDropdownToggle = document.getElementById("imgDropdownToggle");
+  let dropdownMenu = document.getElementById("dropDownMenu");
+  dropdownMenu.classList.toggle("d-none");
+  if (dropdownMenu.classList.contains("d-none")) {
+    imgDropdownToggle.src = "./assets/img/arrow_drop_down.svg";
+  } else {
+    imgDropdownToggle.src = "./assets/img/arrow_drop_up.svg";
+  }
+  sessionStorage.setItem("dropDownIsOpen", true)
+  renderAssignedTo(task);
 }

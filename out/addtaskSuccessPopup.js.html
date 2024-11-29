@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: addtaskSuccessPopup.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,36 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: addtaskSuccessPopup.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Displays a success popup when a task has been successfully added.
+ * 
+ * This function adds a 'visible' class to the popup container, making it visible to the user.
+ * After a delay of 2 seconds, the 'visible' class is removed, and the user is redirected to the 
+ * `board.html` page, indicating that the task has been successfully created and the user is 
+ * being taken to the task board.
+ * 
+ * @returns {void} This function does not return a value. It modifies the DOM elements
+ * and redirects the user after a timeout.
+ */
+function showAddTaskSuccessPopup() {
+    let animatedContainer = document.getElementById('popup-addTask-container');
+    animatedContainer.classList.add('visible');
+    setTimeout(() => {
+        animatedContainer.classList.remove('visible');
+        window.location.href = 'board.html';
+    }, 2000);
+}</code></pre>
+        </article>
+    </section>
 
 
 

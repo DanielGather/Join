@@ -10,10 +10,15 @@ function temp_generateHtmlAssignedToContacts(contact) {
     `
 }
 
-function renderContactInitials(email){
+async function renderContactInitials(email){
     renderInitials()
     if(editTaskOpen){
-        addAssignedToToFireBase(email)
+        await addAssignedToToFireBase(email)
+        let toDos = await getData("toDos");
+        allToDos = Object.entries(toDos);
+        let element = allToDos.filter((task) => task[1]["id"] == editId);
+        element =  element[0];
+        renderAssignedTo(element);
     }
 }
 

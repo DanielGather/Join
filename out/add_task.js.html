@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: add_task.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: add_task.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let subtaskArray = [];
+let statusPriority = 'medium';
+let selectedCategory = null;
+let assignedToContacts = null;
+let allCurrentIds = [];
+let checkedContactNames = [];
+let checkedContactInitials = [];
+let checkedContactColors = [];
+
+/**
+ * Handles the submission event for a form and delegates actions based on the 
+ * button that triggered the submission.
+ * Prevents the default form submission behavior and executes specific logic 
+ * depending on the button ID ("clear" or "createTask").
+ * 
+ * @param {Event} event - The submission event object triggered by the form.
+ * @param {string} type - A string specifying the type of task or operation to perform.
+ * 
+ * @returns {boolean} Always returns false to prevent the default form submission.
+ */
+function handleSubmit(event, type) {
+    event.preventDefault();
+    const submitButton = event.submitter;
+    if (submitButton.id === "clear") {
+        clear();
+    } else if (submitButton.id === "createTask") {
+        createTask(type);
+    }
+    return false;
+}
+
+/**
+ * Creates a new task with a unique ID, saves it to a database, and optionally 
+ * adds associated subtasks. Displays a success popup after the task is created.
+ * 
+ * @async
+ * 
+ * @param {string} type - The type of task being created, used to determine task attributes.
+ * 
+ * @returns {Promise&lt;void>} This function is asynchronous and does not return a value.
+ * 
+ * @description
+ * 1. Fetches all existing tasks from the database to ensure ID consistency.
+ * 2. Generates a new unique ID for the task.
+ * 3. Collects user input values to define the task's properties.
+ * 4. Sends the new task data to the server and retrieves the assigned task ID.
+ * 5. If subtasks are provided, iterates over the subtasks array and sends each 
+ *    subtask to the server, associating it with the main task ID.
+ * 6. Displays a success message once the task and subtasks (if any) are successfully added.
+ */
+async function createTask(type) {
+    await getAllToDos();
+    let idNum = createNewId();
+    let newTask = getInputValues(idNum, type);
+    const taskId = (await postData('toDos', newTask)).name;
+    if (subtaskArray.length > 0) {
+        for (let i = 0; i &lt; subtaskArray.length; i++) {
+            let subtask = {
+                status: false,
+                task: subtaskArray[i],
+            };
+            const subtaskId = await postData(`toDos/${taskId}/subtasks`, subtask);
+        }
+    };
+    showAddTaskSuccessPopup();
+}
+
+/**
+ * Retrieves and aggregates user input values for creating a new task object.
+ * Collects data such as title, description, due date, priority, category, 
+ * assigned contacts, and a unique task ID, then formats it into an object.
+ * 
+ * @param {number} idNum - The unique ID number for the task.
+ * @param {string} type - The type of task being created, used to categorize or differentiate tasks.
+ * 
+ * @returns {Object} A structured object containing all the input values needed to define the task.
+ */
+function getInputValues(idNum, type) {
+    let title = getTitle();
+    let description = getDescription();
+    let dueDate = getDueDate();
+    let priority = statusPriority;
+    let category = selectedCategory;
+    let assignedTo = assignedToContacts;
+    let toDoId = idNum;
+    return createInputObject(title, description, dueDate, priority, category, assignedTo, toDoId, type);
+}
+
+/**
+ * Constructs a task object with the provided input values.
+ * Maps input fields into a structured object format suitable for task storage and processing.
+ * 
+ * @returns {Object} A structured task object containing all the provided input values.
+ */
+function createInputObject(title, description, dueDate, priority, category, assignedTo, toDoId, type) {
+    return {
+        'headline': title,
+        'date': dueDate,
+        'priority': priority,
+        'story': category,
+        'description': description,
+        'assignedTo': assignedTo,
+        'id': toDoId,
+        'category': type,
+    };
+}
+
+/**
+ * Retrieves all existing to-do items from the database and extracts their IDs.
+ * If no data is found, initializes the ID list with a default value.
+ * 
+ * @async
+ * @returns {Promise&lt;void>} This function does not return a value.
+ * 
+ * @throws {Error} Logs a warning if the data is unavailable or the specified path does not exist.
+ */
+async function getAllToDos() {
+    let data = await getData("toDos");
+    if (!data) {
+        console.warn('data not avaiable or path doesnt exist ')
+        allCurrentIds = [1];
+        return;
+    }
+    let allCurrentToDos = Object.values(data);
+    for (let i = 0; i &lt; allCurrentToDos.length; i++) {
+        let singleId = allCurrentToDos[i].id;
+        allCurrentIds.push(singleId);
+    }
+}
+
+/**
+ * Generates a new unique ID based on the current list of IDs.
+ * It checks the array of existing IDs and returns the next available ID by incrementing the highest value.
+ * If the list of IDs is empty, it returns 1 as the starting ID.
+ * 
+ * @returns {number} The new unique ID.
+ */
+function createNewId() {
+    if (allCurrentIds.length === 0) {
+        return 1;
+    }
+    let maxId = Math.max(...allCurrentIds);
+    return maxId + 1;
+}
+
+
+/**
+ * the function gets the value from the input element with the ID 'addTaskTitle',
+ * trims any leading and trailing whitespace, and returns the cleaned title.
+ * @returns {string} The trimmed title from the input field.
+ */
+function getTitle() {
+    let title = document.getElementById('addTaskTitle').value.trim();
+    return title;
+}
+
+/**
+ * Retrieves the value entered in the description input field.
+ * It accesses the DOM element with the ID 'textForDescription' and returns the current value of the field.
+ * 
+ * @returns {string} The current value of the description input field.
+ */
+function getDescription() {
+    let description = document.getElementById('textForDescription').value;
+    return description;
+}
+
+/**
+ * Retrieves the value entered in the due date input field and changes its time format.
+ * It accesses the DOM element with the ID 'inputDate', gets the value (due date),
+ * and then converts the format using the `changeTimeFormat` function.
+ * 
+ * @returns {string} The formatted due date as a string.
+ */
+function getDueDate() {
+    let dueDate = document.getElementById('inputDate').value;
+    dueDate = changeTimeFormat(dueDate);
+    return dueDate
+}
+
+/**
+ * Checks if the "Create Task" button should be enabled or disabled based on user input.
+ * It verifies that the title input, due date input, and category selection are filled.
+ * If all conditions are met (title, date, and category), the "Create Task" button is enabled.
+ * Otherwise, the button is disabled.
+ * 
+ * @returns {void} This function does not return a value.
+ */
+function checkIfCreateTaskButtonCanBeEnabled() {
+    const titleInput = document.getElementById("addTaskTitle");
+    const dateInput = document.getElementById("inputDate");
+    const isTitleFilled = titleInput &amp;&amp; titleInput.value.trim() !== "";
+    const isDateFilled = dateInput &amp;&amp; dateInput.value.trim() !== "";
+    const isCategorySelected = selectedCategory !== null;
+    const createTaskButton = document.getElementById("createTask");
+    if (isTitleFilled &amp;&amp; isDateFilled &amp;&amp; isCategorySelected) {
+        createTaskButton.disabled = false;
+    } else {
+        createTaskButton.disabled = true;
+    }
+}
+
+/**
+ * Renders the initials of checked contacts and updates the assigned contacts list.
+ * This function first clears the current stored contact data (names, initials, and colors).
+ * It then retrieves the checked contacts, processes them, and updates the displayed initials
+ * and assigned contacts in the UI.
+ * 
+ * @returns {void} This function does not return a value.
+ */
+function renderInitials() {
+    checkedContactNames = [];
+    checkedContactInitials = [];
+    checkedContactColors = [];
+    assignedToContacts = getCheckedContacts();
+    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            processCheckedContact(checkbox);
+        }
+    })
+    updateRenderedInitials(checkedContactInitials, checkedContactColors);
+    renderAssignedToContacts();
+}
+
+/**
+ * Processes a checked contact and updates the contact's name, initials, and color 
+ * in the corresponding arrays. The contact is identified by the checkbox's ID, 
+ * which corresponds to the contact's email address.
+ * 
+ * The function looks for the contact in the `contactsOnly` array, retrieves 
+ * the contact's `name`, `initials`, and `color`, and adds them to the global 
+ * arrays `checkedContactNames`, `checkedContactInitials`, and `checkedContactColors`.
+ * 
+ * @param {HTMLInputElement} checkbox - The checkbox element that represents a selected contact.
+ * @returns {void} This function does not return a value, but updates global arrays.
+ */
+function processCheckedContact(checkbox) {
+    let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
+    let name = checkedContact[0].name;
+    let initial = checkedContact[0].initials;
+    let color = checkedContact[0].color;
+    checkedContactNames.push(name);
+    checkedContactInitials.push(initial);
+    checkedContactColors.push(color);
+}
+
+/**
+ * Updates the rendered initials container by clearing its content and re-rendering 
+ * the initials of the selected contacts along with their corresponding colors.
+ * 
+ * This function iterates over the provided `checkedContactInitials` and `checkedContactColors` 
+ * arrays, generating HTML for each contact's initials and color, and appends it 
+ * to the `renderedInitialsContainer` element.
+ * 
+ * @param {Array&lt;string>} checkedContactInitials - An array of initials of the selected contacts.
+ * @param {Array&lt;string>} checkedContactColors - An array of colors corresponding to the selected contacts' initials.
+ * @returns {void} This function does not return a value, but updates the DOM by appending HTML elements.
+ */
+function updateRenderedInitials(checkedContactInitials, checkedContactColors) {
+    let renderedInitialsContainer = document.getElementById('renderedInitialsContainer');
+    renderedInitialsContainer.innerHTML = '';
+    checkedContactInitials.forEach((initial, index) => {
+        let color = checkedContactColors[index];
+        renderedInitialsContainer.innerHTML += temp_generateHtmlAssignedToInitials(initial, color);
+    });
+}
+
+/**
+ * Retrieves the checked contacts from the contact selection checkboxes and returns an object 
+ * mapping a generated key to the email address of each selected contact.
+ * 
+ * This function iterates over all the checkboxes inside the `.dropDownContacts` dropdown, 
+ * checks which ones are selected, and then matches each selected checkbox's ID (email) with 
+ * the contacts in the `contactsOnly` array. It creates a key-value pair where the key is 
+ * a string `userEmail` followed by a counter (starting from 1), and the value is the email 
+ * of the selected contact.
+ * 
+ * @returns {Object} An object where each key represents a unique identifier for a selected 
+ * contact, and each value is the corresponding contact's email address.
+ */
+function getCheckedContacts() {
+    let checkedContacts = {};
+    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    let counter = 1;
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            let checkedContact = contactsOnly.filter(contact => contact.email == checkbox.id);
+            let key = 'userEmail' + counter;
+            let value = checkedContact[0].email;
+            checkedContacts[key] = value;
+            counter++;
+        }
+    });
+    return checkedContacts;
+}
+
+/**
+ * Renders the list of contacts, separating them into checked and unchecked contacts, and populates
+ * the dropdown menu with the corresponding contact information.
+ * 
+ * This function first clears the current contents of the dropdown menu with the ID `dropDownMenu`. It then loops
+ * through the `checkedContactNames` array (containing the names of checked contacts) and adds the corresponding 
+ * contact details to the dropdown using the `temp_generateHtmlAssignedToContacts` function. Afterward, it loops through
+ * all contacts in the `contactsOnly` array and adds the remaining unchecked contacts to the dropdown.
+ * Finally, it calls `updateCheckboxStatus` to ensure the checkbox states are updated accordingly.
+ * 
+ * @returns {void} This function does not return a value.
+ */
+function renderAssignedToContacts() {
+    let dropDownMenu = document.getElementById('dropDownMenu');
+    dropDownMenu.innerHTML = '';
+    checkedContactNames.forEach(name => {
+        let contact = contactsOnly.find(contact => contact.name === name);
+        if (contact) {
+            dropDownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact);
+        }
+    });
+    contactsOnly.forEach(contact => {
+        if (!checkedContactNames.includes(contact.name)) {
+            dropDownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact);
+        }
+    });
+    updateCheckboxStatus();
+}
+
+/**
+ * Updates the checkbox status to reflect which contacts are selected (checked) in the dropdown menu.
+ * 
+ * This function loops through all checkboxes inside the `.dropDownContacts` element and checks whether 
+ * the contact associated with each checkbox is present in the `checkedContactNames` array. If the contact 
+ * is in the array, the checkbox is marked as checked; otherwise, it is unchecked.
+ * 
+ * The function relies on the contact's email being used as the `id` of each checkbox and compares it 
+ * with the names stored in the `checkedContactNames` array to determine if the checkbox should be checked or not.
+ * 
+ * @returns {void} This function does not return any value.
+ */
+function updateCheckboxStatus() {
+    let checkboxes = document.querySelectorAll(".dropDownContacts input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        if (checkedContactNames.includes(contactsOnly.find(contact => contact.email === checkbox.id).name)) {
+            checkbox.checked = true;
+        } else {
+            checkbox.checked = false;
+        }
+    });
+}
+
+/**
+ * Searches for existing contacts based on the input search query and renders the matching contacts in the dropdown menu.
+ * 
+ * This function retrieves the value from the search input field (`#searchContact`), filters through the `contactsOnly` array 
+ * to find contacts whose names include the search query, and then updates the dropdown menu with the filtered contacts.
+ * It ensures that the dropdown menu is visible by removing the `d-none` class and re-renders the contact list based on the search query.
+ * 
+ * @returns {void} This function does not return any value, but modifies the UI by updating the dropdown menu with search results.
+ */
+function searchExistingContact() {
+    renderAssignedToContacts();
+    document.getElementById('dropDownMenu').classList.remove('d-none');
+    let search = document.getElementById('searchContact').value;
+    search = search.toLowerCase();
+    let contactsDropdownMenu = document.getElementById('dropDownMenu');
+    contactsDropdownMenu.innerHTML = '';
+    for (let i = 0; i &lt; contactsOnly.length; i++){
+        let contact = contactsOnly[i];
+        let contactName = contact['name'];
+        if(contactName.toLowerCase().includes(search)){
+            contactsDropdownMenu.innerHTML += temp_generateHtmlAssignedToContacts(contact);
+        }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:DOMContentLoaded-ThiseventisfiredwhentheHTMLdocumenthasbeencompletelyloadedandparsed,withoutwaitingforstylesheets,images,orsubframestofinishloading.Thescriptretrievesthecurrentdate,formatsitinthe%2560YYYY-MM-DD%2560format,andsetsitasthe%2560min%2560attributeoftheinputfieldwiththeID%2560inputDate%2560.Thisensuresthattheusercanonlyselectthecurrentdateoranyfuturedateinthedateinput.">DOMContentLoaded - This event is fired when the HTML document has been completely loaded and parsed,                           without waiting for stylesheets, images, or subframes to finish loading.The script retrieves the current date, formats it in the `YYYY-MM-DD` format, and sets it as the `min` attribute of the input field with the ID `inputDate`. This ensures that the user can only select the current date or any future date in the date input.</a></li><li><a href="global.html#event:DOMContentLoaded-ThiseventistriggeredwhentheinitialHTMLdocumenthasbeencompletelyloadedandparsed,withoutwaitingforstylesheets,images,andsubframestofinishloading.Theeventlisteneraddedtothemaincontainerchecksiftheuserclickedoutsidethecategorydropdownorcategoryheader,andifso,hidesthedropdownandupdatesthetoggleimage.">DOMContentLoaded - This event is triggered when the initial HTML document has been completely loaded                           and parsed, without waiting for stylesheets, images, and subframes to finish loading.The event listener added to the main container checks if the user clicked outside the category dropdown orcategory header, and if so, hides the dropdown and updates the toggle image.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAssignedToToFireBase">addAssignedToToFireBase</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNewSubTask">addNewSubTask</a></li><li><a href="global.html#addSubTask">addSubTask</a></li><li><a href="global.html#addSubTaskInFireBase">addSubTaskInFireBase</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#allToDosArr">allToDosArr</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#boardJS">boardJS</a></li><li><a href="global.html#calculateSubtaskProgress">calculateSubtaskProgress</a></li><li><a href="global.html#cancelEditSubtask">cancelEditSubtask</a></li><li><a href="global.html#changeBackToList">changeBackToList</a></li><li><a href="global.html#changeClassesOnList">changeClassesOnList</a></li><li><a href="global.html#changeDataInFireBase">changeDataInFireBase</a></li><li><a href="global.html#changeTimeFormat">changeTimeFormat</a></li><li><a href="global.html#changeToInputField">changeToInputField</a></li><li><a href="global.html#changeType">changeType</a></li><li><a href="global.html#checkCheckbox">checkCheckbox</a></li><li><a href="global.html#checkChildElement">checkChildElement</a></li><li><a href="global.html#checkIfCreateTaskButtonCanBeEnabled">checkIfCreateTaskButtonCanBeEnabled</a></li><li><a href="global.html#checkInput">checkInput</a></li><li><a href="global.html#checkInputValueExist">checkInputValueExist</a></li><li><a href="global.html#checkPasswordAndUser">checkPasswordAndUser</a></li><li><a href="global.html#chooseTaskPrioType">chooseTaskPrioType</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#clearInputs">clearInputs</a></li><li><a href="global.html#closeBigTask">closeBigTask</a></li><li><a href="global.html#closeMobileModal">closeMobileModal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#closeOnClickOutside">closeOnClickOutside</a></li><li><a href="global.html#colorWrongInp">colorWrongInp</a></li><li><a href="global.html#contactsJS">contactsJS</a></li><li><a href="global.html#createInputObject">createInputObject</a></li><li><a href="global.html#createNewId">createNewId</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#deleteAssigned">deleteAssigned</a></li><li><a href="global.html#deleteButtonModal">deleteButtonModal</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteInputSubtaskValue">deleteInputSubtaskValue</a></li><li><a href="global.html#deleteSubTask">deleteSubTask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#deleteUser">deleteUser</a></li><li><a href="global.html#editAssignedMail">editAssignedMail</a></li><li><a href="global.html#editId">editId</a></li><li><a href="global.html#editSubTask">editSubTask</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editTask">editTask</a></li><li><a href="global.html#errInput">errInput</a></li><li><a href="global.html#errPassword">errPassword</a></li><li><a href="global.html#eventListenerChangeDate">eventListenerChangeDate</a></li><li><a href="global.html#eventListenerInputTitle">eventListenerInputTitle</a></li><li><a href="global.html#eventListenerKeydownSubtaskInput">eventListenerKeydownSubtaskInput</a></li><li><a href="global.html#eventListenerKeydownTitleInput">eventListenerKeydownTitleInput</a></li><li><a href="global.html#eventStopPropagation">eventStopPropagation</a></li><li><a href="global.html#fillInputs">fillInputs</a></li><li><a href="global.html#fillRememberUser">fillRememberUser</a></li><li><a href="global.html#findAssignedEmail">findAssignedEmail</a></li><li><a href="global.html#findClosestFutureDate">findClosestFutureDate</a></li><li><a href="global.html#focusInputField">focusInputField</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generateAddEventListener">generateAddEventListener</a></li><li><a href="global.html#getAllToDos">getAllToDos</a></li><li><a href="global.html#getCheckedContacts">getCheckedContacts</a></li><li><a href="global.html#getContact">getContact</a></li><li><a href="global.html#getDescription">getDescription</a></li><li><a href="global.html#getDueDate">getDueDate</a></li><li><a href="global.html#getInpValues">getInpValues</a></li><li><a href="global.html#getInputValues">getInputValues</a></li><li><a href="global.html#getRightArray">getRightArray</a></li><li><a href="global.html#getRightPriority">getRightPriority</a></li><li><a href="global.html#getRightTimeValue">getRightTimeValue</a></li><li><a href="global.html#getRightUserColor">getRightUserColor</a></li><li><a href="global.html#getSummary">getSummary</a></li><li><a href="global.html#getTitle">getTitle</a></li><li><a href="global.html#getUserFromLogIn">getUserFromLogIn</a></li><li><a href="global.html#greetRight">greetRight</a></li><li><a href="global.html#greetingMobile">greetingMobile</a></li><li><a href="global.html#guestLogIn">guestLogIn</a></li><li><a href="global.html#handleDropDownFalse">handleDropDownFalse</a></li><li><a href="global.html#handleDropDownTrue">handleDropDownTrue</a></li><li><a href="global.html#handlePressedKey">handlePressedKey</a></li><li><a href="global.html#handleResize">handleResize</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightRightPriority">highlightRightPriority</a></li><li><a href="global.html#howManyUrgentTasks">howManyUrgentTasks</a></li><li><a href="global.html#idToContact">idToContact</a></li><li><a href="global.html#indexInit">indexInit</a></li><li><a href="global.html#initializeContact">initializeContact</a></li><li><a href="global.html#initializeEventListenerChangeDate">initializeEventListenerChangeDate</a></li><li><a href="global.html#initializeEventListenerInputTitle">initializeEventListenerInputTitle</a></li><li><a href="global.html#initializeEventListenerKeydownSubtaskInput">initializeEventListenerKeydownSubtaskInput</a></li><li><a href="global.html#initializeEventListenerKeydownTitleInput">initializeEventListenerKeydownTitleInput</a></li><li><a href="global.html#moveCategoryInFirebase">moveCategoryInFirebase</a></li><li><a href="global.html#moveToCategory">moveToCategory</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openMenu">openMenu</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openNewContact">openNewContact</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#parseDateEuropeDateFormat">parseDateEuropeDateFormat</a></li><li><a href="global.html#printDeadlineDate">printDeadlineDate</a></li><li><a href="global.html#processCheckedContact">processCheckedContact</a></li><li><a href="global.html#realTimeInitial">realTimeInitial</a></li><li><a href="global.html#removeAssignedToFromFireBase">removeAssignedToFromFireBase</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#removeLastThreeDigits">removeLastThreeDigits</a></li><li><a href="global.html#renderAssignedTo">renderAssignedTo</a></li><li><a href="global.html#renderAssignedToBigTask">renderAssignedToBigTask</a></li><li><a href="global.html#renderAssignedToContacts">renderAssignedToContacts</a></li><li><a href="global.html#renderAssignedToSmallTask">renderAssignedToSmallTask</a></li><li><a href="global.html#renderBoard">renderBoard</a></li><li><a href="global.html#renderContactCards">renderContactCards</a></li><li><a href="global.html#renderContactInfos">renderContactInfos</a></li><li><a href="global.html#renderContactsDropDown">renderContactsDropDown</a></li><li><a href="global.html#renderContactsLetter">renderContactsLetter</a></li><li><a href="global.html#renderInitials">renderInitials</a></li><li><a href="global.html#renderLogIn">renderLogIn</a></li><li><a href="global.html#renderSignUp">renderSignUp</a></li><li><a href="global.html#renderSubTask">renderSubTask</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#resetButtonStyles">resetButtonStyles</a></li><li><a href="global.html#resetCheckboxes">resetCheckboxes</a></li><li><a href="global.html#resetWrongMessages">resetWrongMessages</a></li><li><a href="global.html#returnButton">returnButton</a></li><li><a href="global.html#returnEditableSubTask">returnEditableSubTask</a></li><li><a href="global.html#returnSubTask">returnSubTask</a></li><li><a href="global.html#returnToContacts">returnToContacts</a></li><li><a href="global.html#saveEdit">saveEdit</a></li><li><a href="global.html#saveEditSubtask">saveEditSubtask</a></li><li><a href="global.html#saveNewUser">saveNewUser</a></li><li><a href="global.html#searchExistingContact">searchExistingContact</a></li><li><a href="global.html#searchRightTask">searchRightTask</a></li><li><a href="global.html#searchTask">searchTask</a></li><li><a href="global.html#setButtonColorForPrio">setButtonColorForPrio</a></li><li><a href="global.html#setCategory">setCategory</a></li><li><a href="global.html#setCheckboxesBasedOnFirebaseData">setCheckboxesBasedOnFirebaseData</a></li><li><a href="global.html#setCounter">setCounter</a></li><li><a href="global.html#setProfileImageColor">setProfileImageColor</a></li><li><a href="global.html#setUser">setUser</a></li><li><a href="global.html#showAddTask">showAddTask</a></li><li><a href="global.html#showAddTaskSuccessPopup">showAddTaskSuccessPopup</a></li><li><a href="global.html#showAlert">showAlert</a></li><li><a href="global.html#showEditImg">showEditImg</a></li><li><a href="global.html#showPopUp">showPopUp</a></li><li><a href="global.html#showRightUser">showRightUser</a></li><li><a href="global.html#showSuccessPopup">showSuccessPopup</a></li><li><a href="global.html#showTask">showTask</a></li><li><a href="global.html#showWrongMessage">showWrongMessage</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startDraggin">startDraggin</a></li><li><a href="global.html#stopRotation">stopRotation</a></li><li><a href="global.html#successPopup">successPopup</a></li><li><a href="global.html#summaryHTML">summaryHTML</a></li><li><a href="global.html#summaryJS">summaryJS</a></li><li><a href="global.html#taskInBoard">taskInBoard</a></li><li><a href="global.html#toggleAssignedToDropDown">toggleAssignedToDropDown</a></li><li><a href="global.html#toggleCategoryDropDown">toggleCategoryDropDown</a></li><li><a href="global.html#toggleResizeListener">toggleResizeListener</a></li><li><a href="global.html#toggleSubmitButton">toggleSubmitButton</a></li><li><a href="global.html#toggleSubtaskIcons">toggleSubtaskIcons</a></li><li><a href="global.html#triggerButton">triggerButton</a></li><li><a href="global.html#triggerForm">triggerForm</a></li><li><a href="global.html#uncheckCheckboxen">uncheckCheckboxen</a></li><li><a href="global.html#updateCategoryHTML">updateCategoryHTML</a></li><li><a href="global.html#updateCheckbox">updateCheckbox</a></li><li><a href="global.html#updateCheckboxStatus">updateCheckboxStatus</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updatePage">updatePage</a></li><li><a href="global.html#updateRenderedInitials">updateRenderedInitials</a></li><li><a href="global.html#updateSubTask">updateSubTask</a></li><li><a href="global.html#userLogIn">userLogIn</a></li><li><a href="global.html#viewContact">viewContact</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri Nov 29 2024 00:26:12 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

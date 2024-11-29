@@ -53,6 +53,12 @@ input {
 
 .responsiveButton {
   cursor: pointer;
+  padding-right: 1rem;
+}
+
+.responsiveButton img {
+  width: 48px;
+  height: 48px;
 }
 
 /* =============
@@ -373,10 +379,13 @@ input {
 /* =============
 6. media queries   
 ================ */
-@media (max-device-width: 375px){
+@media (min-device-width: 375px ) and (max-device-width: 430px){
   .bigTaskContainer{
     overflow: unset;
     height: unset;
+  }
+  .board{
+    padding-right: 0rem;
   }
 }
 
