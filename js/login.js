@@ -266,12 +266,3 @@ function showSuccessPopup() {
         animatedContainer.classList.remove('visible');
     }, 2000);
 }
-
-/**
- * Toggles the submit button's disabled state based on form validity.
- */
-function toggleSubmitButton() {
-    const form = document.forms[0];
-    const submitButton = document.getElementById('signUpButton');
-    submitButton.disabled = !form.checkValidity();
-}
