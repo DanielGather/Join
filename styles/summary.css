@@ -204,6 +204,13 @@ h1 {
   6. media queries
   ================ */
 
+@media(min-width: 350px) {
+  main {
+    padding-left: 60px;
+    padding-top: 20px;
+  }
+}
+
 @media (max-width: 440px) {
   .summary-main-content-box {
     padding: unset;
@@ -300,7 +307,7 @@ h1 {
   }
 }
 
-@media (max-width: 1024px){
+@media (max-width: 1024px) {
   .greeting-container {
     display: flex;
     justify-content: center;
@@ -322,9 +329,12 @@ h1 {
 }
 
 @keyframes vanish {
-  0%, 50% {
+
+  0%,
+  50% {
     opacity: 1;
-  } 
+  }
+
   100% {
     opacity: 0;
   }
