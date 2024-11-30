@@ -237,6 +237,7 @@ async function triggerForm(event, id, context = null) {
   setTimeout(() => {
     window.location.reload();
   }, 1000);
+  sessionStorage.setItem("dropDownIsOpen", true);
 }
 
 /**
@@ -250,7 +251,7 @@ function triggerButton() {
   } else {
     document.getElementById("createTaskEdit").click();
   }
-  sessionStorage.setItem("dropDownIsOpen", true);
+
 }
 
 /**
