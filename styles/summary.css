@@ -28,7 +28,8 @@ h1 {
   font-size: 24px;
   font-weight: bold;
   font-size: clamp(24px, 3vw, 48px);
-  white-space: nowrap;
+  /* white-space: nowrap; */
+  white-space: pre-wrap;
 }
 
 .summary-date {
@@ -207,11 +208,11 @@ h1 {
   6. media queries
   ================ */
 
-@media(min-width: 350px) {
+/* @media(min-width: 350px) {
   main {
     padding-left: 28px;
   }
-}
+} */
 
 @media (max-width: 440px) {
   .summary-main-content-box {
@@ -242,7 +243,7 @@ h1 {
   }
 }
 
-@media (min-width: 580px) {
+@media (min-width: 580px) and (max-width: 1024px) {
   .summary-main-content-box {
     padding: 4rem 2rem 1rem 4rem;
   }
@@ -494,5 +495,35 @@ h1 {
     display: flex;
     align-items: center;
     gap: 40px;
+  }
+}
+
+@media (max-width: 350px) {
+  .summary-main-content-box {
+      padding-left: 2px;
+  }
+}
+
+@media (min-width: 350px) and (max-width: 440px) {
+  .summary-main-content-box {
+      padding-left: 18px;
+  }
+}
+
+@media (min-width: 1420px) {
+  .greeting-name  {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1220px) {
+  .greeting-name  {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 1160px) {
+  .summary-main-content-box {
+      padding: 4rem 2rem 1rem 4rem;
   }
 }
