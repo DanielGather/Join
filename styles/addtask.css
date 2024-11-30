@@ -651,6 +651,14 @@ textarea::placeholder { /* Modern browsers */
     .title-description-assigned-container {
         gap: 34px;
     }
+
+    .dropDownContainer {
+        cursor: pointer;
+    }
+
+    .dropDownContainer input {
+        cursor: pointer;
+    }
 }
 
 @media (min-width: 1544px) {
