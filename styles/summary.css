@@ -27,6 +27,8 @@ h1 {
 .greeting-daytime {
   font-size: 24px;
   font-weight: bold;
+  font-size: clamp(24px, 3vw, 48px);
+  white-space: nowrap;
 }
 
 .summary-date {
@@ -413,10 +415,10 @@ h1 {
     height: 70px;
   }
 
-  .greeting-daytime {
+  /* .greeting-daytime {
     font-size: 48px;
     font-weight: bold;
-  }
+  } */
 
   .greeting-name {
     font-size: 64px;
@@ -484,5 +486,13 @@ h1 {
 
   .header-text {
     font-size: 24px;
+  }
+}
+
+@media (max-width: 1220px) {
+  .summary-content-greeting-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
   }
 }
