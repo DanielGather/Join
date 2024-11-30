@@ -76,6 +76,7 @@ h1 {
 
 .header-text {
   grid-area: text;
+  font-size: 20px;
 }
 
 .content-header-grid-container {
@@ -217,7 +218,7 @@ h1 {
   }
 }
 
-@media (min-width: 440px) {
+@media (min-width: 460px) {
   .content-header-grid-container {
     display: grid;
     grid-template-columns: 180px 3px 1fr;
@@ -232,6 +233,10 @@ h1 {
     height: 40px;
     width: 2px;
     grid-area: seperator;
+  }
+
+  .header-text {
+    font-size: 14px;
   }
 }
 
@@ -475,5 +480,9 @@ h1 {
   .to-do-box:hover .font-type2,
   .done-box:hover .font-type2 {
     color: white;
+  }
+
+  .header-text {
+    font-size: 24px;
   }
 }
